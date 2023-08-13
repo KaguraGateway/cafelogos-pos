@@ -11,7 +11,7 @@ import SwiftUI
 struct cafelogos_posApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            POS()
         }
     }
 }

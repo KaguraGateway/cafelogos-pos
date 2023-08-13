@@ -14,6 +14,7 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
+		3557C7422A826AA400C72F17 /* POS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7412A826AA400C72F17 /* POS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3557C7412A826AA400C72F17 /* POS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				3557C7192A826A1200C72F17 /* ContentView.swift */,
 				3557C71B2A826A1300C72F17 /* Assets.xcassets */,
 				3557C71D2A826A1300C72F17 /* Preview Content */,
+				3557C7412A826AA400C72F17 /* POS.swift */,
 			);
 			path = "cafelogos-pos";
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
+				3557C7422A826AA400C72F17 /* POS.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
