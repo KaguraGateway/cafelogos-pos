@@ -14,7 +14,8 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
-		3557C7422A826AA400C72F17 /* POS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7412A826AA400C72F17 /* POS.swift */; };
+		EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */; };
+		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,8 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		3557C7412A826AA400C72F17 /* POS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POS.swift; sourceTree = "<group>"; };
+		EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInputView.swift; sourceTree = "<group>"; };
+		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +98,11 @@
 		3557C7162A826A1200C72F17 /* cafelogos-pos */ = {
 			isa = PBXGroup;
 			children = (
+				EBD8ACF92A8A23D000FC20F1 /* Presentation */,
 				3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */,
 				3557C7192A826A1200C72F17 /* ContentView.swift */,
 				3557C71B2A826A1300C72F17 /* Assets.xcassets */,
 				3557C71D2A826A1300C72F17 /* Preview Content */,
-				3557C7412A826AA400C72F17 /* POS.swift */,
 			);
 			path = "cafelogos-pos";
 			sourceTree = "<group>";
@@ -128,6 +130,31 @@
 				3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */,
 			);
 			path = "cafelogos-posUITests";
+			sourceTree = "<group>";
+		};
+		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */,
+				EBD8ACFE2A8A3EBA00FC20F1 /* OrderInputView */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		EBD8ACFE2A8A3EBA00FC20F1 /* OrderInputView */ = {
+			isa = PBXGroup;
+			children = (
+				EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */,
+			);
+			path = OrderInputView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +288,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
-				3557C7422A826AA400C72F17 /* POS.swift in Sources */,
+				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
+				EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,14 +449,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"cafelogos-pos/Preview Content\"";
-				DEVELOPMENT_TEAM = 3266YSU44G;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -436,9 +463,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -456,8 +486,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -465,9 +494,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

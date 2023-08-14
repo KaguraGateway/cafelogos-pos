@@ -1,14 +1,13 @@
 //
-//  POS.swift
-//  MyProject
+//  OrderInputView.swift
+//  cafelogos-pos
 //
-//  Designed in DetailsPro
-//  Copyright © (My Organization). All rights reserved.
+//  Created by Owner on 2023/08/14.
 //
 
 import SwiftUI
 
-struct POS: View {
+struct OrderInputView: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -282,8 +281,10 @@ struct POS: View {
     }
 }
 
-struct POS_Previews: PreviewProvider {
+struct OrderInputView_Previews: PreviewProvider {
     static var previews: some View {
-        POS()
+        OrderInputView()
+            .previewInterfaceOrientation(.landscapeRight)
+            .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }
