@@ -9,29 +9,48 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack(spacing: 0) {
-            // 全体
-            HeaderView ()
-            Divider()
-            // mainStack
-            HStack(alignment: .top, spacing: 20) {
-                // 左列
-                VStack(spacing: 20.0) {
-                    LeftButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理する")
-                    LeftButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理する")
+        NavigationStack {
+            VStack(spacing: 0) {
+                // 全体
+                HeaderView ()
+                Divider()
+                // mainStack
+                HStack(alignment: .top, spacing: 20) {
+                    // 左列
+                    VStack(spacing: 20.0) {
+                        LeftButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理する")
+                        LeftButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理する")
+                    }
+                    // 右列
+                    VStack(spacing: 20.0) {
+                        RightButton(title: "点検", subtitle: "", description: "")
+                        RightButton(title: "精算", subtitle: "", description: "")
+                        
+                        
+                    }
                 }
-                // 右列
-                VStack(spacing: 20.0) {
-                    RightButton(title: "点検", subtitle: "", description: "")
-                    RightButton(title: "精算", subtitle: "", description: "")
-
-
+                .padding(20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipped()
+                Spacer()
+            }
+            .navigationTitle("ホーム")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Text("カスタマーディスプレイ：通信確立　サーバー：通信可能")
+                        .padding(5)
+                        .padding(.horizontal, 10)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .stroke(.blue, lineWidth: 1)
+                                .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBackground)))
+                        }
+                        .foregroundColor(.blue)
+                    
+                    
                 }
             }
-            .padding(20)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipped()
-            Spacer()
         }
     }
 }
