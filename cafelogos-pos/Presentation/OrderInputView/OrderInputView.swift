@@ -6,8 +6,18 @@
 //
 
 import SwiftUI
+import Algorithms
 
 struct OrderInputView: View {
+    @State private var cart: Cart = Cart()
+    private var coffeeItems = [
+        CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [
+            CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
+        CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [
+            CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
+        CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [CoffeeHowToBrew(name: "アイス", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true)
+    ]
+    
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -84,28 +94,32 @@ struct OrderInputView: View {
                             .padding(.vertical)
                             LazyVGrid(columns: [GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top)]) {
                                 ForEach(0..<5) { _ in // Replace with your data model here
-                                    VStack(alignment: .leading, spacing: 0) {
-                                        Text("品名")
-                                            .font(.system(.title2, weight: .bold))
-                                            .padding(.vertical, 5)
-                                            .lineLimit(2)
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
-                                        HStack(spacing: 0) {
+                                    Button(action: {
+                                        cart.addItem(newItem: try! CartItem(coffee: coffeeItems[0], brew: coffeeItems[0].coffeeHowToBrews[0], amount: 1))
+                                    }){
+                                        VStack(alignment: .leading, spacing: 0) {
+                                            Text("品名")
+                                                .font(.system(.title2, weight: .bold))
+                                                .padding(.vertical, 5)
+                                                .lineLimit(2)
+                                                .multilineTextAlignment(.leading)
                                             Spacer()
-                                            Text("¥500")
-                                                .font(.system(.title2, weight: .regular))
+                                            HStack(spacing: 0) {
+                                                Spacer()
+                                                Text("¥500")
+                                                    .font(.system(.title2, weight: .regular))
+                                            }
                                         }
+                                        .padding(10)
+                                        .frame(height: 120)
+                                        .clipped()
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                .stroke(Color(.tertiaryLabel), lineWidth: 1)
+                                                .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBrown)))
+                                        }
+                                        .foregroundColor(.white)
                                     }
-                                    .padding(10)
-                                    .frame(height: 120)
-                                    .clipped()
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                            .stroke(Color(.tertiaryLabel), lineWidth: 1)
-                                            .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBrown)))
-                                    }
-                                    .foregroundColor(.white)
                                 }
                             }
                         }
@@ -156,10 +170,10 @@ struct OrderInputView: View {
                     Divider()
                     ScrollView {
                         VStack(spacing: 0) {
-                            ForEach(0..<5) { _ in // Replace with your data model here
+                            ForEach(cart.getItems().indexed(), id: \.index) { (index, item) in // Replace with your data model here
                                 VStack(spacing: 0) {
                                     HStack {
-                                        Text("品目")
+                                        Text(item.productName)
                                             .lineLimit(0)
                                         Spacer()
                                         ZStack {
@@ -177,32 +191,41 @@ struct OrderInputView: View {
                                         HStack {
                                             
                                         }
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                .fill(Color(.tertiaryLabel))
-                                                .frame(width: 40, height: 40)
-                                                .clipped()
-                                            Image(systemName: "minus")
-                                                .imageScale(.large)
-                                                .symbolRenderingMode(.monochrome)
-                                                .foregroundColor(.white)
+                                        Button(action: {
+                                            cart.setItemAmount(itemIndex: index, newAmount: item.getAmount() - 1)
+                                        }){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                    .fill(Color(.tertiaryLabel))
+                                                    .frame(width: 40, height: 40)
+                                                    .clipped()
+                                                Image(systemName: "minus")
+                                                    .imageScale(.large)
+                                                    .symbolRenderingMode(.monochrome)
+                                                    .foregroundColor(.white)
+                                            }
                                         }
-                                        Text("1")
-                                            .foregroundColor(.primary)
+                                        TextField("", value: Binding(get: {item.getAmount()}, set: {cart.setItemAmount(itemIndex: index, newAmount: $0)}), formatter: NumberFormatter())
+                                            .keyboardType(.numberPad)
+                                            //.foregroundColor(.primary)
                                             .padding(.horizontal, 10)
-                                            .lineLimit(0)
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                .fill(Color(.tertiaryLabel))
-                                                .frame(width: 40, height: 40)
-                                                .clipped()
-                                            Image(systemName: "plus")
-                                                .imageScale(.large)
-                                                .symbolRenderingMode(.monochrome)
-                                                .foregroundColor(.white)
+                                            //.lineLimit(0)
+                                        Button(action: {
+                                            cart.setItemAmount(itemIndex: index, newAmount: item.getAmount() + 1)
+                                        }){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                    .fill(Color(.tertiaryLabel))
+                                                    .frame(width: 40, height: 40)
+                                                    .clipped()
+                                                Image(systemName: "plus")
+                                                    .imageScale(.large)
+                                                    .symbolRenderingMode(.monochrome)
+                                                    .foregroundColor(.white)
+                                            }
                                         }
                                         Spacer()
-                                        Text("¥500")
+                                        Text("¥\(item.totalPrice)")
                                             .lineLimit(0)
                                     }
                                 }
@@ -226,10 +249,10 @@ struct OrderInputView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             HStack(spacing: 0) {
-                Text("999点")
+                Text("\(cart.totalAmount)点")
                     .font(.title)
                     .foregroundColor(Color(.systemGray6))
-                Text("¥5,000")
+                Text("¥\(cart.getTotalPrice())")
                     .font(.title)
                     .foregroundColor(Color(.systemGray6))
                     .padding(.leading)

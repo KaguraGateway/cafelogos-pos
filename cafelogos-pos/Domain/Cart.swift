@@ -22,7 +22,7 @@ public struct Cart: Codable {
     func getTotalPrice() -> UInt64 {
         var totalPrice: UInt64 = 0
         for item in self.items {
-            totalPrice += item.price * UInt64(item.getAmount())
+            totalPrice += item.totalPrice
         }
         return totalPrice
     }
