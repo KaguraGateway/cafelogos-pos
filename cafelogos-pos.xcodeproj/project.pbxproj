@@ -14,6 +14,20 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
+		3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDD92A8F531F009E346E /* CoffeeProduct.swift */; };
+		3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDDB2A8F716E009E346E /* CoffeeBean.swift */; };
+		3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDDD2A8F7494009E346E /* CoffeeHowToBrew.swift */; };
+		3586BDE02A8F76B1009E346E /* OtherProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDDF2A8F76B1009E346E /* OtherProduct.swift */; };
+		3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDE32A8F798E009E346E /* ProductCategory.swift */; };
+		3586BDE62A8F79C1009E346E /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDE52A8F79C1009E346E /* Stock.swift */; };
+		3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDE72A8F7A9A009E346E /* Denomination.swift */; };
+		3586BDEA2A8F7D43009E346E /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDE92A8F7D43009E346E /* CartItem.swift */; };
+		3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDEB2A8F7E24009E346E /* Cart.swift */; };
+		3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDED2A8F8090009E346E /* Denominations.swift */; };
+		3586BDF12A8F81B6009E346E /* DenominationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF02A8F81B6009E346E /* DenominationsTests.swift */; };
+		3586BDF32A8FA19C009E346E /* CartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF22A8FA19C009E346E /* CartTests.swift */; };
+		3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF42A8FAD48009E346E /* LogosError.swift */; };
+		3586BDF72A8FC479009E346E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3586BDF62A8FC479009E346E /* .gitignore */; };
 		EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +60,20 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3586BDD92A8F531F009E346E /* CoffeeProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeProduct.swift; sourceTree = "<group>"; };
+		3586BDDB2A8F716E009E346E /* CoffeeBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBean.swift; sourceTree = "<group>"; };
+		3586BDDD2A8F7494009E346E /* CoffeeHowToBrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeHowToBrew.swift; sourceTree = "<group>"; };
+		3586BDDF2A8F76B1009E346E /* OtherProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProduct.swift; sourceTree = "<group>"; };
+		3586BDE32A8F798E009E346E /* ProductCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
+		3586BDE52A8F79C1009E346E /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		3586BDE72A8F7A9A009E346E /* Denomination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Denomination.swift; sourceTree = "<group>"; };
+		3586BDE92A8F7D43009E346E /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
+		3586BDEB2A8F7E24009E346E /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		3586BDED2A8F8090009E346E /* Denominations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Denominations.swift; sourceTree = "<group>"; };
+		3586BDF02A8F81B6009E346E /* DenominationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenominationsTests.swift; sourceTree = "<group>"; };
+		3586BDF22A8FA19C009E346E /* CartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTests.swift; sourceTree = "<group>"; };
+		3586BDF42A8FAD48009E346E /* LogosError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogosError.swift; sourceTree = "<group>"; };
+		3586BDF62A8FC479009E346E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInputView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +106,7 @@
 		3557C70B2A826A1200C72F17 = {
 			isa = PBXGroup;
 			children = (
+				3586BDF62A8FC479009E346E /* .gitignore */,
 				3557C7162A826A1200C72F17 /* cafelogos-pos */,
 				3557C7272A826A1300C72F17 /* cafelogos-posTests */,
 				3557C7312A826A1300C72F17 /* cafelogos-posUITests */,
@@ -98,6 +127,9 @@
 		3557C7162A826A1200C72F17 /* cafelogos-pos */ = {
 			isa = PBXGroup;
 			children = (
+				3586BDD82A8F504D009E346E /* UseCase */,
+				3586BDD72A8F5039009E346E /* Infra */,
+				3586BDD62A8F502E009E346E /* Domain */,
 				EBD8ACF92A8A23D000FC20F1 /* Presentation */,
 				3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */,
 				3557C7192A826A1200C72F17 /* ContentView.swift */,
@@ -118,6 +150,7 @@
 		3557C7272A826A1300C72F17 /* cafelogos-posTests */ = {
 			isa = PBXGroup;
 			children = (
+				3586BDEF2A8F8192009E346E /* Domain */,
 				3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */,
 			);
 			path = "cafelogos-posTests";
@@ -130,6 +163,47 @@
 				3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */,
 			);
 			path = "cafelogos-posUITests";
+			sourceTree = "<group>";
+		};
+		3586BDD62A8F502E009E346E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3586BDE32A8F798E009E346E /* ProductCategory.swift */,
+				3586BDD92A8F531F009E346E /* CoffeeProduct.swift */,
+				3586BDDB2A8F716E009E346E /* CoffeeBean.swift */,
+				3586BDDD2A8F7494009E346E /* CoffeeHowToBrew.swift */,
+				3586BDDF2A8F76B1009E346E /* OtherProduct.swift */,
+				3586BDE52A8F79C1009E346E /* Stock.swift */,
+				3586BDE72A8F7A9A009E346E /* Denomination.swift */,
+				3586BDE92A8F7D43009E346E /* CartItem.swift */,
+				3586BDEB2A8F7E24009E346E /* Cart.swift */,
+				3586BDED2A8F8090009E346E /* Denominations.swift */,
+				3586BDF42A8FAD48009E346E /* LogosError.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		3586BDD72A8F5039009E346E /* Infra */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Infra;
+			sourceTree = "<group>";
+		};
+		3586BDD82A8F504D009E346E /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		3586BDEF2A8F8192009E346E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				3586BDF02A8F81B6009E346E /* DenominationsTests.swift */,
+				3586BDF22A8FA19C009E346E /* CartTests.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
@@ -262,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3557C71F2A826A1300C72F17 /* Preview Assets.xcassets in Resources */,
+				3586BDF72A8FC479009E346E /* .gitignore in Resources */,
 				3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,9 +362,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3586BDE02A8F76B1009E346E /* OtherProduct.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
+				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
+				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
+				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
+				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
+				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
+				3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */,
+				3586BDEA2A8F7D43009E346E /* CartItem.swift in Sources */,
+				3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */,
 				EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */,
+				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
+				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +384,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3586BDF12A8F81B6009E346E /* DenominationsTests.swift in Sources */,
 				3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */,
+				3586BDF32A8FA19C009E346E /* CartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
