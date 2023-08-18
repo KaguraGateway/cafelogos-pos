@@ -46,7 +46,7 @@ final class CartTests: XCTestCase {
         // お値段の計算ができるかどうか
         XCTAssertEqual(cart.getTotalPrice(), 10500) // 3000 + 5 * 1500
         // 購入できるはず
-        XCTAssertTrue(cart.items.allSatisfy({$0.canBuy()}))
+        XCTAssertTrue(cart.getItems().allSatisfy({$0.canBuy()}))
         
         // 淹れ方が存在しないものを指定する（エラーが発生しなければならない）
         XCTAssertThrowsError(try CartItem(coffee: coffee1, brew: ice, amount: 1))
@@ -65,7 +65,7 @@ final class CartTests: XCTestCase {
         // お値段の計算ができるかどうか
         XCTAssertEqual(cart.getTotalPrice(), 5000)
         // 購入できるはず
-        XCTAssertTrue(cart.items.allSatisfy({$0.canBuy()}))
+        XCTAssertTrue(cart.getItems().allSatisfy({$0.canBuy()}))
 
         // 豆の数量不足で購入不可扱いになるはず
         XCTAssertFalse(CartItem(product: pan, amount: 101).canBuy())
@@ -89,7 +89,44 @@ final class CartTests: XCTestCase {
         // お値段の計算ができるかどうか
         XCTAssertEqual(cart.getTotalPrice(), 15500)
         // 購入できるはず
-        XCTAssertTrue(cart.items.allSatisfy({$0.canBuy()}))
+        XCTAssertTrue(cart.getItems().allSatisfy({$0.canBuy()}))
+    }
+    
+    func testChangeCart() throws {
+        // 要素数ゼロのカートを用意
+        var cart = Cart()
+        XCTAssertEqual(cart.getItems().count, 0)
+        // 各種コーヒを用意
+        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee2 = CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        // カートに追加
+        let cartItem = try CartItem(coffee: coffee1, brew: flannnel, amount: 1)
+        cart.addItem(newItem: cartItem)
+        XCTAssertEqual(cart.getItems().count, 1)
+        XCTAssertEqual(cart.totalAmount, 1)
+        // カートに追加済みのアイテムの数量を変更すると注文品数が変わる
+        cart.setItemAmount(itemIndex: 0, newAmount: 2)
+        XCTAssertEqual(cart.totalAmount, 2)
+        // 同じ商品、同じ淹れ方の商品を追加してもカート内の配列数は変わらない
+        cart.addItem(newItem: try CartItem(coffee: coffee1, brew: flannnel, amount: 2))
+        XCTAssertEqual(cart.getItems().count, 1)
+        XCTAssertEqual(cart.totalAmount, 4) // 注文品数だけが増えるはず
+        // 同じ商品、違う淹れ方の商品を追加するとカート内の配列数が増える
+        cart.addItem(newItem: try CartItem(coffee: coffee1, brew: paper, amount: 1))
+        XCTAssertEqual(cart.getItems().count, 2)
+        XCTAssertEqual(cart.totalAmount, 5)
+        // 違う商品を追加するとカート内の配列数が増える
+        cart.addItem(newItem: try CartItem(coffee: coffee2, brew: flannnel, amount: 1))
+        XCTAssertEqual(cart.getItems().count, 3)
+        XCTAssertEqual(cart.totalAmount, 6)
+        // 商品を削除すると消えるはず
+        cart.removeItem(removeItem: cartItem)
+        XCTAssertEqual(cart.getItems().count, 2)
+        XCTAssertEqual(cart.totalAmount, 2)
+        // 商品全削除すると0になるはず
+        cart.removeAllItem()
+        XCTAssertEqual(cart.getItems().count, 0)
+        XCTAssertEqual(cart.totalAmount, 0)
     }
 
     func testPerformanceExample() throws {
