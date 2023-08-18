@@ -28,6 +28,7 @@
 		3586BDF32A8FA19C009E346E /* CartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF22A8FA19C009E346E /* CartTests.swift */; };
 		3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF42A8FAD48009E346E /* LogosError.swift */; };
 		3586BDF72A8FC479009E346E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3586BDF62A8FC479009E346E /* .gitignore */; };
+		35FDCD5D2A8FE1E700652093 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 35FDCD5C2A8FE1E700652093 /* Algorithms */; };
 		EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35FDCD5D2A8FE1E700652093 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +249,9 @@
 			dependencies = (
 			);
 			name = "cafelogos-pos";
+			packageProductDependencies = (
+				35FDCD5C2A8FE1E700652093 /* Algorithms */,
+			);
 			productName = "cafelogos-pos";
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
 			productType = "com.apple.product-type.application";
@@ -319,6 +324,9 @@
 				Base,
 			);
 			mainGroup = 3557C70B2A826A1200C72F17;
+			packageReferences = (
+				35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 3557C7152A826A1200C72F17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -537,7 +545,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"cafelogos-pos/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3266YSU44G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -707,6 +715,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35FDCD5C2A8FE1E700652093 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3557C70C2A826A1200C72F17 /* Project object */;
 }
