@@ -11,11 +11,11 @@ import Algorithms
 struct OrderInputView: View {
     @State private var cart: Cart = Cart()
     private var coffeeItems = [
-        CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [
+        CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [
             CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
-        CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [
+        CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [
             CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
-        CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", amountGrams: 1000), coffeeHowToBrews: [CoffeeHowToBrew(name: "アイス", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true)
+        CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [CoffeeHowToBrew(name: "アイス", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true)
     ]
     
     var body: some View {
@@ -95,7 +95,7 @@ struct OrderInputView: View {
                             LazyVGrid(columns: [GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top)]) {
                                 ForEach(0..<5) { _ in // Replace with your data model here
                                     Button(action: {
-                                        cart.addItem(newItem: try! CartItem(coffee: coffeeItems[0], brew: coffeeItems[0].coffeeHowToBrews[0], amount: 1))
+                                        cart.addItem(newItem: try! CartItem(coffee: coffeeItems[0], brew: coffeeItems[0].coffeeHowToBrews[0], quantity: 1))
                                     }){
                                         VStack(alignment: .leading, spacing: 0) {
                                             Text("品名")
@@ -192,7 +192,7 @@ struct OrderInputView: View {
                                             
                                         }
                                         Button(action: {
-                                            cart.setItemAmount(itemIndex: index, newAmount: item.getAmount() - 1)
+                                            cart.setItemQuantity(itemIndex: index, newQuantity: item.getQuantity() - 1)
                                         }){
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -205,13 +205,13 @@ struct OrderInputView: View {
                                                     .foregroundColor(.white)
                                             }
                                         }
-                                        TextField("", value: Binding(get: {item.getAmount()}, set: {cart.setItemAmount(itemIndex: index, newAmount: $0)}), formatter: NumberFormatter())
+                                        TextField("", value: Binding(get: {item.getQuantity()}, set: {cart.setItemQuantity(itemIndex: index, newQuantity: $0)}), formatter: NumberFormatter())
                                             .keyboardType(.numberPad)
                                             //.foregroundColor(.primary)
                                             .padding(.horizontal, 10)
                                             //.lineLimit(0)
                                         Button(action: {
-                                            cart.setItemAmount(itemIndex: index, newAmount: item.getAmount() + 1)
+                                            cart.setItemQuantity(itemIndex: index, newQuantity: item.getQuantity() + 1)
                                         }){
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -249,7 +249,7 @@ struct OrderInputView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             HStack(spacing: 0) {
-                Text("\(cart.totalAmount)点")
+                Text("\(cart.totalQuantity)点")
                     .font(.title)
                     .foregroundColor(Color(.systemGray6))
                 Text("¥\(cart.getTotalPrice())")

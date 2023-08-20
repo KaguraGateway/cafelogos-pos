@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OtherProduct: Codable {
+public struct OtherProduct: Product, Codable {
     public let productName: String
     public let productId: String
     public let productCategory: ProductCategory
@@ -30,7 +30,7 @@ public struct OtherProduct: Codable {
             return false
         }
         // 個数がゼロ個
-        if(self.stock.amount <= 0) {
+        if(self.stock.quantity <= 0) {
             return false
         }
         

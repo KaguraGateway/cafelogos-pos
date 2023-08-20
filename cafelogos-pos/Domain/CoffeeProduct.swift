@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CoffeeProduct: Codable {
+public struct CoffeeProduct: Product, Codable {
     public let productName: String
     public let productId: String
     public let coffeeBean: CoffeeBean

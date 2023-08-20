@@ -10,11 +10,11 @@ import Foundation
 public struct CoffeeBean: Codable {
     public let id: String
     public let name: String
-    public let amountGrams: Int32
+    public let gramQuantity: Int32
     
-    public init(id: String, name: String, amountGrams: Int32) {
+    public init(id: String, name: String, gramQuantity: Int32) {
         self.id = id
         self.name = name
-        self.amountGrams = amountGrams
+        self.gramQuantity = gramQuantity
     }
 }

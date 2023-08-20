@@ -9,7 +9,7 @@ import Foundation
 
 public struct Cart: Codable {
     private var items: Array<CartItem>
-    var totalAmount: UInt32 { get { self.items.reduce(0, { x, y in x + y.getAmount() }) } }
+    var totalQuantity: UInt32 { get { self.items.reduce(0, { x, y in x + y.getQuantity() }) } }
     
     public init() {
         self.init(items: [])
@@ -34,14 +34,14 @@ public struct Cart: Codable {
     
     mutating func addItem(newItem: CartItem) {
         if let i = self.items.firstIndex(where: { $0.productId == newItem.productId && $0.coffeeHowToBrew?.id == newItem.coffeeHowToBrew?.id }) {
-            self.items[i].setAmount(newAmount: self.items[i].getAmount() + newItem.getAmount())
+            self.items[i].setQuantity(newQuantity: self.items[i].getQuantity() + newItem.getQuantity())
             return
         }
         self.items.append(newItem)
     }
     
-    mutating func setItemAmount(itemIndex: Int, newAmount: UInt32) {
-        items[itemIndex].setAmount(newAmount: newAmount)
+    mutating func setItemQuantity(itemIndex: Int, newQuantity: UInt32) {
+        items[itemIndex].setQuantity(newQuantity: newQuantity)
     }
     
     mutating func removeItem(removeItem: CartItem) {

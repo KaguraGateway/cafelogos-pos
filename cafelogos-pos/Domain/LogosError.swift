@@ -9,4 +9,6 @@ import Foundation
 
 enum LogosError: Error {
     case notCanBuy
+    case invalidPayment
+    case notEnoughAmount
 }
