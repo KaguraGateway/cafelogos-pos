@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct HomeMainButton<Content: View>: View {
+struct HomeMainButton<Destination>: View where Destination : View {
     var title: String
     var subtitle: String
     var description: String
-    var destination: Content
+    var destination: () -> Destination
+
+    public init(title: String, subtitle: String, description: String, destination: @escaping () -> Destination) {
+      self.title = title
+      self.subtitle = subtitle
+      self.description = description
+      self.destination = destination
+    }
     
     var body: some View {
-        NavigationLink(destination: destination) {
+        NavigationLink(destination: {
+            destination()
+        }, label: {
             VStack(spacing: 0) {
                 Text(title)
                     .font(.system(.largeTitle, weight: .semibold))
@@ -38,7 +47,7 @@ struct HomeMainButton<Content: View>: View {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(Color(.systemFill))
             }
-        }
+        })
     }
 }
 
@@ -49,9 +58,8 @@ struct HomeMainButton_Previews: PreviewProvider {
         @State var displayConnection: Bool = true
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム", content: {
             Divider()
-            HomeMainButton(title: "Title", subtitle: "Subtitle", description: "Description", destination:
-                            OrderInputView()
-            )
+            HomeMainButton(title: "Title", subtitle: "Subtitle", description: "Description", destination: {OrderInputView()})
+            Spacer()
             
             
         })
