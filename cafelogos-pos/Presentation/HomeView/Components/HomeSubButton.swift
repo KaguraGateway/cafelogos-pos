@@ -12,12 +12,12 @@ struct HomeSubButton<Destination>: View where Destination : View {
     var subtitle: String
     var description: String
     var destination: () -> Destination
-
+    
     public init(title: String, subtitle: String, description: String, destination: @escaping () -> Destination) {
-      self.title = title
-      self.subtitle = subtitle
-      self.description = description
-      self.destination = destination
+        self.title = title
+        self.subtitle = subtitle
+        self.description = description
+        self.destination = destination
     }
     
     var body: some View {
@@ -25,28 +25,29 @@ struct HomeSubButton<Destination>: View where Destination : View {
             destination()
         }, label: {
             VStack(spacing: 0) {
-                        Text(title)
-                            .font(.system(.largeTitle, weight: .semibold))
-                            .lineLimit(0)
-                        Text(subtitle)
-                            .font(.title3)
-                            .lineLimit(2)
-                        Text(description)
-                            .font(.body)
-                            .lineLimit(2)
-                            .padding(.top, 10)
-                    }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                    .aspectRatio(3/1, contentMode: .fit)
-                    .clipped()
-                    .frame(maxWidth: 310, maxHeight: .infinity, alignment: .center)
-                    .clipped()
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 30)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(Color(.systemFill))
-                    }
+                Text(title)
+                    .font(.system(.largeTitle, weight: .semibold))
+                    .lineLimit(0)
+                Text(subtitle)
+                    .font(.title3)
+                    .lineLimit(2)
+                Text(description)
+                    .font(.body)
+                    .lineLimit(2)
+                    .padding(.top, 10)
+            }
+            .foregroundColor(.primary)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+            .aspectRatio(3/1, contentMode: .fit)
+            .clipped()
+            .frame(maxWidth: 310, maxHeight: .infinity, alignment: .center)
+            .clipped()
+            .padding(.horizontal, 30)
+            .padding(.vertical, 30)
+            .background {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color(.systemFill))
+            }
         })
     }
 }
