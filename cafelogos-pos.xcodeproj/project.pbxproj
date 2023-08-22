@@ -14,8 +14,12 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
+		EB38B4632A9510DE003BFFA6 /* NavBarBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4622A9510DE003BFFA6 /* NavBarBody.swift */; };
+		EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */; };
+		EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */; };
 		EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
+		EBDC35E52A8A6459005F0B9D /* CustomNavBarBodyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC35E42A8A6459005F0B9D /* CustomNavBarBodyTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +50,12 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EB38B4622A9510DE003BFFA6 /* NavBarBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarBody.swift; sourceTree = "<group>"; };
+		EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubButton.swift; sourceTree = "<group>"; };
+		EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
 		EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInputView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		EBDC35E42A8A6459005F0B9D /* CustomNavBarBodyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarBodyTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,11 +140,22 @@
 			path = "cafelogos-posUITests";
 			sourceTree = "<group>";
 		};
+		EB38B4652A951E87003BFFA6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */,
+				EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EBDC35E12A8A4459005F0B9D /* Components */,
 				EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */,
 				EBD8ACFE2A8A3EBA00FC20F1 /* OrderInputView */,
+				EBDC35E42A8A6459005F0B9D /* CustomNavBarBodyTestView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -144,6 +163,7 @@
 		EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				EB38B4652A951E87003BFFA6 /* Components */,
 				EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */,
 			);
 			path = HomeView;
@@ -155,6 +175,14 @@
 				EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */,
 			);
 			path = OrderInputView;
+			sourceTree = "<group>";
+		};
+		EBDC35E12A8A4459005F0B9D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EB38B4622A9510DE003BFFA6 /* NavBarBody.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +316,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
+				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
+				EBDC35E52A8A6459005F0B9D /* CustomNavBarBodyTestView.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
+				EB38B4632A9510DE003BFFA6 /* NavBarBody.swift in Sources */,
+				EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */,
 				EBD8AD002A8A3EE600FC20F1 /* OrderInputView.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
 			);
