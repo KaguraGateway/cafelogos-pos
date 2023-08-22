@@ -58,7 +58,7 @@ struct HomeMainButton_Previews: PreviewProvider {
         @State var displayConnection: Bool = true
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム", content: {
             Divider()
-            HomeMainButton(title: "Title", subtitle: "Subtitle", description: "Description", destination: {OrderInputView()})
+            HomeMainButton(title: "Title", subtitle: "Subtitle", description: "Description", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
             Spacer()
             
             
