@@ -228,16 +228,6 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		3586BDEF2A8F8192009E346E /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				3586BDF02A8F81B6009E346E /* DenominationsTests.swift */,
-				3586BDF22A8FA19C009E346E /* CartTests.swift */,
-				35FDCD682A909A9D00652093 /* OrderTests.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
