@@ -39,11 +39,6 @@ struct HomeView: View {
         }
     }
     
-    
-    // 左側ボタン、命名規則は特にない
-    
-    // 右側ボタン
-    
     struct HomeView_Previews: PreviewProvider {
         static var previews: some View {
             HomeView()
