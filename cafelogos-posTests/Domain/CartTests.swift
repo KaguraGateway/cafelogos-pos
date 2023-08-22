@@ -20,6 +20,7 @@ final class CartTests: XCTestCase {
     
     // Coffee
     let coffeeBean = CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000)
+    let coffeeCategory = ProductCategory(name: "コーヒー", id: UUID().uuidString)
     // 淹れ方がそれぞれあるので
     let flannnel = CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500)
     let siphon = CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000)
@@ -30,8 +31,8 @@ final class CartTests: XCTestCase {
 
     func testCoffee() throws {
         // 各種コーヒを用意
-        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
-        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
+        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
         // 全種類のコーヒ買う（通常系）
         let cart = Cart(items: [
             // ハレノヒ・ネル
@@ -53,7 +54,7 @@ final class CartTests: XCTestCase {
         
         // 豆の数量不足で購入不可扱いになるはず
         let ice2 = CoffeeHowToBrew(name: "アイス", id: UUID().uuidString, beanQuantityGrams: 2000, price: 1500)
-        let coffee3 = CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [ice2], isNowSales: false)
+        let coffee3 = CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [ice2], isNowSales: false)
         XCTAssertFalse((try CartItem(coffee: coffee1, brew: paper, quantity: 11)).canBuy())
         XCTAssertFalse((try CartItem(coffee: coffee3, brew: ice2, quantity: 1)).canBuy())
     }
@@ -73,8 +74,8 @@ final class CartTests: XCTestCase {
     
     func testMultipleCart() throws {
         // 各種コーヒを用意
-        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
-        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
+        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
         let cart = Cart(items: [
             // ハレノヒ・ネル
             try CartItem(coffee: coffee1, brew: flannnel, quantity: 1),
@@ -97,8 +98,8 @@ final class CartTests: XCTestCase {
         var cart = Cart()
         XCTAssertEqual(cart.getItems().count, 0)
         // 各種コーヒを用意
-        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
-        let coffee2 = CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee2 = CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
         // カートに追加
         let cartItem = try CartItem(coffee: coffee1, brew: flannnel, quantity: 1)
         cart.addItem(newItem: cartItem)

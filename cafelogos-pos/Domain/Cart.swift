@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Cart: Codable {
+public struct Cart {
     private var items: Array<CartItem>
     var totalQuantity: UInt32 { get { self.items.reduce(0, { x, y in x + y.getQuantity() }) } }
     
@@ -45,7 +45,11 @@ public struct Cart: Codable {
     }
     
     mutating func removeItem(removeItem: CartItem) {
-        self.items.removeAll(where: { $0.productId == removeItem.productId && $0.coffeeHowToBrew?.id == removeItem.coffeeHowToBrew?.id })
+        self.removeItem(removeItemProductId: removeItem.productId, removeItemBrewId: removeItem.coffeeHowToBrew?.id)
+    }
+    
+    mutating func removeItem(removeItemProductId: String, removeItemBrewId: String?) {
+        self.items.removeAll(where: { $0.productId == removeItemProductId && $0.coffeeHowToBrew?.id == removeItemBrewId })
     }
     
     mutating func removeAllItem() {

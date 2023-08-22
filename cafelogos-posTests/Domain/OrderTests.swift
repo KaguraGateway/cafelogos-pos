@@ -13,6 +13,7 @@ final class OrderTests: XCTestCase {
     
     // Coffee
     let coffeeBean = CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000)
+    let coffeeCategory = ProductCategory(name: "コーヒー", id: UUID().uuidString)
     // 淹れ方がそれぞれあるので
     let flannnel = CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500)
     let siphon = CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000)
@@ -36,8 +37,8 @@ final class OrderTests: XCTestCase {
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
         // 各種コーヒを用意
-        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
-        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
+        let coffee1 = CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.flannnel, self.siphon, self.paper], isNowSales: true)
+        let coffee2 = CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, productCategory: coffeeCategory, coffeeBean: coffeeBean, coffeeHowToBrews: [self.ice], isNowSales: true)
         // 全種類のコーヒ買う（通常系）
         var order1 = Order()
         order1.cart.addItem(newItem: try CartItem(coffee: coffee1, brew: flannnel, quantity: 1))

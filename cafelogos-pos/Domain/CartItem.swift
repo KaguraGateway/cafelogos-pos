@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CartItem: Codable {
+public struct CartItem {
     public let productId: String
     public let productName: String
     public let productPrice: UInt64

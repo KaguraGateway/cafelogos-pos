@@ -1,17 +1,13 @@
 //
-//  Discount.swift
+//  DiscountDto.swift
 //  cafelogos-pos
 //
-//  Created by ygates on 2023/08/19.
+//  Created by ygates on 2023/08/23.
 //
 
 import Foundation
 
-public enum DiscountType: Int {
-    case price = 0
-}
-
-public struct Discount {
+public struct DiscountDto {
     public let name: String
     public let id: String
     public let discountType: DiscountType
@@ -23,8 +19,4 @@ public struct Discount {
         self.discountType = discountType
         self.discountPrice = discountPrice
     }
-}
-
-public protocol DiscountRepository {
-    func findAll() -> Array<Discount>
 }

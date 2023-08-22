@@ -9,14 +9,16 @@ import SwiftUI
 import Algorithms
 
 struct OrderInputView: View {
-    @State private var cart: Cart = Cart()
-    private var coffeeItems = [
-        CoffeeProduct(productName: "ハレノヒブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [
-            CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
-        CoffeeProduct(productName: "ハルメリアブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [
-            CoffeeHowToBrew(name: "ネル", id: UUID().uuidString, beanQuantityGrams: 100, price: 500), CoffeeHowToBrew(name: "サイフォン", id: UUID().uuidString, beanQuantityGrams: 100, price: 1000), CoffeeHowToBrew(name: "ペーパー", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true),
-        CoffeeProduct(productName: "アイスブレンド", productId: UUID().uuidString, coffeeBean: CoffeeBean(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000), coffeeHowToBrews: [CoffeeHowToBrew(name: "アイス", id: UUID().uuidString, beanQuantityGrams: 100, price: 1500)], isNowSales: true)
-    ]
+    @State private var usecase: OrderInputUsecase
+    @State private var products: Array<ProductCategoryDto> = []
+    @State private var discounts: Array<DiscountDto> = []
+    @State private var order: OrderPendingDto
+    
+    public init(productQueryService: ProductQueryService, discountRepository: DiscountRepository) {
+        let usecase = OrderInputUsecase(productQueryService: productQueryService, discountRepository: discountRepository)
+        _usecase = State(initialValue: usecase)
+        _order = State(initialValue: usecase.getOrder())
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -57,9 +59,9 @@ struct OrderInputView: View {
             HStack(alignment: .top, spacing: 0) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        ForEach(0..<5) { _ in // Replace with your data model here
+                        ForEach(products.indexed(), id: \.index) { (index, category) in
                             HStack(spacing: 0) {
-                                Text("部門名")
+                                Text(category.name)
                                     .font(.system(.title2, weight: .semibold))
                                     .padding(.leading, 30)
                                 Spacer()
@@ -84,21 +86,29 @@ struct OrderInputView: View {
                 Divider()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        ForEach(0..<5) { _ in // Replace with your data model here
+                        ForEach(products.indexed(), id: \.index) { (index, category) in
                             HStack(spacing: 0) {
-                                Text("部門")
+                                Text(category.name)
                                     .font(.system(.title, weight: .semibold))
                                     .foregroundColor(.primary)
                                 Spacer()
                             }
                             .padding(.vertical)
                             LazyVGrid(columns: [GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top)]) {
-                                ForEach(0..<5) { _ in // Replace with your data model here
+                                ForEach(category.products.indexed(), id: \.index) { (index, product) in
                                     Button(action: {
-                                        cart.addItem(newItem: try! CartItem(coffee: coffeeItems[0], brew: coffeeItems[0].coffeeHowToBrews[0], quantity: 1))
+                                        if(product.productType == ProductType.coffee) {
+                                            if(product.coffeeHowToBrews!.count > 1) {
+                                                
+                                            } else {
+                                                self.usecase.addItemToCart(product: product, productCategory: category, quantity: 1, brew: product.coffeeHowToBrews![0])
+                                            }
+                                        } else {
+                                            self.usecase.addItemToCart(product: product, productCategory: category, quantity: 1)
+                                        }
                                     }){
                                         VStack(alignment: .leading, spacing: 0) {
-                                            Text("品名")
+                                            Text(product.productName)
                                                 .font(.system(.title2, weight: .bold))
                                                 .padding(.vertical, 5)
                                                 .lineLimit(2)
@@ -106,8 +116,7 @@ struct OrderInputView: View {
                                             Spacer()
                                             HStack(spacing: 0) {
                                                 Spacer()
-                                                Text("¥500")
-                                                    .font(.system(.title2, weight: .regular))
+                                                ProductAmount(product: product)
                                             }
                                         }
                                         .padding(10)
@@ -131,30 +140,34 @@ struct OrderInputView: View {
                 Divider()
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible())]) {
-                        ForEach(0..<2) { _ in // Replace with your data model here
-                            VStack(spacing: 0) {
-                                Text("割引")
-                                    .font(.system(.title2, weight: .bold))
-                                    .padding(.vertical, 5)
-                                    .frame(maxWidth: .infinity, maxHeight: 65, alignment: .center)
-                                    .clipped()
-                                    .lineLimit(2)
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(.primary)
-                                Text("-¥500")
-                                    .font(.system(.title2, weight: .regular))
-                                    .padding(.bottom, 10)
-                                    .foregroundColor(.primary)
+                        ForEach(discounts.indexed(), id: \.index) { (index, discount) in // Replace with your data model here
+                            Button(action: {
+                                
+                            }){
+                                VStack(spacing: 0) {
+                                    Text(discount.name)
+                                        .font(.system(.title2, weight: .bold))
+                                        .padding(.vertical, 5)
+                                        .frame(maxWidth: .infinity, maxHeight: 65, alignment: .center)
+                                        .clipped()
+                                        .lineLimit(2)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.primary)
+                                    Text("-¥\(discount.discountPrice)")
+                                        .font(.system(.title2, weight: .regular))
+                                        .padding(.bottom, 10)
+                                        .foregroundColor(.primary)
+                                }
+                                .padding(.horizontal, 15)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .stroke(Color(.tertiaryLabel), lineWidth: 1)
+                                        .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(.secondary))
+                                }
+                                .frame(width: 100, height: 100)
+                                .clipped()
+                                .foregroundColor(Color(.systemBackground))
                             }
-                            .padding(.horizontal, 15)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .stroke(Color(.tertiaryLabel), lineWidth: 1)
-                                    .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(.secondary))
-                            }
-                            .frame(width: 100, height: 100)
-                            .clipped()
-                            .foregroundColor(Color(.systemBackground))
                         }
                     }
                     .padding(.horizontal, 10)
@@ -170,20 +183,24 @@ struct OrderInputView: View {
                     Divider()
                     ScrollView {
                         VStack(spacing: 0) {
-                            ForEach(cart.getItems().indexed(), id: \.index) { (index, item) in // Replace with your data model here
+                            ForEach(order.cart.items.indexed(), id: \.index) { (index, item) in // Replace with your data model here
                                 VStack(spacing: 0) {
                                     HStack {
                                         Text(item.productName)
                                             .lineLimit(0)
                                         Spacer()
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                                .fill(.red)
-                                                .frame(width: 40, height: 40)
-                                                .clipped()
-                                            Image(systemName: "trash")
-                                                .symbolRenderingMode(.monochrome)
-                                                .foregroundColor(Color(.systemGray6))
+                                        Button(action: {
+                                            usecase.removeItem(removeItem: item)
+                                        }){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                    .fill(.red)
+                                                    .frame(width: 40, height: 40)
+                                                    .clipped()
+                                                Image(systemName: "trash")
+                                                    .symbolRenderingMode(.monochrome)
+                                                    .foregroundColor(Color(.systemGray6))
+                                            }
                                         }
                                     }
                                     .padding(.bottom, 20)
@@ -192,7 +209,7 @@ struct OrderInputView: View {
                                             
                                         }
                                         Button(action: {
-                                            cart.setItemQuantity(itemIndex: index, newQuantity: item.getQuantity() - 1)
+                                            usecase.decreaseItemQuantity(itemIndex: index)
                                         }){
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -205,13 +222,12 @@ struct OrderInputView: View {
                                                     .foregroundColor(.white)
                                             }
                                         }
-                                        TextField("", value: Binding(get: {item.getQuantity()}, set: {cart.setItemQuantity(itemIndex: index, newQuantity: $0)}), formatter: NumberFormatter())
-                                            .keyboardType(.numberPad)
-                                            //.foregroundColor(.primary)
+                                        Text("\(item.quantity)")
+                                            .foregroundColor(.primary)
                                             .padding(.horizontal, 10)
-                                            //.lineLimit(0)
+                                            .lineLimit(0)
                                         Button(action: {
-                                            cart.setItemQuantity(itemIndex: index, newQuantity: item.getQuantity() + 1)
+                                            usecase.increaseItemQuantity(itemIndex: index)
                                         }){
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -225,7 +241,7 @@ struct OrderInputView: View {
                                             }
                                         }
                                         Spacer()
-                                        Text("¥\(item.totalPrice)")
+                                        Text("¥\(item.totalAmount)")
                                             .lineLimit(0)
                                     }
                                 }
@@ -249,32 +265,23 @@ struct OrderInputView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             HStack(spacing: 0) {
-                Text("\(cart.totalQuantity)点")
+                Text("\(order.cart.totalQuantity)点")
                     .font(.title)
                     .foregroundColor(Color(.systemGray6))
-                Text("¥\(cart.getTotalPrice())")
+                Text("¥\(order.totalAmount)")
                     .font(.title)
                     .foregroundColor(Color(.systemGray6))
                     .padding(.leading)
                 Spacer()
-                HStack(spacing: 0) {
-                    ForEach(0..<2) { _ in // Replace with your data model here
-                        Text("項目")
-                            .frame(maxWidth: .infinity)
-                            .clipped()
-                            .padding(.vertical)
-                            .font(.system(.title2, weight: .semibold))
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(Color(.secondarySystemGroupedBackground))
-                            }
-                            .lineLimit(0)
-                            .foregroundColor(.primary)
-                    }
-                    .frame(width: 150)
+                HStack(spacing: 16) {
+                    FooterNormalButton(text: "席番号から", action: {})
+                    FooterNormalButton(text: "注文全削除", action: {
+                        usecase.removeAllItem()
+                    })
+                }
+                    .frame(width: 300)
                     .clipped()
                     .padding(.horizontal, 10)
-                }
                 Text("支払いへ進む")
                     .frame(width: 200)
                     .clipped()
@@ -301,12 +308,76 @@ struct OrderInputView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipped()
         .background(Color(.secondarySystemBackground))
+        .onAppear(perform: {
+            products = usecase.getProducts()
+            discounts = usecase.getDiscounts()
+            usecase.subscribeOrder(onPublishOrder: { newOrder in
+                order = newOrder
+            })
+        })
+    }
+}
+
+private struct ProductAmount: View {
+    let product: ProductDto
+    let minAmount: UInt64
+    let maxAmount: UInt64
+    
+    public init(product: ProductDto) {
+        self.product = product
+        if(product.coffeeHowToBrews != nil && product.coffeeHowToBrews!.count > 0) {
+            self.minAmount = product.coffeeHowToBrews!.reduce(product.coffeeHowToBrews![0].price, { x, y in
+                min(x, y.price)
+            })
+            self.maxAmount = product.coffeeHowToBrews!.reduce(0, { x, y in
+                max(x, y.price)
+            })
+        } else {
+            self.minAmount = product.amount
+            self.maxAmount = product.amount
+        }
+    }
+    
+    var body: some View {
+        if product.coffeeHowToBrews != nil && product.coffeeHowToBrews!.count > 1 {
+            Text("¥\(self.minAmount)~\(self.maxAmount)")
+                .font(.system(.title2, weight: .regular))
+        } else {
+            Text("¥\(self.maxAmount)")
+                .font(.system(.title2, weight: .regular))
+        }
+    }
+}
+
+private struct FooterNormalButton: View {
+    public var text: String
+    public var action: () -> Void
+    
+    public init(text: String, action: @escaping () -> Void) {
+        self.text = text
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: self.action){
+            Text(self.text)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .padding(.vertical)
+                .font(.system(.title2, weight: .semibold))
+                .background {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(Color(.secondarySystemGroupedBackground))
+                }
+                .lineLimit(0)
+                .foregroundColor(.primary)
+        }
     }
 }
 
 struct OrderInputView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderInputView()
+        OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())
             .previewInterfaceOrientation(.landscapeRight)
             .previewDevice("iPad Pro (11-inch) (4th generation)")
     }

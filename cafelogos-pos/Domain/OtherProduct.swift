@@ -7,10 +7,11 @@
 
 import Foundation
 
-public struct OtherProduct: Product, Codable {
+public struct OtherProduct: Product {
     public let productName: String
     public let productId: String
     public let productCategory: ProductCategory
+    public let productType: ProductType
     public let price: UInt64
     public let stock: Stock
     public let isNowSales: Bool
@@ -19,6 +20,7 @@ public struct OtherProduct: Product, Codable {
         self.productName = productName
         self.productId = productId
         self.productCategory = productCategory
+        self.productType = ProductType.other
         self.price = price
         self.stock = stock
         self.isNowSales = isNowSales
