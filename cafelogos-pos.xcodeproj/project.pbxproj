@@ -523,7 +523,6 @@
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
 				351C18D32A9542F2005A966C /* ProductQueryService.swift in Sources */,
-				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
 				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
 				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
 				351C18D22A9542F2005A966C /* OrderPayment.swift in Sources */,
