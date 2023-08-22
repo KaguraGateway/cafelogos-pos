@@ -192,6 +192,8 @@
 				EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
 		3586BDD62A8F502E009E346E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
