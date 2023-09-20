@@ -344,9 +344,18 @@
 			path = PaymentView;
 			sourceTree = "<group>";
 		};
+		EB63D1BC2ABAE6EF00C8D915 /* ProductOptionsPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				EB63D1B92ABAD71600C8D915 /* ProductOptionsPickerView.swift */,
+			);
+			path = ProductOptionsPickerView;
+			sourceTree = "<group>";
+		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EB63D1BC2ABAE6EF00C8D915 /* ProductOptionsPickerView */,
 				EB63D1B82ABABF5D00C8D915 /* PaymentView */,
 				EBDC35E12A8A4459005F0B9D /* Components */,
 				EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */,
@@ -368,7 +377,6 @@
 			isa = PBXGroup;
 			children = (
 				EBD8ACFF2A8A3EE600FC20F1 /* OrderInputView.swift */,
-				EB63D1B92ABAD71600C8D915 /* ProductOptionsPickerView.swift */,
 			);
 			path = OrderInputView;
 			sourceTree = "<group>";
