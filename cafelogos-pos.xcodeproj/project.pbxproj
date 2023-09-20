@@ -337,13 +337,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		EB63D1B82ABABF5D00C8D915 /* PaymentView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PaymentView;
-			sourceTree = "<group>";
-		};
 		EB63D1BC2ABAE6EF00C8D915 /* ProductOptionsPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,7 +349,6 @@
 			isa = PBXGroup;
 			children = (
 				EB63D1BC2ABAE6EF00C8D915 /* ProductOptionsPickerView */,
-				EB63D1B82ABABF5D00C8D915 /* PaymentView */,
 				EBDC35E12A8A4459005F0B9D /* Components */,
 				EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */,
 				EBD8ACFE2A8A3EBA00FC20F1 /* OrderInputView */,
