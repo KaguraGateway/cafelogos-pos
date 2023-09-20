@@ -18,12 +18,18 @@ struct NavBarBody <Content: View>: View {
         self._serverConnection = serverConnection
         self.title = title
         self.content = content()
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = UIColor.systemBackground
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+
     }
     var body: some View {
         NavigationStack {
             VStack (spacing: 0.0) {
                 content
             }
+            .background(Color(.secondarySystemBackground))
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
