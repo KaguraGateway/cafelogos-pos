@@ -81,6 +81,7 @@ struct GeneralSettingView: View {
                     }
                 }
             }
+            .padding(.horizontal ,120)
             .background(Color(.secondarySystemBackground))
             .frame(maxWidth:.infinity, maxHeight: .infinity)
             
