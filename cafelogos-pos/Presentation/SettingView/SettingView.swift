@@ -18,9 +18,12 @@ struct SettingView: View {
                     GeneralSettingView()                }, label: {
                         Text("一般")
                     })
-                Text("カスタマーディスプレイ")
-                Text("プリンター")
+                NavigationLink(destination: {
+                CustomerdisplaySetting()                }, label: {
+                    Text("カスタマーディスプレイ")
+                })
             }
+            .padding(.horizontal, 120)
             
         }
     }
