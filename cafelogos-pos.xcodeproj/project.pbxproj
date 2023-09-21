@@ -55,6 +55,7 @@
 		EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429812ABC2F7000AC1414 /* SettingView.swift */; };
 		EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */; };
 		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
+		EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		EB7429812ABC2F7000AC1414 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
 		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
+		EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerdisplaySetting.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -393,6 +395,7 @@
 				EB7429812ABC2F7000AC1414 /* SettingView.swift */,
 				EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */,
 				EB7429852ABC9F5300AC1414 /* GeneralSettings */,
+				EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
 				355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */,
+				EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
 				EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */,
