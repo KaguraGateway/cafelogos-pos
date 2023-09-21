@@ -52,6 +52,9 @@
 		35FDCD692A909A9D00652093 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD682A909A9D00652093 /* OrderTests.swift */; };
 		EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */; };
 		EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */; };
+		EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429812ABC2F7000AC1414 /* SettingView.swift */; };
+		EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */; };
+		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +123,9 @@
 		35FDCD682A909A9D00652093 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
 		EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubButton.swift; sourceTree = "<group>"; };
 		EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
+		EB7429812ABC2F7000AC1414 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
+		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -381,9 +387,28 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		EB74297F2ABC2F4800AC1414 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				EB7429812ABC2F7000AC1414 /* SettingView.swift */,
+				EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */,
+				EB7429852ABC9F5300AC1414 /* GeneralSettings */,
+			);
+			path = SettingView;
+			sourceTree = "<group>";
+		};
+		EB7429852ABC9F5300AC1414 /* GeneralSettings */ = {
+			isa = PBXGroup;
+			children = (
+				EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */,
+			);
+			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EB74297F2ABC2F4800AC1414 /* SettingView */,
 				355927692ABBF40A00AF7B0E /* PaymentSuccessView */,
 				3559275E2ABB3B4F00AF7B0E /* Components */,
 				355927552ABB3B4F00AF7B0E /* OrderInputView */,
@@ -549,13 +574,16 @@
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
 				351C18D02A9542F2005A966C /* OrderDto.swift in Sources */,
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
+				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
 				EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */,
+				EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */,
 				351C18D12A9542F2005A966C /* OrderInput.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
 				355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
+				EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */,
 				351C18D32A9542F2005A966C /* ProductQueryService.swift in Sources */,
 				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
 				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
