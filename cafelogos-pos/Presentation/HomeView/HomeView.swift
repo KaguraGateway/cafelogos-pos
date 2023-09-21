@@ -27,7 +27,7 @@ struct HomeView: View {
                     VStack(spacing: 20.0) {
                         HomeSubButton(title: "点検", subtitle: "", description: "", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
                         HomeSubButton(title: "精算", subtitle: "", description: "", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
-                        HomeSubButton(title: "設定", subtitle: "", description: "", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
+                        HomeSubButton(title: "設定", subtitle: "", description: "", destination: {SettingView()})
                         HomeSubButton(title: "トレーニング", subtitle: "オン・オフ切り替え", description: "", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
                     }
                 }
