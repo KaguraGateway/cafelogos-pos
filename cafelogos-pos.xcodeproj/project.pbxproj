@@ -56,6 +56,7 @@
 		EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */; };
 		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
 		EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */; };
+		EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298B2ABD4C4000AC1414 /* SettlementView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,7 @@
 		EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
 		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
 		EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerdisplaySetting.swift; sourceTree = "<group>"; };
+		EB74298B2ABD4C4000AC1414 /* SettlementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -408,9 +410,18 @@
 			path = GeneralSettings;
 			sourceTree = "<group>";
 		};
+		EB74298A2ABD4B7E00AC1414 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				EB74298B2ABD4C4000AC1414 /* SettlementView.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EB74298A2ABD4B7E00AC1414 /* Transactions */,
 				EB74297F2ABC2F4800AC1414 /* SettingView */,
 				355927692ABBF40A00AF7B0E /* PaymentSuccessView */,
 				3559275E2ABB3B4F00AF7B0E /* Components */,
@@ -571,6 +582,7 @@
 				3586BDE02A8F76B1009E346E /* OtherProduct.swift in Sources */,
 				35FDCD612A908F7300652093 /* Payment.swift in Sources */,
 				35FDCD632A9091CC00652093 /* Discount.swift in Sources */,
+				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
 				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
