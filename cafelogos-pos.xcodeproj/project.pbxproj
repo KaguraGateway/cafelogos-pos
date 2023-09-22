@@ -57,6 +57,7 @@
 		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
 		EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */; };
 		EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298B2ABD4C4000AC1414 /* SettlementView.swift */; };
+		EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
 		EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerdisplaySetting.swift; sourceTree = "<group>"; };
 		EB74298B2ABD4C4000AC1414 /* SettlementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementView.swift; sourceTree = "<group>"; };
+		EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTransactionView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				EB74298B2ABD4C4000AC1414 /* SettlementView.swift */,
+				EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */,
 				351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */,
 				351C18D52A9542F2005A966C /* DiscountDto.swift in Sources */,
+				EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */,
 				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
 				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
