@@ -33,31 +33,10 @@ struct SettlementView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: 0)
                         Spacer()
-                        
-                        NavigationLink(destination: {}){
-                            VStack(spacing: 0) {
-                                Text("精算完了")
-                                    .font(.largeTitle)
-                                    .fontWeight(.semibold)
-                                    .lineLimit(0)
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .clipped()
-                            .padding(.vertical, 20)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(Color.cyan)
-                            }
-                            .padding(.bottom)
-                        }
-                        .frame(width: geometry.size.width * 0.3)
-                        
-                        
-                        
+                        multi1Button(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                     }
                     .padding(.horizontal)
-                    
+                    .frame(width: geometry.size.width * 0.3)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -127,7 +106,7 @@ struct ChargeInputView: View {
             .padding(.vertical, 10)
             
             
-
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -138,10 +117,10 @@ struct DenominationForm: View {
     @State private var quantity: Int?
     var amount: Int? {
         if let quantity = quantity {
-                    return denomination * quantity
-                } else {
-                    return nil
-                }
+            return denomination * quantity
+        } else {
+            return nil
+        }
     }
     // @Bindingでいい感じにamountを渡してtotalAmountを出したかったんですが、私の気力不足で実現しませんでした
     
@@ -152,42 +131,42 @@ struct DenominationForm: View {
     
     var body: some View {
         
-
-            HStack(alignment: .center){
-                HStack(){
-                    Text("")
-                    Spacer()
-                    Text("\(denomination)円")
-
-                }
-                .frame(maxWidth: 100)
-                
-                
-                Spacer()
-                Text("×")
-                    .padding(.trailing)
-                TextField("0", value: $quantity, formatter: NumberFormatter())
-                    .multilineTextAlignment(.trailing)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(maxWidth: 180)
-                
         
-                Text("=")
-                HStack(){
-                    Spacer()
-                    Text("¥\(amount ?? 0)")
-
-                        
-                }
-                .frame(maxWidth: 100)
-                .padding(.trailing)
+        HStack(alignment: .center){
+            HStack(){
+                Text("")
+                Spacer()
+                Text("\(denomination)円")
+                
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: 100)
             
+            
+            Spacer()
+            Text("×")
+                .padding(.trailing)
+            TextField("0", value: $quantity, formatter: NumberFormatter())
+                .multilineTextAlignment(.trailing)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(maxWidth: 180)
+            
+            
+            Text("=")
+            HStack(){
+                Spacer()
+                Text("¥\(amount ?? 0)")
+                
+                
+            }
+            .frame(maxWidth: 100)
+            .padding(.trailing)
+        }
+        .frame(maxWidth: .infinity)
+        
         
         
         .padding(.vertical, 5)
-
+        
         .font(.title3)
         
     }
@@ -197,8 +176,8 @@ struct SettlementView_Previews: PreviewProvider {
     static var previews: some View {
         SettlementView()
             .previewInterfaceOrientation(.landscapeRight)
-//            .previewDevice("iPad (9th generation)")
-//            .previewDevice("iPad mini (6th generation)")
+        //            .previewDevice("iPad (9th generation)")
+        //            .previewDevice("iPad mini (6th generation)")
             .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }
