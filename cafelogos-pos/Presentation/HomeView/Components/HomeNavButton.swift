@@ -1,0 +1,74 @@
+//
+//  HomeNavButton.swift
+//  cafelogos-pos
+//
+//  Created by Owner on 2023/09/27.
+//
+
+import SwiftUI
+
+struct HomeNavButton<Destination>: View where Destination : View {
+    var title: String
+    var subtitle: String
+    var description: String
+    var destination: () -> Destination
+    var fg_color: Color
+    var bg_color: Color
+
+    init(title: String, subtitle: String, description: String, destination: @escaping () -> Destination, fg_color: Color, bg_color: Color) {
+        self.title = title
+        self.subtitle = subtitle
+        self.description = description
+        self.destination = destination
+        self.fg_color = fg_color
+        self.bg_color = bg_color
+    }
+    
+    var body: some View {
+        NavigationLink(destination: {
+            destination()
+        }, label: {
+            VStack(spacing: 0) {
+                Text(title)
+                    .font(.system(.largeTitle, weight: .semibold))
+                    .lineLimit(0)
+                Text(subtitle)
+                    .font(.title3)
+                    .lineLimit(2)
+                Text(description)
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .padding(.top, 10)
+            }
+            .foregroundColor(fg_color)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .padding(.horizontal, 30)
+            .padding(.vertical, 30)
+            .background {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(bg_color)
+            }
+        })
+    }
+}
+
+
+struct HomeNavButton_Previews: PreviewProvider {
+    static var previews: some View {
+        @State var serverConnection: Bool = true
+        @State var displayConnection: Bool = true
+        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム", content: {
+            Divider()
+//            HomeNavButton(title: "Title", subtitle: "Subtitle", description: "Description",, destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
+            HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill))
+            Spacer()
+            
+            
+        })
+        .previewInterfaceOrientation(.landscapeLeft)
+        .previewDevice("iPad Pro (11-inch) (4th generation)")
+    }
+}
+
