@@ -71,54 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42B7FFFF-445A-4719-B08D-B2F715027B21"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cafelogos-pos/Presentation/HomeView/HomeView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "42B7FFFF-445A-4719-B08D-B2F715027B21 - 7d487aa96453e0fe"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.SettingView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Divider, &lt;&lt;opaque return type of SwiftUI.View.clipped(antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Divider, &lt;&lt;opaque return type of SwiftUI.View.clipped(antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt; in cafelogos_pos.HomeView.body.getter : some"
-                  moduleName = "cafelogos-pos"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/owner/dev/cafelogos-pos/cafelogos-pos/Presentation/HomeView/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "42B7FFFF-445A-4719-B08D-B2F715027B21 - ab68ada89ec853a4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; cafelogos_pos.OrderInputView in closure #1 () -&gt; SwiftUI.TupleView&lt;(cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeMainButton&lt;cafelogos_pos.OrderInputView&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.SettingView&gt;, cafelogos_pos.HomeSubButton&lt;cafelogos_pos.OrderInputView&gt;)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Divider, &lt;&lt;opaque return type of SwiftUI.View.clipped(antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Divider, &lt;&lt;opaque return type of SwiftUI.View.clipped(antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt; in cafelogos_pos.HomeView.body.getter : some"
-                  moduleName = "cafelogos-pos"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/owner/dev/cafelogos-pos/cafelogos-pos/Presentation/HomeView/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D33D333A-70D6-40BB-A7D9-09F34824F5FA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
