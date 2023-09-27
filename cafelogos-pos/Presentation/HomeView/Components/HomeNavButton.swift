@@ -7,27 +7,25 @@
 
 import SwiftUI
 
-struct HomeNavButton<Destination>: View where Destination : View {
+struct HomeNavButton<Destination : View>: View{
     var title: String
     var subtitle: String
     var description: String
-    var destination: () -> Destination
+    var destination: Destination
     var fg_color: Color
     var bg_color: Color
 
-    init(title: String, subtitle: String, description: String, destination: @escaping () -> Destination, fg_color: Color, bg_color: Color) {
-        self.title = title
-        self.subtitle = subtitle
-        self.description = description
-        self.destination = destination
-        self.fg_color = fg_color
-        self.bg_color = bg_color
-    }
+//    init(title: String, subtitle: String, description: String, destination: Destination, fg_color: Color, bg_color: Color) {
+//        self.title = title
+//        self.subtitle = subtitle
+//        self.description = description
+//        self.destination = destination
+//        self.fg_color = fg_color
+//        self.bg_color = bg_color
+//    }
     
     var body: some View {
-        NavigationLink(destination: {
-            destination()
-        }, label: {
+        NavigationLink(destination: destination) {
             VStack(spacing: 0) {
                 Text(title)
                     .font(.system(.largeTitle, weight: .semibold))
@@ -50,7 +48,7 @@ struct HomeNavButton<Destination>: View where Destination : View {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(bg_color)
             }
-        })
+        }
     }
 }
 
@@ -62,7 +60,7 @@ struct HomeNavButton_Previews: PreviewProvider {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム", content: {
             Divider()
 //            HomeNavButton(title: "Title", subtitle: "Subtitle", description: "Description",, destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
-            HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill))
+            HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: SettingView(), fg_color: Color.primary, bg_color: Color(.systemFill))
             Spacer()
             
             

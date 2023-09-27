@@ -12,15 +12,15 @@ struct HomeView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
     let homeDestinations: [HomeDistination] = [
-        HomeDistination(title: "点検・精算", subTitle: "", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill)),
-        HomeDistination(title: "レジ開け", subTitle: "", description: "", destination: {StartTransactionView()}, fg_color: Color.primary, bg_color: Color(.systemFill)),
-        HomeDistination(title: "設定", subTitle: "", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill)),
-        HomeDistination(title: "トレーニング", subTitle: "オン・オフ切り替え", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill)),
+        HomeDistination(title: "点検・精算", subTitle: "", description: "", destination: SettlementView(), fg_color: Color.primary, bg_color: Color(.systemFill)),
+        HomeDistination(title: "レジ開け", subTitle: "", description: "", destination: StartTransactionView(), fg_color: Color.primary, bg_color: Color(.systemFill)),
+        HomeDistination(title: "設定", subTitle: "", description: "", destination: SettingView(), fg_color: Color.primary, bg_color: Color(.systemFill)),
+        HomeDistination(title: "トレーニング", subTitle: "オン・オフ切り替え", description: "", destination: SettingView(), fg_color: Color.primary, bg_color: Color(.systemFill)),
         ]
     let gridItems = [
-        GridItem(.flexible(),spacing: 20),
-        GridItem(.flexible(),spacing: 20),
-        GridItem(.flexible(),spacing: 20),
+        GridItem(.flexible(),spacing: 15),
+        GridItem(.flexible(),spacing: 15),
+//        GridItem(.flexible(),spacing: 15),
     ]
     
     var body: some View {
@@ -30,27 +30,25 @@ struct HomeView: View {
                 Divider()
                 // mainStack
                 GeometryReader {geometry in
-                    HStack(alignment: .top, spacing: 20) {
+                    HStack(alignment: .top, spacing: 15) {
                         // 左列
                         
-                        VStack(spacing: 20.0) {
-                                HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())}, fg_color: Color.primary, bg_color: Color(.systemFill))
+                        VStack(spacing: 15) {
+                                HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理", destination: SettingView(), fg_color: Color.primary, bg_color: Color(.systemFill))
                                     .frame(maxWidth: geometry.size.width * 0.3, maxHeight: geometry.size.height * 0.5)
-                                HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())}, fg_color: Color.primary, bg_color: Color(.systemFill))
+                                HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理", destination: SettingView(), fg_color: Color.primary, bg_color: Color(.systemFill))
                                     .frame(maxWidth: geometry.size.width * 0.3, maxHeight: geometry.size.height * 0.5)
                             }
                         
                         // 右列
-                        VStack(spacing: 20.0) {
-                                                    LazyVGrid(columns: gridItems) {
-                                                        ForEach(homeDestinations.indices, id: \.self) { index in
+                        VStack(spacing: 15) {
+                                                    LazyVGrid(columns: gridItems, spacing: 15) {
+                                                        ForEach(homeDestinations.indices,id: \.self) { index in
                                                             HomeNavButton(
                                                                 title: homeDestinations[index].title,
                                                                 subtitle: homeDestinations[index].subTitle,
                                                                 description: homeDestinations[index].description,
-                                                                destination: {
-                                                                    AnyView(homeDestinations[index].destination())
-                                                                },
+                                                                destination: homeDestinations[index].destination,
                                                                 fg_color: homeDestinations[index].fg_color,
                                                                 bg_color: homeDestinations[index].bg_color
                                                             )
@@ -68,11 +66,11 @@ struct HomeView: View {
     }
     
     
-    struct HomeDistination <Destination>: View where Destination : View {
+    struct HomeDistination <Destination : View>{
         var title: String
         var subTitle: String
         var description: String
-        var destination: () -> Destination
+        var destination: Destination
         var fg_color: Color
         var bg_color: Color
     }
