@@ -48,8 +48,9 @@ struct HomeNavButton<Destination>: View where Destination : View {
             .foregroundColor(fg_color)
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
-            .padding(.horizontal, 30)
-            .padding(.vertical, 30)
+            .padding(.horizontal, 0)
+            .padding(.vertical, 0
+)
             .background {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(bg_color)
@@ -59,17 +60,24 @@ struct HomeNavButton<Destination>: View where Destination : View {
 }
 
 struct HomeNavButton_Previews: PreviewProvider {
+    
     static var previews: some View {
         @State var serverConnection: Bool = true
         @State var displayConnection: Bool = true
+        
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム", content: {
-            Divider()
-//            HomeNavButton(title: "Title", subtitle: "Subtitle", description: "Description",, destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
             GeometryReader {geometry in
-                HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3), width: geometry.size.width * 0.3)
+            HStack(spacing:0 ){
+                
+                
+                    HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3), width: geometry.size.width * (1/3))
+                HomeNavButton(title: "Title", subtitle: "SubButton", description: "Description", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3), width: geometry.size.width * (1/3))
+               
+                    
+                }
             }
-            
-            Spacer()
+//            HomeNavButton(title: "Title", subtitle: "Subtitle", description: "Description",, destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())})
+
             
             
         })

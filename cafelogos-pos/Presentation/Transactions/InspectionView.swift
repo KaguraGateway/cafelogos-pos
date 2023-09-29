@@ -10,7 +10,7 @@ import SwiftUI
 struct InspectionView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var deviceName = ""
+    @State private var isTraining: Bool = false
     
     
     var body: some View {
@@ -24,7 +24,7 @@ struct InspectionView: View {
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
-                        TitleButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView()})
+                        TitleButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView(isTraining: isTraining)})
                             
                             .padding(.bottom)
                        

@@ -10,7 +10,7 @@ import SwiftUI
 struct StartTransactionView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var deviceName = ""
+    
     
     
     var body: some View {
@@ -24,8 +24,8 @@ struct StartTransactionView: View {
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
-                        multi2Button(title: "スキップする", subtitle: "(トレーニングモード)", bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView()})
-                        TitleButton(title: "次へ", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        multi2Button(title: "スキップする", subtitle: "(トレーニングモード)", bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView(isTraining: true)})
+                        TitleButton(title: "次へ", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: false)})
                             
                             .padding(.bottom)
                        
