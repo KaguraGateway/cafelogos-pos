@@ -33,7 +33,7 @@ struct SettlementView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: 0)
                         Spacer()
-                        multi1Button(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)
