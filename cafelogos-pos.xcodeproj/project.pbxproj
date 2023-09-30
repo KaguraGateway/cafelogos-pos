@@ -50,8 +50,12 @@
 		35FDCD632A9091CC00652093 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD622A9091CC00652093 /* Discount.swift */; };
 		35FDCD652A90936600652093 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD642A90936600652093 /* Order.swift */; };
 		35FDCD692A909A9D00652093 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD682A909A9D00652093 /* OrderTests.swift */; };
+		EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B672AC6C534009B6D50 /* TrainingStatus.swift */; };
+		EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B692AC6C59E009B6D50 /* TitleButton.swift */; };
+		EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */; };
 		EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */; };
 		EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */; };
+		EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3DC13D2AC331B100610578 /* HomeNavButton.swift */; };
 		EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429812ABC2F7000AC1414 /* SettingView.swift */; };
 		EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */; };
 		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
@@ -124,8 +128,12 @@
 		35FDCD622A9091CC00652093 /* Discount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		35FDCD642A90936600652093 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		35FDCD682A909A9D00652093 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
+		EB350B672AC6C534009B6D50 /* TrainingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatus.swift; sourceTree = "<group>"; };
+		EB350B692AC6C59E009B6D50 /* TitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
+		EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionView.swift; sourceTree = "<group>"; };
 		EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubButton.swift; sourceTree = "<group>"; };
 		EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
+		EB3DC13D2AC331B100610578 /* HomeNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavButton.swift; sourceTree = "<group>"; };
 		EB7429812ABC2F7000AC1414 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
 		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
@@ -333,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				3559275F2ABB3B4F00AF7B0E /* NavBarBody.swift */,
+				EB350B692AC6C59E009B6D50 /* TitleButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -389,6 +398,8 @@
 			children = (
 				EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */,
 				EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */,
+				EB3DC13D2AC331B100610578 /* HomeNavButton.swift */,
+				EB350B672AC6C534009B6D50 /* TrainingStatus.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -417,6 +428,7 @@
 			children = (
 				EB74298B2ABD4C4000AC1414 /* SettlementView.swift */,
 				EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */,
+				EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -590,6 +602,7 @@
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
 				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
+				EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */,
 				351C18D02A9542F2005A966C /* OrderDto.swift in Sources */,
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
@@ -607,7 +620,9 @@
 				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
 				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
 				351C18D22A9542F2005A966C /* OrderPayment.swift in Sources */,
+				EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */,
 				355927672ABB3B4F00AF7B0E /* NavBarBody.swift in Sources */,
+				EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */,
 				351C18D42A9542F2005A966C /* ProductDto.swift in Sources */,
 				3559276B2ABBF40A00AF7B0E /* PaymentSuccessView.swift in Sources */,
 				3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */,
@@ -618,6 +633,7 @@
 				351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */,
 				351C18D52A9542F2005A966C /* DiscountDto.swift in Sources */,
 				EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */,
+				EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */,
 				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
 				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,

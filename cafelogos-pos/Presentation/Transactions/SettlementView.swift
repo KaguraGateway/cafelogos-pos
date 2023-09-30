@@ -16,7 +16,7 @@ struct ChargenData {
 struct SettlementView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var deviceName = ""
+    @State private var isTraining: Bool = false
     
     
     var body: some View {
@@ -33,7 +33,7 @@ struct SettlementView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: 0)
                         Spacer()
-                        multi1Button(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: isTraining)})
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)
