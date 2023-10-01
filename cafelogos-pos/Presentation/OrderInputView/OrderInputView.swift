@@ -227,18 +227,24 @@ struct OrderInputView: View {
                     .frame(width: 300)
                     .clipped()
                     .padding(.horizontal, 10)
-                    Text("支払いへ進む")
-                        .frame(width: 200)
-                        .clipped()
-                        .padding(.vertical)
-                        .font(.system(.title2, weight: .bold))
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(.blue)
-                        }
-                        .lineLimit(0)
-                        .foregroundColor(.white)
-                        .padding(.leading, 70)
+                    NavigationLink {
+                        PaymentView()
+                    } label: {
+                        
+                        Text("支払いへ進む")
+                            .frame(width: 200)
+                            .clipped()
+                            .padding(.vertical)
+                            .font(.system(.title2, weight: .bold))
+                            .background {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(.blue)
+                            }
+                            .lineLimit(0)
+                            .foregroundColor(.white)
+                            .padding(.leading, 70)
+                    }
+                    
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
