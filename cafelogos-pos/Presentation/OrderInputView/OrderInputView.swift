@@ -33,33 +33,6 @@ struct OrderInputView: View {
                             ForEach(products.indexed(), id: \.index) { (index, category) in
                                 HStack(spacing: 0) {
                                     Text(category.name)
-                                        .font(.system(.title2, weight: .semibold))
-                                        .padding(.leading, 30)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .symbolRenderingMode(.monochrome)
-                                        .padding(.trailing, 20)
-                                }
-                                .frame(width: 160, height: 70)
-                                .clipped()
-                                .background {
-                                    VStack {
-                                        Divider()
-                                        Spacer()
-                                        Divider()
-                                    }
-                                }
-                                .background(Color(.tertiarySystemBackground))
-                                .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                    Divider()
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 0) {
-                            ForEach(products.indexed(), id: \.index) { (index, category) in
-                                HStack(spacing: 0) {
-                                    Text(category.name)
                                         .font(.system(.title, weight: .semibold))
                                         .foregroundColor(.primary)
                                     Spacer()
@@ -107,6 +80,7 @@ struct OrderInputView: View {
                         .padding(.horizontal, 10)
                         .frame(width: 600)
                         .clipped()
+                        .padding(.leading)
                     }
                     Divider()
                     ScrollView {
