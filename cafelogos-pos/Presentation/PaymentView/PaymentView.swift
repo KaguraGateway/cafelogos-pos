@@ -36,6 +36,7 @@ let gridItems = [
 struct PaymentView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
+    @State private var showingSuccessSheet = false
     
     var body: some View {
         NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "お支払い") {
@@ -165,7 +166,9 @@ struct PaymentView: View {
                         .foregroundColor(Color(.systemGray6))
                         .padding(.horizontal)
                     Spacer()
-                    Button(action: {}){
+                    Button(action: {
+                        self.showingSuccessSheet.toggle()
+                    }){
                         Text("¥5000で会計する")
                             .frame(width: 400)
                             .clipped()
@@ -177,7 +180,11 @@ struct PaymentView: View {
                             }
                             .lineLimit(0)
                             .foregroundColor(.white)
-                            .padding(.leading, 70)}
+                            .padding(.leading, 70)
+                    }
+                    .fullScreenCover(isPresented: $showingSuccessSheet) {
+                        PaymentSuccessView()
+                    }
                     
                 }
                 .frame(maxWidth: .infinity)
