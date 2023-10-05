@@ -17,11 +17,13 @@ struct OrderInputView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
+    
     public init(productQueryService: ProductQueryService, discountRepository: DiscountRepository) {
         let usecase = OrderInputUsecase(productQueryService: productQueryService, discountRepository: discountRepository)
         _usecase = State(initialValue: usecase)
         _order = State(initialValue: usecase.getOrder())
     }
+
     
     var body: some View {
         NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
@@ -258,6 +260,16 @@ struct OrderInputView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             .background(Color(.secondarySystemBackground))
+            .navigationBarBackButtonHidden(true)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink{
+                        HomeView(isTraining: false)
+                    } label:{
+                        Text("ホームへ戻る")
+                    }
+                }
+            }
             .onAppear(perform: {
                 products = usecase.getProducts()
                 discounts = usecase.getDiscounts()
@@ -333,3 +345,4 @@ struct OrderInputView_Previews: PreviewProvider {
             .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }
+

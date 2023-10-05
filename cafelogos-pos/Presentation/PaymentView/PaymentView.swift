@@ -39,7 +39,7 @@ struct PaymentView: View {
     @State private var showingSuccessSheet = false
     
     var body: some View {
-        NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "お支払い") {
+        NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "支払い") {
             VStack(spacing: 0){
                 Divider()
                 // ここから

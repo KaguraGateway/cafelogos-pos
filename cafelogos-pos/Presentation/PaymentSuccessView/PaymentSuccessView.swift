@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PaymentSuccessView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack() {
             VStack(spacing:0){
@@ -129,7 +130,7 @@ struct PaymentSuccessView: View {
                             }
                         }
                         .frame(width: geometry.size.width * 0.7)
-                        
+
                     
                     }
                     .padding(.bottom, 130)
@@ -142,6 +143,16 @@ struct PaymentSuccessView: View {
             .navigationTitle("お支払い完了")
             .navigationBarTitleDisplayMode(.inline)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    HStack(spacing: 10) {
+                        Button("支払い画面に戻る") {
+                            dismiss()
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }
