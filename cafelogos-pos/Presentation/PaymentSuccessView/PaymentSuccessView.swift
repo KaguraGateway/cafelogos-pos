@@ -111,8 +111,9 @@ struct PaymentSuccessView: View {
                         Text("L-101")
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
-                        
-                        Button(action: {}){
+                        NavigationLink{
+                            OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())
+                        } label:{
                             VStack(spacing: 0) {
                                 Text("注文入力・会計")
                                     .font(.system(.largeTitle, weight: .semibold))
@@ -126,7 +127,6 @@ struct PaymentSuccessView: View {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                                     .fill(Color.cyan)
                             }
-                        
                         }
                         .frame(width: geometry.size.width * 0.7)
                         

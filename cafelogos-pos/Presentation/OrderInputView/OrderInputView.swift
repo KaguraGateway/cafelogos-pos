@@ -230,7 +230,6 @@ struct OrderInputView: View {
                     NavigationLink {
                         PaymentView()
                     } label: {
-                        
                         Text("支払いへ進む")
                             .frame(width: 200)
                             .clipped()

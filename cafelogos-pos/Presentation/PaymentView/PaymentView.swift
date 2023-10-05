@@ -239,11 +239,12 @@ struct PaymentView: View {
         }
     }
 
-    struct PaymentView_Previews: PreviewProvider {
-        static var previews: some View {
-            PaymentView()
-                .previewInterfaceOrientation(.landscapeRight)
-                .previewDevice("iPad Pro (11-inch) (4th generation)")
-        }
+
+}
+struct PaymentView_Previews: PreviewProvider {
+    static var previews: some View {
+        PaymentView()
+            .previewInterfaceOrientation(.landscapeRight)
+            .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }
