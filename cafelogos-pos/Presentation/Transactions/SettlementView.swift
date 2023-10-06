@@ -18,17 +18,7 @@ struct SettlementView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var isTraining: Bool = false
     
-    @State var denominations = Denominations(denominations: [
-        Denomination(amount: 10000, quantity: 5), // 50000yen
-        Denomination(amount: 5000, quantity: 2), // 10000yen
-        Denomination(amount: 1000, quantity: 10), // 10000yen
-        Denomination(amount: 500, quantity: 20), // 10000yen
-        Denomination(amount: 100, quantity: 50), // 5000yen
-        Denomination(amount: 50, quantity: 50), // 2500yen
-        Denomination(amount: 10, quantity: 50), // 500yen
-        Denomination(amount: 5, quantity: 50), // 250yen
-        Denomination(amount: 1, quantity: 50) // 50yen
-    ])
+    @State var denominations = Denominations()
     
     
     var body: some View {
@@ -41,7 +31,7 @@ struct SettlementView: View {
                         ChargeInfo(title: "あるべき釣り銭(A)", amount: 0)
                             .padding(.bottom)
                             .padding(.top, 50)
-                        ChargeInfo(title: "現在の釣り銭(B)", amount: 0)
+                        ChargeInfo(title: "現在の釣り銭(B)", amount: Int(denominations.total()))
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: 0)
                         Spacer()
@@ -57,8 +47,8 @@ struct SettlementView: View {
 }
 
 struct ChargeInfo:View {
-    @State private var title: String
-    @State private var amount: Int
+    var title: String
+    var amount: Int
     
     init(title: String, amount: Int) {
         self.title = title
@@ -91,19 +81,10 @@ struct ChargeInputView: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 ){
-                    DenominationForm(denomination: 10000, quantity: 0)
-                    DenominationForm(denomination: 5000, quantity: 0)
-                    DenominationForm(denomination: 2000, quantity: 0)
-                    DenominationForm(denomination: 1000, quantity: 0)
-                    DenominationForm(denomination: 500, quantity: 0)
-                    DenominationForm(denomination: 100, quantity: 0)
-                    DenominationForm(denomination: 50, quantity: 0)
-                    DenominationForm(denomination: 10, quantity: 0)
-                    DenominationForm(denomination: 5, quantity: 0)
-                    DenominationForm(denomination: 1, quantity: 0)
+                    ForEach(denominations.denominations.indices, id: \.self) { index in
+                        DenominationForm(denomination: self.$denominations.denominations[index])
+                    }
                 }
-                
-                
             }
             Divider()
             HStack(){
@@ -111,7 +92,7 @@ struct ChargeInputView: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("¥0")
+                Text("¥\(denominations.total())")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
             }
@@ -134,7 +115,7 @@ struct DenominationForm: View {
             HStack(){
                 Text("")
                 Spacer()
-                Text("\(denomination.total())円")
+                Text("\(denomination.amount)円")
                 
             }
             .frame(maxWidth: 100)
@@ -152,7 +133,7 @@ struct DenominationForm: View {
             Text("=")
             HStack(){
                 Spacer()
-                Text("¥\(denomination.amount)")
+                Text("¥\(denomination.total())")
                 
                 
             }

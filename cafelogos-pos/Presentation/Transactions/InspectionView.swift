@@ -12,15 +12,16 @@ struct InspectionView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var isTraining: Bool = false
     
+    @State var denominations = Denominations()
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "点検"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView()
+                    ChargeInputView(denominations: $denominations)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "釣り銭準備金", amount: 0)
+                        ChargeInfo(title: "釣り銭準備金", amount: Int(denominations.total()))
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
