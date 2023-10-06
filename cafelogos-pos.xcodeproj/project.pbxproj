@@ -53,8 +53,6 @@
 		EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B672AC6C534009B6D50 /* TrainingStatus.swift */; };
 		EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B692AC6C59E009B6D50 /* TitleButton.swift */; };
 		EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */; };
-		EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */; };
-		EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */; };
 		EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3DC13D2AC331B100610578 /* HomeNavButton.swift */; };
 		EB3F2D262ACE832700FF035A /* ChooseOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */; };
 		EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429812ABC2F7000AC1414 /* SettingView.swift */; };
@@ -132,8 +130,6 @@
 		EB350B672AC6C534009B6D50 /* TrainingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatus.swift; sourceTree = "<group>"; };
 		EB350B692AC6C59E009B6D50 /* TitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
 		EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionView.swift; sourceTree = "<group>"; };
-		EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubButton.swift; sourceTree = "<group>"; };
-		EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
 		EB3DC13D2AC331B100610578 /* HomeNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavButton.swift; sourceTree = "<group>"; };
 		EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderView.swift; sourceTree = "<group>"; };
 		EB7429812ABC2F7000AC1414 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -399,8 +395,6 @@
 		EB38B4652A951E87003BFFA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */,
-				EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */,
 				EB3DC13D2AC331B100610578 /* HomeNavButton.swift */,
 				EB350B672AC6C534009B6D50 /* TrainingStatus.swift */,
 			);
@@ -605,13 +599,11 @@
 				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
-				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
 				EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */,
 				351C18D02A9542F2005A966C /* OrderDto.swift in Sources */,
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
-				EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */,
 				EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */,
 				351C18D12A9542F2005A966C /* OrderInput.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
