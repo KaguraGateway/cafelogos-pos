@@ -13,8 +13,6 @@
 		351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18C02A9542E3005A966C /* ProductQueryServiceMock.swift */; };
 		351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18C22A9542E3005A966C /* DiscountRepositoryMock.swift */; };
 		351C18D02A9542F2005A966C /* OrderDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18C82A9542F2005A966C /* OrderDto.swift */; };
-		351C18D12A9542F2005A966C /* OrderInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18C92A9542F2005A966C /* OrderInput.swift */; };
-		351C18D22A9542F2005A966C /* OrderPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18CA2A9542F2005A966C /* OrderPayment.swift */; };
 		351C18D32A9542F2005A966C /* ProductQueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18CC2A9542F2005A966C /* ProductQueryService.swift */; };
 		351C18D42A9542F2005A966C /* ProductDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18CD2A9542F2005A966C /* ProductDto.swift */; };
 		351C18D52A9542F2005A966C /* DiscountDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C18CF2A9542F2005A966C /* DiscountDto.swift */; };
@@ -43,10 +41,19 @@
 		3564C3D42AD0111F00F84F42 /* OrderPaymentDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */; };
 		3564C3D62AD011CD00F84F42 /* DiscountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D52AD011CD00F84F42 /* DiscountDao.swift */; };
 		3564C3D82AD0125600F84F42 /* OrderDiscountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */; };
-		3564C3DA2AD0129700F84F42 /* ConfigDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D92AD0129700F84F42 /* ConfigDao.swift */; };
 		3564C3DC2AD012C000F84F42 /* DenominationDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3DB2AD012C000F84F42 /* DenominationDao.swift */; };
 		3564C3DF2AD0199C00F84F42 /* ULID in Frameworks */ = {isa = PBXBuildFile; productRef = 3564C3DE2AD0199C00F84F42 /* ULID */; };
-		3564C3E12AD019D900F84F42 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3E02AD019D900F84F42 /* Config.swift */; };
+		3564C3E32AD01A7F00F84F42 /* OrderDiscount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3E22AD01A7F00F84F42 /* OrderDiscount.swift */; };
+		3564C3E52AD01BED00F84F42 /* OrderInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3E42AD01BED00F84F42 /* OrderInputViewModel.swift */; };
+		3564C3E82AD01CD400F84F42 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 3564C3E72AD01CD400F84F42 /* Dependencies */; };
+		3564C3EB2AD0212700F84F42 /* DenominationRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3EA2AD0212700F84F42 /* DenominationRealm.swift */; };
+		3564C3ED2AD0518500F84F42 /* StartTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3EC2AD0518500F84F42 /* StartTransactionViewModel.swift */; };
+		3564C3F12AD052F600F84F42 /* StartCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3F02AD052F600F84F42 /* StartCacher.swift */; };
+		3564C3F32AD053C800F84F42 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3F22AD053C800F84F42 /* DI.swift */; };
+		3564C3F52AD059EB00F84F42 /* SettlementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3F42AD059EB00F84F42 /* SettlementViewModel.swift */; };
+		3564C3F72AD05AAD00F84F42 /* GetDenominations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3F62AD05AAD00F84F42 /* GetDenominations.swift */; };
+		3564C3F92AD05DD600F84F42 /* Settle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3F82AD05DD600F84F42 /* Settle.swift */; };
+		3564C3FB2AD062D000F84F42 /* InspectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3FA2AD062D000F84F42 /* InspectionViewModel.swift */; };
 		3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDD92A8F531F009E346E /* CoffeeProduct.swift */; };
 		3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDDB2A8F716E009E346E /* CoffeeBean.swift */; };
 		3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDDD2A8F7494009E346E /* CoffeeHowToBrew.swift */; };
@@ -107,8 +114,6 @@
 		351C18C02A9542E3005A966C /* ProductQueryServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductQueryServiceMock.swift; sourceTree = "<group>"; };
 		351C18C22A9542E3005A966C /* DiscountRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountRepositoryMock.swift; sourceTree = "<group>"; };
 		351C18C82A9542F2005A966C /* OrderDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDto.swift; sourceTree = "<group>"; };
-		351C18C92A9542F2005A966C /* OrderInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInput.swift; sourceTree = "<group>"; };
-		351C18CA2A9542F2005A966C /* OrderPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderPayment.swift; sourceTree = "<group>"; };
 		351C18CC2A9542F2005A966C /* ProductQueryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductQueryService.swift; sourceTree = "<group>"; };
 		351C18CD2A9542F2005A966C /* ProductDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDto.swift; sourceTree = "<group>"; };
 		351C18CF2A9542F2005A966C /* DiscountDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDto.swift; sourceTree = "<group>"; };
@@ -138,9 +143,17 @@
 		3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPaymentDao.swift; sourceTree = "<group>"; };
 		3564C3D52AD011CD00F84F42 /* DiscountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountDao.swift; sourceTree = "<group>"; };
 		3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDiscountDao.swift; sourceTree = "<group>"; };
-		3564C3D92AD0129700F84F42 /* ConfigDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigDao.swift; sourceTree = "<group>"; };
 		3564C3DB2AD012C000F84F42 /* DenominationDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenominationDao.swift; sourceTree = "<group>"; };
-		3564C3E02AD019D900F84F42 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		3564C3E22AD01A7F00F84F42 /* OrderDiscount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDiscount.swift; sourceTree = "<group>"; };
+		3564C3E42AD01BED00F84F42 /* OrderInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInputViewModel.swift; sourceTree = "<group>"; };
+		3564C3EA2AD0212700F84F42 /* DenominationRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenominationRealm.swift; sourceTree = "<group>"; };
+		3564C3EC2AD0518500F84F42 /* StartTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTransactionViewModel.swift; sourceTree = "<group>"; };
+		3564C3F02AD052F600F84F42 /* StartCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCacher.swift; sourceTree = "<group>"; };
+		3564C3F22AD053C800F84F42 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
+		3564C3F42AD059EB00F84F42 /* SettlementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementViewModel.swift; sourceTree = "<group>"; };
+		3564C3F62AD05AAD00F84F42 /* GetDenominations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDenominations.swift; sourceTree = "<group>"; };
+		3564C3F82AD05DD600F84F42 /* Settle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settle.swift; sourceTree = "<group>"; };
+		3564C3FA2AD062D000F84F42 /* InspectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionViewModel.swift; sourceTree = "<group>"; };
 		3586BDD92A8F531F009E346E /* CoffeeProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeProduct.swift; sourceTree = "<group>"; };
 		3586BDDB2A8F716E009E346E /* CoffeeBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBean.swift; sourceTree = "<group>"; };
 		3586BDDD2A8F7494009E346E /* CoffeeHowToBrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeHowToBrew.swift; sourceTree = "<group>"; };
@@ -181,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3564C3E82AD01CD400F84F42 /* Dependencies in Frameworks */,
 				3564C3C42AD0099B00F84F42 /* RealmSwift in Frameworks */,
 				3564C3C22AD0099B00F84F42 /* Realm in Frameworks */,
 				3564C3DF2AD0199C00F84F42 /* ULID in Frameworks */,
@@ -253,6 +267,7 @@
 		351C18C62A9542F2005A966C /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				3564C3EF2AD052B000F84F42 /* Denomination */,
 				351C18C72A9542F2005A966C /* Order */,
 				351C18CB2A9542F2005A966C /* Product */,
 				351C18CE2A9542F2005A966C /* Discount */,
@@ -264,8 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				351C18C82A9542F2005A966C /* OrderDto.swift */,
-				351C18C92A9542F2005A966C /* OrderInput.swift */,
-				351C18CA2A9542F2005A966C /* OrderPayment.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -291,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				35464AE62AD003A70072720A /* Dao */,
+				3564C3EA2AD0212700F84F42 /* DenominationRealm.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -309,7 +323,6 @@
 				3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */,
 				3564C3D52AD011CD00F84F42 /* DiscountDao.swift */,
 				3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */,
-				3564C3D92AD0129700F84F42 /* ConfigDao.swift */,
 				3564C3DB2AD012C000F84F42 /* DenominationDao.swift */,
 			);
 			path = Dao;
@@ -346,6 +359,7 @@
 				EBD8ACF92A8A23D000FC20F1 /* Presentation */,
 				3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */,
 				3557C7192A826A1200C72F17 /* ContentView.swift */,
+				3564C3F22AD053C800F84F42 /* DI.swift */,
 				3557C71B2A826A1300C72F17 /* Assets.xcassets */,
 				3557C71D2A826A1300C72F17 /* Preview Content */,
 			);
@@ -382,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				355927562ABB3B4F00AF7B0E /* OrderInputView.swift */,
+				3564C3E42AD01BED00F84F42 /* OrderInputViewModel.swift */,
 				EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */,
 			);
 			path = OrderInputView;
@@ -420,6 +435,16 @@
 			path = PaymentSuccessView;
 			sourceTree = "<group>";
 		};
+		3564C3EF2AD052B000F84F42 /* Denomination */ = {
+			isa = PBXGroup;
+			children = (
+				3564C3F02AD052F600F84F42 /* StartCacher.swift */,
+				3564C3F62AD05AAD00F84F42 /* GetDenominations.swift */,
+				3564C3F82AD05DD600F84F42 /* Settle.swift */,
+			);
+			path = Denomination;
+			sourceTree = "<group>";
+		};
 		3586BDD62A8F502E009E346E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,7 +463,7 @@
 				35FDCD602A908F7300652093 /* OrderPayment.swift */,
 				35FDCD622A9091CC00652093 /* Discount.swift */,
 				35FDCD642A90936600652093 /* Order.swift */,
-				3564C3E02AD019D900F84F42 /* Config.swift */,
+				3564C3E22AD01A7F00F84F42 /* OrderDiscount.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -486,8 +511,11 @@
 			isa = PBXGroup;
 			children = (
 				EB74298B2ABD4C4000AC1414 /* SettlementView.swift */,
+				3564C3F42AD059EB00F84F42 /* SettlementViewModel.swift */,
 				EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */,
+				3564C3EC2AD0518500F84F42 /* StartTransactionViewModel.swift */,
 				EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */,
+				3564C3FA2AD062D000F84F42 /* InspectionViewModel.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -537,6 +565,7 @@
 				3564C3C12AD0099B00F84F42 /* Realm */,
 				3564C3C32AD0099B00F84F42 /* RealmSwift */,
 				3564C3DE2AD0199C00F84F42 /* ULID */,
+				3564C3E72AD01CD400F84F42 /* Dependencies */,
 			);
 			productName = "cafelogos-pos";
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
@@ -615,6 +644,7 @@
 				35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				35464AE42AD003660072720A /* XCRemoteSwiftPackageReference "realm-swift" */,
 				3564C3DD2AD0199C00F84F42 /* XCRemoteSwiftPackageReference "ULID.swift" */,
+				3564C3E62AD01CD400F84F42 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 			);
 			productRefGroup = 3557C7152A826A1200C72F17 /* Products */;
 			projectDirPath = "";
@@ -661,11 +691,13 @@
 			files = (
 				EB3F2D262ACE832700FF035A /* ChooseOrderView.swift in Sources */,
 				3586BDE02A8F76B1009E346E /* OtherProduct.swift in Sources */,
+				3564C3E32AD01A7F00F84F42 /* OrderDiscount.swift in Sources */,
 				3564C3D62AD011CD00F84F42 /* DiscountDao.swift in Sources */,
 				35464AE82AD004200072720A /* ProductDao.swift in Sources */,
 				35FDCD612A908F7300652093 /* OrderPayment.swift in Sources */,
 				35FDCD632A9091CC00652093 /* Discount.swift in Sources */,
 				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
+				3564C3F32AD053C800F84F42 /* DI.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
 				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
@@ -678,22 +710,25 @@
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
 				3564C3D02AD00FEA00F84F42 /* OrderTicketDao.swift in Sources */,
+				3564C3F12AD052F600F84F42 /* StartCacher.swift in Sources */,
 				EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */,
 				EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */,
-				351C18D12A9542F2005A966C /* OrderInput.swift in Sources */,
 				3564C3C82AD00CF000F84F42 /* CoffeeBeanDao.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
 				355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */,
+				3564C3FB2AD062D000F84F42 /* InspectionViewModel.swift in Sources */,
 				EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */,
+				3564C3F72AD05AAD00F84F42 /* GetDenominations.swift in Sources */,
+				3564C3F92AD05DD600F84F42 /* Settle.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3564C3C62AD00CAC00F84F42 /* ProductCategoryDao.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
+				3564C3EB2AD0212700F84F42 /* DenominationRealm.swift in Sources */,
 				EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */,
 				351C18D32A9542F2005A966C /* ProductQueryService.swift in Sources */,
 				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
 				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
-				351C18D22A9542F2005A966C /* OrderPayment.swift in Sources */,
 				EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */,
 				355927672ABB3B4F00AF7B0E /* NavBarBody.swift in Sources */,
 				EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */,
@@ -706,16 +741,17 @@
 				3564C3CC2AD00E9100F84F42 /* StockDao.swift in Sources */,
 				355927622ABB3B4F00AF7B0E /* OrderInputView.swift in Sources */,
 				3586BDEA2A8F7D43009E346E /* CartItem.swift in Sources */,
+				3564C3E52AD01BED00F84F42 /* OrderInputViewModel.swift in Sources */,
 				3564C3DC2AD012C000F84F42 /* DenominationDao.swift in Sources */,
 				3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */,
 				351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */,
 				351C18D52A9542F2005A966C /* DiscountDto.swift in Sources */,
-				3564C3E12AD019D900F84F42 /* Config.swift in Sources */,
 				EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */,
 				EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */,
-				3564C3DA2AD0129700F84F42 /* ConfigDao.swift in Sources */,
+				3564C3ED2AD0518500F84F42 /* StartTransactionViewModel.swift in Sources */,
 				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
 				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
+				3564C3F52AD059EB00F84F42 /* SettlementViewModel.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1073,6 +1109,14 @@
 				revision = 3ac471a5a86d869f6f2c78069b064d27edf960d4;
 			};
 		};
+		3564C3E62AD01CD400F84F42 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -1098,6 +1142,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3564C3DD2AD0199C00F84F42 /* XCRemoteSwiftPackageReference "ULID.swift" */;
 			productName = ULID;
+		};
+		3564C3E72AD01CD400F84F42 /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3564C3E62AD01CD400F84F42 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
 		};
 		35FDCD5C2A8FE1E700652093 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
