@@ -23,7 +23,7 @@ struct GeneralSettingView: View {
                 Form {
                     Section {
                         NavigationLink(destination: {
-                            DeviceNameInputViiew()                }, label: {
+                            DeviceNameInputViiew(deviceName: $deviceName)                }, label: {
                                 HStack(alignment: .center){
                                     Text("端末名")
                                     Spacer()
