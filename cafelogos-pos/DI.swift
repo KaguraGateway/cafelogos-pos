@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import Dependencies
+
+private enum DenominationRepositoryKey: DependencyKey {
+    static let liveValue: any DenominationRepository = DenominationRealm()
+}
+
+extension DependencyValues {
+    var denominationRepository: any DenominationRepository {
+        get { self[DenominationRepositoryKey.self] }
+        set { self[DenominationRepositoryKey.self] = newValue }
+    }
+}
