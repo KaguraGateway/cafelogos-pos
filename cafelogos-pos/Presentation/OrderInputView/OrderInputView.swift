@@ -17,44 +17,19 @@ struct OrderInputView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
+    
     public init(productQueryService: ProductQueryService, discountRepository: DiscountRepository) {
         let usecase = OrderInputUsecase(productQueryService: productQueryService, discountRepository: discountRepository)
         _usecase = State(initialValue: usecase)
         _order = State(initialValue: usecase.getOrder())
     }
+
     
     var body: some View {
         NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
             VStack(spacing: 0) {
                 Divider()
                 HStack(alignment: .top, spacing: 0) {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 0) {
-                            ForEach(products.indexed(), id: \.index) { (index, category) in
-                                HStack(spacing: 0) {
-                                    Text(category.name)
-                                        .font(.system(.title2, weight: .semibold))
-                                        .padding(.leading, 30)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .symbolRenderingMode(.monochrome)
-                                        .padding(.trailing, 20)
-                                }
-                                .frame(width: 160, height: 70)
-                                .clipped()
-                                .background {
-                                    VStack {
-                                        Divider()
-                                        Spacer()
-                                        Divider()
-                                    }
-                                }
-                                .background(Color(.tertiarySystemBackground))
-                                .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                    Divider()
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
                             ForEach(products.indexed(), id: \.index) { (index, category) in
@@ -107,6 +82,7 @@ struct OrderInputView: View {
                         .padding(.horizontal, 10)
                         .frame(width: 600)
                         .clipped()
+                        .padding(.leading)
                     }
                     Divider()
                     ScrollView {
@@ -253,18 +229,23 @@ struct OrderInputView: View {
                     .frame(width: 300)
                     .clipped()
                     .padding(.horizontal, 10)
-                    Text("支払いへ進む")
-                        .frame(width: 200)
-                        .clipped()
-                        .padding(.vertical)
-                        .font(.system(.title2, weight: .bold))
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(.blue)
-                        }
-                        .lineLimit(0)
-                        .foregroundColor(.white)
-                        .padding(.leading, 70)
+                    NavigationLink {
+                        PaymentView()
+                    } label: {
+                        Text("支払いへ進む")
+                            .frame(width: 200)
+                            .clipped()
+                            .padding(.vertical)
+                            .font(.system(.title2, weight: .bold))
+                            .background {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(.blue)
+                            }
+                            .lineLimit(0)
+                            .foregroundColor(.white)
+                            .padding(.leading, 70)
+                    }
+                    
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 15)
@@ -279,6 +260,16 @@ struct OrderInputView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             .background(Color(.secondarySystemBackground))
+            .navigationBarBackButtonHidden(true)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink{
+                        HomeView(isTraining: false)
+                    } label:{
+                        Text("ホームへ戻る")
+                    }
+                }
+            }
             .onAppear(perform: {
                 products = usecase.getProducts()
                 discounts = usecase.getDiscounts()
@@ -354,3 +345,4 @@ struct OrderInputView_Previews: PreviewProvider {
             .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }
+
