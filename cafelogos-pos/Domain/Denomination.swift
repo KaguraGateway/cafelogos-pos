@@ -33,3 +33,9 @@ public struct Denomination: Codable {
         self.quantity = newValue
     }
 }
+
+protocol DenominationRepository {
+    func findAll() -> Denominations
+    func findById(id: String) -> Denomination?
+    func save(denomination: Denomination)
+}

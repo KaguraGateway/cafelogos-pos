@@ -19,7 +19,7 @@ public struct Discount {
     public let createdAt: Date
     public let updatedAt: Date
     public let syncAt: Date
-    
+
     public init(name: String, id: String, discountType: DiscountType, discountPrice: Int, createdAt: Date, updatedAt: Date, syncAt: Date) {
         self.name = name
         self.id = id

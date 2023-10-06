@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ULID
 
 public enum PaymentType: Int {
     case cash = 1
@@ -45,7 +46,7 @@ public struct OrderPayment {
     }
     
     public init(type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64) {
-        self.init(id: UUID().uuidString, type: type, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
+        self.init(id: ULID().ulidString, type: type, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
     }
     
     public init(id: String, type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
