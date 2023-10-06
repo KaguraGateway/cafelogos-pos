@@ -18,12 +18,24 @@ struct SettlementView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var isTraining: Bool = false
     
+    @State var denominations = Denominations(denominations: [
+        Denomination(amount: 10000, quantity: 5), // 50000yen
+        Denomination(amount: 5000, quantity: 2), // 10000yen
+        Denomination(amount: 1000, quantity: 10), // 10000yen
+        Denomination(amount: 500, quantity: 20), // 10000yen
+        Denomination(amount: 100, quantity: 50), // 5000yen
+        Denomination(amount: 50, quantity: 50), // 2500yen
+        Denomination(amount: 10, quantity: 50), // 500yen
+        Denomination(amount: 5, quantity: 50), // 250yen
+        Denomination(amount: 1, quantity: 50) // 50yen
+    ])
+    
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "精算"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView()
+                    ChargeInputView(denominations: $denominations)
                     Divider()
                     VStack(alignment: .leading){
                         ChargeInfo(title: "あるべき釣り銭(A)", amount: 0)
@@ -68,6 +80,8 @@ struct ChargeInfo:View {
 }
 
 struct ChargeInputView: View {
+    @Binding var denominations: Denominations
+    
     var body: some View {
         VStack(spacing: 0){
             
@@ -113,30 +127,14 @@ struct ChargeInputView: View {
 }
 
 struct DenominationForm: View {
-    var denomination: Int
-    @State private var quantity: Int?
-    var amount: Int? {
-        if let quantity = quantity {
-            return denomination * quantity
-        } else {
-            return nil
-        }
-    }
-    // @Bindingでいい感じにamountを渡してtotalAmountを出したかったんですが、私の気力不足で実現しませんでした
-    
-    init(denomination: Int, quantity: Int) {
-        self.denomination = denomination
-        self._quantity = State(initialValue: quantity)
-    }
+    @Binding var denomination: Denomination
     
     var body: some View {
-        
-        
         HStack(alignment: .center){
             HStack(){
                 Text("")
                 Spacer()
-                Text("\(denomination)円")
+                Text("\(denomination.total())円")
                 
             }
             .frame(maxWidth: 100)
@@ -145,7 +143,7 @@ struct DenominationForm: View {
             Spacer()
             Text("×")
                 .padding(.trailing)
-            TextField("0", value: $quantity, formatter: NumberFormatter())
+            TextField("0", value: Binding(get: { denomination.quantity }, set: { denomination.setQuantity(newValue: $0) }), formatter: NumberFormatter())
                 .multilineTextAlignment(.trailing)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(maxWidth: 180)
@@ -154,7 +152,7 @@ struct DenominationForm: View {
             Text("=")
             HStack(){
                 Spacer()
-                Text("¥\(amount ?? 0)")
+                Text("¥\(denomination.amount)")
                 
                 
             }

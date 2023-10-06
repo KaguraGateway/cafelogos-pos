@@ -25,15 +25,15 @@ final class DenominationsTests: XCTestCase {
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
         let denomi = Denominations(denominations: [
-            Denomination(denomination: 10000, amount: 5), // 50000yen
-            Denomination(denomination: 5000, amount: 2), // 10000yen
-            Denomination(denomination: 1000, amount: 10), // 10000yen
-            Denomination(denomination: 500, amount: 20), // 10000yen
-            Denomination(denomination: 100, amount: 50), // 5000yen
-            Denomination(denomination: 50, amount: 50), // 2500yen
-            Denomination(denomination: 10, amount: 50), // 500yen
-            Denomination(denomination: 5, amount: 50), // 250yen
-            Denomination(denomination: 1, amount: 50) // 50yen
+            Denomination(amount: 10000, quantity: 5), // 50000yen
+            Denomination(amount: 5000, quantity: 2), // 10000yen
+            Denomination(amount: 1000, quantity: 10), // 10000yen
+            Denomination(amount: 500, quantity: 20), // 10000yen
+            Denomination(amount: 100, quantity: 50), // 5000yen
+            Denomination(amount: 50, quantity: 50), // 2500yen
+            Denomination(amount: 10, quantity: 50), // 500yen
+            Denomination(amount: 5, quantity: 50), // 250yen
+            Denomination(amount: 1, quantity: 50) // 50yen
         ])
         let result = denomi.total()
         XCTAssertEqual(result, 88300)
