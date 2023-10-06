@@ -11,9 +11,8 @@ public struct Order {
     public let id: String
     public var cart: Cart
     public var discounts: Array<Discount>
-    private (set) public var payment: Payment?
-    private (set) public var orderAt: TimeZone?
-    private (set) public var callNumber: UInt?
+    private (set) public var payment: OrderPayment?
+    private (set) public var orderAt: Date?
     
     public var totalAmount: UInt64 {
         get {
@@ -27,27 +26,22 @@ public struct Order {
     }
     
     public init() {
-        self.init(cart: Cart(), discounts: [], payment: nil, orderAt: nil, callNumber: nil)
+        self.init(cart: Cart(), discounts: [], payment: nil)
     }
     
-    public init(cart: Cart, discounts: Array<Discount>, payment: Payment?, orderAt: TimeZone?, callNumber: UInt?) {
-        self.init(id: UUID().uuidString, cart: cart, discounts: discounts, payment: payment, orderAt: orderAt, callNumber: callNumber)
+    public init(cart: Cart, discounts: Array<Discount>, payment: OrderPayment?) {
+        self.init(id: UUID().uuidString, cart: cart, discounts: discounts, payment: payment, orderAt: Date())
     }
     
-    public init(id: String, cart: Cart, discounts: Array<Discount>, payment: Payment?, orderAt: TimeZone?, callNumber: UInt?) {
+    public init(id: String, cart: Cart, discounts: Array<Discount>, payment: OrderPayment?, orderAt: Date?) {
         self.id = id
         self.cart = cart
         self.payment = payment
         self.orderAt = orderAt
         self.discounts = discounts
-        self.callNumber = callNumber
     }
     
-    mutating func pay(payment: Payment) throws {
-        try self.pay(payment: payment, callNumber: nil)
-    }
-    
-    mutating func pay(payment: Payment, callNumber: UInt?) throws {
+    mutating func pay(payment: OrderPayment) throws {
         if(payment.paymentAmount != totalAmount) {
             throw LogosError.invalidPayment
         }
@@ -55,7 +49,5 @@ public struct Order {
             throw LogosError.notEnoughAmount
         }
         self.payment = payment
-        self.orderAt = TimeZone.current
-        self.callNumber = callNumber
     }
 }

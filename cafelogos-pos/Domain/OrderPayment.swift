@@ -11,11 +11,14 @@ public enum PaymentType: Int {
     case cash = 1
 }
 
-public struct Payment {
+public struct OrderPayment {
     public let id: String
     public let type: PaymentType
     public var receiveAmount: UInt64
     public let paymentAmount: UInt64
+    public let paymentAt: Date
+    public let updatedAt: Date
+    public let syncAt: Date?
     
     private var diffAmount: Int {
         get {
@@ -42,14 +45,17 @@ public struct Payment {
     }
     
     public init(type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64) {
-        self.init(id: UUID().uuidString, type: type, paymentAmount: paymentAmount, receiveAmount: receiveAmount)
+        self.init(id: UUID().uuidString, type: type, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
     }
     
-    public init(id: String, type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64) {
+    public init(id: String, type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
         self.id = id
         self.type = type
         self.paymentAmount = paymentAmount
         self.receiveAmount = receiveAmount
+        self.paymentAt = paymentAt
+        self.updatedAt = updatedAt
+        self.syncAt = syncAt
     }
     
     func isEnoughAmount() -> Bool {
