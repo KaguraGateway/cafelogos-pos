@@ -13,7 +13,9 @@ struct OrderInputView: View {
     @State private var products: Array<ProductCategoryDto> = []
     @State private var discounts: Array<DiscountDto> = []
     @State private var order: OrderPendingDto
-
+    @State private var showingChooseOrder: Bool = false // 席番号からモーダルの表示bool
+    @State private var orderNumber:String = ""
+    
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
@@ -221,10 +223,17 @@ struct OrderInputView: View {
                         .padding(.leading)
                     Spacer()
                     HStack(spacing: 16) {
-                        FooterNormalButton(text: "席番号から", action: {})
-                        FooterNormalButton(text: "注文全削除", action: {
+                        FooterNormalButton(text: "席番号から", action: {
+                            self.showingChooseOrder.toggle()
+                        })
+                        .sheet(isPresented: $showingChooseOrder) {
+                                    ChooseOrderView()
+                                }
+                        FooterDeleteButton(text: "注文全削除", action: {
                             usecase.removeAllItem()
                         })
+                        .padding(.leading, 10)
+
                     }
                     .frame(width: 300)
                     .clipped()
@@ -233,7 +242,7 @@ struct OrderInputView: View {
                         PaymentView()
                     } label: {
                         Text("支払いへ進む")
-                            .frame(width: 200)
+                            .frame(width: 350)
                             .clipped()
                             .padding(.vertical)
                             .font(.system(.title2, weight: .bold))
@@ -244,6 +253,7 @@ struct OrderInputView: View {
                             .lineLimit(0)
                             .foregroundColor(.white)
                             .padding(.leading, 70)
+                            .padding(.trailing)
                     }
                     
                 }
@@ -334,6 +344,32 @@ private struct FooterNormalButton: View {
                 }
                 .lineLimit(0)
                 .foregroundColor(.primary)
+        }
+    }
+}
+
+private struct FooterDeleteButton: View {
+    public var text: String
+    public var action: () -> Void
+    
+    public init(text: String, action: @escaping () -> Void) {
+        self.text = text
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: self.action){
+            Text(self.text)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .padding(.vertical)
+                .font(.system(.title2, weight: .semibold))
+                .background {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(Color.red)
+                }
+                .lineLimit(0)
+                .foregroundColor(Color.white)
         }
     }
 }
