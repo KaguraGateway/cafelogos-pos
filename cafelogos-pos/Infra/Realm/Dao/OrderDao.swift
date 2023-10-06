@@ -14,7 +14,7 @@ public enum OrderTypeDaoEnum: Int, PersistableEnum, CaseIterable {
 }
 
 class OrderDao: Object {
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var id: String
     @Persisted var orderType: OrderTypeDaoEnum
     @Persisted var orderAt: Date
     @Persisted var syncAt: Date

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class StockDao: Object {
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var id: String
     @Persisted var name: String
     @Persisted var quantity: Int32
     @Persisted var createdAt: Date

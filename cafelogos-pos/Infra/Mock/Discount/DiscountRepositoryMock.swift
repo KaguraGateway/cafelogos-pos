@@ -7,18 +7,26 @@
 
 import Foundation
 
+func initDiscount() -> Discount {
+    return Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100, createdAt: Date(), updatedAt: Date(), syncAt: Date())
+}
+
 public struct DiscountRepositoryMock: DiscountRepository {
     public func findAll() -> Array<Discount> {
         return [
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
-            Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
+            initDiscount(),
         ]
     }
 }

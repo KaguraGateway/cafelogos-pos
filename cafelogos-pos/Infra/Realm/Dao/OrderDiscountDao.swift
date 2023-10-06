@@ -9,8 +9,8 @@ import Foundation
 import RealmSwift
 
 class OrderDiscountDao: Object {
-    @Persisted var id: String
-    @Persisted var order: OrderDao
-    @Persisted var discount: DiscountDao
+    @Persisted(primaryKey: true) var id: String
+    @Persisted var order: OrderDao?
+    @Persisted var discount: DiscountDao?
     @Persisted var syncAt: Date?
 }

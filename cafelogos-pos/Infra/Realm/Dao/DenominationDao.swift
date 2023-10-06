@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class DenominationDao: Object {
-    @Persisted var denomination: Int
+    @Persisted(primaryKey: true) var denomination: Int
     @Persisted var amount: Decimal128
     @Persisted var createdAt: Date
     @Persisted var updatedAt: Date

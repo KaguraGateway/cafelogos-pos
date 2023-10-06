@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class OrderTicketDao: Object {
-    @Persisted var order: OrderDao
+    @Persisted var order: OrderDao?
     @Persisted var ticketId: String
     @Persisted var ticketAddr: String
 }

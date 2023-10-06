@@ -13,7 +13,7 @@ public enum DiscountTypeEnumDao: Int, PersistableEnum, CaseIterable {
 }
 
 class DiscountDao: Object {
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var id: String
     @Persisted var discountType: DiscountTypeEnumDao
     @Persisted var discountPrice: Decimal128
     @Persisted var createdAt: Date

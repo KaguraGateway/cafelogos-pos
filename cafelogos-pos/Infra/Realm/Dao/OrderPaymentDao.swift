@@ -13,8 +13,8 @@ public enum PaymentTypeEnumDao: Int, PersistableEnum, CaseIterable {
 }
 
 class OrderPaymentDao: Object {
-    @Persisted var id: String
-    @Persisted var order: OrderDao
+    @Persisted(primaryKey: true) var id: String
+    @Persisted var order: OrderDao?
     @Persisted var paymentType: PaymentTypeEnumDao
     @Persisted var receiveAmount: Decimal128
     @Persisted var paymentAmount: Decimal128

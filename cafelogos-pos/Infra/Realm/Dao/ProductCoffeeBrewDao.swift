@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class ProductCoffeeBrewDao: Object {
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var id: String
     @Persisted var productId: String
     @Persisted var name: String
     @Persisted var beanQuantityGrams: Int32

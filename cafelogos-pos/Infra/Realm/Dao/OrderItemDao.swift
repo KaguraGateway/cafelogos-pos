@@ -9,8 +9,8 @@ import Foundation
 import RealmSwift
 
 class OrderItemDao: Object {
-    @Persisted var order: OrderDao
-    @Persisted var product: ProductDao
+    @Persisted var order: OrderDao?
+    @Persisted var product: ProductDao?
     @Persisted var quantity: Int32
     @Persisted var amount: Decimal128
     @Persisted var coffeeBrew: ProductCoffeeBrewDao?
