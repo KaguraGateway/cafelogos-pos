@@ -17,7 +17,7 @@ public struct Denominations: Codable {
     func total() -> UInt64 {
         var value: UInt64 = 0
         for denomination in denominations {
-            value += UInt64(denomination.denomination) * denomination.amount
+            value += denomination.total()
         }
         return value
     }
