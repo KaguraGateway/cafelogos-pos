@@ -11,27 +11,25 @@ struct StartTransactionView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
-    @State var denominations = Denominations()
+    @ObservedObject var viewModel = StartTransactionViewModel()
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "レジ開け"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView(denominations: $denominations)
+                    ChargeInputView(denominations: $viewModel.denominations)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "釣り銭準備金", amount: Int(denominations.total()))
+                        ChargeInfo(title: "釣り銭準備金", amount: Int(viewModel.totalAmount()))
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
                         multi2Button(title: "スキップする", subtitle: "(トレーニングモード)", bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView(isTraining: true)})
                         TitleButton(title: "次へ", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: false)})
-                            
+                            .simultaneousGesture(TapGesture().onEnded {
+                                viewModel.onNextAction()
+                            })
                             .padding(.bottom)
-                       
-                        
-                        
-                        
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)

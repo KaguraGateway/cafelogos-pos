@@ -18,24 +18,27 @@ struct SettlementView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var isTraining: Bool = false
     
-    @State var denominations = Denominations()
+    @ObservedObject var viewModel = SettlementViewModel()
     
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "精算"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView(denominations: $denominations)
+                    ChargeInputView(denominations: $viewModel.current)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "あるべき釣り銭(A)", amount: 0)
+                        ChargeInfo(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
                             .padding(.bottom)
                             .padding(.top, 50)
-                        ChargeInfo(title: "現在の釣り銭(B)", amount: Int(denominations.total()))
+                        ChargeInfo(title: "現在の釣り銭(B)", amount: viewModel.currentTotal())
                             .padding(.bottom)
-                        ChargeInfo(title: "誤差(B-A)", amount: 0)
+                        ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
                         TitleButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: isTraining)})
+                            .simultaneousGesture(TapGesture().onEnded {
+                                viewModel.complete()
+                            })
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)
@@ -125,6 +128,12 @@ struct DenominationForm: View {
             Text("×")
                 .padding(.trailing)
             TextField("0", value: Binding(get: { denomination.quantity }, set: { denomination.setQuantity(newValue: $0) }), formatter: NumberFormatter())
+                .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification), perform: { obj in
+                    if let textField = obj.object as? UITextField {
+                        textField.selectAll(textField.text)
+                        
+                    }
+                })
                 .multilineTextAlignment(.trailing)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(maxWidth: 180)
