@@ -51,7 +51,7 @@ struct OrderEntryView: View {
 // 商品表示するView
 struct ProductStack: View {
     let productCategories: [ProductCategoryDto] = ProductQueryServiceMock().fetchProducts() // データを取得
-    
+    @State private var showingChooseOption: Bool = false
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -75,7 +75,11 @@ struct ProductStack: View {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
                                 Button(action: {
-                                    
+                                    if(product.productType == ProductType.coffee){
+                                        self.showingChooseOption.toggle()
+                                    } else {
+                                        
+                                    }
                                 }, label: {
                                 VStack(alignment: .trailing, spacing: 0) {
                                     // ProductName
@@ -98,7 +102,7 @@ struct ProductStack: View {
                                 }
                                 .padding(10)
                                 .frame(minHeight: 120)
-                                .frame(maxWidth: abs((geometry.size.width - 48) / 4)) // 列数に合わせて調整
+                                .frame(maxWidth: abs((geometry.size.width - 48) / 4))
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color(.tertiaryLabel), lineWidth: 1)
@@ -106,6 +110,9 @@ struct ProductStack: View {
                                 )
                                 .foregroundColor(.white)
                             })
+                                .sheet(isPresented: $showingChooseOption) {
+                                    ChooseOptionSheet(ProductName: "ドリップ方法")
+                                }
                             }
                         }
                     }

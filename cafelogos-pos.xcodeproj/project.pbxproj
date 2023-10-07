@@ -25,7 +25,7 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
-		355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */; };
+		355927632ABB3B4F00AF7B0E /* ChooseOptionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */; };
 		355927672ABB3B4F00AF7B0E /* NavBarBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3559275F2ABB3B4F00AF7B0E /* NavBarBody.swift */; };
 		355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927612ABB3B4F00AF7B0E /* PaymentView.swift */; };
 		3559276B2ABBF40A00AF7B0E /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3559276A2ABBF40A00AF7B0E /* PaymentSuccessView.swift */; };
@@ -103,7 +103,7 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductOptionsPickerView.swift; sourceTree = "<group>"; };
+		355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseOptionSheet.swift; sourceTree = "<group>"; };
 		3559275F2ABB3B4F00AF7B0E /* NavBarBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarBody.swift; sourceTree = "<group>"; };
 		355927612ABB3B4F00AF7B0E /* PaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		3559276A2ABBF40A00AF7B0E /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 		EBE8FF9A2AD194BC002011B5 /* OrderEntryView */ = {
 			isa = PBXGroup;
 			children = (
-				355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */,
+				355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */,
 				EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */,
 				EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */,
 			);
@@ -611,7 +611,7 @@
 				EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
-				355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */,
+				355927632ABB3B4F00AF7B0E /* ChooseOptionSheet.swift in Sources */,
 				EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
