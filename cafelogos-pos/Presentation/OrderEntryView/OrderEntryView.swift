@@ -13,30 +13,42 @@ struct OrderEntryView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
     var body: some View {
-        let screenWidth = UIScreen.main.bounds.size.width
-        
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
-            VStack(spacing: 0){
-                HStack(spacing:0){
-                    ProductStack()
-                        .padding(.leading)
-                        .frame(width: screenWidth * 0.6)
-                    Divider()
-                    DiscountStack()
-                        .frame(width: screenWidth * 0.1)
-                    Divider()
-                    OrderEntryStack()
-                }
-            EntryBottomBar()
-                
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.secondarySystemBackground))
+        GeometryReader{geometry in
             
+            NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
+                VStack(spacing: 0){
+                    HStack(spacing:0){
+                        ProductStack()
+                            .padding(.leading, 10)
+                            .frame(width: geometry.size.width * 0.6)
+                        Divider()
+                        DiscountStack()
+                            .frame(width: geometry.size.width * 0.1)
+                        Divider()
+                        OrderEntryStack()
+                            .frame(width: geometry.size.width * 0.3)
+                    }
+                    EntryBottomBar()
+                    
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(.secondarySystemBackground))
+                .navigationBarBackButtonHidden(true)
+                .toolbar{
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink{
+                            HomeView(isTraining: false)
+                        } label:{
+                            Text("ホームへ戻る")
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
+// 商品表示するView
 struct ProductStack: View {
     let productCategories: [ProductCategoryDto] = ProductQueryServiceMock().fetchProducts() // データを取得
     
@@ -104,7 +116,7 @@ struct ProductStack: View {
     }
 }
 
-
+// 割引を表示するView
 struct DiscountStack: View {
     let discounts: [Discount] = DiscountRepositoryMock().findAll()
 
@@ -151,135 +163,188 @@ struct DiscountStack: View {
         }
     }
 }
+
+// ここから注文リストのボタン
+// 消去ボタン
+struct removeButton: View {
+    var body: some View {
+        Button(action: {
+            
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.red)
+                    .frame(width: 40, height: 40)
+                    .clipped()
+                Image(systemName: "trash")
+                    .symbolRenderingMode(.monochrome)
+                    .foregroundColor(Color(.systemGray6))
+                    .fontWeight(.bold)
+            }
+        })
+    }
+}
+// プラスボタン
+struct increaseButton: View {
+    var body: some View {
+        Button(action: {
+            
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color(.tertiaryLabel))
+                    .frame(width: 40, height: 40)
+                    .clipped()
+                Image(systemName: "plus")
+                    .imageScale(.large)
+                    .symbolRenderingMode(.monochrome)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+            }
+        })
+    }
+}
+// マイナスボタン
+struct decreaseButton: View {
+    var body: some View {
+        Button(action: {
+
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color(.tertiaryLabel))
+                    .frame(width: 40, height: 40)
+                    .clipped()
+                Image(systemName: "minus")
+                    .imageScale(.large)
+                    .symbolRenderingMode(.monochrome)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+            }
+        })
+    }
+}
+
+// 注文リストのView
 struct OrderEntryStack: View {
     var body: some View {
-        VStack(spacing: 0) {
-            Text("注文リスト")
-                .font(.system(.title, weight: .semibold))
-                .padding(.vertical, 10)
-            Divider()
-            ScrollView {
-                VStack(spacing: 0) {
-                    ForEach(0..<5) { _ in // Replace with your data model here
-                        VStack(spacing: 0) {
-                            HStack {
+        GeometryReader{ geometry in
+            VStack(spacing: 0) {
+                Text("注文リスト")
+                    .font(.system(.title, weight: .semibold))
+                    .padding(.vertical, 10)
+                Divider()
+                List {
+                    ForEach(0..<5) { _ in
+                        VStack(spacing: 0){
+                            HStack(){
                                 Text("品目")
                                     .lineLimit(0)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
                                 Spacer()
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(.red)
-                                        .frame(width: 40, height: 40)
-                                        .clipped()
-                                    Image(systemName: "trash")
-                                        .symbolRenderingMode(.monochrome)
-                                        .foregroundColor(Color(.systemGray6))
-                                }
+                                removeButton()
                             }
                             .padding(.bottom, 20)
-                            HStack(spacing: 0) {
-                                HStack {
-                                    
-                                }
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .fill(Color(.tertiaryLabel))
-                                        .frame(width: 40, height: 40)
-                                        .clipped()
-                                    Image(systemName: "minus")
-                                        .imageScale(.large)
-                                        .symbolRenderingMode(.monochrome)
-                                        .foregroundColor(.white)
-                                }
+                            HStack(spacing: 0){
+                                decreaseButton()
                                 Text("1")
-                                    .foregroundColor(.primary)
                                     .padding(.horizontal, 10)
                                     .lineLimit(0)
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .fill(Color(.tertiaryLabel))
-                                        .frame(width: 40, height: 40)
-                                        .clipped()
-                                    Image(systemName: "plus")
-                                        .imageScale(.large)
-                                        .symbolRenderingMode(.monochrome)
-                                        .foregroundColor(.white)
-                                }
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                increaseButton()
                                 Spacer()
                                 Text("¥500")
                                     .lineLimit(0)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
                             }
+                            
                         }
-                        .padding(20)
-                        .background {
-                            VStack {
-                                Divider()
-                                Spacer()
-                                Divider()
-                            }
-                        }
-                        .background(Color(.systemBackground))
-                        .font(.system(.title2, weight: .semibold))
                     }
+                    
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .clipped()
+                .listStyle(.grouped)
             }
+            .frame(maxWidth: geometry.size.width)
         }
     }
 }
 
-struct EntryBottomBar: View {
-    var body:some View{
-        HStack(spacing: 0) {
-            Text("999点")
-                .font(.title)
-                .foregroundColor(Color(.systemGray6))
-            Text("¥5,000")
-                .font(.title)
-                .foregroundColor(Color(.systemGray6))
-                .padding(.leading)
-            Spacer()
-            HStack(spacing: 0) {
-                ForEach(0..<2) { _ in // Replace with your data model here
-                    Text("項目")
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .padding(.vertical)
-                        .font(.system(.title2, weight: .semibold))
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(Color(.secondarySystemGroupedBackground))
-                        }
-                        .lineLimit(0)
-                        .foregroundColor(.primary)
-                }
-                .frame(width: 150)
-                .clipped()
-                .padding(.horizontal, 10)
-            }
-            Text("支払いへ進む")
-                .frame(width: 200)
-                .clipped()
+// 下部バーのボタン
+private struct BottomBarButton: View {
+    public var text: String
+    public var action: () -> Void
+    public var bgColor: Color
+    public var fgColor: Color
+    
+    public init(text: String, action: @escaping () -> Void, bgColor: Color, fgColor: Color) {
+        self.text = text
+        self.action = action
+        self.bgColor = bgColor
+        self.fgColor = fgColor
+    }
+    
+    var body: some View {
+        Button(action: self.action){
+            Text(self.text)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.vertical)
-                .font(.system(.title2, weight: .bold))
+                .font(.system(.title2, weight: .semibold))
                 .background {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(.blue)
+                        .fill(bgColor)
                 }
                 .lineLimit(0)
-                .foregroundColor(.white)
-                .padding(.leading, 70)
+                .foregroundColor(fgColor)
         }
-        .padding(.horizontal, 40)
-        .padding(.vertical, 15)
-        .background {
-            VStack {
-                Divider()
+    }
+}
+
+// 下部バーのView
+struct EntryBottomBar: View {
+    var body:some View{
+        let screenWidth = UIScreen.main.bounds.size.width
+        
+            HStack(spacing: 0) {
+                Text("999点")
+                    .font(.title)
+                    .foregroundColor(Color(.systemGray6))
+                Text("¥5,000")
+                    .font(.title)
+                    .foregroundColor(Color(.systemGray6))
+                    .padding(.leading)
                 Spacer()
+                BottomBarButton(text: "伝票呼出", action: {
+                }, bgColor: Color(.systemBackground), fgColor: Color.primary)
+                .frame(width: 150, height: 60)
+                
+                BottomBarButton(text: "注文全削除", action: {
+                }, bgColor: Color.red, fgColor: Color.white)
+                .frame(width: 130, height: 60)
+                .padding(.leading, 50)
+                // 支払いへのNavigationLink
+                NavigationLink {
+                    PaymentView()
+                } label: {
+                    Text("支払いへ進む")
+                        .frame(width: screenWidth * 0.27, height: 60)
+                        .font(.system(.title2, weight: .bold))
+                        .background {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(.blue)
+                        }
+                        .foregroundColor(.white)
+                        .padding(.leading, 50)
+                }
+
             }
-        }
-        .background(.primary)
+            .padding(.horizontal, 40)
+            .padding(.vertical, 15)
+            .background(.primary)
+            
+        
     }
 }
 
