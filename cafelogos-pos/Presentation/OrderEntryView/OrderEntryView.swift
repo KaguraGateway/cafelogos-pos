@@ -45,6 +45,7 @@ struct ProductStack: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(productCategories, id: \.id) { category in
+                        
                         // CategoryName
                         Text(category.name)
                             .font(.system(.title, weight: .semibold))
@@ -61,6 +62,9 @@ struct ProductStack: View {
                         ) {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
+                                Button(action: {
+                                    
+                                }, label: {
                                 VStack(alignment: .trailing, spacing: 0) {
                                     // ProductName
                                     Text(product.productName)
@@ -68,7 +72,7 @@ struct ProductStack: View {
                                         .fontWeight(.semibold)
                                         .multilineTextAlignment(.leading)
                                         .padding(.vertical, 5)
-                                        .lineLimit(2)
+                                        .lineLimit(3)
                                         .frame(maxWidth: .infinity)
 
                                     Spacer()
@@ -89,6 +93,7 @@ struct ProductStack: View {
                                         .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
                                 )
                                 .foregroundColor(.white)
+                            })
                             }
                         }
                     }
@@ -108,7 +113,10 @@ struct DiscountStack: View {
             ScrollView {
                 // DiscountCell
                 LazyVGrid(columns: [GridItem(.flexible())]) {
-                    ForEach(discounts, id: \.id) { discount in // ディスカウント情報の数だけ繰り返し処理
+                    ForEach(discounts, id: \.id) { discount in
+                        Button(action: {
+                            
+                        }, label: {
                         VStack(spacing: 0) {
                             // DiscountName
                             Text(discount.name)
@@ -135,6 +143,7 @@ struct DiscountStack: View {
                                 .stroke(Color(.tertiaryLabel), lineWidth: 1)
                                 .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
                         }
+                        })
                     }
                 }
             }
