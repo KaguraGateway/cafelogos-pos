@@ -27,6 +27,7 @@ public struct ProductQueryServiceMock: ProductQueryService {
                 ProductDto(productName: "レモネード", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "レモネード", id: UUID().uuidString, quantity: 100)),
                 ProductDto(productName: "レモネードスカッシュ", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "レモンスカッシュ", id: UUID().uuidString, quantity: 100)),
                 ProductDto(productName: "ヨーグルッペ", productId: UUID().uuidString, productType: ProductType.other, amount: 100, isNowSales: true, stock: StockDto(name: "ヨーグルッペ", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "ヨーグルッペ（日向夏）", productId: UUID().uuidString, productType: ProductType.other, amount: 100, isNowSales: true, stock: StockDto(name: "ヨーグルッペ", id: UUID().uuidString, quantity: 100)),
             ]),
             ProductCategoryDto(id: UUID().uuidString, name: "その他", products: [
                 ProductDto(productName: "薄皮饅頭", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "パン", id: UUID().uuidString, quantity: 100)),

@@ -23,7 +23,7 @@ struct OrderEntryView: View {
                         .frame(width: screenWidth * 0.6)
                     Divider()
                     DiscountStack()
-                        
+                        .frame(width: screenWidth * 0.1)
                     Divider()
                     OrderEntryStack()
                 }
@@ -57,7 +57,8 @@ struct ProductStack: View {
                                     [GridItem(.flexible(), alignment: .top),
                                      GridItem(.flexible(), alignment: .top),
                                      GridItem(.flexible(), alignment: .top),
-                                     GridItem(.flexible(), alignment: .top)], spacing: 16) {
+                                     GridItem(.flexible(), alignment: .top)], spacing: 10
+                        ) {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
                                 VStack(alignment: .trailing, spacing: 0) {
@@ -65,7 +66,7 @@ struct ProductStack: View {
                                     Text(product.productName)
                                         .font(.title2)
                                         .fontWeight(.semibold)
-                                        .multilineTextAlignment(.center)
+                                        .multilineTextAlignment(.leading)
                                         .padding(.vertical, 5)
                                         .lineLimit(2)
                                         .frame(maxWidth: .infinity)
@@ -81,7 +82,7 @@ struct ProductStack: View {
                                 }
                                 .padding(10)
                                 .frame(minHeight: 120)
-                                .frame(maxWidth: (geometry.size.width - 40) / 4) // 列数に合わせて調整
+                                .frame(maxWidth: (geometry.size.width - 48) / 4) // 列数に合わせて調整
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color(.tertiaryLabel), lineWidth: 1)
@@ -100,43 +101,47 @@ struct ProductStack: View {
 
 
 struct DiscountStack: View {
-    var body:some View {
-        ScrollView {
-            LazyVGrid(columns: [GridItem(.flexible())]) {
-                ForEach(0..<2) { _ in // Replace with your data model here
-                    VStack(spacing: 0) {
-                        Text("割引")
-                            .font(.system(.title2, weight: .bold))
-                            .padding(.vertical, 5)
-                            .frame(maxWidth: .infinity, maxHeight: 65, alignment: .center)
-                            .clipped()
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.primary)
-                        Text("-¥500")
-                            .font(.system(.title2, weight: .regular))
-                            .padding(.bottom, 10)
-                            .foregroundColor(.primary)
+    let discounts: [Discount] = DiscountRepositoryMock().findAll()
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                // DiscountCell
+                LazyVGrid(columns: [GridItem(.flexible())]) {
+                    ForEach(discounts, id: \.id) { discount in // ディスカウント情報の数だけ繰り返し処理
+                        VStack(spacing: 0) {
+                            // DiscountName
+                            Text(discount.name)
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .padding(.vertical, 5)
+                                .lineLimit(3)
+                                .multilineTextAlignment(.center)
+                            
+                            Spacer()
+                            
+                            // DiscountAmount
+                            Text("-¥\(discount.discountPrice)")
+                                .font(.title2)
+                                .fontWeight(.regular)
+                                .lineLimit(1)
+                        }
+                        .padding(10)
+                        .foregroundColor(Color.primary)
+                        .frame(minHeight: 120)
+                        .frame(maxWidth: (geometry.size.width) - 12)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(.tertiaryLabel), lineWidth: 1)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
+                        }
                     }
-                    .padding(.horizontal, 15)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(Color(.tertiaryLabel), lineWidth: 1)
-                            .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(.secondary))
-                    }
-                    .frame(width: 100, height: 100)
-                    .clipped()
-                    .foregroundColor(Color(.systemBackground))
                 }
             }
-            .padding(.horizontal, 10)
             .padding(.top, 20)
-            .frame(width: 120)
-            .clipped()
         }
     }
 }
-
 struct OrderEntryStack: View {
     var body: some View {
         VStack(spacing: 0) {
