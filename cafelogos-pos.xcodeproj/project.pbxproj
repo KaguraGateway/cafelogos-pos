@@ -61,6 +61,7 @@
 		EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */; };
 		EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
+		EBE8FF9F2AD1D471002011B5 /* ChooseOrderSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntryView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		EBE8FF9B2AD1BCCC002011B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +324,6 @@
 		355927572ABB3B4F00AF7B0E /* ProductOptionsPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */,
 			);
 			path = ProductOptionsPickerView;
 			sourceTree = "<group>";
@@ -448,7 +449,9 @@
 		EBE8FF9A2AD194BC002011B5 /* OrderEntryView */ = {
 			isa = PBXGroup;
 			children = (
+				355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */,
 				EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */,
+				EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */,
 			);
 			path = OrderEntryView;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
 				EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */,
 				351C18D12A9542F2005A966C /* OrderInput.swift in Sources */,
+				EBE8FF9F2AD1D471002011B5 /* ChooseOrderSheet.swift in Sources */,
 				EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,

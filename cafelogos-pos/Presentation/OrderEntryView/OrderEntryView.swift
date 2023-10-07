@@ -306,46 +306,53 @@ private struct BottomBarButton: View {
 
 // 下部バーのView
 struct EntryBottomBar: View {
+    @State private var showingChooseOrder: Bool = false // 席番号からモーダルの表示bool
+    @State private var orderNumber:String = ""
+    
     var body:some View{
         let screenWidth = UIScreen.main.bounds.size.width
         
-            HStack(spacing: 0) {
-                Text("999点")
-                    .font(.title)
-                    .foregroundColor(Color(.systemGray6))
-                Text("¥5,000")
-                    .font(.title)
-                    .foregroundColor(Color(.systemGray6))
-                    .padding(.leading)
-                Spacer()
-                BottomBarButton(text: "伝票呼出", action: {
-                }, bgColor: Color(.systemBackground), fgColor: Color.primary)
-                .frame(width: 150, height: 60)
-                
-                BottomBarButton(text: "注文全削除", action: {
-                }, bgColor: Color.red, fgColor: Color.white)
-                .frame(width: 130, height: 60)
-                .padding(.leading, 50)
-                // 支払いへのNavigationLink
-                NavigationLink {
-                    PaymentView()
-                } label: {
-                    Text("支払いへ進む")
-                        .frame(width: screenWidth * 0.27, height: 60)
-                        .font(.system(.title2, weight: .bold))
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(.blue)
-                        }
-                        .foregroundColor(.white)
-                        .padding(.leading, 50)
-                }
-
+        HStack(spacing: 0) {
+            Text("999点")
+                .font(.title)
+                .foregroundColor(Color(.systemGray6))
+            Text("¥5,000")
+                .font(.title)
+                .foregroundColor(Color(.systemGray6))
+                .padding(.leading)
+            Spacer()
+            BottomBarButton(text: "伝票呼出", action: {
+                self.showingChooseOrder.toggle()
+            }, bgColor: Color(.systemBackground), fgColor: Color.primary)
+            .frame(width: 150, height: 60)
+            .sheet(isPresented: $showingChooseOrder) {
+                ChooseOrderSheet()
             }
-            .padding(.horizontal, 40)
-            .padding(.vertical, 15)
-            .background(.primary)
             
+            BottomBarButton(text: "注文全削除", action: {
+            }, bgColor: Color.red, fgColor: Color.white)
+            .frame(width: 130, height: 60)
+            .padding(.leading, 50)
+            // 支払いへのNavigationLink
+            NavigationLink {
+                PaymentView()
+            } label: {
+                Text("支払いへ進む")
+                    .frame(width: screenWidth * 0.27, height: 60)
+                    .font(.system(.title2, weight: .bold))
+                    .background {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(.blue)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.leading, 50)
+            }
+            
+        }
+        .padding(.horizontal, 40)
+        .padding(.vertical, 15)
+        .background(.primary)
+        
         
     }
 }
