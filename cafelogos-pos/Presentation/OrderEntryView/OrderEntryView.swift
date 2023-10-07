@@ -38,37 +38,42 @@ struct OrderEntryView: View {
 }
 
 struct ProductStack: View {
+    let productCategories: [ProductCategoryDto] = ProductQueryServiceMock().fetchProducts() // データを取得
+    
     var body: some View {
-        GeometryReader{geometry in
+        GeometryReader { geometry in
             ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    ForEach(0..<5) { _ in // Replace with your data model here
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(productCategories, id: \.id) { category in
                         // CategoryName
-                        Text("カテゴリー")
+                        Text(category.name)
                             .font(.system(.title, weight: .semibold))
                             .foregroundColor(.primary)
-                            .padding(.vertical)
+                            .padding(.top)
+                            
+                        
                         // ProductsGrid
                         LazyVGrid(columns:
                                     [GridItem(.flexible(), alignment: .top),
                                      GridItem(.flexible(), alignment: .top),
                                      GridItem(.flexible(), alignment: .top),
-                                     GridItem(.flexible(), alignment: .top)]) {
-                            ForEach(0..<5) { _ in
+                                     GridItem(.flexible(), alignment: .top)], spacing: 16) {
+                            ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
                                 VStack(alignment: .trailing, spacing: 0) {
                                     // ProductName
-                                    Text("ロゴスブレンド豊穣")
+                                    Text(product.productName)
                                         .font(.title2)
                                         .fontWeight(.semibold)
-                                        .multilineTextAlignment(.leading)
+                                        .multilineTextAlignment(.center)
                                         .padding(.vertical, 5)
                                         .lineLimit(2)
                                         .frame(maxWidth: .infinity)
-                                    
+
                                     Spacer()
+                                    
                                     // ProductAmount
-                                    Text("¥500")
+                                    Text("¥\(product.amount)")
                                         .font(.title2)
                                         .fontWeight(.regular)
                                         .multilineTextAlignment(.trailing)
@@ -76,24 +81,23 @@ struct ProductStack: View {
                                 }
                                 .padding(10)
                                 .frame(minHeight: 120)
-                                .frame(maxWidth: (geometry.size.width)/4)
-      
-                                .background {
+                                .frame(maxWidth: (geometry.size.width - 40) / 4) // 列数に合わせて調整
+                                .background(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color(.tertiaryLabel), lineWidth: 1)
                                         .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
-                                }
+                                )
                                 .foregroundColor(.white)
                             }
                         }
                     }
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 16)
             }
         }
-        
     }
 }
+
 
 struct DiscountStack: View {
     var body:some View {
