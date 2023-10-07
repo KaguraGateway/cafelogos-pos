@@ -98,7 +98,7 @@ struct ProductStack: View {
                                 }
                                 .padding(10)
                                 .frame(minHeight: 120)
-                                .frame(maxWidth: (geometry.size.width - 48) / 4) // 列数に合わせて調整
+                                .frame(maxWidth: abs((geometry.size.width - 48) / 4)) // 列数に合わせて調整
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color(.tertiaryLabel), lineWidth: 1)
@@ -149,7 +149,7 @@ struct DiscountStack: View {
                         .padding(10)
                         .foregroundColor(Color.primary)
                         .frame(minHeight: 120)
-                        .frame(maxWidth: (geometry.size.width) - 12)
+                        .frame(maxWidth: abs((geometry.size.width) - 12))
                         .background {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color(.tertiaryLabel), lineWidth: 1)
@@ -235,7 +235,7 @@ struct OrderEntryStack: View {
                     .padding(.vertical, 10)
                 Divider()
                 List {
-                    ForEach(0..<5) { _ in
+                    ForEach(0..<10) { _ in
                         VStack(spacing: 0){
                             HStack(){
                                 Text("品目")
@@ -265,7 +265,9 @@ struct OrderEntryStack: View {
                     }
                     
                 }
-                .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+                .listStyle(PlainListStyle())
             }
             .frame(maxWidth: geometry.size.width)
         }
