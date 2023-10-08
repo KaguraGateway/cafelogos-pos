@@ -11,7 +11,7 @@ struct DeviceNameInputView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
-    @ObservedObject var viewModel = DeviceNameInputViewModel()
+    @Binding var clientName: String
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "端末名"){
@@ -21,7 +21,7 @@ struct DeviceNameInputView: View {
                         
                         HStack(alignment: .center){
                             
-                            TextField("Your iPad", text: $viewModel.clientName)
+                            TextField("Your iPad", text: $clientName)
                         
                         }
                         
@@ -36,8 +36,4 @@ struct DeviceNameInputView: View {
             }
         }
     }
-}
-
-#Preview {
-    DeviceNameInputViiew()
 }
