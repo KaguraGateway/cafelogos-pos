@@ -113,7 +113,7 @@ struct PaymentSuccessView: View {
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
                         NavigationLink{
-                            OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())
+                            OrderEntryView()
                         } label:{
                             VStack(spacing: 0) {
                                 Text("注文入力・会計")

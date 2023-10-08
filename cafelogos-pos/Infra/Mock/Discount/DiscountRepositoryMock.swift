@@ -8,7 +8,7 @@
 import Foundation
 
 func initDiscount() -> Discount {
-    return Discount(name: "新入生割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100, createdAt: Date(), updatedAt: Date(), syncAt: Date())
+    return Discount(name: "GOGOサザエ割", id: UUID().uuidString, discountType: DiscountType.price, discountPrice: 100, createdAt: Date(), updatedAt: Date(), syncAt: Date())
 }
 
 public struct DiscountRepositoryMock: DiscountRepository {

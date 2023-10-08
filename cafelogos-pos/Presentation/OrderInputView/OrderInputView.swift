@@ -32,6 +32,7 @@ struct OrderInputView: View {
             VStack(spacing: 0) {
                 Divider()
                 HStack(alignment: .top, spacing: 0) {
+                    // 注文スタック
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
                             ForEach(products.indexed(), id: \.index) { (index, category) in
@@ -87,6 +88,7 @@ struct OrderInputView: View {
                         .padding(.leading)
                     }
                     Divider()
+                    // 割引スタック
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.flexible())]) {
                             ForEach(discounts.indexed(), id: \.index) { (index, discount) in // Replace with your data model here
@@ -125,6 +127,7 @@ struct OrderInputView: View {
                         .clipped()
                     }
                     Divider()
+                    // 注文リスト
                     VStack(spacing: 0) {
                         Text("注文リスト")
                             .font(.system(.title, weight: .semibold))
@@ -213,6 +216,7 @@ struct OrderInputView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
+                // フッター
                 HStack(spacing: 0) {
                     Text("\(order.cart.totalQuantity)点")
                         .font(.title)
