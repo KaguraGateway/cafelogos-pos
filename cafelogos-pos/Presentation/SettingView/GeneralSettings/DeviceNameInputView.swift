@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct DeviceNameInputViiew: View {
+struct DeviceNameInputView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @Binding var deviceName: String
+    
+    @ObservedObject var viewModel = DeviceNameInputViewModel()
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "端末名"){
@@ -20,8 +21,8 @@ struct DeviceNameInputViiew: View {
                         
                         HStack(alignment: .center){
                             
-                            TextField("Your iPad", text: $deviceName)
-                            
+                            TextField("Your iPad", text: $viewModel.clientName)
+                        
                         }
                         
                     }
@@ -35,4 +36,8 @@ struct DeviceNameInputViiew: View {
             }
         }
     }
+}
+
+#Preview {
+    DeviceNameInputViiew()
 }
