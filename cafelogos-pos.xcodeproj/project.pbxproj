@@ -25,8 +25,7 @@
 		3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */; };
 		3557C7332A826A1300C72F17 /* cafelogos_posUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */; };
 		3557C7352A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */; };
-		355927622ABB3B4F00AF7B0E /* OrderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927562ABB3B4F00AF7B0E /* OrderInputView.swift */; };
-		355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */; };
+		355927632ABB3B4F00AF7B0E /* ChooseOptionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */; };
 		355927672ABB3B4F00AF7B0E /* NavBarBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3559275F2ABB3B4F00AF7B0E /* NavBarBody.swift */; };
 		355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355927612ABB3B4F00AF7B0E /* PaymentView.swift */; };
 		3559276B2ABBF40A00AF7B0E /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3559276A2ABBF40A00AF7B0E /* PaymentSuccessView.swift */; };
@@ -53,17 +52,16 @@
 		EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B672AC6C534009B6D50 /* TrainingStatus.swift */; };
 		EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B692AC6C59E009B6D50 /* TitleButton.swift */; };
 		EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */; };
-		EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */; };
-		EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */; };
 		EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3DC13D2AC331B100610578 /* HomeNavButton.swift */; };
-		EB3F2D262ACE832700FF035A /* ChooseOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */; };
 		EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429812ABC2F7000AC1414 /* SettingView.swift */; };
 		EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */; };
 		EB7429872ABC9F8200AC1414 /* DeviceNameInputViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */; };
 		EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */; };
 		EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298B2ABD4C4000AC1414 /* SettlementView.swift */; };
 		EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */; };
+		EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */; };
 		EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */; };
+		EBE8FF9F2AD1D471002011B5 /* ChooseOrderSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,8 +103,7 @@
 		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7322A826A1300C72F17 /* cafelogos_posUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITests.swift; sourceTree = "<group>"; };
 		3557C7342A826A1300C72F17 /* cafelogos_posUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		355927562ABB3B4F00AF7B0E /* OrderInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInputView.swift; sourceTree = "<group>"; };
-		355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductOptionsPickerView.swift; sourceTree = "<group>"; };
+		355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseOptionSheet.swift; sourceTree = "<group>"; };
 		3559275F2ABB3B4F00AF7B0E /* NavBarBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarBody.swift; sourceTree = "<group>"; };
 		355927612ABB3B4F00AF7B0E /* PaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		3559276A2ABBF40A00AF7B0E /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -132,17 +129,17 @@
 		EB350B672AC6C534009B6D50 /* TrainingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatus.swift; sourceTree = "<group>"; };
 		EB350B692AC6C59E009B6D50 /* TitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
 		EB350B6B2AC6C6E4009B6D50 /* InspectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionView.swift; sourceTree = "<group>"; };
-		EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubButton.swift; sourceTree = "<group>"; };
-		EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
 		EB3DC13D2AC331B100610578 /* HomeNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavButton.swift; sourceTree = "<group>"; };
-		EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderView.swift; sourceTree = "<group>"; };
 		EB7429812ABC2F7000AC1414 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		EB7429832ABC9C0200AC1414 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
 		EB7429862ABC9F8200AC1414 /* DeviceNameInputViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceNameInputViiew.swift; sourceTree = "<group>"; };
 		EB7429882ABCADF900AC1414 /* CustomerdisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerdisplaySetting.swift; sourceTree = "<group>"; };
 		EB74298B2ABD4C4000AC1414 /* SettlementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementView.swift; sourceTree = "<group>"; };
 		EB74298D2ABE0E1200AC1414 /* StartTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTransactionView.swift; sourceTree = "<group>"; };
+		EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntryView.swift; sourceTree = "<group>"; };
 		EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		EBE8FF9B2AD1BCCC002011B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +282,7 @@
 		3557C7162A826A1200C72F17 /* cafelogos-pos */ = {
 			isa = PBXGroup;
 			children = (
+				EBE8FF9B2AD1BCCC002011B5 /* Info.plist */,
 				351C18C62A9542F2005A966C /* Application */,
 				3586BDD72A8F5039009E346E /* Infra */,
 				3586BDD62A8F502E009E346E /* Domain */,
@@ -323,19 +321,9 @@
 			path = "cafelogos-posUITests";
 			sourceTree = "<group>";
 		};
-		355927552ABB3B4F00AF7B0E /* OrderInputView */ = {
-			isa = PBXGroup;
-			children = (
-				355927562ABB3B4F00AF7B0E /* OrderInputView.swift */,
-				EB3F2D252ACE832700FF035A /* ChooseOrderView.swift */,
-			);
-			path = OrderInputView;
-			sourceTree = "<group>";
-		};
 		355927572ABB3B4F00AF7B0E /* ProductOptionsPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				355927582ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift */,
 			);
 			path = ProductOptionsPickerView;
 			sourceTree = "<group>";
@@ -399,8 +387,6 @@
 		EB38B4652A951E87003BFFA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EB38B4682A951F73003BFFA6 /* HomeSubButton.swift */,
-				EB38B46A2A951F83003BFFA6 /* HomeMainButton.swift */,
 				EB3DC13D2AC331B100610578 /* HomeNavButton.swift */,
 				EB350B672AC6C534009B6D50 /* TrainingStatus.swift */,
 			);
@@ -439,11 +425,11 @@
 		EBD8ACF92A8A23D000FC20F1 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EBE8FF9A2AD194BC002011B5 /* OrderEntryView */,
 				EB74298A2ABD4B7E00AC1414 /* Transactions */,
 				EB74297F2ABC2F4800AC1414 /* SettingView */,
 				355927692ABBF40A00AF7B0E /* PaymentSuccessView */,
 				3559275E2ABB3B4F00AF7B0E /* Components */,
-				355927552ABB3B4F00AF7B0E /* OrderInputView */,
 				355927602ABB3B4F00AF7B0E /* PaymentView */,
 				355927572ABB3B4F00AF7B0E /* ProductOptionsPickerView */,
 				EBD8ACFC2A8A3E8A00FC20F1 /* HomeView */,
@@ -458,6 +444,16 @@
 				EBD8AD012A8A3FF500FC20F1 /* HomeView.swift */,
 			);
 			path = HomeView;
+			sourceTree = "<group>";
+		};
+		EBE8FF9A2AD194BC002011B5 /* OrderEntryView */ = {
+			isa = PBXGroup;
+			children = (
+				355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */,
+				EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */,
+				EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */,
+			);
+			path = OrderEntryView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -598,25 +594,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB3F2D262ACE832700FF035A /* ChooseOrderView.swift in Sources */,
 				3586BDE02A8F76B1009E346E /* OtherProduct.swift in Sources */,
 				35FDCD612A908F7300652093 /* Payment.swift in Sources */,
 				35FDCD632A9091CC00652093 /* Discount.swift in Sources */,
 				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
-				EB38B46B2A951F83003BFFA6 /* HomeMainButton.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
 				EB3DC13E2AC331B100610578 /* HomeNavButton.swift in Sources */,
 				351C18D02A9542F2005A966C /* OrderDto.swift in Sources */,
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
-				EB38B4692A951F73003BFFA6 /* HomeSubButton.swift in Sources */,
 				EB7429842ABC9C0200AC1414 /* GeneralSettingView.swift in Sources */,
 				351C18D12A9542F2005A966C /* OrderInput.swift in Sources */,
+				EBE8FF9F2AD1D471002011B5 /* ChooseOrderSheet.swift in Sources */,
+				EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
-				355927632ABB3B4F00AF7B0E /* ProductOptionsPickerView.swift in Sources */,
+				355927632ABB3B4F00AF7B0E /* ChooseOptionSheet.swift in Sources */,
 				EB7429892ABCADF900AC1414 /* CustomerdisplaySetting.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
@@ -632,7 +627,6 @@
 				3559276B2ABBF40A00AF7B0E /* PaymentSuccessView.swift in Sources */,
 				3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */,
 				35FDCD5F2A908E2500652093 /* Product.swift in Sources */,
-				355927622ABB3B4F00AF7B0E /* OrderInputView.swift in Sources */,
 				3586BDEA2A8F7D43009E346E /* CartItem.swift in Sources */,
 				3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */,
 				351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */,
@@ -811,10 +805,11 @@
 				DEVELOPMENT_TEAM = XXW387R7AD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "cafelogos-pos/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -843,10 +838,11 @@
 				DEVELOPMENT_TEAM = XXW387R7AD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "cafelogos-pos/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

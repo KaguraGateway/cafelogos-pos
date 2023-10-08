@@ -12,29 +12,26 @@ public struct ProductQueryServiceMock: ProductQueryService {
         let coffeeBean = CoffeeBeanDto(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000)
         return [
             ProductCategoryDto(id: UUID().uuidString, name: "コーヒー", products: [
-                ProductDto(productName: "ハレノヒブレンド", productId: UUID().uuidString, productType: ProductType.coffee, amount: 0, isNowSales: true, coffeeBean: coffeeBean, coffeeHowToBrews: [
+                ProductDto(productName: "ロゴスブレンド豊穣", productId: UUID().uuidString, productType: ProductType.coffee, amount: 0, isNowSales: true, coffeeBean: coffeeBean, coffeeHowToBrews: [
                     CoffeeHowToBrewDto(name: "ネル", id: UUID().uuidString, price: 300, beanQuantityGrams: 100),
                     CoffeeHowToBrewDto(name: "サイフォン", id: UUID().uuidString, price: 400, beanQuantityGrams: 100),
                     CoffeeHowToBrewDto(name: "ペーパー", id: UUID().uuidString, price: 600, beanQuantityGrams: 100)
                 ]),
-                ProductDto(productName: "ハルメリアブレンド", productId: UUID().uuidString, productType: ProductType.coffee, amount: 0, isNowSales: true, coffeeBean: coffeeBean, coffeeHowToBrews: [
+                ProductDto(productName: "茜ブレンド", productId: UUID().uuidString, productType: ProductType.coffee, amount: 0, isNowSales: true, coffeeBean: coffeeBean, coffeeHowToBrews: [
                     CoffeeHowToBrewDto(name: "ネル", id: UUID().uuidString, price: 400, beanQuantityGrams: 100),
                     CoffeeHowToBrewDto(name: "サイフォン", id: UUID().uuidString, price: 500, beanQuantityGrams: 100),
                     CoffeeHowToBrewDto(name: "ペーパー", id: UUID().uuidString, price: 700, beanQuantityGrams: 100)
-                ]),
-                ProductDto(productName: "アイスブレンド", productId: UUID().uuidString, productType: ProductType.coffee, amount: 0, isNowSales: true, coffeeBean: coffeeBean, coffeeHowToBrews: [
-                    CoffeeHowToBrewDto(name: "アイス", id: UUID().uuidString, price: 10000, beanQuantityGrams: 100)
                 ])
             ]),
             ProductCategoryDto(id: UUID().uuidString, name: "ソフトドリンク", products: [
-                ProductDto(productName: "レモネード", productId: UUID().uuidString, productType: ProductType.other, amount: 500, isNowSales: true, stock: StockDto(name: "レモネード", id: UUID().uuidString, quantity: 100)),
-                ProductDto(productName: "レモンスカッシュ", productId: UUID().uuidString, productType: ProductType.other, amount: 500, isNowSales: true, stock: StockDto(name: "レモンスカッシュ", id: UUID().uuidString, quantity: 100)),
-                ProductDto(productName: "カルピス", productId: UUID().uuidString, productType: ProductType.other, amount: 500, isNowSales: true, stock: StockDto(name: "カルピス", id: UUID().uuidString, quantity: 100)),
-                ProductDto(productName: "カルピスソーダ", productId: UUID().uuidString, productType: ProductType.other, amount: 500, isNowSales: true, stock: StockDto(name: "カルピスソーダ", id: UUID().uuidString, quantity: 100))
+                ProductDto(productName: "レモネード", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "レモネード", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "レモネードスカッシュ", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "レモンスカッシュ", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "ヨーグルッペ", productId: UUID().uuidString, productType: ProductType.other, amount: 100, isNowSales: true, stock: StockDto(name: "ヨーグルッペ", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "ヨーグルッペ（日向夏）", productId: UUID().uuidString, productType: ProductType.other, amount: 100, isNowSales: true, stock: StockDto(name: "ヨーグルッペ", id: UUID().uuidString, quantity: 100)),
             ]),
             ProductCategoryDto(id: UUID().uuidString, name: "その他", products: [
-                ProductDto(productName: "パン", productId: UUID().uuidString, productType: ProductType.other, amount: 100, isNowSales: true, stock: StockDto(name: "パン", id: UUID().uuidString, quantity: 100)),
-                ProductDto(productName: "ケーキ", productId: UUID().uuidString, productType: ProductType.other, amount: 10000, isNowSales: true, stock: StockDto(name: "ケーキ", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "薄皮饅頭", productId: UUID().uuidString, productType: ProductType.other, amount: 200, isNowSales: true, stock: StockDto(name: "パン", id: UUID().uuidString, quantity: 100)),
+                ProductDto(productName: "チョコレート", productId: UUID().uuidString, productType: ProductType.other, amount: 0, isNowSales: true, stock: StockDto(name: "ケーキ", id: UUID().uuidString, quantity: 100)),
             ])
         ]
     }

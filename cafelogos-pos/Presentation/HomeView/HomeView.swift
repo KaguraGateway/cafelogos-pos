@@ -27,9 +27,9 @@ struct HomeView: View {
                         // 左列
                         
                         VStack(spacing: 15) {
-                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/2) , width: geometry.size.width * (1/3))
+                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理なし）", description: "POSレジのみから注文を入力・管理", destination: {OrderEntryView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/2) , width: geometry.size.width * (1/3))
                             
-                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理", destination: {OrderInputView(productQueryService: ProductQueryServiceMock(), discountRepository: DiscountRepositoryMock())}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/2) , width: geometry.size.width * (1/3))
+                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理あり）", description: "POSレジ・ハンディ端末から注文を管理", destination: {OrderEntryView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/2) , width: geometry.size.width * (1/3))
                             
                         }
                         
