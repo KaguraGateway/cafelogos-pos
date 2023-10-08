@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct cafelogos_posApp: App {
+    public init() {
+        Launch().Execute()
+    }
+    
     var body: some Scene {
         WindowGroup {
             StartTransactionView()

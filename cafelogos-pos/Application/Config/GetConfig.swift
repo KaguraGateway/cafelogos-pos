@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import Dependencies
+
+public struct GetConfig {
+    @Dependency(\.configRepository) private var configRepo
+    
+    func Execute() -> Config {
+        return configRepo.load()
+    }
+}
