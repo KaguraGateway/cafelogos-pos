@@ -15,8 +15,11 @@ public struct CoffeeProduct: Product {
     public let coffeeBean: CoffeeBean
     public let coffeeHowToBrews: Array<CoffeeHowToBrew>
     public let isNowSales: Bool
+    public let createdAt: Date
+    public let updatedAt: Date
+    public var syncAt: Date?
     
-    public init(productName: String, productId: String, productCategory: ProductCategory, coffeeBean: CoffeeBean, coffeeHowToBrews: Array<CoffeeHowToBrew>, isNowSales: Bool) {
+    public init(productName: String, productId: String, productCategory: ProductCategory, coffeeBean: CoffeeBean, coffeeHowToBrews: Array<CoffeeHowToBrew>, isNowSales: Bool, createdAt: Date, updatedAt: Date, syncAt: Date?) {
         self.productName = productName
         self.productId = productId
         self.productCategory = productCategory
@@ -24,5 +27,8 @@ public struct CoffeeProduct: Product {
         self.coffeeBean = coffeeBean
         self.coffeeHowToBrews = coffeeHowToBrews
         self.isNowSales = isNowSales
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.syncAt = syncAt
     }
 }

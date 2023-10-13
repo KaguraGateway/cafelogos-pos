@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Cart {
-    private var items: Array<CartItem>
+    private (set) public var items: Array<CartItem>
     var totalQuantity: UInt32 { get { self.items.reduce(0, { x, y in x + y.getQuantity() }) } }
     
     public init() {
@@ -41,7 +41,7 @@ public struct Cart {
     }
     
     mutating func setItemQuantity(itemIndex: Int, newQuantity: UInt32) {
-        items[itemIndex].setQuantity(newQuantity: newQuantity)
+        self.items[itemIndex].setQuantity(newQuantity: newQuantity)
     }
     
     mutating func removeItem(removeItem: CartItem) {
@@ -54,9 +54,5 @@ public struct Cart {
     
     mutating func removeAllItem() {
         self.items.removeAll()
-    }
-    
-    func getItems() -> Array<CartItem> {
-        return self.items
     }
 }

@@ -10,12 +10,13 @@ import SwiftUI
 struct GeneralSettingView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var deviceName = "カフェロゴスのiPad"
     @State private var usePrinter = false
     @State private var printReceipt = false
     @State private var printTicket = false
     @State private var useDrawer = false
     @State private var isLogoutDisabled = true
+    
+    @ObservedObject var viewModel = GeneralSettingViewModel()
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "一般"){
@@ -23,22 +24,30 @@ struct GeneralSettingView: View {
                 Form {
                     Section {
                         NavigationLink(destination: {
-                            DeviceNameInputViiew(deviceName: $deviceName)                }, label: {
-                                HStack(alignment: .center){
-                                    Text("端末名")
-                                    Spacer()
-                                    Text(deviceName)
-                                        .foregroundColor(.secondary)
-                                }
+                            DeviceNameInputView(clientName: $viewModel.clientName)
+                        }, label: {
+                            HStack(alignment: .center){
+                                Text("端末名")
+                                Spacer()
+                                Text(viewModel.clientName)
+                                    .foregroundColor(.secondary)
                             }
-                        )
+                        })
+                        HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                            Text("クライアントID")
+                            Spacer()
+                            Text(viewModel.clientId)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
                     Section {
                         Toggle("プリンター利用", isOn : $usePrinter )
                         Toggle("キャッシュドロア利用", isOn : $useDrawer)
                         if useDrawer{
-                            Button(action: {}) {
+                            Button(action: {
+                                viewModel.openCacher()
+                            }) {
                                 Text("ドロアを開く")
                             }
                             .padding(.leading)
@@ -59,7 +68,9 @@ struct GeneralSettingView: View {
                             }
                             Toggle("引換券印刷", isOn : $printTicket)
                             if printTicket{
-                                Button(action: {}) {
+                                Button(action: {
+                                    viewModel.printReceipt()
+                                }) {
                                     Text("引換券印刷テスト")
                                 }
                                 .padding(.leading)
@@ -84,8 +95,6 @@ struct GeneralSettingView: View {
             .padding(.horizontal ,120)
             .background(Color(.secondarySystemBackground))
             .frame(maxWidth:.infinity, maxHeight: .infinity)
-            
-            
         }
     }
 }

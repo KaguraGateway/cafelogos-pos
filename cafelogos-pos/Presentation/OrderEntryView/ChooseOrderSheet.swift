@@ -18,14 +18,29 @@ struct ChooseOrderSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var selection = 0
     @State private var inputValue = ""
+    @Binding var orders: [Order]
+    @Binding var isOrderSheet: Bool
     
-    init() {
+    init(orders: Binding<[Order]>, isOrderSheet: Binding<Bool>) {
+        self._orders = orders
+        self._isOrderSheet = isOrderSheet
         let semiboldFont = UIFont.boldSystemFont(ofSize: 30)
         
         UISegmentedControl.appearance().setTitleTextAttributes(
             [.font : semiboldFont],
             for: .normal
         )
+    }
+    
+    func getSeatName() -> String {
+        switch(selection) {
+        case 0:
+            return "カウンター\(inputValue)"
+        case 1:
+            return "テーブル\(inputValue)"
+        default:
+            return inputValue
+        }
     }
     
     
@@ -47,8 +62,11 @@ struct ChooseOrderSheet: View {
                 InputForm(selection: $selection, inputValue: $inputValue)
                 Spacer()
                 Button(action: {
-                    // いい感じに伝票を送信して欲しい
-                    dismiss()
+                    Task {
+                        self.orders = await GetUnpaidOrdersBySeatName().Execute(seatName: getSeatName())
+                        self.isOrderSheet = true
+                        dismiss()
+                    }
                 }, label: {
                     VStack(spacing: 0) {
                         Text("完了")
@@ -106,7 +124,7 @@ struct InputForm: View {
     }
 }
 
-
-#Preview {
-    ChooseOrderSheet()
-}
+//
+//#Preview {
+//    ChooseOrderSheet()
+//}

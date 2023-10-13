@@ -18,22 +18,27 @@ struct SettlementView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var isTraining: Bool = false
     
+    @ObservedObject var viewModel = SettlementViewModel()
+    
     
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "精算"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView()
+                    ChargeInputView(denominations: $viewModel.current)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "あるべき釣り銭(A)", amount: 0)
+                        ChargeInfo(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
                             .padding(.bottom)
                             .padding(.top, 50)
-                        ChargeInfo(title: "現在の釣り銭(B)", amount: 0)
+                        ChargeInfo(title: "現在の釣り銭(B)", amount: viewModel.currentTotal())
                             .padding(.bottom)
-                        ChargeInfo(title: "誤差(B-A)", amount: 0)
+                        ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
                         TitleButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: isTraining)})
+                            .simultaneousGesture(TapGesture().onEnded {
+                                viewModel.complete()
+                            })
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)
@@ -45,8 +50,8 @@ struct SettlementView: View {
 }
 
 struct ChargeInfo:View {
-    @State private var title: String
-    @State private var amount: Int
+    var title: String
+    var amount: Int
     
     init(title: String, amount: Int) {
         self.title = title
@@ -68,6 +73,8 @@ struct ChargeInfo:View {
 }
 
 struct ChargeInputView: View {
+    @Binding var denominations: Denominations
+    
     var body: some View {
         VStack(spacing: 0){
             
@@ -77,19 +84,10 @@ struct ChargeInputView: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 ){
-                    DenominationForm(denomination: 10000, quantity: 0)
-                    DenominationForm(denomination: 5000, quantity: 0)
-                    DenominationForm(denomination: 2000, quantity: 0)
-                    DenominationForm(denomination: 1000, quantity: 0)
-                    DenominationForm(denomination: 500, quantity: 0)
-                    DenominationForm(denomination: 100, quantity: 0)
-                    DenominationForm(denomination: 50, quantity: 0)
-                    DenominationForm(denomination: 10, quantity: 0)
-                    DenominationForm(denomination: 5, quantity: 0)
-                    DenominationForm(denomination: 1, quantity: 0)
+                    ForEach(denominations.denominations.indices, id: \.self) { index in
+                        DenominationForm(denomination: self.$denominations.denominations[index])
+                    }
                 }
-                
-                
             }
             Divider()
             HStack(){
@@ -97,7 +95,7 @@ struct ChargeInputView: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("¥0")
+                Text("¥\(denominations.total())")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
             }
@@ -113,30 +111,14 @@ struct ChargeInputView: View {
 }
 
 struct DenominationForm: View {
-    var denomination: Int
-    @State private var quantity: Int?
-    var amount: Int? {
-        if let quantity = quantity {
-            return denomination * quantity
-        } else {
-            return nil
-        }
-    }
-    // @Bindingでいい感じにamountを渡してtotalAmountを出したかったんですが、私の気力不足で実現しませんでした
-    
-    init(denomination: Int, quantity: Int) {
-        self.denomination = denomination
-        self._quantity = State(initialValue: quantity)
-    }
+    @Binding var denomination: Denomination
     
     var body: some View {
-        
-        
         HStack(alignment: .center){
             HStack(){
                 Text("")
                 Spacer()
-                Text("\(denomination)円")
+                Text("\(denomination.amount)円")
                 
             }
             .frame(maxWidth: 100)
@@ -145,7 +127,13 @@ struct DenominationForm: View {
             Spacer()
             Text("×")
                 .padding(.trailing)
-            TextField("0", value: $quantity, formatter: NumberFormatter())
+            TextField("0", value: Binding(get: { denomination.quantity }, set: { denomination.setQuantity(newValue: $0) }), formatter: NumberFormatter())
+                .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification), perform: { obj in
+                    if let textField = obj.object as? UITextField {
+                        textField.selectAll(textField.text)
+                        
+                    }
+                })
                 .multilineTextAlignment(.trailing)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(maxWidth: 180)
@@ -154,7 +142,7 @@ struct DenominationForm: View {
             Text("=")
             HStack(){
                 Spacer()
-                Text("¥\(amount ?? 0)")
+                Text("¥\(denomination.total())")
                 
                 
             }

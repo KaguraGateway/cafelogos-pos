@@ -15,8 +15,11 @@ public struct OtherProduct: Product {
     public let price: UInt64
     public let stock: Stock
     public let isNowSales: Bool
+    public let createdAt: Date
+    public let updatedAt: Date
+    public var syncAt: Date?
     
-    public init(productName: String, productId: String, productCategory: ProductCategory, price: UInt64, stock: Stock, isNowSales: Bool) {
+    public init(productName: String, productId: String, productCategory: ProductCategory, price: UInt64, stock: Stock, isNowSales: Bool, createdAt: Date, updatedAt: Date, syncAt: Date?) {
         self.productName = productName
         self.productId = productId
         self.productCategory = productCategory
@@ -24,6 +27,9 @@ public struct OtherProduct: Product {
         self.price = price
         self.stock = stock
         self.isNowSales = isNowSales
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.syncAt = syncAt
     }
     
     func canBuy() -> Bool {

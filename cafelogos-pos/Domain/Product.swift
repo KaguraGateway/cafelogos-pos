@@ -16,6 +16,9 @@ protocol Product {
     var productName: String { get }
     var productId: String { get }
     var productCategory: ProductCategory { get }
-    var productType: ProductType {get}
+    var productType: ProductType { get }
     var isNowSales: Bool { get }
+    var createdAt: Date { get }
+    var updatedAt: Date { get }
+    var syncAt: Date? { get set }
 }

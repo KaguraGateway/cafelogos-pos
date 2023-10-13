@@ -6,20 +6,20 @@
 //
 
 import Foundation
+import ULID
 
 public struct Order {
     public let id: String
     public var cart: Cart
     public var discounts: Array<Discount>
-    private (set) public var payment: Payment?
-    private (set) public var orderAt: TimeZone?
-    private (set) public var callNumber: UInt?
+    private (set) public var orderAt: Date
+    public var syncAt: Date?
     
     public var totalAmount: UInt64 {
         get {
             discounts.reduce(cart.getTotalPrice()) { partialResult, discount in
                 if(discount.discountType == DiscountType.price) {
-                    return partialResult - UInt64(discount.discountPrice)
+                    return partialResult > UInt64(discount.discountPrice) ? partialResult - UInt64(discount.discountPrice) : 0
                 }
                 return partialResult
             }
@@ -27,35 +27,27 @@ public struct Order {
     }
     
     public init() {
-        self.init(cart: Cart(), discounts: [], payment: nil, orderAt: nil, callNumber: nil)
+        self.init(cart: Cart(), discounts: [])
     }
     
-    public init(cart: Cart, discounts: Array<Discount>, payment: Payment?, orderAt: TimeZone?, callNumber: UInt?) {
-        self.init(id: UUID().uuidString, cart: cart, discounts: discounts, payment: payment, orderAt: orderAt, callNumber: callNumber)
+    public init(cart: Cart, discounts: Array<Discount>) {
+        self.init(id: ULID().ulidString, cart: cart, discounts: discounts, orderAt: Date())
     }
     
-    public init(id: String, cart: Cart, discounts: Array<Discount>, payment: Payment?, orderAt: TimeZone?, callNumber: UInt?) {
+    public init(id: String, cart: Cart, discounts: Array<Discount>, orderAt: Date) {
         self.id = id
         self.cart = cart
-        self.payment = payment
         self.orderAt = orderAt
         self.discounts = discounts
-        self.callNumber = callNumber
-    }
-    
-    mutating func pay(payment: Payment) throws {
-        try self.pay(payment: payment, callNumber: nil)
-    }
-    
-    mutating func pay(payment: Payment, callNumber: UInt?) throws {
-        if(payment.paymentAmount != totalAmount) {
-            throw LogosError.invalidPayment
-        }
-        if(!payment.isEnoughAmount()) {
-            throw LogosError.notEnoughAmount
-        }
-        self.payment = payment
-        self.orderAt = TimeZone.current
-        self.callNumber = callNumber
     }
 }
+
+protocol OrderService {
+    func getUnpaidOrdersBySeatName(seatName: String) async -> [Order]
+}
+
+protocol OrderRepository {
+    func save(order: Order)
+}
+
+

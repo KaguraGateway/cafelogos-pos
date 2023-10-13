@@ -11,12 +11,18 @@ public struct CoffeeHowToBrew: Codable {
     public let name: String
     public let id: String
     public let beanQuantityGrams: UInt32
-    public let price: UInt64
+    public let amount: UInt64
+    public let createdAt: Date
+    public let updatedAt: Date
+    public var syncAt: Date?
     
-    public init(name: String, id: String, beanQuantityGrams: UInt32, price: UInt64) {
+    public init(name: String, id: String, beanQuantityGrams: UInt32, amount: UInt64, createdAt: Date, updatedAt: Date, syncAt: Date?) {
         self.name = name
         self.id = id
         self.beanQuantityGrams = beanQuantityGrams
-        self.price = price
+        self.amount = amount
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.syncAt = syncAt
     }
 }
