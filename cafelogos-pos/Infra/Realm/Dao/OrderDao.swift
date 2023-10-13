@@ -8,14 +8,8 @@
 import Foundation
 import RealmSwift
 
-public enum OrderTypeDaoEnum: Int, PersistableEnum, CaseIterable {
-    case EatIn = 0
-    case TakeOut = 1
-}
-
 class OrderDao: Object {
     @Persisted(primaryKey: true) var id: String
-    @Persisted var orderType: OrderTypeDaoEnum
     @Persisted var orderAt: Date
-    @Persisted var syncAt: Date
+    @Persisted var syncAt: Date?
 }

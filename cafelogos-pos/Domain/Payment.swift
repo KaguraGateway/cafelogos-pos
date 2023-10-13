@@ -12,9 +12,10 @@ public enum PaymentType: Int {
     case cash = 1
 }
 
-public struct OrderPayment {
+public struct Payment {
     public let id: String
     public let type: PaymentType
+    public let orderIds: [String]
     public var receiveAmount: UInt64
     public let paymentAmount: UInt64
     public let paymentAt: Date
@@ -45,21 +46,38 @@ public struct OrderPayment {
         }
     }
     
-    public init(type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64) {
-        self.init(id: ULID().ulidString, type: type, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
+    public init(type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64) {
+        self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
     }
     
-    public init(id: String, type: PaymentType, paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
+    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
         self.id = id
         self.type = type
+        self.orderIds = orderIds
         self.paymentAmount = paymentAmount
         self.receiveAmount = receiveAmount
         self.paymentAt = paymentAt
         self.updatedAt = updatedAt
         self.syncAt = syncAt
     }
-    
-    func isEnoughAmount() -> Bool {
-        return receiveAmount >= paymentAmount
+}
+
+public struct PaymentDomainService {
+    func getTotalAmount(orders: [Order]) -> UInt64 {
+        return orders.reduce(0, { p, order in
+            return p + order.totalAmount
+        })
+    }
+
+    func isEnoughAmount(payment: Payment, orders: [Order]) -> Bool {
+        let totalAmount = getTotalAmount(orders: orders)
+        return payment.receiveAmount >= totalAmount
     }
 }
+
+protocol PaymentRepository {
+    func findAll() -> [Payment]
+    func findById(id: String) -> Payment?
+    func save(payment: Payment)
+}
+

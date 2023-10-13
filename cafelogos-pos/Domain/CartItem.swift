@@ -10,10 +10,18 @@ import Foundation
 public struct CartItem {
     public let productId: String
     public let productName: String
-    public let productPrice: UInt64
+    public let productPrice: UInt64 // TODO: 事案
     public var totalPrice: UInt64 {
         get {
             return productPrice * UInt64(quantity)
+        }
+    }
+    public var productAmount: UInt64 {
+        get {
+            if coffeeHowToBrew != nil {
+                return coffeeHowToBrew!.amount
+            }
+            return productPrice
         }
     }
     private var quantity: UInt32

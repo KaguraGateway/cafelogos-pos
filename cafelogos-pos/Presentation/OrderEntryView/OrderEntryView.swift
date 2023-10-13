@@ -6,29 +6,42 @@
 //
 
 import SwiftUI
+import Algorithms
+import StarIO10
 
 struct OrderEntryView: View {
-    
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
+    @ObservedObject private var viewModel = OrderEntryViewModel()
+    
     var body: some View {
         GeometryReader{geometry in
-            
             NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
                 VStack(spacing: 0){
                     HStack(spacing:0){
-                        ProductStack()
+                        ProductStack(
+                            productCategories: viewModel.categoriesWithProduct,
+                            onAddItem: viewModel.addItem
+                        )
                             .padding(.leading, 10)
                             .frame(width: geometry.size.width * 0.6)
                         Divider()
-                        DiscountStack()
+                        DiscountStack(discounts: viewModel.discounts, onTapDiscount: viewModel.onTapDiscount)
                             .frame(width: geometry.size.width * 0.1)
                         Divider()
-                        OrderEntryStack()
+                        OrderEntryStack(
+                            cartItems: viewModel.order.cart.items,
+                            discounts: viewModel.order.discounts,
+                            onTapDecreaseBtn: viewModel.onTapDecrease,
+                            onTapIncreaseBtn: viewModel.onTapIncrease,
+                            onRemoveItem: viewModel.onRemoveItem
+                        )
                             .frame(width: geometry.size.width * 0.3)
                     }
-                    EntryBottomBar()
+                    EntryBottomBar(
+                        printer: viewModel.printer, order: viewModel.order, onRemoveAllItem: viewModel.onRemoveAllItem
+                    )
                     
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -45,13 +58,42 @@ struct OrderEntryView: View {
                 }
             }
         }
+        .task {
+            await self.viewModel.fetch()
+        }
     }
 }
 
 // 商品表示するView
 struct ProductStack: View {
-    let productCategories: [ProductCategoryDto] = ProductQueryServiceMock().fetchProducts() // データを取得
     @State private var showingChooseOption: Bool = false
+    var productCategories = [ProductCategoryWithProductsDto]()
+    var onAddItem: (ProductDto, CoffeeHowToBrewDto?) -> Void
+    
+    func onTapProduct(product: ProductDto) {
+        if(product.productType == ProductType.coffee){
+            self.showingChooseOption.toggle()
+        } else {
+            self.onAddItem(product, nil)
+        }
+    }
+    
+    func onTapCoffeeBrew(product: ProductDto, option: Option) {
+        let brewIndex = product.coffeeHowToBrews!.firstIndex(where: {
+            $0.id == option.id
+        })
+        self.onAddItem(product, product.coffeeHowToBrews![brewIndex!])
+    }
+    
+    func getOptions(product: ProductDto) -> [Option] {
+        if(product.coffeeHowToBrews == nil) {
+            return [Option]()
+        }
+        return product.coffeeHowToBrews!.map {
+            Option(id: $0.id, title: $0.name, description: "¥\($0.amount)")
+        }
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -75,43 +117,41 @@ struct ProductStack: View {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
                                 Button(action: {
-                                    if(product.productType == ProductType.coffee){
-                                        self.showingChooseOption.toggle()
-                                    } else {
-                                        
-                                    }
+                                    onTapProduct(product: product)
                                 }, label: {
-                                VStack(alignment: .trailing, spacing: 0) {
-                                    // ProductName
-                                    Text(product.productName)
-                                        .font(.title2)
-                                        .fontWeight(.semibold)
-                                        .multilineTextAlignment(.leading)
-                                        .padding(.vertical, 5)
-                                        .lineLimit(3)
-                                        .frame(maxWidth: .infinity)
+                                    VStack(alignment: .trailing, spacing: 0) {
+                                        // ProductName
+                                        Text(product.productName)
+                                            .font(.title2)
+                                            .fontWeight(.semibold)
+                                            .multilineTextAlignment(.leading)
+                                            .padding(.vertical, 5)
+                                            .lineLimit(3)
+                                            .frame(maxWidth: .infinity)
 
-                                    Spacer()
-                                    
-                                    // ProductAmount
-                                    Text("¥\(product.amount)")
-                                        .font(.title2)
-                                        .fontWeight(.regular)
-                                        .multilineTextAlignment(.trailing)
-                                        .lineLimit(1)
-                                }
-                                .padding(10)
-                                .frame(minHeight: 120)
-                                .frame(maxWidth: abs((geometry.size.width - 48) / 4))
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color(.tertiaryLabel), lineWidth: 1)
-                                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
-                                )
-                                .foregroundColor(.white)
-                            })
+                                        Spacer()
+                                        
+                                        // ProductAmount
+                                        Text("¥\(product.amount)")
+                                            .font(.title2)
+                                            .fontWeight(.regular)
+                                            .multilineTextAlignment(.trailing)
+                                            .lineLimit(1)
+                                    }
+                                    .padding(10)
+                                    .frame(minHeight: 120)
+                                    .frame(maxWidth: abs((geometry.size.width - 48) / 4))
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color(.tertiaryLabel), lineWidth: 1)
+                                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
+                                    )
+                                    .foregroundColor(.white)
+                                })
                                 .sheet(isPresented: $showingChooseOption) {
-                                    ChooseOptionSheet(ProductName: "ドリップ方法")
+                                    ChooseOptionSheet(productName: "ドリップ方法", options: getOptions(product: product), onAction: { option in
+                                        onTapCoffeeBrew(product: product, option: option)
+                                    })
                                 }
                             }
                         }
@@ -125,7 +165,8 @@ struct ProductStack: View {
 
 // 割引を表示するView
 struct DiscountStack: View {
-    let discounts: [Discount] = DiscountRepositoryMock().findAll()
+    let discounts: [Discount]
+    let onTapDiscount: (Discount) -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -134,7 +175,7 @@ struct DiscountStack: View {
                 LazyVGrid(columns: [GridItem(.flexible())]) {
                     ForEach(discounts, id: \.id) { discount in
                         Button(action: {
-                            
+                            onTapDiscount(discount)
                         }, label: {
                         VStack(spacing: 0) {
                             // DiscountName
@@ -174,9 +215,11 @@ struct DiscountStack: View {
 // ここから注文リストのボタン
 // 消去ボタン
 struct removeButton: View {
+    public let onAction: () -> Void
+    
     var body: some View {
         Button(action: {
-            
+            self.onAction()
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -189,13 +232,16 @@ struct removeButton: View {
                     .fontWeight(.bold)
             }
         })
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
 // プラスボタン
 struct increaseButton: View {
+    let onAction: () -> Void
+    
     var body: some View {
         Button(action: {
-            
+            self.onAction()
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -209,13 +255,16 @@ struct increaseButton: View {
                     .fontWeight(.bold)
             }
         })
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
 // マイナスボタン
 struct decreaseButton: View {
+    let onAction: () -> Void
+    
     var body: some View {
         Button(action: {
-
+            self.onAction()
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -229,11 +278,71 @@ struct decreaseButton: View {
                     .fontWeight(.bold)
             }
         })
+        .buttonStyle(BorderlessButtonStyle())
+    }
+}
+
+struct OrderItemView: View {
+    let name: String
+    let quantity: UInt32
+    let totalPrice: UInt64
+    let onRemove: () -> Void
+    let onDecrese: () -> Void
+    let onIncrease: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 0){
+            HStack(){
+                Text(name)
+                    .lineLimit(0)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Spacer()
+                removeButton(onAction: {
+                    onRemove()
+                })
+                .clipped()
+            }
+            .padding(.bottom, 20)
+            HStack(spacing: 0){
+                decreaseButton(onAction: {
+                    onDecrese()
+                })
+                .clipped()
+                Text("\(quantity)")
+                    .padding(.horizontal, 10)
+                    .lineLimit(0)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                increaseButton(onAction: {
+                    onIncrease()
+                })
+                .clipped()
+                Spacer()
+                Text("¥\(totalPrice)")
+                    .lineLimit(0)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+            }
+        }
     }
 }
 
 // 注文リストのView
 struct OrderEntryStack: View {
+    public let cartItems: [CartItem]
+    public let discounts: [Discount]
+    public let onTapDecreaseBtn: (Int) -> Void
+    public let onTapIncreaseBtn: (Int) -> Void
+    public let onRemoveItem: (CartItem) -> Void
+    
+    public func getProductName(cartItem: CartItem) -> String {
+        if(cartItem.coffeeHowToBrew != nil) {
+            return "\(cartItem.productName) (\(cartItem.coffeeHowToBrew!.name)"
+        }
+        return cartItem.productName
+    }
+    
     var body: some View {
         GeometryReader{ geometry in
             VStack(spacing: 0) {
@@ -242,35 +351,26 @@ struct OrderEntryStack: View {
                     .padding(.vertical, 10)
                 Divider()
                 List {
-                    ForEach(0..<10) { _ in
-                        VStack(spacing: 0){
-                            HStack(){
-                                Text("品目")
-                                    .lineLimit(0)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                Spacer()
-                                removeButton()
-                            }
-                            .padding(.bottom, 20)
-                            HStack(spacing: 0){
-                                decreaseButton()
-                                Text("1")
-                                    .padding(.horizontal, 10)
-                                    .lineLimit(0)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                increaseButton()
-                                Spacer()
-                                Text("¥500")
-                                    .lineLimit(0)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                            }
-                            
-                        }
+                    ForEach(cartItems.indexed(), id: \.index) { (index, cartItem) in
+                        OrderItemView(
+                            name: getProductName(cartItem: cartItem),
+                            quantity: cartItem.getQuantity(),
+                            totalPrice: cartItem.totalPrice,
+                            onRemove: { onRemoveItem(cartItem) },
+                            onDecrese: {onTapDecreaseBtn(index)},
+                            onIncrease: {onTapIncreaseBtn(index)}
+                        )
                     }
-                    
+                    ForEach(discounts.indexed(), id: \.index) { (index, discount) in
+                        OrderItemView(
+                            name: discount.name,
+                            quantity: 1,
+                            totalPrice: UInt64(discount.discountPrice),
+                            onRemove: {  },
+                            onDecrese: { },
+                            onIncrease: {}
+                        )
+                    }
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
@@ -315,15 +415,21 @@ private struct BottomBarButton: View {
 struct EntryBottomBar: View {
     @State private var showingChooseOrder: Bool = false // 席番号からモーダルの表示bool
     @State private var orderNumber:String = ""
+    @State private var orders: [Order] = [Order]()
+    @State private var isOrderSheet = false
+    public let printer: StarPrinter?
+    public let order: Order?
+    
+    public let onRemoveAllItem: () -> Void
     
     var body:some View{
         let screenWidth = UIScreen.main.bounds.size.width
         
         HStack(spacing: 0) {
-            Text("999点")
+            Text("\(order?.cart.totalQuantity ?? 0)点")
                 .font(.title)
                 .foregroundColor(Color(.systemGray6))
-            Text("¥5,000")
+            Text("¥\(order?.totalAmount ?? 0)")
                 .font(.title)
                 .foregroundColor(Color(.systemGray6))
                 .padding(.leading)
@@ -333,16 +439,17 @@ struct EntryBottomBar: View {
             }, bgColor: Color(.systemBackground), fgColor: Color.primary)
             .frame(width: 150, height: 60)
             .sheet(isPresented: $showingChooseOrder) {
-                ChooseOrderSheet()
+                ChooseOrderSheet(orders: $orders, isOrderSheet: $isOrderSheet)
             }
             
             BottomBarButton(text: "注文全削除", action: {
+                self.onRemoveAllItem()
             }, bgColor: Color.red, fgColor: Color.white)
             .frame(width: 130, height: 60)
             .padding(.leading, 50)
             // 支払いへのNavigationLink
             NavigationLink {
-                PaymentView()
+                PaymentView(printer: printer, orders: orders, newOrder: order)
             } label: {
                 Text("支払いへ進む")
                     .frame(width: screenWidth * 0.27, height: 60)
@@ -359,7 +466,9 @@ struct EntryBottomBar: View {
         .padding(.horizontal, 40)
         .padding(.vertical, 15)
         .background(.primary)
-        
+        .navigationDestination(isPresented: $isOrderSheet) {
+            PaymentView(printer: printer, orders: orders, newOrder: nil)
+        }
         
     }
 }

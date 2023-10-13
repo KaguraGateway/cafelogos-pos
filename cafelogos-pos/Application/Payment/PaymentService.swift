@@ -1,0 +1,17 @@
+//
+//  PaymentService.swift
+//  cafelogos-pos
+//
+//  Created by ygates on 2023/10/13.
+//
+
+import Foundation
+
+public struct PostPaymentResponse {
+    public let callNumber: String?
+}
+
+protocol PaymentService {
+    func postPayment(payment: Payment, postOrder: Order?) async -> PostPaymentResponse
+    func updatePayment(payment: Payment) async -> Void
+}

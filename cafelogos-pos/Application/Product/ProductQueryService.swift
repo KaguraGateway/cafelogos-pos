@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol ProductQueryService {
-    func fetchProducts() -> Array<ProductCategoryDto>
+    func fetchProductCategoriesWithProducts() async -> Array<ProductCategoryWithProductsDto>
 }

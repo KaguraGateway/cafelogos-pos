@@ -21,6 +21,7 @@
 		352572952AD290CF00E33C8E /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352572942AD290CF00E33C8E /* Launch.swift */; };
 		352572982AD2928F00E33C8E /* GetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352572972AD2928F00E33C8E /* GetConfig.swift */; };
 		3525729A2AD292D400E33C8E /* GeneralSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352572992AD292D400E33C8E /* GeneralSettingViewModel.swift */; };
+		353552FE2AD6293C00958645 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353552FD2AD6293C00958645 /* Date.swift */; };
 		35464AE82AD004200072720A /* ProductDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35464AE72AD004200072720A /* ProductDao.swift */; };
 		3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */; };
 		3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7192A826A1200C72F17 /* ContentView.swift */; };
@@ -42,7 +43,7 @@
 		3564C3CE2AD00EE500F84F42 /* OrderDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3CD2AD00EE500F84F42 /* OrderDao.swift */; };
 		3564C3D02AD00FEA00F84F42 /* OrderTicketDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3CF2AD00FEA00F84F42 /* OrderTicketDao.swift */; };
 		3564C3D22AD0106800F84F42 /* OrderItemDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D12AD0106800F84F42 /* OrderItemDao.swift */; };
-		3564C3D42AD0111F00F84F42 /* OrderPaymentDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */; };
+		3564C3D42AD0111F00F84F42 /* PaymentDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D32AD0111F00F84F42 /* PaymentDao.swift */; };
 		3564C3D62AD011CD00F84F42 /* DiscountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D52AD011CD00F84F42 /* DiscountDao.swift */; };
 		3564C3D82AD0125600F84F42 /* OrderDiscountDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */; };
 		3564C3DC2AD012C000F84F42 /* DenominationDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564C3DB2AD012C000F84F42 /* DenominationDao.swift */; };
@@ -70,9 +71,34 @@
 		3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3586BDF42A8FAD48009E346E /* LogosError.swift */; };
 		3586BDF72A8FC479009E346E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3586BDF62A8FC479009E346E /* .gitignore */; };
 		359664162AD29EE900D6D303 /* SaveConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359664152AD29EE900D6D303 /* SaveConfig.swift */; };
+		35A6B2962AD645B50052F227 /* DiscountRepositoryServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A6B2952AD645B50052F227 /* DiscountRepositoryServer.swift */; };
+		35A6B2982AD647C60052F227 /* GetDiscounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A6B2972AD647C60052F227 /* GetDiscounts.swift */; };
+		35B733E82AD6832D00DD6B16 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B733E72AD6832D00DD6B16 /* PaymentViewModel.swift */; };
+		35B733EA2AD68CA900DD6B16 /* PaymentServiceServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B733E92AD68CA900DD6B16 /* PaymentServiceServer.swift */; };
+		35CD0DB72AD77BAE007F5307 /* PrinterDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DB62AD77BAE007F5307 /* PrinterDiscovery.swift */; };
+		35CD0DB92AD77E71007F5307 /* OpenCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DB82AD77E71007F5307 /* OpenCacher.swift */; };
+		35CD0DBC2AD8C159007F5307 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DBB2AD8C159007F5307 /* PaymentService.swift */; };
+		35CD0DBE2AD8C9D1007F5307 /* OrderRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DBD2AD8C9D1007F5307 /* OrderRealm.swift */; };
+		35CD0DC02AD8CB5F007F5307 /* PaymentRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DBF2AD8CB5F007F5307 /* PaymentRealm.swift */; };
+		35CD0DC22AD8D2C3007F5307 /* NewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC12AD8D2C3007F5307 /* NewPayment.swift */; };
+		35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */; };
+		35CD0DC62AD8D5A1007F5307 /* OrderServiceServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */; };
+		35CD0DC82AD91C92007F5307 /* PaymentSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC72AD91C92007F5307 /* PaymentSuccessViewModel.swift */; };
+		35D4346F2AD602990043F7AE /* cafelogos-grpc in Frameworks */ = {isa = PBXBuildFile; productRef = 35D4346E2AD602990043F7AE /* cafelogos-grpc */; };
+		35D434722AD603150043F7AE /* Connect in Frameworks */ = {isa = PBXBuildFile; productRef = 35D434712AD603150043F7AE /* Connect */; };
+		35D434742AD619050043F7AE /* OrderEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D434732AD619050043F7AE /* OrderEntryViewModel.swift */; };
+		35D434772AD61C270043F7AE /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 35D434762AD61C270043F7AE /* SwiftProtobuf */; };
+		35D434792AD61C270043F7AE /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 35D434782AD61C270043F7AE /* SwiftProtobufPluginLibrary */; };
+		35D4347B2AD620EF0043F7AE /* ServerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D4347A2AD620EF0043F7AE /* ServerClient.swift */; };
+		35D463822AD6BD000081E7CB /* OrderReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D463812AD6BD000081E7CB /* OrderReceipt.swift */; };
+		35D463852AD6BEC50081E7CB /* OrderReceiptStarX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D463842AD6BEC50081E7CB /* OrderReceiptStarX.swift */; };
+		35D463872AD6C3C70081E7CB /* PrintReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D463862AD6C3C70081E7CB /* PrintReceipt.swift */; };
+		35FCA9812AD3F73D00164F52 /* StarIO10 in Frameworks */ = {isa = PBXBuildFile; productRef = 35FCA9802AD3F73D00164F52 /* StarIO10 */; };
+		35FCA9842AD3FCE700164F52 /* GetCategoriesWithProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FCA9832AD3FCE700164F52 /* GetCategoriesWithProduct.swift */; };
+		35FCA9872AD55A3500164F52 /* ProductQueryServiceServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FCA9862AD55A3500164F52 /* ProductQueryServiceServer.swift */; };
 		35FDCD5D2A8FE1E700652093 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 35FDCD5C2A8FE1E700652093 /* Algorithms */; };
 		35FDCD5F2A908E2500652093 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD5E2A908E2500652093 /* Product.swift */; };
-		35FDCD612A908F7300652093 /* OrderPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD602A908F7300652093 /* OrderPayment.swift */; };
+		35FDCD612A908F7300652093 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD602A908F7300652093 /* Payment.swift */; };
 		35FDCD632A9091CC00652093 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD622A9091CC00652093 /* Discount.swift */; };
 		35FDCD652A90936600652093 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDCD642A90936600652093 /* Order.swift */; };
 		EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB350B672AC6C534009B6D50 /* TrainingStatus.swift */; };
@@ -122,6 +148,7 @@
 		352572942AD290CF00E33C8E /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		352572972AD2928F00E33C8E /* GetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetConfig.swift; sourceTree = "<group>"; };
 		352572992AD292D400E33C8E /* GeneralSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewModel.swift; sourceTree = "<group>"; };
+		353552FD2AD6293C00958645 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		35464AE72AD004200072720A /* ProductDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDao.swift; sourceTree = "<group>"; };
 		3557C7142A826A1200C72F17 /* cafelogos-pos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cafelogos-pos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posApp.swift; sourceTree = "<group>"; };
@@ -144,7 +171,7 @@
 		3564C3CD2AD00EE500F84F42 /* OrderDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDao.swift; sourceTree = "<group>"; };
 		3564C3CF2AD00FEA00F84F42 /* OrderTicketDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTicketDao.swift; sourceTree = "<group>"; };
 		3564C3D12AD0106800F84F42 /* OrderItemDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemDao.swift; sourceTree = "<group>"; };
-		3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPaymentDao.swift; sourceTree = "<group>"; };
+		3564C3D32AD0111F00F84F42 /* PaymentDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDao.swift; sourceTree = "<group>"; };
 		3564C3D52AD011CD00F84F42 /* DiscountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountDao.swift; sourceTree = "<group>"; };
 		3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDiscountDao.swift; sourceTree = "<group>"; };
 		3564C3DB2AD012C000F84F42 /* DenominationDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenominationDao.swift; sourceTree = "<group>"; };
@@ -170,8 +197,28 @@
 		3586BDF42A8FAD48009E346E /* LogosError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogosError.swift; sourceTree = "<group>"; };
 		3586BDF62A8FC479009E346E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		359664152AD29EE900D6D303 /* SaveConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveConfig.swift; sourceTree = "<group>"; };
+		35A6B2952AD645B50052F227 /* DiscountRepositoryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountRepositoryServer.swift; sourceTree = "<group>"; };
+		35A6B2972AD647C60052F227 /* GetDiscounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDiscounts.swift; sourceTree = "<group>"; };
+		35B733E72AD6832D00DD6B16 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		35B733E92AD68CA900DD6B16 /* PaymentServiceServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceServer.swift; sourceTree = "<group>"; };
+		35CD0DB62AD77BAE007F5307 /* PrinterDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDiscovery.swift; sourceTree = "<group>"; };
+		35CD0DB82AD77E71007F5307 /* OpenCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCacher.swift; sourceTree = "<group>"; };
+		35CD0DBB2AD8C159007F5307 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
+		35CD0DBD2AD8C9D1007F5307 /* OrderRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRealm.swift; sourceTree = "<group>"; };
+		35CD0DBF2AD8CB5F007F5307 /* PaymentRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRealm.swift; sourceTree = "<group>"; };
+		35CD0DC12AD8D2C3007F5307 /* NewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPayment.swift; sourceTree = "<group>"; };
+		35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUnpaidOrdersBySeatName.swift; sourceTree = "<group>"; };
+		35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceServer.swift; sourceTree = "<group>"; };
+		35CD0DC72AD91C92007F5307 /* PaymentSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewModel.swift; sourceTree = "<group>"; };
+		35D434732AD619050043F7AE /* OrderEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntryViewModel.swift; sourceTree = "<group>"; };
+		35D4347A2AD620EF0043F7AE /* ServerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerClient.swift; sourceTree = "<group>"; };
+		35D463812AD6BD000081E7CB /* OrderReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderReceipt.swift; sourceTree = "<group>"; };
+		35D463842AD6BEC50081E7CB /* OrderReceiptStarX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderReceiptStarX.swift; sourceTree = "<group>"; };
+		35D463862AD6C3C70081E7CB /* PrintReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintReceipt.swift; sourceTree = "<group>"; };
+		35FCA9832AD3FCE700164F52 /* GetCategoriesWithProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesWithProduct.swift; sourceTree = "<group>"; };
+		35FCA9862AD55A3500164F52 /* ProductQueryServiceServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductQueryServiceServer.swift; sourceTree = "<group>"; };
 		35FDCD5E2A908E2500652093 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		35FDCD602A908F7300652093 /* OrderPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPayment.swift; sourceTree = "<group>"; };
+		35FDCD602A908F7300652093 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		35FDCD622A9091CC00652093 /* Discount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		35FDCD642A90936600652093 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		EB350B672AC6C534009B6D50 /* TrainingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatus.swift; sourceTree = "<group>"; };
@@ -196,10 +243,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3564C3E82AD01CD400F84F42 /* Dependencies in Frameworks */,
+				35D434722AD603150043F7AE /* Connect in Frameworks */,
+				35D434792AD61C270043F7AE /* SwiftProtobufPluginLibrary in Frameworks */,
+				35D4346F2AD602990043F7AE /* cafelogos-grpc in Frameworks */,
 				3564C3C42AD0099B00F84F42 /* RealmSwift in Frameworks */,
 				3564C3C22AD0099B00F84F42 /* Realm in Frameworks */,
+				35FCA9812AD3F73D00164F52 /* StarIO10 in Frameworks */,
 				3564C3DF2AD0199C00F84F42 /* ULID in Frameworks */,
 				35FDCD5D2A8FE1E700652093 /* Algorithms in Frameworks */,
+				35D434772AD61C270043F7AE /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +310,7 @@
 		351C18C62A9542F2005A966C /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				35CD0DBA2AD8C147007F5307 /* Payment */,
 				352572962AD2928300E33C8E /* Config */,
 				352572932AD290BE00E33C8E /* Launch */,
 				3564C3EF2AD052B000F84F42 /* Denomination */,
@@ -272,6 +325,9 @@
 			isa = PBXGroup;
 			children = (
 				351C18C82A9542F2005A966C /* OrderDto.swift */,
+				35D463862AD6C3C70081E7CB /* PrintReceipt.swift */,
+				35CD0DB82AD77E71007F5307 /* OpenCacher.swift */,
+				35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -281,6 +337,7 @@
 			children = (
 				351C18CC2A9542F2005A966C /* ProductQueryService.swift */,
 				351C18CD2A9542F2005A966C /* ProductDto.swift */,
+				35FCA9832AD3FCE700164F52 /* GetCategoriesWithProduct.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -289,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				351C18CF2A9542F2005A966C /* DiscountDto.swift */,
+				35A6B2972AD647C60052F227 /* GetDiscounts.swift */,
 			);
 			path = Discount;
 			sourceTree = "<group>";
@@ -323,6 +381,8 @@
 			children = (
 				35464AE62AD003A70072720A /* Dao */,
 				3564C3EA2AD0212700F84F42 /* DenominationRealm.swift */,
+				35CD0DBD2AD8C9D1007F5307 /* OrderRealm.swift */,
+				35CD0DBF2AD8CB5F007F5307 /* PaymentRealm.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -338,7 +398,7 @@
 				3564C3CD2AD00EE500F84F42 /* OrderDao.swift */,
 				3564C3CF2AD00FEA00F84F42 /* OrderTicketDao.swift */,
 				3564C3D12AD0106800F84F42 /* OrderItemDao.swift */,
-				3564C3D32AD0111F00F84F42 /* OrderPaymentDao.swift */,
+				3564C3D32AD0111F00F84F42 /* PaymentDao.swift */,
 				3564C3D52AD011CD00F84F42 /* DiscountDao.swift */,
 				3564C3D72AD0125600F84F42 /* OrderDiscountDao.swift */,
 				3564C3DB2AD012C000F84F42 /* DenominationDao.swift */,
@@ -397,6 +457,7 @@
 			children = (
 				351C18B72A9542D6005A966C /* Domain */,
 				3557C7282A826A1300C72F17 /* cafelogos_posTests.swift */,
+				353552FD2AD6293C00958645 /* Date.swift */,
 			);
 			path = "cafelogos-posTests";
 			sourceTree = "<group>";
@@ -423,6 +484,7 @@
 			isa = PBXGroup;
 			children = (
 				355927612ABB3B4F00AF7B0E /* PaymentView.swift */,
+				35B733E72AD6832D00DD6B16 /* PaymentViewModel.swift */,
 			);
 			path = PaymentView;
 			sourceTree = "<group>";
@@ -431,6 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				3559276A2ABBF40A00AF7B0E /* PaymentSuccessView.swift */,
+				35CD0DC72AD91C92007F5307 /* PaymentSuccessViewModel.swift */,
 			);
 			path = PaymentSuccessView;
 			sourceTree = "<group>";
@@ -460,11 +523,12 @@
 				3586BDED2A8F8090009E346E /* Denominations.swift */,
 				3586BDF42A8FAD48009E346E /* LogosError.swift */,
 				35FDCD5E2A908E2500652093 /* Product.swift */,
-				35FDCD602A908F7300652093 /* OrderPayment.swift */,
+				35FDCD602A908F7300652093 /* Payment.swift */,
 				35FDCD622A9091CC00652093 /* Discount.swift */,
 				35FDCD642A90936600652093 /* Order.swift */,
 				3564C3E22AD01A7F00F84F42 /* OrderDiscount.swift */,
 				3525728A2AD2882F00E33C8E /* Config.swift */,
+				35D463812AD6BD000081E7CB /* OrderReceipt.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -472,11 +536,43 @@
 		3586BDD72A8F5039009E346E /* Infra */ = {
 			isa = PBXGroup;
 			children = (
+				35D463832AD6BE820081E7CB /* StarX */,
+				35FCA9852AD55A2500164F52 /* Server */,
 				352572902AD28E0900E33C8E /* AppStorage */,
 				35464AE52AD003980072720A /* Realm */,
 				351C18BE2A9542E3005A966C /* Mock */,
 			);
 			path = Infra;
+			sourceTree = "<group>";
+		};
+		35CD0DBA2AD8C147007F5307 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				35CD0DBB2AD8C159007F5307 /* PaymentService.swift */,
+				35CD0DC12AD8D2C3007F5307 /* NewPayment.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		35D463832AD6BE820081E7CB /* StarX */ = {
+			isa = PBXGroup;
+			children = (
+				35D463842AD6BEC50081E7CB /* OrderReceiptStarX.swift */,
+				35CD0DB62AD77BAE007F5307 /* PrinterDiscovery.swift */,
+			);
+			path = StarX;
+			sourceTree = "<group>";
+		};
+		35FCA9852AD55A2500164F52 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				35FCA9862AD55A3500164F52 /* ProductQueryServiceServer.swift */,
+				35A6B2952AD645B50052F227 /* DiscountRepositoryServer.swift */,
+				35D4347A2AD620EF0043F7AE /* ServerClient.swift */,
+				35B733E92AD68CA900DD6B16 /* PaymentServiceServer.swift */,
+				35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */,
+			);
+			path = Server;
 			sourceTree = "<group>";
 		};
 		EB38B4652A951E87003BFFA6 /* Components */ = {
@@ -549,6 +645,7 @@
 			children = (
 				355927582ABB3B4F00AF7B0E /* ChooseOptionSheet.swift */,
 				EB92827F2AD03B300029EAD8 /* OrderEntryView.swift */,
+				35D434732AD619050043F7AE /* OrderEntryViewModel.swift */,
 				EBE8FF9E2AD1D471002011B5 /* ChooseOrderSheet.swift */,
 			);
 			path = OrderEntryView;
@@ -576,6 +673,11 @@
 				3564C3C32AD0099B00F84F42 /* RealmSwift */,
 				3564C3DE2AD0199C00F84F42 /* ULID */,
 				3564C3E72AD01CD400F84F42 /* Dependencies */,
+				35FCA9802AD3F73D00164F52 /* StarIO10 */,
+				35D4346E2AD602990043F7AE /* cafelogos-grpc */,
+				35D434712AD603150043F7AE /* Connect */,
+				35D434762AD61C270043F7AE /* SwiftProtobuf */,
+				35D434782AD61C270043F7AE /* SwiftProtobufPluginLibrary */,
 			);
 			productName = "cafelogos-pos";
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
@@ -655,6 +757,10 @@
 				35464AE42AD003660072720A /* XCRemoteSwiftPackageReference "realm-swift" */,
 				3564C3DD2AD0199C00F84F42 /* XCRemoteSwiftPackageReference "ULID.swift" */,
 				3564C3E62AD01CD400F84F42 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+				35FCA97F2AD3F73D00164F52 /* XCRemoteSwiftPackageReference "StarXpand-SDK-iOS" */,
+				35D4346D2AD602990043F7AE /* XCRemoteSwiftPackageReference "cafelogos-grpc" */,
+				35D434702AD603150043F7AE /* XCRemoteSwiftPackageReference "connect-swift" */,
+				35D434752AD61C270043F7AE /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			productRefGroup = 3557C7152A826A1200C72F17 /* Products */;
 			projectDirPath = "";
@@ -703,11 +809,13 @@
 				3564C3E32AD01A7F00F84F42 /* OrderDiscount.swift in Sources */,
 				3564C3D62AD011CD00F84F42 /* DiscountDao.swift in Sources */,
 				35464AE82AD004200072720A /* ProductDao.swift in Sources */,
-				35FDCD612A908F7300652093 /* OrderPayment.swift in Sources */,
+				35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift in Sources */,
+				35FDCD612A908F7300652093 /* Payment.swift in Sources */,
 				35FDCD632A9091CC00652093 /* Discount.swift in Sources */,
 				3525729A2AD292D400E33C8E /* GeneralSettingViewModel.swift in Sources */,
 				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
 				3564C3F32AD053C800F84F42 /* DI.swift in Sources */,
+				35A6B2962AD645B50052F227 /* DiscountRepositoryServer.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
 				EBD8AD022A8A3FF500FC20F1 /* HomeView.swift in Sources */,
@@ -715,6 +823,7 @@
 				3564C3CA2AD00E2D00F84F42 /* ProductCoffeeBrewDao.swift in Sources */,
 				3564C3D22AD0106800F84F42 /* OrderItemDao.swift in Sources */,
 				351C18D02A9542F2005A966C /* OrderDto.swift in Sources */,
+				35D463822AD6BD000081E7CB /* OrderReceipt.swift in Sources */,
 				3564C3CE2AD00EE500F84F42 /* OrderDao.swift in Sources */,
 				355927682ABB3B4F00AF7B0E /* PaymentView.swift in Sources */,
 				EB7429822ABC2F7000AC1414 /* SettingView.swift in Sources */,
@@ -734,38 +843,55 @@
 				3564C3F92AD05DD600F84F42 /* Settle.swift in Sources */,
 				352572922AD28E2300E33C8E /* ConfigAppStorage.swift in Sources */,
 				351C18C52A9542E3005A966C /* DiscountRepositoryMock.swift in Sources */,
+				35FCA9872AD55A3500164F52 /* ProductQueryServiceServer.swift in Sources */,
 				359664162AD29EE900D6D303 /* SaveConfig.swift in Sources */,
 				3564C3C62AD00CAC00F84F42 /* ProductCategoryDao.swift in Sources */,
 				3586BDEE2A8F8090009E346E /* Denominations.swift in Sources */,
 				3564C3EB2AD0212700F84F42 /* DenominationRealm.swift in Sources */,
 				EB7429872ABC9F8200AC1414 /* DeviceNameInputView.swift in Sources */,
+				35CD0DC82AD91C92007F5307 /* PaymentSuccessViewModel.swift in Sources */,
+				35CD0DC22AD8D2C3007F5307 /* NewPayment.swift in Sources */,
 				351C18D32A9542F2005A966C /* ProductQueryService.swift in Sources */,
+				35CD0DB72AD77BAE007F5307 /* PrinterDiscovery.swift in Sources */,
 				3586BDE42A8F798E009E346E /* ProductCategory.swift in Sources */,
+				35CD0DBE2AD8C9D1007F5307 /* OrderRealm.swift in Sources */,
 				3525728B2AD2882F00E33C8E /* Config.swift in Sources */,
+				35CD0DBC2AD8C159007F5307 /* PaymentService.swift in Sources */,
 				3586BDDA2A8F531F009E346E /* CoffeeProduct.swift in Sources */,
+				35D4347B2AD620EF0043F7AE /* ServerClient.swift in Sources */,
 				EB350B682AC6C534009B6D50 /* TrainingStatus.swift in Sources */,
 				355927672ABB3B4F00AF7B0E /* NavBarBody.swift in Sources */,
 				EB350B6A2AC6C59E009B6D50 /* TitleButton.swift in Sources */,
 				351C18D42A9542F2005A966C /* ProductDto.swift in Sources */,
 				3559276B2ABBF40A00AF7B0E /* PaymentSuccessView.swift in Sources */,
-				3564C3D42AD0111F00F84F42 /* OrderPaymentDao.swift in Sources */,
+				3564C3D42AD0111F00F84F42 /* PaymentDao.swift in Sources */,
 				3586BDDC2A8F716E009E346E /* CoffeeBean.swift in Sources */,
+				35B733EA2AD68CA900DD6B16 /* PaymentServiceServer.swift in Sources */,
 				35FDCD5F2A908E2500652093 /* Product.swift in Sources */,
 				3564C3D82AD0125600F84F42 /* OrderDiscountDao.swift in Sources */,
 				3564C3CC2AD00E9100F84F42 /* StockDao.swift in Sources */,
 				3586BDEA2A8F7D43009E346E /* CartItem.swift in Sources */,
+				35D434742AD619050043F7AE /* OrderEntryViewModel.swift in Sources */,
+				35B733E82AD6832D00DD6B16 /* PaymentViewModel.swift in Sources */,
 				3564C3DC2AD012C000F84F42 /* DenominationDao.swift in Sources */,
 				3586BDE82A8F7A9A009E346E /* Denomination.swift in Sources */,
 				351C18C42A9542E3005A966C /* ProductQueryServiceMock.swift in Sources */,
 				351C18D52A9542F2005A966C /* DiscountDto.swift in Sources */,
 				352572982AD2928F00E33C8E /* GetConfig.swift in Sources */,
+				35CD0DB92AD77E71007F5307 /* OpenCacher.swift in Sources */,
+				35CD0DC02AD8CB5F007F5307 /* PaymentRealm.swift in Sources */,
+				35FCA9842AD3FCE700164F52 /* GetCategoriesWithProduct.swift in Sources */,
+				35A6B2982AD647C60052F227 /* GetDiscounts.swift in Sources */,
 				EB74298E2ABE0E1200AC1414 /* StartTransactionView.swift in Sources */,
+				35D463872AD6C3C70081E7CB /* PrintReceipt.swift in Sources */,
 				EB350B6C2AC6C6E4009B6D50 /* InspectionView.swift in Sources */,
 				3564C3ED2AD0518500F84F42 /* StartTransactionViewModel.swift in Sources */,
 				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
+				35D463852AD6BEC50081E7CB /* OrderReceiptStarX.swift in Sources */,
 				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
 				3564C3F52AD059EB00F84F42 /* SettlementViewModel.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,
+				35CD0DC62AD8D5A1007F5307 /* OrderServiceServer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,6 +900,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				351C18BC2A9542D6005A966C /* OrderTests.swift in Sources */,
+				353552FE2AD6293C00958645 /* Date.swift in Sources */,
 				3557C7292A826A1300C72F17 /* cafelogos_posTests.swift in Sources */,
 				351C18BD2A9542D6005A966C /* DenominationsTests.swift in Sources */,
 				351C18BB2A9542D6005A966C /* CartTests.swift in Sources */,
@@ -1129,6 +1256,38 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		35D4346D2AD602990043F7AE /* XCRemoteSwiftPackageReference "cafelogos-grpc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KaguraGateway/cafelogos-grpc.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		35D434702AD603150043F7AE /* XCRemoteSwiftPackageReference "connect-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/connectrpc/connect-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.0;
+			};
+		};
+		35D434752AD61C270043F7AE /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.24.0;
+			};
+		};
+		35FCA97F2AD3F73D00164F52 /* XCRemoteSwiftPackageReference "StarXpand-SDK-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/star-micronics/StarXpand-SDK-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 		35FDCD5B2A8FE1E700652093 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -1159,6 +1318,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3564C3E62AD01CD400F84F42 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
 			productName = Dependencies;
+		};
+		35D4346E2AD602990043F7AE /* cafelogos-grpc */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35D4346D2AD602990043F7AE /* XCRemoteSwiftPackageReference "cafelogos-grpc" */;
+			productName = "cafelogos-grpc";
+		};
+		35D434712AD603150043F7AE /* Connect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35D434702AD603150043F7AE /* XCRemoteSwiftPackageReference "connect-swift" */;
+			productName = Connect;
+		};
+		35D434762AD61C270043F7AE /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35D434752AD61C270043F7AE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		35D434782AD61C270043F7AE /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35D434752AD61C270043F7AE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		35FCA9802AD3F73D00164F52 /* StarIO10 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35FCA97F2AD3F73D00164F52 /* XCRemoteSwiftPackageReference "StarXpand-SDK-iOS" */;
+			productName = StarIO10;
 		};
 		35FDCD5C2A8FE1E700652093 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

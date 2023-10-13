@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+import StarIO10
 
 struct PaymentSuccessView: View {
+    @ObservedObject var viewModel: PaymentSuccessViewModel
+    
+    public init(printer: StarPrinter?, payment: Payment, orders: [Order], callNumber: String) {
+        viewModel = PaymentSuccessViewModel(printer: printer, payment: payment, orders: orders, callNumber: callNumber)
+    }
+    
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack() {
@@ -25,7 +32,7 @@ struct PaymentSuccessView: View {
                                 Text("おつり")
                                     .font(.system(size:40 , weight: .semibold, design: .default))
                                     .foregroundColor(.secondary)
-                                Text("¥400")
+                                Text("¥\(viewModel.payment.changeAmount)")
                                     .font(.system(size: 80, weight: .semibold, design: .default))
                                     .background(alignment: .bottom) {
                                         RoundedRectangle(cornerRadius: 0, style: .continuous)
@@ -51,11 +58,11 @@ struct PaymentSuccessView: View {
                                     Text("商品 ")
                                         .font(.title)
                                         .fontWeight(.medium)
-                                    Text("3点")
+                                    Text("\(viewModel.totalQuantity())点")
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥600")
+                                    Text("¥\(viewModel.totalCartAmount())")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -63,11 +70,11 @@ struct PaymentSuccessView: View {
                                     Text("割引 ")
                                         .font(.title)
                                         .fontWeight(.medium)
-                                    Text("1点")
+                                    Text("\(viewModel.orders[0].discounts.count)点")
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("-¥100")
+                                    Text("-¥\(viewModel.payment.paymentAmount - viewModel.orders[0].cart.getTotalPrice())")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -79,7 +86,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥500")
+                                    Text("¥\(viewModel.totalAmount())")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -88,7 +95,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥100")
+                                    Text("¥\(viewModel.payment.receiveAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -109,7 +116,7 @@ struct PaymentSuccessView: View {
                         Text("呼び出し番号")
                             .font(.system(size:40 , weight: .semibold, design: .default))
                             .foregroundColor(.secondary)
-                        Text("L-101")
+                        Text("\(viewModel.callNumber)")
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
                         NavigationLink{
@@ -156,13 +163,13 @@ struct PaymentSuccessView: View {
         }
     }
 }
-
-struct PaymentSuccessView_Previews: PreviewProvider {
-    static var previews: some View {
-        PaymentSuccessView()
-            .previewInterfaceOrientation(.landscapeRight)
-//            .previewDevice("iPad (9th generation)")
-//            .previewDevice("iPad mini (6th generation)")
-            .previewDevice("iPad Pro (11-inch) (4th generation)")
-    }
-}
+//
+//struct PaymentSuccessView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PaymentSuccessView(order: Order(id: "", cart: Cart(), discounts: [], payment: OrderPayment(type: PaymentType.cash, paymentAmount: 500, receiveAmount: 1000), orderAt: Date()), callNumber: "L-101")
+//            .previewInterfaceOrientation(.landscapeRight)
+////            .previewDevice("iPad (9th generation)")
+////            .previewDevice("iPad mini (6th generation)")
+//            .previewDevice("iPad Pro (11-inch) (4th generation)")
+//    }
+//}

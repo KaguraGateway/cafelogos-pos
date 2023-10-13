@@ -12,6 +12,9 @@ class StartTransactionViewModel: ObservableObject {
     
     init() {
         denominations = GetDenominations().Execute()
+        if denominations.denominations.count == 0 {
+            denominations = Denominations()
+        }
     }
     
     func totalAmount() -> UInt64 {

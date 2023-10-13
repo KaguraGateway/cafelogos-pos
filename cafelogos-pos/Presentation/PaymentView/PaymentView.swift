@@ -6,25 +6,8 @@
 //
 
 import SwiftUI
-
-//サンプルデータ
-struct Item {
-    var productName: String
-    var quantity: Int
-    var amount: Int
-}
-let items: [Item] = [
-    Item(productName: "ハレノヒブレンド（ネル）", quantity: 3, amount: 200),
-    Item(productName: "アツアツブレンド（アツアツアツアツアツアツアツアツアツアツアツアツアツアツ）", quantity: 2, amount: 150),
-    Item(productName: "サザエ", quantity: 1, amount: 1000000000000000),
-    Item(productName: "サザエ", quantity: 1000000000000000, amount: 100),
-    Item(productName: "サザエ", quantity: 1, amount: 100),
-    Item(productName: "サザエ", quantity: 1, amount: 100),
-    Item(productName: "サザエ", quantity: 1, amount: 100),
-    Item(productName: "サザエ", quantity: 1, amount: 100),
-    Item(productName: "サザエ", quantity: 1, amount: 100),
-    
-]
+import Algorithms
+import StarIO10
 
 let gridItems = [
     GridItem(.flexible(),spacing: 20),
@@ -37,6 +20,22 @@ struct PaymentView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var showingSuccessSheet = false
+    
+    @ObservedObject private var viewModel: PaymentViewModel
+    
+    public let printer: StarPrinter?
+    public var newOrder: Order?
+    public var orders: [Order]
+    
+    public init(printer: StarPrinter?, orders: [Order], newOrder: Order?) {
+        self.printer = printer
+        self.newOrder = newOrder
+        self.orders = orders
+        if newOrder != nil {
+            self.orders.append(newOrder!)
+        }
+        self.viewModel = PaymentViewModel(orders: self.orders, newOrder: newOrder)
+    }
     
     var body: some View {
         NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "支払い") {
@@ -51,23 +50,25 @@ struct PaymentView: View {
                             .padding(.vertical, 10)
                         Divider()
                         List {
-                            ForEach(items.indices, id: \.self) { index in
-                                HStack{
-                                    VStack(alignment: .leading, spacing:0){
-                                        Text(items[index].productName)
+                            ForEach(orders.indexed(), id: \.index) { (_, order) in
+                                ForEach(order.cart.items.indexed(), id: \.index) { (index, item) in
+                                    HStack{
+                                        VStack(alignment: .leading, spacing:0){
+                                            Text(item.productName)
+                                                .lineLimit(0)
+                                                .font(.system(.title2 , weight: .semibold))
+                                            Text("\(item.getQuantity())"+"点")
+                                                .padding(.top, 16)
+                                        }
+                                        .font(.title2)
+                                        Spacer()
+                                        Text("¥\(item.totalPrice)")
                                             .lineLimit(0)
                                             .font(.system(.title2 , weight: .semibold))
-                                        Text("\(items[index].quantity)"+"点")
-                                            .padding(.top, 16)
                                     }
-                                    .font(.title2)
-                                    Spacer()
-                                    Text("¥\(items[index].amount)")
-                                        .lineLimit(0)
-                                        .font(.system(.title2 , weight: .semibold))
+                                    .padding(.vertical, 10)
+                                    
                                 }
-                                .padding(.vertical, 10)
-                                
                             }
                         }
                         .scrollContentBackground(.hidden)
@@ -121,35 +122,44 @@ struct PaymentView: View {
                             Text("合計金額")
                                 .padding(.top, 15)
                                 .font(.title2)
-                            Text("¥10,000")
+                            Text("¥\(viewModel.totalAmount())")
                                 .font(.system(size: 60, weight: .semibold, design: .default))
                                 .padding(.vertical, 20)
                             HStack(){
                                 Text("現金")
                                     .font(.title)
-                                Text("¥5,000")
+                                Text("¥\(viewModel.payment.receiveAmount)")
                                     .font(.system(.largeTitle, weight: .semibold))
                                 Spacer()
                                     .frame(maxWidth: 50)
                                 // 不足している場合は「不足　¥〇〇」の表記になる
-                                Text("おつり")
-                                    .font(.title)
-                                Text("¥5,000")
-                                    .font(.system(.largeTitle, weight: .semibold))
+                                if viewModel.isEnoughAmount() {
+                                    Text("おつり")
+                                        .font(.title)
+                                    Text("¥\(viewModel.payment.changeAmount)")
+                                        .font(.system(.largeTitle, weight: .semibold))
+                                } else {
+                                    Text("不足")
+                                        .font(.title)
+                                        .foregroundColor(.red)
+                                    Text("¥-\(viewModel.payment.shortfallAmount)")
+                                        .font(.system(.largeTitle, weight: .semibold))
+                                        .foregroundColor(.red)
+                                }
                             }
                             .padding(.bottom, 10)
                             Divider()
-                            KeyboardView()
+                            KeyboardView(onTapKeyboard: viewModel.onTapKeyboard)
                         }
                     }
                     .frame(width: 500)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 HStack(spacing: 0) {
-                    Text("5点")
+                    Text("\(viewModel.totalQuantity())点")
                         .font(.title)
                         .foregroundColor(Color(.systemGray6))
-                    Text("¥5000")
+                    Text("¥\(viewModel.payment.paymentAmount)")
                         .font(.title)
                         .foregroundColor(Color(.systemGray6))
                         .padding(.leading)
@@ -161,30 +171,34 @@ struct PaymentView: View {
                         .font(.title)
                         .foregroundColor(Color(.systemGray6))
                         .padding(.leading)
-                    Text("¥5000")
+                    Text("¥\(viewModel.payment.changeAmount)")
                         .font(.title)
                         .foregroundColor(Color(.systemGray6))
                         .padding(.horizontal)
                     Spacer()
                     Button(action: {
-                        self.showingSuccessSheet.toggle()
+                        Task {
+                            await self.viewModel.onTapPay()
+                            self.showingSuccessSheet.toggle()
+                        }
                     }){
-                        Text("¥5000で会計する")
+                        Text("¥\(viewModel.payment.receiveAmount)で会計する")
                             .frame(width: 400)
                             .clipped()
                             .padding(.vertical)
                             .font(.system(.title2, weight: .bold))
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(.blue)
+                                    .fill(viewModel.isEnoughAmount() ? .blue : .gray)
                             }
                             .lineLimit(0)
                             .foregroundColor(.white)
                             .padding(.leading, 70)
                     }
                     .fullScreenCover(isPresented: $showingSuccessSheet) {
-                        PaymentSuccessView()
+                        PaymentSuccessView(printer: printer, payment: viewModel.payment, orders: viewModel.newOrder != nil ? [viewModel.newOrder!] : viewModel.orders, callNumber: viewModel.callNumber)
                     }
+                    .disabled(!viewModel.isEnoughAmount())
                     
                 }
                 .frame(maxWidth: .infinity)
@@ -211,13 +225,16 @@ struct PaymentView: View {
             ["1", "2", "3"],
             ["0", "00", "000"]
         ]
+        let onTapKeyboard: (String) -> Void
 
         var body: some View {
             VStack(spacing: 12) {
                 ForEach(rows, id: \.self) { row in
                     HStack(spacing: 12) {
                         ForEach(row, id: \.self) { keytop in
-                            CalcKey(keytop: keytop)
+                            CalcKey(keytop: keytop, action: {
+                                onTapKeyboard(keytop)
+                            })
                         }
                     }
                 }
@@ -248,10 +265,33 @@ struct PaymentView: View {
 
 
 }
-struct PaymentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PaymentView()
-            .previewInterfaceOrientation(.landscapeRight)
-            .previewDevice("iPad Pro (11-inch) (4th generation)")
-    }
-}
+//struct PaymentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PaymentView(
+//            order: Order(
+//                cart: Cart(
+//                    items: [
+//                        CartItem(
+//                            product: OtherProduct(
+//                                productName: "レモネード",
+//                                productId: "",
+//                                productCategory: ProductCategory(id: "", name: "", createdAt: Date(), updatedAt: Date(), syncAt: nil),
+//                                price: 500,
+//                                stock: Stock(name: "", id: "", quantity: 10, createdAt: Date(), updatedAt: Date(), syncAt: nil),
+//                                isNowSales: true,
+//                                createdAt: Date(),
+//                                updatedAt: Date(),
+//                                syncAt: nil
+//                            ),
+//                            quantity: 5
+//                        )
+//                    ]
+//                ),
+//                discounts: [],
+//                payment: nil
+//            )
+//        )
+//            .previewInterfaceOrientation(.landscapeRight)
+//            .previewDevice("iPad Pro (11-inch) (4th generation)")
+//    }
+//}

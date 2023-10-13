@@ -45,7 +45,9 @@ struct GeneralSettingView: View {
                         Toggle("プリンター利用", isOn : $usePrinter )
                         Toggle("キャッシュドロア利用", isOn : $useDrawer)
                         if useDrawer{
-                            Button(action: {}) {
+                            Button(action: {
+                                viewModel.openCacher()
+                            }) {
                                 Text("ドロアを開く")
                             }
                             .padding(.leading)
@@ -66,7 +68,9 @@ struct GeneralSettingView: View {
                             }
                             Toggle("引換券印刷", isOn : $printTicket)
                             if printTicket{
-                                Button(action: {}) {
+                                Button(action: {
+                                    viewModel.printReceipt()
+                                }) {
                                     Text("引換券印刷テスト")
                                 }
                                 .padding(.leading)

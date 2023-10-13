@@ -32,5 +32,5 @@ public struct Discount {
 }
 
 public protocol DiscountRepository {
-    func findAll() -> Array<Discount>
+    func findAll() async -> Array<Discount>
 }
