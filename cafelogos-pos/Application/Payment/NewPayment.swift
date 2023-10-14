@@ -10,9 +10,13 @@ import Dependencies
 
 public struct NewPayment {
     @Dependency(\.serverPaymentService) var paymentService
+    @Dependency(\.paymentRepository) var paymentRepo
     
     func Execute(payment: Payment, postOrder: Order?) async -> (callNumber: String, error: Error?) {
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder)
+        if res.error == nil {
+            paymentRepo.save(payment: payment)
+        }
         return (res.callNumber ?? "", res.error)
     }
 }

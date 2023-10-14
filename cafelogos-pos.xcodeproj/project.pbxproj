@@ -26,6 +26,7 @@
 		3547B1F42ADB159300770EF2 /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F32ADB159300770EF2 /* Seat.swift */; };
 		3547B1F62ADB160400770EF2 /* SeatRepositoryServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F52ADB160400770EF2 /* SeatRepositoryServer.swift */; };
 		3547B1F92ADB16D700770EF2 /* GetSeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F82ADB16D700770EF2 /* GetSeats.swift */; };
+		3547B1FB2ADB298700770EF2 /* GetShouldHaveCash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1FA2ADB298700770EF2 /* GetShouldHaveCash.swift */; };
 		3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */; };
 		3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7192A826A1200C72F17 /* ContentView.swift */; };
 		3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71B2A826A1300C72F17 /* Assets.xcassets */; };
@@ -156,6 +157,7 @@
 		3547B1F32ADB159300770EF2 /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
 		3547B1F52ADB160400770EF2 /* SeatRepositoryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatRepositoryServer.swift; sourceTree = "<group>"; };
 		3547B1F82ADB16D700770EF2 /* GetSeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSeats.swift; sourceTree = "<group>"; };
+		3547B1FA2ADB298700770EF2 /* GetShouldHaveCash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetShouldHaveCash.swift; sourceTree = "<group>"; };
 		3557C7142A826A1200C72F17 /* cafelogos-pos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cafelogos-pos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posApp.swift; sourceTree = "<group>"; };
 		3557C7192A826A1200C72F17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				3564C3F02AD052F600F84F42 /* StartCacher.swift */,
 				3564C3F62AD05AAD00F84F42 /* GetDenominations.swift */,
 				3564C3F82AD05DD600F84F42 /* Settle.swift */,
+				3547B1FA2ADB298700770EF2 /* GetShouldHaveCash.swift */,
 			);
 			path = Denomination;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				352572952AD290CF00E33C8E /* Launch.swift in Sources */,
 				3547B1F92ADB16D700770EF2 /* GetSeats.swift in Sources */,
 				3564C3C82AD00CF000F84F42 /* CoffeeBeanDao.swift in Sources */,
+				3547B1FB2ADB298700770EF2 /* GetShouldHaveCash.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
 				355927632ABB3B4F00AF7B0E /* ChooseOptionSheet.swift in Sources */,

@@ -14,7 +14,6 @@ public enum PaymentTypeEnumDao: Int, PersistableEnum, CaseIterable {
 
 class PaymentDao: Object {
     @Persisted(primaryKey: true) var id: String
-    @Persisted var orders: List<OrderDao>
     @Persisted var paymentType: PaymentTypeEnumDao
     @Persisted var receiveAmount: Decimal128
     @Persisted var paymentAmount: Decimal128
@@ -22,4 +21,5 @@ class PaymentDao: Object {
     @Persisted var paymentAt: Date
     @Persisted var updatedAt: Date
     @Persisted var syncAt: Date?
+    @Persisted var settleAt: Date?
 }
