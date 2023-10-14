@@ -460,6 +460,9 @@ struct EntryBottomBar: View {
         .navigationDestination(isPresented: $isOrderSheet) {
             PaymentView(printer: printer, orders: orders, newOrder: nil)
         }
+        .onAppear {
+            orders.removeAll()
+        }
         
     }
 }

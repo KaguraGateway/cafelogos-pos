@@ -53,7 +53,7 @@ struct PaymentView: View {
                                 ForEach(order.cart.items.indexed(), id: \.index) { (index, item) in
                                     HStack{
                                         VStack(alignment: .leading, spacing:0){
-                                            Text(item.productName)
+                                            Text(item.coffeeHowToBrew != nil ? "\(item.productName) (\(item.coffeeHowToBrew!.name))" : item.productName)
                                                 .lineLimit(0)
                                                 .font(.system(.title2 , weight: .semibold))
                                             Text("\(item.getQuantity())"+"点")
