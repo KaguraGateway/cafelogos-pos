@@ -17,7 +17,7 @@ extension UISegmentedControl {
 struct ChooseOrderSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var selection = 0
-    @State private var inputValue = ""
+    @State private var seats: [Seat] = [Seat]()
     @Binding var orders: [Order]
     @Binding var isOrderSheet: Bool
     
@@ -32,14 +32,14 @@ struct ChooseOrderSheet: View {
         )
     }
     
-    func getSeatName() -> String {
+    func getGroupName() -> String {
         switch(selection) {
         case 0:
-            return "カウンター\(inputValue)"
+            return "カウンター"
         case 1:
-            return "テーブル\(inputValue)"
+            return "テーブル"
         default:
-            return inputValue
+            return ""
         }
     }
     
@@ -59,31 +59,35 @@ struct ChooseOrderSheet: View {
                 .frame(maxHeight: 300)
                 .padding(20)
                 
-                InputForm(selection: $selection, inputValue: $inputValue)
                 Spacer()
-                Button(action: {
-                    Task {
-                        self.orders = await GetUnpaidOrdersBySeatName().Execute(seatName: getSeatName())
-                        self.isOrderSheet = true
-                        dismiss()
+                
+                ForEach(seats, id: \.id) { seat in
+                    if seat.name.hasPrefix(getGroupName()) {
+                        Button(action: {
+                            Task {
+                                self.orders = await GetUnpaidOrdersById().Execute(seatId: seat.id)
+                                self.isOrderSheet = true
+                                dismiss()
+                            }
+                        }, label: {
+                            VStack(spacing: 0) {
+                                Text("\(seat.name)")
+                                    .font(.largeTitle)
+                                    .fontWeight(.semibold)
+                                    .lineLimit(0)
+                            }
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity, minHeight: 25, alignment: .center)
+                            .clipped()
+                            .padding(.vertical, 8)
+                            .background {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(Color.green)
+                            }
+                            .padding(8)
+                        })
                     }
-                }, label: {
-                    VStack(spacing: 0) {
-                        Text("完了")
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
-                            .lineLimit(0)
-                    }
-                    .foregroundColor(Color.white)
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                    .clipped()
-                    .padding(.vertical, 20)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(Color.green)
-                    }
-                    .padding(20)
-                })
+                }
             }
             .background(Color(.secondarySystemBackground))
             .navigationTitle("伝票選択")
@@ -100,31 +104,8 @@ struct ChooseOrderSheet: View {
             }
             
         }
-    }
-}
-
-struct InputForm: View {
-    @Binding var selection: Int
-    @Binding var inputValue: String
-    
-    var body: some View {
-        if selection == 0 || selection == 1 {
-            TextField("座席番号を入力", text: $inputValue)
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(10)
-                .padding()
-        } else {
-            TextField("文字列を入力", text: $inputValue)
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(10)
-                .padding()
+        .task {
+            seats = await GetSeats().Execute()
         }
     }
 }
-
-//
-//#Preview {
-//    ChooseOrderSheet()
-//}
