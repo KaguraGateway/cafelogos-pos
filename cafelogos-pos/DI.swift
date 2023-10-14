@@ -20,7 +20,8 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     static let liveValue: ProtocolClient = ProtocolClient(
         httpClient: URLSessionHTTPClient(), config: ProtocolClientConfig(
-            host: "https://cafelogos-pos-backend-qlrb2to2zq-an.a.run.app",
+            //host: "https://cafelogos-pos-backend-qlrb2to2zq-an.a.run.app",
+            host: "http://192.168.11.4:8080",
             networkProtocol: .connect,
             codec: ProtoCodec()
         )
@@ -35,6 +36,9 @@ private enum ServerDiscountRepositoryKey: DependencyKey {
 }
 private enum PaymentServerServiceKey: DependencyKey {
     static let liveValue: any PaymentService = PaymentServiceServer()
+}
+private enum SeatServerRepositoryKey: DependencyKey {
+    static let liveValue: any SeatRepository = SeatRepositoryServer()
 }
 private enum OrderServerServiceKey: DependencyKey {
     static let liveValue: any OrderService = OrderServiceServer()
@@ -63,6 +67,10 @@ extension DependencyValues {
     var serverDiscountRepository: any DiscountRepository {
         get { self[ServerDiscountRepositoryKey.self] }
         set { self[ServerDiscountRepositoryKey.self] = newValue }
+    }
+    var serverSeatRepository: any SeatRepository {
+        get { self[SeatServerRepositoryKey.self] }
+        set { self[SeatServerRepositoryKey.self] = newValue }
     }
     var serverPaymentService: any PaymentService {
         get { self[PaymentServerServiceKey.self] }

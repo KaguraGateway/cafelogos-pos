@@ -13,18 +13,9 @@ public struct OrderServiceServer: OrderService {
     private let posClient = ServerClient().GetPosClient()
     private let formatter = ISO8601DateFormatter()
     
-    func getUnpaidOrdersBySeatName(seatName: String) async -> [Order] {
-        let seats = await posClient.getSeats(request: Cafelogos_Common_Empty(), headers: [:])
-        if seats.message == nil {
-            return [Order]()
-        }
-        let seatId = seats.message!.seats.first(where: { $0.name == seatName } )?.id
-        if seatId == nil {
-            print("error: seat \(seatName) nothing")
-            return [Order]()
-        }
+    func getUnpaidOrdersBySeatId(seatId: String) async -> [Order] {
         let req = Cafelogos_Pos_GetUnpaidOrdersBySeatIdRequest.with {
-            $0.seatID = seatId!
+            $0.seatID = seatId
         }
         
         // TODO

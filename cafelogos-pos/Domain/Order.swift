@@ -43,7 +43,7 @@ public struct Order {
 }
 
 protocol OrderService {
-    func getUnpaidOrdersBySeatName(seatName: String) async -> [Order]
+    func getUnpaidOrdersBySeatId(seatId: String) async -> [Order]
 }
 
 protocol OrderRepository {

@@ -67,12 +67,14 @@ struct OrderEntryView: View {
 // 商品表示するView
 struct ProductStack: View {
     @State private var showingChooseOption: Bool = false
+    @State private var selectProduct: ProductDto? = nil
     var productCategories = [ProductCategoryWithProductsDto]()
     var onAddItem: (ProductDto, CoffeeHowToBrewDto?) -> Void
     
     func onTapProduct(product: ProductDto) {
         if(product.productType == ProductType.coffee){
-            self.showingChooseOption.toggle()
+            self.selectProduct = product
+            self.showingChooseOption = true
         } else {
             self.onAddItem(product, nil)
         }
@@ -83,15 +85,6 @@ struct ProductStack: View {
             $0.id == option.id
         })
         self.onAddItem(product, product.coffeeHowToBrews![brewIndex!])
-    }
-    
-    func getOptions(product: ProductDto) -> [Option] {
-        if(product.coffeeHowToBrews == nil) {
-            return [Option]()
-        }
-        return product.coffeeHowToBrews!.map {
-            Option(id: $0.id, title: $0.name, description: "¥\($0.amount)")
-        }
     }
 
     var body: some View {
@@ -148,17 +141,15 @@ struct ProductStack: View {
                                     )
                                     .foregroundColor(.white)
                                 })
-                                .sheet(isPresented: $showingChooseOption) {
-                                    ChooseOptionSheet(productName: "ドリップ方法", options: getOptions(product: product), onAction: { option in
-                                        onTapCoffeeBrew(product: product, option: option)
-                                    })
-                                }
                             }
                         }
                     }
                 }
                 .padding(.horizontal, 16)
             }
+        }
+        .sheet(isPresented: $showingChooseOption) {
+            ChooseOptionSheetView(selectProduct: $selectProduct, onTapCoffeeBrew: onTapCoffeeBrew)
         }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 public struct PostPaymentResponse {
     public let callNumber: String?
+    public let error: Error?
 }
 
 protocol PaymentService {

@@ -13,6 +13,9 @@ class PaymentViewModel: ObservableObject {
     @Published var orders: [Order]
     @Published var newOrder: Order?
     @Published var callNumber: String = ""
+    @Published var showingSuccessSheet = false
+    @Published var errorMessage: String? = nil
+    @Published var showingError = false
     
     public init(orders: [Order], newOrder: Order?) {
         self.orders = orders
@@ -44,7 +47,14 @@ class PaymentViewModel: ObservableObject {
         if !isEnoughAmount() {
             print("不足")
         }
-        callNumber = await NewPayment().Execute(payment: payment, postOrder: newOrder)
+        let result = await NewPayment().Execute(payment: payment, postOrder: newOrder)
+        if result.error != nil {
+            errorMessage = "お支払いは完了していません。\nやり直してください。\n\(String(describing: result.error?.localizedDescription))"
+            showingError = true
+        } else {
+            callNumber = result.callNumber
+            self.showingSuccessSheet.toggle()
+        }
     }
     
     func onTapKeyboard(str: String) {

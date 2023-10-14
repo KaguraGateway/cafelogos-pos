@@ -47,7 +47,7 @@ public struct PaymentServiceServer: PaymentService {
         }
         let response = await posClient.postPayment(request: request, headers: [:])
         print(response)
-        return PostPaymentResponse(callNumber: response.message?.orderResponses.count != 0 ? response.message?.orderResponses[0].callNumber : "")
+        return PostPaymentResponse(callNumber: response.message?.orderResponses.count != 0 ? response.message?.orderResponses[0].callNumber : "", error: response.error)
     }
     
     func updatePayment(payment: Payment) async {

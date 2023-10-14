@@ -8,9 +8,9 @@
 import Foundation
 import Dependencies
 
-public struct GetUnpaidOrdersBySeatName {
+public struct GetUnpaidOrdersById {
     @Dependency(\.serverOrderService) var orderService
-    func Execute(seatName: String) async -> [Order] {
-        return await orderService.getUnpaidOrdersBySeatName(seatName: seatName)
+    func Execute(seatId: String) async -> [Order] {
+        return await orderService.getUnpaidOrdersBySeatId(seatId: seatId)
     }
 }

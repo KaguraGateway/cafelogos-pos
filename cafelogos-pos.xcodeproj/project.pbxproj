@@ -23,6 +23,9 @@
 		3525729A2AD292D400E33C8E /* GeneralSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352572992AD292D400E33C8E /* GeneralSettingViewModel.swift */; };
 		353552FE2AD6293C00958645 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353552FD2AD6293C00958645 /* Date.swift */; };
 		35464AE82AD004200072720A /* ProductDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35464AE72AD004200072720A /* ProductDao.swift */; };
+		3547B1F42ADB159300770EF2 /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F32ADB159300770EF2 /* Seat.swift */; };
+		3547B1F62ADB160400770EF2 /* SeatRepositoryServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F52ADB160400770EF2 /* SeatRepositoryServer.swift */; };
+		3547B1F92ADB16D700770EF2 /* GetSeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547B1F82ADB16D700770EF2 /* GetSeats.swift */; };
 		3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */; };
 		3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7192A826A1200C72F17 /* ContentView.swift */; };
 		3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71B2A826A1300C72F17 /* Assets.xcassets */; };
@@ -81,7 +84,7 @@
 		35CD0DBE2AD8C9D1007F5307 /* OrderRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DBD2AD8C9D1007F5307 /* OrderRealm.swift */; };
 		35CD0DC02AD8CB5F007F5307 /* PaymentRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DBF2AD8CB5F007F5307 /* PaymentRealm.swift */; };
 		35CD0DC22AD8D2C3007F5307 /* NewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC12AD8D2C3007F5307 /* NewPayment.swift */; };
-		35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */; };
+		35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatId.swift */; };
 		35CD0DC62AD8D5A1007F5307 /* OrderServiceServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */; };
 		35CD0DC82AD91C92007F5307 /* PaymentSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD0DC72AD91C92007F5307 /* PaymentSuccessViewModel.swift */; };
 		35D4346F2AD602990043F7AE /* cafelogos-grpc in Frameworks */ = {isa = PBXBuildFile; productRef = 35D4346E2AD602990043F7AE /* cafelogos-grpc */; };
@@ -150,6 +153,9 @@
 		352572992AD292D400E33C8E /* GeneralSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewModel.swift; sourceTree = "<group>"; };
 		353552FD2AD6293C00958645 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		35464AE72AD004200072720A /* ProductDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDao.swift; sourceTree = "<group>"; };
+		3547B1F32ADB159300770EF2 /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
+		3547B1F52ADB160400770EF2 /* SeatRepositoryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatRepositoryServer.swift; sourceTree = "<group>"; };
+		3547B1F82ADB16D700770EF2 /* GetSeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSeats.swift; sourceTree = "<group>"; };
 		3557C7142A826A1200C72F17 /* cafelogos-pos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cafelogos-pos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posApp.swift; sourceTree = "<group>"; };
 		3557C7192A826A1200C72F17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -207,7 +213,7 @@
 		35CD0DBD2AD8C9D1007F5307 /* OrderRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRealm.swift; sourceTree = "<group>"; };
 		35CD0DBF2AD8CB5F007F5307 /* PaymentRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRealm.swift; sourceTree = "<group>"; };
 		35CD0DC12AD8D2C3007F5307 /* NewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPayment.swift; sourceTree = "<group>"; };
-		35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUnpaidOrdersBySeatName.swift; sourceTree = "<group>"; };
+		35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUnpaidOrdersBySeatId.swift; sourceTree = "<group>"; };
 		35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceServer.swift; sourceTree = "<group>"; };
 		35CD0DC72AD91C92007F5307 /* PaymentSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewModel.swift; sourceTree = "<group>"; };
 		35D434732AD619050043F7AE /* OrderEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEntryViewModel.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 		351C18C62A9542F2005A966C /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				3547B1F72ADB16C700770EF2 /* Seat */,
 				35CD0DBA2AD8C147007F5307 /* Payment */,
 				352572962AD2928300E33C8E /* Config */,
 				352572932AD290BE00E33C8E /* Launch */,
@@ -327,7 +334,7 @@
 				351C18C82A9542F2005A966C /* OrderDto.swift */,
 				35D463862AD6C3C70081E7CB /* PrintReceipt.swift */,
 				35CD0DB82AD77E71007F5307 /* OpenCacher.swift */,
-				35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift */,
+				35CD0DC32AD8D570007F5307 /* GetUnpaidOrdersBySeatId.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -404,6 +411,14 @@
 				3564C3DB2AD012C000F84F42 /* DenominationDao.swift */,
 			);
 			path = Dao;
+			sourceTree = "<group>";
+		};
+		3547B1F72ADB16C700770EF2 /* Seat */ = {
+			isa = PBXGroup;
+			children = (
+				3547B1F82ADB16D700770EF2 /* GetSeats.swift */,
+			);
+			path = Seat;
 			sourceTree = "<group>";
 		};
 		3557C70B2A826A1200C72F17 = {
@@ -529,6 +544,7 @@
 				3564C3E22AD01A7F00F84F42 /* OrderDiscount.swift */,
 				3525728A2AD2882F00E33C8E /* Config.swift */,
 				35D463812AD6BD000081E7CB /* OrderReceipt.swift */,
+				3547B1F32ADB159300770EF2 /* Seat.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -571,6 +587,7 @@
 				35D4347A2AD620EF0043F7AE /* ServerClient.swift */,
 				35B733E92AD68CA900DD6B16 /* PaymentServiceServer.swift */,
 				35CD0DC52AD8D5A1007F5307 /* OrderServiceServer.swift */,
+				3547B1F52ADB160400770EF2 /* SeatRepositoryServer.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -809,12 +826,13 @@
 				3564C3E32AD01A7F00F84F42 /* OrderDiscount.swift in Sources */,
 				3564C3D62AD011CD00F84F42 /* DiscountDao.swift in Sources */,
 				35464AE82AD004200072720A /* ProductDao.swift in Sources */,
-				35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatName.swift in Sources */,
+				35CD0DC42AD8D570007F5307 /* GetUnpaidOrdersBySeatId.swift in Sources */,
 				35FDCD612A908F7300652093 /* Payment.swift in Sources */,
 				35FDCD632A9091CC00652093 /* Discount.swift in Sources */,
 				3525729A2AD292D400E33C8E /* GeneralSettingViewModel.swift in Sources */,
 				EB74298C2ABD4C4000AC1414 /* SettlementView.swift in Sources */,
 				3564C3F32AD053C800F84F42 /* DI.swift in Sources */,
+				3547B1F42ADB159300770EF2 /* Seat.swift in Sources */,
 				35A6B2962AD645B50052F227 /* DiscountRepositoryServer.swift in Sources */,
 				35FDCD652A90936600652093 /* Order.swift in Sources */,
 				3557C71A2A826A1200C72F17 /* ContentView.swift in Sources */,
@@ -833,6 +851,7 @@
 				EBE8FF9F2AD1D471002011B5 /* ChooseOrderSheet.swift in Sources */,
 				EB9282802AD03B300029EAD8 /* OrderEntryView.swift in Sources */,
 				352572952AD290CF00E33C8E /* Launch.swift in Sources */,
+				3547B1F92ADB16D700770EF2 /* GetSeats.swift in Sources */,
 				3564C3C82AD00CF000F84F42 /* CoffeeBeanDao.swift in Sources */,
 				3586BDDE2A8F7494009E346E /* CoffeeHowToBrew.swift in Sources */,
 				3586BDEC2A8F7E24009E346E /* Cart.swift in Sources */,
@@ -888,6 +907,7 @@
 				3564C3ED2AD0518500F84F42 /* StartTransactionViewModel.swift in Sources */,
 				3586BDE62A8F79C1009E346E /* Stock.swift in Sources */,
 				35D463852AD6BEC50081E7CB /* OrderReceiptStarX.swift in Sources */,
+				3547B1F62ADB160400770EF2 /* SeatRepositoryServer.swift in Sources */,
 				3586BDF52A8FAD48009E346E /* LogosError.swift in Sources */,
 				3564C3F52AD059EB00F84F42 /* SettlementViewModel.swift in Sources */,
 				3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */,

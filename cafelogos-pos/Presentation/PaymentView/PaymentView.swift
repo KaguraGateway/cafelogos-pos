@@ -19,7 +19,6 @@ let gridItems = [
 struct PaymentView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var showingSuccessSheet = false
     
     @ObservedObject private var viewModel: PaymentViewModel
     
@@ -179,7 +178,6 @@ struct PaymentView: View {
                     Button(action: {
                         Task {
                             await self.viewModel.onTapPay()
-                            self.showingSuccessSheet.toggle()
                         }
                     }){
                         Text("¥\(viewModel.payment.receiveAmount)で会計する")
@@ -195,7 +193,7 @@ struct PaymentView: View {
                             .foregroundColor(.white)
                             .padding(.leading, 70)
                     }
-                    .fullScreenCover(isPresented: $showingSuccessSheet) {
+                    .fullScreenCover(isPresented: $viewModel.showingSuccessSheet) {
                         PaymentSuccessView(printer: printer, payment: viewModel.payment, orders: viewModel.newOrder != nil ? [viewModel.newOrder!] : viewModel.orders, callNumber: viewModel.callNumber)
                     }
                     .disabled(!viewModel.isEnoughAmount())
@@ -214,6 +212,13 @@ struct PaymentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.secondarySystemBackground))
+            .alert("サーバーへの送信に失敗しました", isPresented: $viewModel.showingError) {
+                Button("OK") {
+                    viewModel.showingError = false
+                }
+            } message: {
+                Text(viewModel.errorMessage ?? "エラーメッセージがありません")
+            }
         }
     }
     
