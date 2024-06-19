@@ -14,6 +14,8 @@ struct OrderEntryView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
     @ObservedObject private var viewModel = OrderEntryViewModel()
+    // ホームに戻るための状態管理フィールド
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         GeometryReader{geometry in
@@ -49,11 +51,22 @@ struct OrderEntryView: View {
                 .navigationBarBackButtonHidden(true)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading) {
-                        NavigationLink{
-                            HomeView()
-                        } label:{
-                            Text("ホームへ戻る")
+//                        NavigationLink{
+//                            HomeView()
+//                        } label:{
+//                            Text("ホームへ戻る")
+//                        }
+                    Button(
+                        action: {
+                            dismiss()
+                        }, label: {
+                            HStack(spacing: 0) {
+                                Image(systemName: "chevron.backward")
+                                Text("ホーム")
+                            }
+                            .foregroundStyle(.primary, .primary, .primary)
                         }
+                    )
                     }
                 }
             }
@@ -467,3 +480,4 @@ struct EntryBottomBar: View {
 #Preview {
     OrderEntryView()
 }
+
