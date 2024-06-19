@@ -50,7 +50,7 @@ struct OrderEntryView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink{
-                            HomeView(isTraining: false)
+                            HomeView()
                         } label:{
                             Text("ホームへ戻る")
                         }

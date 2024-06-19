@@ -28,7 +28,7 @@ struct InspectionView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
-                        TitleButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView(isTraining: isTraining)})
+                        TitleButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView()})
                             .padding(.bottom)
                     }
                     .padding(.horizontal)

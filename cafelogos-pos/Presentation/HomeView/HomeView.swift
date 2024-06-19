@@ -10,11 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var isTraining: Bool = false
     
-    init(isTraining: Bool) {
-            self._isTraining = State(initialValue: isTraining)
-        }
     
     var body: some View {
         NavBarBody (displayConnection: $displayConnection, serverConnection: $serverConnection, title: "ホーム") {
@@ -38,8 +34,6 @@ struct HomeView: View {
                             HomeNavButton(title: "点検", subtitle: "", description: "", destination: {InspectionView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
                             HomeNavButton(title: "精算", subtitle: "", description: "", destination: {SettlementView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
                             HomeNavButton(title: "設定", subtitle: "", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
-                            TrainingStatus(isTraining: $isTraining)
-                                .frame(maxWidth: geometry.size.width*(1/3), maxHeight: geometry.size.height * (1/4))
                         }
 
                     }
@@ -70,7 +64,7 @@ struct HomeView: View {
     
     struct HomeView_Previews: PreviewProvider {
         static var previews: some View {
-            HomeView(isTraining: false)
+            HomeView()
                 .previewInterfaceOrientation(.landscapeRight)
                             .previewDevice("iPad Pro (11-inch) (4th generation)")
 //                .previewDevice("iPad (9th generation)")
