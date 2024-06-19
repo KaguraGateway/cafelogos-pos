@@ -14,7 +14,6 @@ struct SettingView: View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "設定"){
             VStack(spacing: 0) {
                 GeneralSettingView()
-                CustomerdisplaySetting()
             }
             .padding(.horizontal, 120)
             

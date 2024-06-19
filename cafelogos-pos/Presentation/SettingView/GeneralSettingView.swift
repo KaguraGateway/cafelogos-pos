@@ -19,7 +19,7 @@ struct GeneralSettingView: View {
     @ObservedObject var viewModel = GeneralSettingViewModel()
     
     var body: some View {
-            VStack(){
+            
                 Form {
                     Section {
                         NavigationLink(destination: {
@@ -48,6 +48,7 @@ struct GeneralSettingView: View {
                                 viewModel.openCacher()
                             }) {
                                 Text("ドロアを開く")
+                                    .foregroundStyle(Color.blue)
                             }
                             .padding(.leading)
                         }
@@ -62,6 +63,7 @@ struct GeneralSettingView: View {
                             if printReceipt{
                                 Button(action: {}) {
                                     Text("会計レシート印刷テスト")
+                                        .foregroundStyle(Color.blue)
                                 }
                                 .padding(.leading)
                             }
@@ -71,6 +73,7 @@ struct GeneralSettingView: View {
                                     viewModel.printReceipt()
                                 }) {
                                     Text("引換券印刷テスト")
+                                        .foregroundStyle(Color.blue)
                                 }
                                 .padding(.leading)
                             }
@@ -79,7 +82,7 @@ struct GeneralSettingView: View {
                         }
                        }
                 }
-            }
+            
             .padding(.horizontal ,120)
             .background(Color(.secondarySystemBackground))
             .frame(maxWidth:.infinity, maxHeight: .infinity)
