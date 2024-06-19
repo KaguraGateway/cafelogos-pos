@@ -36,12 +36,12 @@ struct NavBarBody <Content: View>: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack(spacing: 10) {
-                            VStack(alignment: .center) {
-                                Image(systemName: displayConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                    .foregroundColor(displayConnection ? .green : .red)
-                                Text("料金モニター")
-                                    .foregroundColor(displayConnection ? .green : .red)
-                            }
+//                            VStack(alignment: .center) {
+//                                Image(systemName: displayConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
+//                                    .foregroundColor(displayConnection ? .green : .red)
+//                                Text("料金モニター")
+//                                    .foregroundColor(displayConnection ? .green : .red)
+//                            }
                             
                             VStack {
                                 Image(systemName: serverConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
