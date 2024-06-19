@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NavBarBody <Content: View>: View {
+    @ObservedObject var viewModel = GeneralSettingViewModel()
     @Binding var displayConnection: Bool
     @Binding var serverConnection: Bool
     let content: Content
@@ -48,6 +49,12 @@ struct NavBarBody <Content: View>: View {
                                 Text("サーバー通信")
                                     .foregroundColor(serverConnection ? .green : .red)
                             }
+                            Button(action: {
+                                viewModel.openCacher()
+                            }) {
+                                Text("ドロアを開く")
+                            }
+                            
                         }
                     }
                 }
