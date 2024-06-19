@@ -31,9 +31,9 @@ struct HomeView: View {
                         
                         // 右列
                         VStack(alignment: .leading, spacing: 15){
-                            HomeNavButton(title: "点検", subtitle: "", description: "", destination: {InspectionView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
-                            HomeNavButton(title: "精算", subtitle: "", description: "", destination: {SettlementView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
-                            HomeNavButton(title: "設定", subtitle: "", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/4) , width: geometry.size.width * (1/3))
+                            HomeNavButton(title: "点検", subtitle: "", description: "", destination: {InspectionView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3) , width: geometry.size.width * (1/3))
+                            HomeNavButton(title: "精算", subtitle: "", description: "", destination: {SettlementView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3) , width: geometry.size.width * (1/3))
+                            HomeNavButton(title: "設定", subtitle: "", description: "", destination: {SettingView()}, fg_color: Color.primary, bg_color: Color(.systemFill), height: geometry.size.height * (1/3) , width: geometry.size.width * (1/3))
                         }
 
                     }

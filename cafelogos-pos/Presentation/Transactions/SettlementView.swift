@@ -16,7 +16,6 @@ struct ChargenData {
 struct SettlementView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var isTraining: Bool = false
     
     @ObservedObject var viewModel = SettlementViewModel()
     

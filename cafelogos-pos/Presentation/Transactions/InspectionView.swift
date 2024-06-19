@@ -10,7 +10,6 @@ import SwiftUI
 struct InspectionView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var isTraining: Bool = false
     
     @ObservedObject var viewModel = InspectionViewModel()
     
