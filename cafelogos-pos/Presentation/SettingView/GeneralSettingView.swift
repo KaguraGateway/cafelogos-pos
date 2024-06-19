@@ -10,16 +10,15 @@ import SwiftUI
 struct GeneralSettingView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var usePrinter = false
-    @State private var printReceipt = false
-    @State private var printTicket = false
-    @State private var useDrawer = false
+    @State private var usePrinter = true
+    @State private var printReceipt = true
+    @State private var printTicket = true
+    @State private var useDrawer = true
     @State private var isLogoutDisabled = true
     
     @ObservedObject var viewModel = GeneralSettingViewModel()
     
     var body: some View {
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "一般"){
             VStack(){
                 Form {
                     Section {
@@ -79,23 +78,11 @@ struct GeneralSettingView: View {
                             Text("印刷設定")
                         }
                        }
-                    
-                    
-                    
-                    
-                    Section {
-                        Button(action: {}) {
-                            Text("ログアウト")
-                        }
-                        .disabled(isLogoutDisabled)
-                        .foregroundColor(isLogoutDisabled ? Color.gray : Color.red)
-                    }
                 }
             }
             .padding(.horizontal ,120)
             .background(Color(.secondarySystemBackground))
             .frame(maxWidth:.infinity, maxHeight: .infinity)
-        }
     }
 }
 

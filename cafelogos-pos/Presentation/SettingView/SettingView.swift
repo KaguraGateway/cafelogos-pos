@@ -12,16 +12,9 @@ struct SettingView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     var body: some View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "設定"){
-            List(){
-                
-                NavigationLink(destination: {
-                    GeneralSettingView()                }, label: {
-                        Text("一般")
-                    })
-                NavigationLink(destination: {
-                CustomerdisplaySetting()                }, label: {
-                    Text("カスタマーディスプレイ")
-                })
+            VStack(spacing: 0) {
+                GeneralSettingView()
+                CustomerdisplaySetting()
             }
             .padding(.horizontal, 120)
             

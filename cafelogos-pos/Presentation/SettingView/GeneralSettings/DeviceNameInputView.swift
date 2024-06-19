@@ -14,7 +14,6 @@ struct DeviceNameInputView: View {
     @Binding var clientName: String
     
     var body: some View {
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "端末名"){
             VStack(){
                 Form {
                     Section {
@@ -34,6 +33,5 @@ struct DeviceNameInputView: View {
                 
                 
             }
-        }
     }
 }
