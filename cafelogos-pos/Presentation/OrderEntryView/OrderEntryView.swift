@@ -51,22 +51,11 @@ struct OrderEntryView: View {
                 .navigationBarBackButtonHidden(true)
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading) {
-//                        NavigationLink{
-//                            HomeView()
-//                        } label:{
-//                            Text("ホームへ戻る")
-//                        }
-                    Button(
-                        action: {
-                            dismiss()
-                        }, label: {
-                            HStack(spacing: 0) {
-                                Image(systemName: "chevron.backward")
-                                Text("ホーム")
-                            }
-                            .foregroundStyle(.primary, .primary, .primary)
+                        NavigationLink{
+                            HomeView()
+                        } label:{
+                            Text("ホームへ戻る")
                         }
-                    )
                     }
                 }
             }
