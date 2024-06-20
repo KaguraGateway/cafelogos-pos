@@ -14,6 +14,8 @@ struct OrderEntryView: View {
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     
     @ObservedObject private var viewModel = OrderEntryViewModel()
+    // ホームに戻るための状態管理フィールド
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         GeometryReader{geometry in
@@ -50,7 +52,7 @@ struct OrderEntryView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink{
-                            HomeView(isTraining: false)
+                            HomeView()
                         } label:{
                             Text("ホームへ戻る")
                         }
@@ -467,3 +469,4 @@ struct EntryBottomBar: View {
 #Preview {
     OrderEntryView()
 }
+

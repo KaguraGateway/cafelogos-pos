@@ -1,4 +1,5 @@
 {
+  "originHash" : "68bc0e68ee9f455d10bbb7ec5682e745efff45d3ac0ab222591138f8cab88820",
   "pins" : [
     {
       "identity" : "cafelogos-grpc",
@@ -171,5 +172,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

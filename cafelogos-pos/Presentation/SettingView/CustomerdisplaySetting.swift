@@ -10,12 +10,11 @@ import SwiftUI
 struct CustomerdisplaySetting: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var useCustomerdisplay: Bool = true
+    @State private var useCustomerdisplay: Bool = false
     @State private var ipAddr: String = "192.168.x.x:3000"
     @State private var wifiSsid: String = "SAZAE-WLAP"
     
     var body: some View {
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "カスタマーディスプレイ"){
             Form{
                 Toggle("カスタマーディスプレイ利用", isOn: $useCustomerdisplay)
                 if useCustomerdisplay {
@@ -62,8 +61,6 @@ struct CustomerdisplaySetting: View {
             }
             .padding(.horizontal, 120)
         }
-        
-    }
 }
 
 

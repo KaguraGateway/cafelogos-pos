@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NavBarBody <Content: View>: View {
+    @ObservedObject var viewModel = GeneralSettingViewModel()
     @Binding var displayConnection: Bool
     @Binding var serverConnection: Bool
     let content: Content
@@ -35,12 +36,12 @@ struct NavBarBody <Content: View>: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack(spacing: 10) {
-                            VStack(alignment: .center) {
-                                Image(systemName: displayConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                    .foregroundColor(displayConnection ? .green : .red)
-                                Text("料金モニター")
-                                    .foregroundColor(displayConnection ? .green : .red)
-                            }
+//                            VStack(alignment: .center) {
+//                                Image(systemName: displayConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
+//                                    .foregroundColor(displayConnection ? .green : .red)
+//                                Text("料金モニター")
+//                                    .foregroundColor(displayConnection ? .green : .red)
+//                            }
                             
                             VStack {
                                 Image(systemName: serverConnection ? "checkmark.circle.fill" : "xmark.circle.fill")
@@ -48,6 +49,12 @@ struct NavBarBody <Content: View>: View {
                                 Text("サーバー通信")
                                     .foregroundColor(serverConnection ? .green : .red)
                             }
+                            Button(action: {
+                                viewModel.openCacher()
+                            }) {
+                                Text("ドロアを開く")
+                            }
+                            
                         }
                     }
                 }

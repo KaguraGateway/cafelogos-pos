@@ -42,5 +42,5 @@ struct TitleButton<Destination>: View where Destination : View {
 }
 
 #Preview {
-    TitleButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView(isTraining: false)})
+    TitleButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView()})
 }

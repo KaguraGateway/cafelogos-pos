@@ -24,8 +24,8 @@ struct StartTransactionView: View {
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
-                        multi2Button(title: "スキップする", subtitle: "(トレーニングモード)", bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView(isTraining: true)})
-                        TitleButton(title: "次へ", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView(isTraining: false)})
+                        TitleButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView()})
+                        TitleButton(title: "レジ開け完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                             .simultaneousGesture(TapGesture().onEnded {
                                 viewModel.onNextAction()
                             })
