@@ -28,6 +28,19 @@ public struct PaymentRealm: PaymentRepository {
         }
     }
     
+    func removeAll() {
+        do {
+            let realm = try Realm()
+            let payments = realm.objects(PaymentDao.self)
+            
+            try realm.write {
+                realm.delete(payments)
+            }
+        } catch let err {
+                fatalError("Can't Payment delete: \(err.localizedDescription)")
+        }
+    }
+    
     func save(payment: Payment) {
         let dao = PaymentDao(value: ["id": payment.id, "paymentType": PaymentTypeEnumDao.CASH, "receiveAmount": payment.receiveAmount, "paymentAmount": payment.paymentAmount, "changeAmount": payment.changeAmount, "paymentAt": payment.paymentAt, "updatedAt": Date(), "syncAt": payment.syncAt as Any])
         

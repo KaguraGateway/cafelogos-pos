@@ -26,8 +26,9 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     static let liveValue: ProtocolClient = ProtocolClient(
         httpClient: URLSessionHTTPClient(), config: ProtocolClientConfig(
-            //host: "https://cafelogos-pos-backend-qlrb2to2zq-an.a.run.app",
-            host: "http://192.168.11.4:8080",
+            //host: "https://cafelogos-pos-backend-z4ljh3ykiq-dt.a.run.app",
+            //host: "http://192.168.11.2:8080",
+            host: "http://localhost:8080",
             networkProtocol: .connect,
             codec: ProtoCodec()
         )
@@ -52,6 +53,9 @@ private enum OrderServerServiceKey: DependencyKey {
 private enum OrderReceiptKey: DependencyKey {
     static let liveValue: any OrderReceiptService = OrderReceiptStarX()
 }
+//private enum CustomerDisplayServiceKey: DependencyKey {
+//    static let liveValue: any CustomerDisplayService = SwifterCustomerDisplayService()
+//}
 
 extension DependencyValues {
     var denominationRepository: any DenominationRepository {
@@ -98,4 +102,8 @@ extension DependencyValues {
         get { self[OrderReceiptKey.self] }
         set { self[OrderReceiptKey.self] = newValue }
     }
+//    var customerDisplay: any CustomerDisplayService {
+//        get {self[CustomerDisplayServiceKey.self] }
+//        set {self[CustomerDisplayServiceKey.self] = newValue }
+//    }
 }
