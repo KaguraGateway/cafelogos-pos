@@ -11,7 +11,7 @@ struct GeneralSettingView: View {
     @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
     @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
     @State private var usePrinter = true
-    @State private var printReceipt = true
+    @State private var printReceipt = false
     @State private var printTicket = true
     @State private var useDrawer = true
     @State private var isLogoutDisabled = true
@@ -60,6 +60,7 @@ struct GeneralSettingView: View {
                     if usePrinter {
                         Section {
                             Toggle("会計レシート印刷", isOn : $printReceipt)
+                                .disabled(true)
                             if printReceipt{
                                 Button(action: {}) {
                                     Text("会計レシート印刷テスト")
