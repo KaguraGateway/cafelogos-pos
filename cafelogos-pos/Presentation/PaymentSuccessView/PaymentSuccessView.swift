@@ -154,7 +154,7 @@ struct PaymentSuccessView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     HStack(spacing: 10) {
                         Button("支払い画面に戻る") {
-                            dismiss()
+                            //dismiss()
                         }
                     }
                 }

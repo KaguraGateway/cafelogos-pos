@@ -20,6 +20,7 @@ class PaymentSuccessViewModel: ObservableObject {
         self.orders = orders
         self.callNumber = callNumber
         
+        // プレ営業なので無効化
         self.execPrinter()
     }
     

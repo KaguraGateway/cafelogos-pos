@@ -13,6 +13,12 @@ import cafelogos_grpc
 private enum DenominationRepositoryKey: DependencyKey {
     static let liveValue: any DenominationRepository = DenominationRealm()
 }
+private enum PaymentRepositoryKey: DependencyKey {
+    static let liveValue: any PaymentRepository = PaymentRealm()
+}
+private enum OrderRepositoryKey: DependencyKey {
+    static let liveValue: any OrderRepository = OrderRealm()
+}
 private enum ConfigRepositoryKey: DependencyKey {
     static let liveValue: any ConfigRepository = ConfigAppStorage()
 }
@@ -20,8 +26,9 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     static let liveValue: ProtocolClient = ProtocolClient(
         httpClient: URLSessionHTTPClient(), config: ProtocolClientConfig(
-            //host: "https://cafelogos-pos-backend-qlrb2to2zq-an.a.run.app",
-            host: "http://192.168.11.4:8080",
+            //host: "https://cafelogos-pos-backend-z4ljh3ykiq-dt.a.run.app",
+            //host: "http://192.168.11.2:8080",
+            host: "http://localhost:8080",
             networkProtocol: .connect,
             codec: ProtoCodec()
         )
@@ -46,11 +53,22 @@ private enum OrderServerServiceKey: DependencyKey {
 private enum OrderReceiptKey: DependencyKey {
     static let liveValue: any OrderReceiptService = OrderReceiptStarX()
 }
+//private enum CustomerDisplayServiceKey: DependencyKey {
+//    static let liveValue: any CustomerDisplayService = SwifterCustomerDisplayService()
+//}
 
 extension DependencyValues {
     var denominationRepository: any DenominationRepository {
         get { self[DenominationRepositoryKey.self] }
         set { self[DenominationRepositoryKey.self] = newValue }
+    }
+    var paymentRepository: any PaymentRepository {
+        get { self[PaymentRepositoryKey.self] }
+        set { self[PaymentRepositoryKey.self] = newValue }
+    }
+    var orderRepository: any OrderRepository {
+        get { self[OrderRepositoryKey.self] }
+        set { self[OrderRepositoryKey.self] = newValue }
     }
     var configRepository: any ConfigRepository {
         get { self[ConfigRepositoryKey.self] }
@@ -84,4 +102,8 @@ extension DependencyValues {
         get { self[OrderReceiptKey.self] }
         set { self[OrderReceiptKey.self] = newValue }
     }
+//    var customerDisplay: any CustomerDisplayService {
+//        get {self[CustomerDisplayServiceKey.self] }
+//        set {self[CustomerDisplayServiceKey.self] = newValue }
+//    }
 }

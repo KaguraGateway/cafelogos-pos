@@ -75,8 +75,12 @@ struct ProductStack: View {
     
     func onTapProduct(product: ProductDto) {
         if(product.productType == ProductType.coffee){
-            self.selectProduct = product
-            self.showingChooseOption = true
+            if(product.coffeeHowToBrews?.count == 1) {
+                self.onAddItem(product, product.coffeeHowToBrews![0])
+            } else {
+                self.selectProduct = product
+                self.showingChooseOption = true
+            }
         } else {
             self.onAddItem(product, nil)
         }
@@ -111,38 +115,40 @@ struct ProductStack: View {
                         ) {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
-                                Button(action: {
-                                    onTapProduct(product: product)
-                                }, label: {
-                                    VStack(alignment: .trailing, spacing: 0) {
-                                        // ProductName
-                                        Text(product.productName)
-                                            .font(.title2)
-                                            .fontWeight(.semibold)
-                                            .multilineTextAlignment(.leading)
-                                            .padding(.vertical, 5)
-                                            .lineLimit(3)
-                                            .frame(maxWidth: .infinity)
+                                if product.isNowSales {
+                                    Button(action: {
+                                        onTapProduct(product: product)
+                                    }, label: {
+                                        VStack(alignment: .trailing, spacing: 0) {
+                                            // ProductName
+                                            Text(product.productName)
+                                                .font(.title2)
+                                                .fontWeight(.semibold)
+                                                .multilineTextAlignment(.leading)
+                                                .padding(.vertical, 5)
+                                                .lineLimit(3)
+                                                .frame(maxWidth: .infinity)
 
-                                        Spacer()
-                                        
-                                        // ProductAmount
-                                        Text("¥\(product.amount)")
-                                            .font(.title2)
-                                            .fontWeight(.regular)
-                                            .multilineTextAlignment(.trailing)
-                                            .lineLimit(1)
-                                    }
-                                    .padding(10)
-                                    .frame(minHeight: 120)
-                                    .frame(maxWidth: abs((geometry.size.width - 48) / 4))
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color(.tertiaryLabel), lineWidth: 1)
-                                            .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
-                                    )
-                                    .foregroundColor(.white)
-                                })
+                                            Spacer()
+                                            
+                                            // ProductAmount
+                                            Text("¥\(product.amount)")
+                                                .font(.title2)
+                                                .fontWeight(.regular)
+                                                .multilineTextAlignment(.trailing)
+                                                .lineLimit(1)
+                                        }
+                                        .padding(10)
+                                        .frame(minHeight: 120)
+                                        .frame(maxWidth: abs((geometry.size.width - 48) / 4))
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color(.tertiaryLabel), lineWidth: 1)
+                                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
+                                        )
+                                        .foregroundColor(.white)
+                                    })
+                                }
                             }
                         }
                     }
@@ -461,6 +467,9 @@ struct EntryBottomBar: View {
         .background(.primary)
         .navigationDestination(isPresented: $isOrderSheet) {
             PaymentView(printer: printer, orders: orders, newOrder: nil)
+        }
+        .onAppear {
+            orders.removeAll()
         }
         
     }
