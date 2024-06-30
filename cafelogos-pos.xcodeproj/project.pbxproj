@@ -796,6 +796,7 @@
 				35D434702AD603150043F7AE /* XCRemoteSwiftPackageReference "connect-swift" */,
 				35D434752AD61C270043F7AE /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				3547B1FC2ADB3ACA00770EF2 /* XCRemoteSwiftPackageReference "swifter" */,
+				359F14282C3158CA0011E277 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 3557C7152A826A1200C72F17 /* Products */;
 			projectDirPath = "";
@@ -1303,6 +1304,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		359F14282C3158CA0011E277 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.11.2;
 			};
 		};
 		35D4346D2AD602990043F7AE /* XCRemoteSwiftPackageReference "cafelogos-grpc" */ = {
