@@ -11,35 +11,22 @@
 		3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71B2A826A1300C72F17 /* Assets.xcassets */; };
 		3557C71F2A826A1300C72F17 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71E2A826A1300C72F17 /* Preview Assets.xcassets */; };
 		3586BDF72A8FC479009E346E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3586BDF62A8FC479009E346E /* .gitignore */; };
+		35B289952C31BD120014AD63 /* Signing.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 35B289922C31BD120014AD63 /* Signing.xcconfig */; };
+		35B289962C31BD120014AD63 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 35B289932C31BD120014AD63 /* Debug.xcconfig */; };
+		35B289972C31BD120014AD63 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 35B289942C31BD120014AD63 /* Release.xcconfig */; };
 		35E810A82C31AC0300E56F2D /* LogoREGICore in Frameworks */ = {isa = PBXBuildFile; productRef = 35E810A72C31AC0300E56F2D /* LogoREGICore */; };
 		35E810AA2C31AC0600E56F2D /* LogoREGIUI in Frameworks */ = {isa = PBXBuildFile; productRef = 35E810A92C31AC0600E56F2D /* LogoREGIUI */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		3557C7252A826A1300C72F17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3557C70C2A826A1200C72F17 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3557C7132A826A1200C72F17;
-			remoteInfo = "cafelogos-pos";
-		};
-		3557C72F2A826A1300C72F17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3557C70C2A826A1200C72F17 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3557C7132A826A1200C72F17;
-			remoteInfo = "cafelogos-pos";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3557C7142A826A1200C72F17 /* cafelogos-pos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cafelogos-pos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posApp.swift; sourceTree = "<group>"; };
 		3557C71B2A826A1300C72F17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3557C71E2A826A1300C72F17 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3557C7242A826A1300C72F17 /* cafelogos-posTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3586BDF62A8FC479009E346E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		35B289922C31BD120014AD63 /* Signing.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		35B289932C31BD120014AD63 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		35B289942C31BD120014AD63 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		EBE8FF9B2AD1BCCC002011B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,26 +40,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3557C7212A826A1300C72F17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3557C72B2A826A1300C72F17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		3557C70B2A826A1200C72F17 = {
 			isa = PBXGroup;
 			children = (
+				35B289932C31BD120014AD63 /* Debug.xcconfig */,
+				35B289942C31BD120014AD63 /* Release.xcconfig */,
+				35B289922C31BD120014AD63 /* Signing.xcconfig */,
 				3586BDF62A8FC479009E346E /* .gitignore */,
 				3557C7162A826A1200C72F17 /* App */,
 				3557C7152A826A1200C72F17 /* Products */,
@@ -84,8 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				3557C7142A826A1200C72F17 /* cafelogos-pos.app */,
-				3557C7242A826A1300C72F17 /* cafelogos-posTests.xctest */,
-				3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,42 +114,6 @@
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3557C7232A826A1300C72F17 /* cafelogos-posTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3557C73B2A826A1300C72F17 /* Build configuration list for PBXNativeTarget "cafelogos-posTests" */;
-			buildPhases = (
-				3557C7202A826A1300C72F17 /* Sources */,
-				3557C7212A826A1300C72F17 /* Frameworks */,
-				3557C7222A826A1300C72F17 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3557C7262A826A1300C72F17 /* PBXTargetDependency */,
-			);
-			name = "cafelogos-posTests";
-			productName = "cafelogos-posTests";
-			productReference = 3557C7242A826A1300C72F17 /* cafelogos-posTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		3557C72D2A826A1300C72F17 /* cafelogos-posUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3557C73E2A826A1300C72F17 /* Build configuration list for PBXNativeTarget "cafelogos-posUITests" */;
-			buildPhases = (
-				3557C72A2A826A1300C72F17 /* Sources */,
-				3557C72B2A826A1300C72F17 /* Frameworks */,
-				3557C72C2A826A1300C72F17 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3557C7302A826A1300C72F17 /* PBXTargetDependency */,
-			);
-			name = "cafelogos-posUITests";
-			productName = "cafelogos-posUITests";
-			productReference = 3557C72E2A826A1300C72F17 /* cafelogos-posUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,14 +126,6 @@
 				TargetAttributes = {
 					3557C7132A826A1200C72F17 = {
 						CreatedOnToolsVersion = 14.3.1;
-					};
-					3557C7232A826A1300C72F17 = {
-						CreatedOnToolsVersion = 14.3.1;
-						TestTargetID = 3557C7132A826A1200C72F17;
-					};
-					3557C72D2A826A1300C72F17 = {
-						CreatedOnToolsVersion = 14.3.1;
-						TestTargetID = 3557C7132A826A1200C72F17;
 					};
 				};
 			};
@@ -216,8 +146,6 @@
 			projectRoot = "";
 			targets = (
 				3557C7132A826A1200C72F17 /* cafelogos-pos */,
-				3557C7232A826A1300C72F17 /* cafelogos-posTests */,
-				3557C72D2A826A1300C72F17 /* cafelogos-posUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,21 +157,10 @@
 			files = (
 				3557C71F2A826A1300C72F17 /* Preview Assets.xcassets in Resources */,
 				3586BDF72A8FC479009E346E /* .gitignore in Resources */,
+				35B289972C31BD120014AD63 /* Release.xcconfig in Resources */,
+				35B289952C31BD120014AD63 /* Signing.xcconfig in Resources */,
+				35B289962C31BD120014AD63 /* Debug.xcconfig in Resources */,
 				3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3557C7222A826A1300C72F17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3557C72C2A826A1300C72F17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,34 +175,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3557C7202A826A1300C72F17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3557C72A2A826A1300C72F17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3557C7262A826A1300C72F17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3557C7132A826A1200C72F17 /* cafelogos-pos */;
-			targetProxy = 3557C7252A826A1300C72F17 /* PBXContainerItemProxy */;
-		};
-		3557C7302A826A1300C72F17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3557C7132A826A1200C72F17 /* cafelogos-pos */;
-			targetProxy = 3557C72F2A826A1300C72F17 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3557C7362A826A1300C72F17 /* Debug */ = {
@@ -409,10 +299,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
-				DEVELOPMENT_TEAM = 3266YSU44G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -443,10 +331,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
-				DEVELOPMENT_TEAM = 3266YSU44G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -472,78 +358,6 @@
 			};
 			name = Release;
 		};
-		3557C73C2A826A1300C72F17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3266YSU44G;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cafelogos-pos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cafelogos-pos";
-			};
-			name = Debug;
-		};
-		3557C73D2A826A1300C72F17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3266YSU44G;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cafelogos-pos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cafelogos-pos";
-			};
-			name = Release;
-		};
-		3557C73F2A826A1300C72F17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3266YSU44G;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "cafelogos-pos";
-			};
-			name = Debug;
-		};
-		3557C7402A826A1300C72F17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3266YSU44G;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "cafelogos-pos";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -561,24 +375,6 @@
 			buildConfigurations = (
 				3557C7392A826A1300C72F17 /* Debug */,
 				3557C73A2A826A1300C72F17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3557C73B2A826A1300C72F17 /* Build configuration list for PBXNativeTarget "cafelogos-posTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3557C73C2A826A1300C72F17 /* Debug */,
-				3557C73D2A826A1300C72F17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3557C73E2A826A1300C72F17 /* Build configuration list for PBXNativeTarget "cafelogos-posUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3557C73F2A826A1300C72F17 /* Debug */,
-				3557C7402A826A1300C72F17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
