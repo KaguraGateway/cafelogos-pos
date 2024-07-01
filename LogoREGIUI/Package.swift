@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.0.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.11.0"),
         .package(url: "https://github.com/yaslab/ULID.swift.git", from: "1.3.0"),
         .package(url: "https://github.com/realm/realm-swift.git", from: "10.52.0"),
         .package(url: "https://github.com/KaguraGateway/cafelogos-grpc.git", branch: "main"),
@@ -32,6 +33,7 @@ let package = Package(
                 .product(name: "StarIO10", package: "StarXpand-SDK-iOS"),
                 .product(name: "ULID", package: "ULID.swift"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RealmSwift", package: "realm-swift"),
                 .product(name: "Connect", package: "connect-swift"),
                 .product(name: "cafelogos-grpc", package: "cafelogos-grpc"),
