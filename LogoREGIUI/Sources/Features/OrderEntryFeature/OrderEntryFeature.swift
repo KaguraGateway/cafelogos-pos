@@ -10,6 +10,7 @@ struct OrderEntryFeature {
         var discounts: [Discount] = []
         var order: Order = Order()
         var isLoading = false
+        var error: Error?
     }
     
     enum Action {
@@ -52,7 +53,7 @@ struct OrderEntryFeature {
                 
             case let .fetchProductCatalogResponse(.failure(error)):
                 state.isLoading = false
-                // エラーハンドリングをここに追加
+                state.error = error
                 return .none
 
             case .fetchDiscounts:
@@ -67,11 +68,11 @@ struct OrderEntryFeature {
                 state.discounts = discounts
                 return .none
                 
-            case .fetchDiscountsResponse(.failure):
+            case let .fetchDiscountsResponse(.failure(error)):
                 state.isLoading = false
-                // エラーハンドリングをここに追加
+                state.error = error
                 return .none
-                
+
             case let .addItem(product, howToBrew):
                 // アイテム追加ロジックをここに追加
                 return .none
