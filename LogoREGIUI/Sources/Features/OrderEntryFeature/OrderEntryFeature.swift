@@ -15,6 +15,8 @@ struct OrderEntryFeature {
     
     enum Action {
         case onAppear
+        case fetchAllData
+        case allDataFetched(TaskResult<(categories: [ProductCategoryWithProductsDto], discounts: [Discount])>)
         case fetchProductCatalog
         case fetchProductCatalogResponse(TaskResult<[ProductCategoryWithProductsDto]>)
         case fetchDiscounts
@@ -34,7 +36,30 @@ struct OrderEntryFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .send(.fetchProductCatalog)
+                return .send(.fetchAllData)
+                
+            case .fetchAllData:
+                state.isLoading = true
+                state.error = nil
+                return .run { send in
+                    await send(.allDataFetched(TaskResult {
+                        async let categories = GetCategoriesWithProduct().Execute()
+                        async let discounts = GetDiscounts().Execute()
+                        let (fetchedCategories, fetchedDiscounts) = try await (categories, discounts)
+                        return (categories: fetchedCategories, discounts: fetchedDiscounts)
+                    }))
+                }
+                
+            case let .allDataFetched(.success((categories, discounts))):
+                state.isLoading = false
+                state.categoriesWithProduct = categories
+                state.discounts = discounts
+                return .none
+                
+            case let .allDataFetched(.failure(error)):
+                state.isLoading = false
+                state.error = error
+                return .none
                 
             case .fetchProductCatalog:
                 state.isLoading = true
