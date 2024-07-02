@@ -19,7 +19,7 @@ struct NavigationBarFeature {
 
     enum Action {
             case onAppear
-            case setServerConnection
+            case setServerConnection(Bool)
             case setTitle(String)
             case openDrawer
     }
@@ -30,8 +30,8 @@ struct NavigationBarFeature {
             case .onAppear:
                 return .none
                 
-            case .setServerConnection:
-                state.serverConnection.toggle()
+            case let .setServerConnection(isConnected):
+                state.serverConnection = isConnected
                 return .none
                 
             case let .setTitle(newTitle):
