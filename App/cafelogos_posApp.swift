@@ -18,7 +18,10 @@ struct cafelogos_posApp: SwiftUI.App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppView(
+                store: .init(initialState: .init()) {
+                    AppReducer()
+                })
         }
     }
 }
