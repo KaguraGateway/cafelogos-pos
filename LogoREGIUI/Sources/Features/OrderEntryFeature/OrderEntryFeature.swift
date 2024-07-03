@@ -29,8 +29,8 @@ struct OrderEntryFeature {
         case onTapDiscount(Discount)
     }
     
-//    ToDo: DIを実装する
-//    @Dependency(\.productService) var productService
+    //    ToDo: DIを実装する
+    //    @Dependency(\.productService) var productService
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -80,7 +80,7 @@ struct OrderEntryFeature {
                 state.isLoading = false
                 state.error = error
                 return .none
-
+                
             case .fetchDiscounts:
                 return .run { send in
                     await send(.fetchDiscountsResponse(
@@ -97,13 +97,22 @@ struct OrderEntryFeature {
                 state.isLoading = false
                 state.error = error
                 return .none
-
+                
             case let .addItem(product, howToBrew):
                 // アイテム追加ロジックをここに追加
                 return .none
                 
             case let .onTapDecrease(index):
-                // 数量減少ロジックをここに追加
+                if index < state.order.cart.items.count {
+                    let currentQuantity = state.order.cart.items[index].getQuantity()
+                    if currentQuantity > 1 {
+                        state.order.cart.setItemQuantity(itemIndex: index, newQuantity: currentQuantity - 1)
+                    } else {
+                        // 数量が1の場合はアイテムを削除
+                        let itemToRemove = state.order.cart.items[index]
+                        state.order.cart.removeItem(removeItem: itemToRemove)
+                    }
+                }
                 return .none
                 
             case let .onTapIncrease(index):
@@ -114,11 +123,11 @@ struct OrderEntryFeature {
                 return .none
                 
             case let .onRemoveItem(cartItem):
-                // アイテム削除ロジックをここに追加
+                state.order.cart.removeItem(removeItem: cartItem)
                 return .none
                 
             case .onRemoveAllItem:
-                // 全アイテム削除ロジックをここに追加
+                state.order.cart.removeAllItem()
                 return .none
                 
             case let .onTapDiscount(discount):
