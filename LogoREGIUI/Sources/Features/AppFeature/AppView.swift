@@ -7,13 +7,27 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+public struct AppView: View {
+    @Bindable var store: StoreOf<AppReducer>
+    
+    public init(store: StoreOf<AppReducer>) {
+        self.store = store
     }
-}
-
-#Preview {
-    SwiftUIView()
+    
+    public var body: some View {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            ContainerWithNavBar {
+                Text("Hello World")
+            }
+                .navigationTitle("App")
+        } destination: { store in
+            switch store.case {
+            case let .payment(store):
+                TmpPaymentView(store: store)
+            }
+        }
+        .environment(\.isServerConnected, store.isServerConnected)
+    }
 }
