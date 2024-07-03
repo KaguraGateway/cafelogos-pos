@@ -24,7 +24,8 @@ struct HomeView: View {
                         // 左列
                         
                         VStack(spacing: 15) {
-                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理対応）", description: "POSレジ・ハンディ端末から注文を管理", destination: {OrderEntryView()}, fg_color: Color.primary, bg_color: Color(.secondarySystemFill), height: geometry.size.height , width: geometry.size.width * (1/3))
+                            // 遷移先を暫定的にContentViewにしています
+                            HomeNavButton(title: "注文入力・会計", subtitle: "（イートイン管理対応）", description: "POSレジ・ハンディ端末から注文を管理", destination: {ContentView()}, fg_color: Color.primary, bg_color: Color(.secondarySystemFill), height: geometry.size.height , width: geometry.size.width * (1/3))
                         }
                         
                         // 右列
