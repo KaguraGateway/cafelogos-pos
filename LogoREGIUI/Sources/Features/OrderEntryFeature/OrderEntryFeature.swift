@@ -32,6 +32,11 @@ struct OrderEntryFeature {
     //    ToDo: DIを実装する
     //    @Dependency(\.productService) var productService
     
+    
+    //ToDo: エラーハンドリングをちゃんと実装する
+    //    頑張りましたが、コンパイラがやる気を無くしたので見送り
+    // https://github.com/KaguraGateway/cafelogos-pos/pull/43#issuecomment-2204918216
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
