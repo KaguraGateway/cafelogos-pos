@@ -18,12 +18,16 @@ public struct AppView: View {
     
     public var body: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            Text("Hello World")
+            ContainerWithNavBar {
+                Text("Hello World")
+            }
+                .navigationTitle("App")
         } destination: { store in
             switch store.case {
             case let .payment(store):
                 TmpPaymentView(store: store)
             }
         }
+        .environment(\.isServerConnected, store.isServerConnected)
     }
 }

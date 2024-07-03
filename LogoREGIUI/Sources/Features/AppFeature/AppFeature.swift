@@ -19,6 +19,7 @@ public struct AppReducer {
     @ObservableState
     public struct State: Equatable {
         var path = StackState<Path.State>();
+        var isServerConnected = false;
         
         public init() {}
     }
@@ -26,6 +27,7 @@ public struct AppReducer {
     public enum Action {
         case path(StackActionOf<Path>)
         case popToHome
+        case setIsServerConnected(Bool)
     }
     
     public init() {}
@@ -41,9 +43,11 @@ public struct AppReducer {
             case .popToHome:
                 state.path.removeAll()
                 return .none
+            case let .setIsServerConnected(isConnected):
+                state.isServerConnected = isConnected;
+                return .none
             }
         }
         .forEach(\.path, action: \.path)
     }
 }
-
