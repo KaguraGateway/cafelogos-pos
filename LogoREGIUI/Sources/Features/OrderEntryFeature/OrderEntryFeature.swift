@@ -107,7 +107,10 @@ struct OrderEntryFeature {
                 return .none
                 
             case let .onTapIncrease(index):
-                // 数量増加ロジックをここに追加
+                if index < state.order.cart.items.count {
+                    let currentQuantity = state.order.cart.items[index].getQuantity()
+                    state.order.cart.setItemQuantity(itemIndex: index, newQuantity: currentQuantity + 1)
+                }
                 return .none
                 
             case let .onRemoveItem(cartItem):
