@@ -98,8 +98,106 @@ struct OrderEntryFeature {
                 state.error = error
                 return .none
                 
-            case let .addItem(product, howToBrew):
-                // アイテム追加ロジックをここに追加
+            case let .addItem(productDto, brew):
+                // 商品カテゴリの生成
+                let productCategory = ProductCategory(
+                    id: productDto.productCategory.id,
+                    name: productDto.productCategory.name,
+                    createdAt: productDto.productCategory.createdAt,
+                    updatedAt: productDto.productCategory.updatedAt,
+                    syncAt: Date()
+                )
+                
+                if productDto.productType == .coffee {
+                    // コーヒー商品の場合
+                    guard let brew = brew, let coffeeBean = productDto.coffeeBean, let coffeeHowToBrews = productDto.coffeeHowToBrews else {
+                        // 必要な情報が不足している場合のエラーハンドリング
+                        return .none
+                    }
+                    
+                    // コーヒー商品の生成
+                    let coffeeProduct = CoffeeProduct(
+                        productName: productDto.productName,
+                        productId: productDto.productId,
+                        productCategory: productCategory,
+                        coffeeBean: CoffeeBean(
+                            id: coffeeBean.id,
+                            name: coffeeBean.name,
+                            gramQuantity: coffeeBean.gramQuantity,
+                            createdAt: coffeeBean.createdAt,
+                            updatedAt: coffeeBean.updatedAt,
+                            syncAt: Date()
+                        ),
+                        coffeeHowToBrews: coffeeHowToBrews.map {
+                            // 各淹れ方の変換
+                            CoffeeHowToBrew(
+                                name: $0.name,
+                                id: $0.id,
+                                beanQuantityGrams: $0.beanQuantityGrams,
+                                amount: $0.amount,
+                                createdAt: $0.createdAt,
+                                updatedAt: $0.updatedAt,
+                                syncAt: Date()
+                            )
+                        },
+                        isNowSales: productDto.isNowSales,
+                        createdAt: productDto.createdAt,
+                        updatedAt: productDto.updatedAt,
+                        syncAt: Date()
+                    )
+                    
+                    // 選択された淹れ方の生成
+                    let brewItem = CoffeeHowToBrew(
+                        name: brew.name,
+                        id: brew.id,
+                        beanQuantityGrams: brew.beanQuantityGrams,
+                        amount: brew.amount,
+                        createdAt: brew.createdAt,
+                        updatedAt: brew.updatedAt,
+                        syncAt: Date()
+                    )
+                    
+                    do {
+                        // カートアイテムの生成と追加
+                        let newItem = try CartItem(coffee: coffeeProduct, brew: brewItem, quantity: 1)
+                        state.order.cart.addItem(newItem: newItem)
+                    } catch {
+                        // カートアイテム生成時のエラーハンドリング
+                        return .none
+                    }
+                } else {
+                    // コーヒー以外の商品の場合
+                    guard let stock = productDto.stock else {
+                        // 在庫情報が不足している場合のエラーハンドリング
+                        return .none
+                    }
+                    
+                    // その他の商品の生成
+                    let otherProduct = OtherProduct(
+                        productName: productDto.productName,
+                        productId: productDto.productId,
+                        productCategory: productCategory,
+                        price: productDto.amount,
+                        stock: Stock(
+                            name: stock.name,
+                            id: stock.id,
+                            quantity: stock.quantity,
+                            createdAt: stock.createdAt,
+                            updatedAt: stock.updatedAt,
+                            syncAt: Date()
+                        ),
+                        isNowSales: productDto.isNowSales,
+                        createdAt: productDto.createdAt,
+                        updatedAt: productDto.updatedAt,
+                        syncAt: Date()
+                    )
+                    
+                    // カートアイテムの生成と追加
+                    let newItem = CartItem(product: otherProduct, quantity: 1)
+                    state.order.cart.addItem(newItem: newItem)
+                }
+                
+                // アクション処理の完了
                 return .none
                 
             case let .onTapDecrease(index):
