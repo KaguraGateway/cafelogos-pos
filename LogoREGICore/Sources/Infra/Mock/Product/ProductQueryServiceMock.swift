@@ -8,6 +8,9 @@
 import Foundation
 
 public struct ProductQueryServiceMock: ProductQueryService {
+    
+    public init() {}
+    
     public func fetchProductCategoriesWithProducts() async -> Array<ProductCategoryWithProductsDto> {
         let coffeeBean = CoffeeBeanDto(id: UUID().uuidString, name: "コーヒー豆", gramQuantity: 1000, createdAt: Date(), updatedAt: Date())
         let coffeeCategory = ProductCategoryDto(id: UUID().uuidString, name: "コーヒー", createdAt: Date(), updatedAt: Date())

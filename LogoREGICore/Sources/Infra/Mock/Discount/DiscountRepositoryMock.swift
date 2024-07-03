@@ -12,6 +12,9 @@ func initDiscount() -> Discount {
 }
 
 public struct DiscountRepositoryMock: DiscountRepository {
+    
+    public init() {}
+    
     public func findAll() -> Array<Discount> {
         return [
             initDiscount(),

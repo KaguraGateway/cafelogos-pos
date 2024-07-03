@@ -48,8 +48,15 @@ struct OrderEntryFeature {
                 state.error = nil
                 return .run { send in
                     await send(.allDataFetched(TaskResult {
-                        async let categories = GetCategoriesWithProduct().Execute()
-                        async let discounts = GetDiscounts().Execute()
+                        // 本番環境
+//                        async let categories = GetCategoriesWithProduct().Execute()
+//                        async let discounts = GetDiscounts().Execute()
+                        
+                        // モック利用
+                        async let categories = ProductQueryServiceMock().fetchProductCategoriesWithProducts()
+                        async let discounts = DiscountRepositoryMock().findAll()
+                        
+                        // return処理周り
                         let (fetchedCategories, fetchedDiscounts) = try await (categories, discounts)
                         return (categories: fetchedCategories, discounts: fetchedDiscounts)
                     }))
