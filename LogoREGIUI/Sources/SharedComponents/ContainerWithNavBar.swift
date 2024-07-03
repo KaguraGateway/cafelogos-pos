@@ -18,7 +18,10 @@ struct ContainerWithNavBar<Content : View>: View {
     }
     
     var body: some View {
-        content
+        // contentにそのままmodifyつけると事故るからVStackでラップしてる (https://github.com/KaguraGateway/cafelogos-pos/pull/41#discussion_r1663347407)
+        VStack(spacing: 0.0) {
+            content
+        }
             .background(Color(.secondarySystemBackground))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
