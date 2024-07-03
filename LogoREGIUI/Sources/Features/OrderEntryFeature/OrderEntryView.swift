@@ -9,10 +9,10 @@ import SwiftUI
 import Algorithms
 import StarIO10
 import LogoREGICore
+import ComposableArchitecture
 
 struct OrderEntryView: View {
-    @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
+    @Bindable var store: StoreOf<OrderEntryFeature>
     
     @ObservedObject private var viewModel = OrderEntryViewModel()
     // ホームに戻るための状態管理フィールド
@@ -20,15 +20,15 @@ struct OrderEntryView: View {
     
     var body: some View {
         GeometryReader{geometry in
-            NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "注文入力") {
+            ContainerWithNavBar {
                 VStack(spacing: 0){
                     HStack(spacing:0){
                         ProductStack(
                             productCategories: viewModel.categoriesWithProduct,
                             onAddItem: viewModel.addItem
                         )
-                            .padding(.leading, 10)
-                            .frame(width: geometry.size.width * 0.6)
+                        .padding(.leading, 10)
+                        .frame(width: geometry.size.width * 0.6)
                         Divider()
                         DiscountStack(discounts: viewModel.discounts, onTapDiscount: viewModel.onTapDiscount)
                             .frame(width: geometry.size.width * 0.1)
@@ -40,7 +40,7 @@ struct OrderEntryView: View {
                             onTapIncreaseBtn: viewModel.onTapIncrease,
                             onRemoveItem: viewModel.onRemoveItem
                         )
-                            .frame(width: geometry.size.width * 0.3)
+                        .frame(width: geometry.size.width * 0.3)
                     }
                     EntryBottomBar(
                         order: viewModel.order, onRemoveAllItem: viewModel.onRemoveAllItem
@@ -185,6 +185,9 @@ struct OrderItemView: View {
 }
 
 #Preview {
-    OrderEntryView()
+    OrderEntryView(
+        store: .init(initialState: .init()) {
+            OrderEntryFeature()
+        })
 }
 
