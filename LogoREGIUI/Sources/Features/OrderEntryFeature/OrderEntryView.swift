@@ -30,7 +30,7 @@ struct OrderEntryView: View {
                         DiscountStack(
                             discounts: store.discounts,
                             onTapDiscount: {discount in
-                                store.send(.onTapDiscount(discount))
+                                store.send(.discount(.applyDiscount(discount)))
                             }
                             )
                             .frame(width: geometry.size.width * 0.1)
