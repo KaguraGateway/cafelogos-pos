@@ -449,7 +449,8 @@ struct EntryBottomBar: View {
             .padding(.leading, 50)
             // 支払いへのNavigationLink
             NavigationLink {
-                PaymentView(printer: printer, orders: orders, newOrder: order)
+               // OldPaymentView(printer: printer, orders: orders, newOrder: order)
+                HomeView()
             } label: {
                 Text("支払いへ進む")
                     .frame(width: screenWidth * 0.27, height: 60)
@@ -467,7 +468,7 @@ struct EntryBottomBar: View {
         .padding(.vertical, 15)
         .background(.primary)
         .navigationDestination(isPresented: $isOrderSheet) {
-            PaymentView(printer: printer, orders: orders, newOrder: nil)
+             HomeView()
         }
         .onAppear {
             orders.removeAll()
