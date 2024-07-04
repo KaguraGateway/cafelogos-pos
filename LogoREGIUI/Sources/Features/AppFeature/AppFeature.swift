@@ -14,6 +14,7 @@ public struct AppReducer {
     @Reducer(state: .equatable)
     public enum Path {
         case payment(PaymentReducer)
+        case printerTest(PrinterTestFeature)
     }
     
     @ObservableState

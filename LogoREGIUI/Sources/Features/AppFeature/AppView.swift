@@ -20,12 +20,15 @@ public struct AppView: View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             ContainerWithNavBar {
                 Text("Hello World")
+                NavigationLink("Go to Printer", state: AppReducer.Path.State.printerTest(PrinterTestFeature.State()))
             }
                 .navigationTitle("App")
         } destination: { store in
             switch store.case {
             case let .payment(store):
                 TmpPaymentView(store: store)
+            case let .printerTest(store):
+                PrinterTestView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)
