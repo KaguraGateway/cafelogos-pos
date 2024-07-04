@@ -8,7 +8,7 @@
 import Foundation
 import ULID
 
-public struct Order {
+public struct Order: Equatable {
     public let id: String
     public var cart: Cart
     public var discounts: Array<Discount>
@@ -39,6 +39,11 @@ public struct Order {
         self.cart = cart
         self.orderAt = orderAt
         self.discounts = discounts
+    }
+    
+    
+    public static func == (lhs: Order, rhs: Order) -> Bool {
+        lhs.id == rhs.id
     }
 }
 
