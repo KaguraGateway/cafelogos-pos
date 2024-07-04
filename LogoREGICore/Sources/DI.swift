@@ -50,8 +50,8 @@ private enum SeatServerRepositoryKey: DependencyKey {
 private enum OrderServerServiceKey: DependencyKey {
     static let liveValue: any OrderService = OrderServiceServer()
 }
-private enum OrderReceiptKey: DependencyKey {
-    static let liveValue: any OrderReceiptService = OrderReceiptStarX()
+private enum CashierAdapterKey: DependencyKey {
+    static let liveValue: any CashierAdapter = StarXCashierAdapter()
 }
 //private enum CustomerDisplayServiceKey: DependencyKey {
 //    static let liveValue: any CustomerDisplayService = SwifterCustomerDisplayService()
@@ -98,9 +98,9 @@ extension DependencyValues {
         get { self[OrderServerServiceKey.self] }
         set { self[OrderServerServiceKey.self] = newValue }
     }
-    var orderReceipt: any OrderReceiptService {
-        get { self[OrderReceiptKey.self] }
-        set { self[OrderReceiptKey.self] = newValue }
+    var cashierAdapter: any CashierAdapter {
+        get { self[CashierAdapterKey.self] }
+        set { self[CashierAdapterKey.self] = newValue }
     }
 //    var customerDisplay: any CustomerDisplayService {
 //        get {self[CustomerDisplayServiceKey.self] }
