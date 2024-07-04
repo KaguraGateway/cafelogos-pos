@@ -26,7 +26,8 @@ struct ChooseOptionSheet: View {
                                 // OptionTitle
                                 Text(option.title)
                                     .font(.system(.largeTitle, weight: .semibold))
-                                    .lineLimit(0)
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.5)
                                 // OptionDescription
                                 Text(option.description)
                                     .padding(.top, 10)
