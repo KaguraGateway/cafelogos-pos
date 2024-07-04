@@ -11,8 +11,6 @@ struct OrderEntryFeature {
         var order: Order = Order()
         var isLoading = false
         var error: Error?
-        // 子Featureの状態
-        var discount: DiscountFeature.State
     }
     
     enum Action {
@@ -28,8 +26,7 @@ struct OrderEntryFeature {
         case onTapIncrease(Int)
         case onRemoveItem(CartItem)
         case onRemoveAllItem
-        // 子Featureからのアクション受け取り
-        case discount(DiscountFeature.Action)
+        case onTapDiscount(Discount)
     }
     
     //    ToDo: DIを実装する
@@ -41,11 +38,6 @@ struct OrderEntryFeature {
     //    https://github.com/KaguraGateway/cafelogos-pos/pull/43#issuecomment-2204918216
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.discount, action: \.discount) {
-                    DiscountFeature()
-                }
-        
-        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -248,10 +240,9 @@ struct OrderEntryFeature {
                 state.order.cart.removeAllItem()
                 return .none
                 
-            case .discount(.applyDiscount(let discount)):
-                            // ここで必要に応じて親の状態を更新
-                            state.order.discounts = state.discount.appliedDiscounts
-                            return .none
+            case let .onTapDiscount(discount):
+                state.order.discounts.append(discount)
+                return .none
             }
         }
     }
