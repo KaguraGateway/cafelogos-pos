@@ -14,8 +14,6 @@ import ComposableArchitecture
 struct OrderEntryView: View {
     @Bindable var store: StoreOf<OrderEntryFeature>
     
-    //    @ObservedObject private var viewModel = OrderEntryViewModel()
-    
     var body: some View {
         GeometryReader{geometry in
             ContainerWithNavBar {
