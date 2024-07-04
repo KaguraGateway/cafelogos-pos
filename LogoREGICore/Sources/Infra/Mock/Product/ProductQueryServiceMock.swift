@@ -28,6 +28,17 @@ public struct ProductQueryServiceMock: ProductQueryService {
                     CoffeeHowToBrewDto(name: "ネル", id: UUID().uuidString, amount: 400, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
                     CoffeeHowToBrewDto(name: "サイフォン", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
                     CoffeeHowToBrewDto(name: "ペーパー", id: UUID().uuidString, amount: 700, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date())
+                ]),
+                ProductDto(productName: "logos Honduras", productId: UUID().uuidString, productCategory: coffeeCategory, productType: ProductType.coffee, amount: 0, isNowSales: true, createdAt: Date(), updatedAt: Date(), coffeeBean: coffeeBean, coffeeHowToBrews: [
+                    CoffeeHowToBrewDto(name: "ネル", id: UUID().uuidString, amount: 400, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "サイフォン", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "ペーパー", id: UUID().uuidString, amount: 700, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "マキネッタ（アメリカーノ）", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "マキネッタ（ロングブラック）", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "マキネッタ（エスプレッソ）", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "フレンチプレス", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "コールドブリュー", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
+                    CoffeeHowToBrewDto(name: "アイスブリュー", id: UUID().uuidString, amount: 500, beanQuantityGrams: 100, createdAt: Date(), updatedAt: Date()),
                 ])
             ]),
             ProductCategoryWithProductsDto(id: UUID().uuidString, name: "ソフトドリンク", createdAt: Date(), updatedAt: Date(), products: [
