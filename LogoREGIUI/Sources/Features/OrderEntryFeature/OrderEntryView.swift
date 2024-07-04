@@ -45,7 +45,7 @@ struct OrderEntryView: View {
                                 store.send(.onTapDecrease(item))
                             },
                             onTapIncreaseBtn: { item in
-                                store.send(.onTapDecrease(item))
+                                store.send(.onTapIncrease(item))
                             },
                             onRemoveItem: { item in
                                 store.send(.onRemoveItem(item))
