@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Algorithms
-import StarIO10
 import LogoREGICore
 import ComposableArchitecture
 
