@@ -13,7 +13,7 @@ import ComposableArchitecture
 public struct AppReducer {
     @Reducer(state: .equatable)
     public enum Path {
-        case payment(PaymentReducer)
+        case payment(PaymentFeature)
         case printerTest(PrinterTestFeature)
     }
     
