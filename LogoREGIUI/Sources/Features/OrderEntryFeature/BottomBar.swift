@@ -9,7 +9,7 @@ import SwiftUI
 import LogoREGICore
 
 // 下部バーのView
-struct EntryBottomBar: View {
+struct BottomBar: View {
     @State private var showingChooseOrder: Bool = false // 席番号からモーダルの表示bool
     @State private var orderNumber:String = ""
     @State private var orders: [Order] = [Order]()

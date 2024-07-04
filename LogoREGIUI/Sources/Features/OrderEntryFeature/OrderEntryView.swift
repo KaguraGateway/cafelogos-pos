@@ -50,7 +50,7 @@ struct OrderEntryView: View {
                         )
                         .frame(width: geometry.size.width * 0.3)
                     }
-                    EntryBottomBar(
+                    BottomBar(
                         order: store.order, 
                         onRemoveAllItem: {
                             store.send(.onRemoveAllItem)
