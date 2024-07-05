@@ -71,7 +71,7 @@ struct OrderEntryView: View {
 
 
 
-
+// Previewの中身貼り付ければ検証可能
 #Preview {
     OrderEntryView(
         store: .init(initialState: .init()) {
