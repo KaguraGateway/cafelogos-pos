@@ -1,11 +1,3 @@
-//
-//  SwiftUIView.swift
-//  
-//  
-//  Created by　KaguraGateway on 2024/07/01
-//  
-//
-
 import SwiftUI
 import ComposableArchitecture
 import LogoREGICore
@@ -37,11 +29,57 @@ public struct AppView: View {
                                 syncAt: nil
                             ),
                             quantity: 5
-                        )
+                        ),
+                        try! CartItem(
+                            coffee: CoffeeProduct(
+                                productName: "logos Honduras",
+                                productId: "unique-product-id",
+                                productCategory: ProductCategory(
+                                    id: "unique-category-id",
+                                    name: "Coffee",
+                                    createdAt: Date(),
+                                    updatedAt: Date(),
+                                    syncAt: Date()
+                                ),
+                                coffeeBean: CoffeeBean(
+                                    id: "unique-bean-id",
+                                    name: "logos Honduras",
+                                    gramQuantity: 100,
+                                    createdAt: Date(),
+                                    updatedAt: Date(),
+                                    syncAt: Date()
+                                ),
+                                coffeeHowToBrews: [
+                                    CoffeeHowToBrew(name: "ネル", id: "unique-brew-id-1", beanQuantityGrams: 100, amount: 400, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "サイフォン", id: "unique-brew-id-2", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "ペーパー", id: "unique-brew-id-3", beanQuantityGrams: 100, amount: 700, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "マキネッタ（アメリカーノ）", id: "unique-brew-id-4", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "マキネッタ（ロングブラック）", id: "unique-brew-id-5", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "マキネッタ（エスプレッソ）", id: "unique-brew-id-6", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "フレンチプレス", id: "unique-brew-id-7", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "コールドブリュー", id: "unique-brew-id-8", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date()),
+                                    CoffeeHowToBrew(name: "アイスブリュー", id: "unique-brew-id-9", beanQuantityGrams: 100, amount: 500, createdAt: Date(), updatedAt: Date(), syncAt: Date())
+                                ],
+                                isNowSales: true,
+                                createdAt: Date(),
+                                updatedAt: Date(),
+                                syncAt: Date()
+                            ),
+                            brew: CoffeeHowToBrew(
+                                name: "マキネッタ（ロングブラック）",
+                                id: "unique-brew-id-5",
+                                beanQuantityGrams: 100,
+                                amount: 500,
+                                createdAt: Date(),
+                                updatedAt: Date(),
+                                syncAt: Date()
+                            ),
+                            quantity: 10
+                        ),
                     ]), discounts: [])
                 )))
             }
-                .navigationTitle("App")
+            .navigationTitle("App")
         } destination: { store in
             switch store.case {
             case let .payment(store):
