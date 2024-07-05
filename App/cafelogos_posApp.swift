@@ -20,7 +20,7 @@ struct cafelogos_posApp: SwiftUI.App {
         WindowGroup {
             AppView(
                 store: .init(initialState: .init()) {
-                    AppReducer()
+                    AppFeature()
                 })
         }
     }
