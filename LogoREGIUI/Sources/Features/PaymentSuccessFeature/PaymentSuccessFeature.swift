@@ -10,7 +10,7 @@ public struct PaymentSuccessFeature {
     public struct State: Equatable {
         var payment: Payment
         var orders: [Order]
-        var callNumber: String
+        var callNumber: String = ""
         var totalQuantity: UInt32 {
             orders.reduce(0) { $0 + $1.cart.totalQuantity }
         }
@@ -27,7 +27,6 @@ public struct PaymentSuccessFeature {
     
     public enum Action {
         case onApper
-        case printReceipt
         case onTapOrderEntry
     }
     
@@ -35,10 +34,9 @@ public struct PaymentSuccessFeature {
         Reduce { state, action in
             switch action {
             case .onApper:
+                // 引換券番号の取得
                 return .none
-            case .printReceipt:
-                // 印刷ロジックわからん…
-                return .none
+                
             case .onTapOrderEntry:
                 // OrderEntryへの遷移
                 return .none
