@@ -1,7 +1,6 @@
 // 精算画面
 
 import SwiftUI
-import LogoREGICore
 import ComposableArchitecture
 
 // サンプルデータ
@@ -11,7 +10,7 @@ struct ChargenData {
     var amount: Int
 }
 
-struct SettlementView: View {
+struct CashDrawerClosingView: View {
     @Bindable var store: StoreOf<CashDrawerOperationsFeature>
     
     
@@ -44,7 +43,7 @@ struct SettlementView: View {
 }
 
 #Preview {
-    SettlementView(store: .init(initialState: .init(), reducer: {
+    CashDrawerClosingView(store: .init(initialState: .init(), reducer: {
         CashDrawerOperationsFeature()
     }))
 }

@@ -1,7 +1,6 @@
 // 金額入力画面
 
 import SwiftUI
-import LogoREGICore
 import ComposableArchitecture
 
 // 複数金種の入力フォーム
