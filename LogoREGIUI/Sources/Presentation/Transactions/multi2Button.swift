@@ -1,32 +1,34 @@
-//
-//  TitleButton.swift
-//  cafelogos-pos
-//
-//  Created by Owner on 2023/09/29.
-//
+// 遷移先が指定されているボタン
+// タイトルとサブタイトルが付けれる
 
 import SwiftUI
 
-struct TitleButton<Destination>: View where Destination : View {
+struct multi2Button<Destination>: View where Destination : View {
     var title: String
+    var subtitle: String?
     var bgColor: Color
     var fgColor: Color
     var destination: () -> Destination
-
-    public init(title: String, bgColor: Color, fgColor: Color, destination: @escaping () -> Destination) {
+    
+    public init(title: String, subtitle: String?, bgColor: Color, fgColor: Color, destination: @escaping () -> Destination) {
         self.title = title
+        self.subtitle = subtitle
         self.bgColor = bgColor
         self.fgColor = fgColor
         self.destination = destination
     }
-
+    
     var body: some View {
-        NavigationLink(destination: destination) {
+        NavigationLink(destination: destination()) {
             VStack(spacing: 0) {
                 Text(title)
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.semibold)
                     .lineLimit(0)
+                if let subtitle = subtitle {
+                    Text(subtitle)
+                        .font(.title)
+                }
             }
             .foregroundColor(fgColor)
             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
@@ -41,6 +43,3 @@ struct TitleButton<Destination>: View where Destination : View {
     }
 }
 
-#Preview {
-    TitleButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView()})
-}

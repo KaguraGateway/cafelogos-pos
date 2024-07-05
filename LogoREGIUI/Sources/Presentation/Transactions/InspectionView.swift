@@ -1,9 +1,4 @@
-//
-//  InspectionView.swift
-//  cafelogos-pos
-//
-//  Created by Owner on 2023/09/29.
-//
+// 点検画面
 
 import SwiftUI
 
