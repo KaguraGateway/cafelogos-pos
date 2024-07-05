@@ -102,38 +102,38 @@ struct PaymentSuccessView: View {
                     Divider()
                     // 右
                     GeometryReader { geometry in
-                    VStack(spacing:0){
-                        Spacer()
-                        Text("呼び出し番号")
-                            .font(.system(size:40 , weight: .semibold, design: .default))
-                            .foregroundColor(.secondary)
-                        Text("\(store.callNumber)")
-                            .font(.system(size: 150, weight: .semibold, design: .default))
-                        Spacer()
-                        Button {
-                            store.send(.onTapOrderEntry)
-                        } label: {
-                            VStack(spacing: 0) {
-                                Text("注文入力・会計")
-                                    .font(.system(.largeTitle, weight: .semibold))
-                                    .lineLimit(0)
-                        }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                            .clipped()
-                            .padding(.vertical, 30)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(Color.cyan)
+                        VStack(spacing:0){
+                            Spacer()
+                            Text("呼び出し番号")
+                                .font(.system(size:40 , weight: .semibold, design: .default))
+                                .foregroundColor(.secondary)
+                            Text("\(store.callNumber)")
+                                .font(.system(size: 150, weight: .semibold, design: .default))
+                            Spacer()
+                            Button {
+                                store.send(.onTapOrderEntry)
+                            } label: {
+                                VStack(spacing: 0) {
+                                    Text("注文入力・会計")
+                                        .font(.system(.largeTitle, weight: .semibold))
+                                        .lineLimit(0)
+                                }
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                                .clipped()
+                                .padding(.vertical, 30)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .fill(Color.cyan)
+                                }
                             }
+                            .frame(width: geometry.size.width * 0.7)
+                            
+                            
                         }
-                        .frame(width: geometry.size.width * 0.7)
-
-                    
+                        .padding(.bottom, 130)
+                        .frame(maxWidth: .infinity)
                     }
-                    .padding(.bottom, 130)
-                    .frame(maxWidth: .infinity)
-                }
                 }
                 .background(Color(.secondarySystemBackground))
             }
