@@ -1,22 +1,12 @@
-//
-//  PaymentSuccessView.swift
-//  cafelogos-pos
-//
-//  Created by Owner on 2023/09/20.
-//
+// 支払い完了画面
 
 import SwiftUI
-import StarIO10
+import ComposableArchitecture
 import LogoREGICore
 
 struct PaymentSuccessView: View {
-    @ObservedObject var viewModel: PaymentSuccessViewModel
+    @Bindable var store: StoreOf<PaymentSuccessFeature>
     
-    public init(printer: StarPrinter?, payment: Payment, orders: [Order], callNumber: String) {
-        viewModel = PaymentSuccessViewModel(printer: printer, payment: payment, orders: orders, callNumber: callNumber)
-    }
-    
-    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack() {
             VStack(spacing:0){
@@ -33,7 +23,7 @@ struct PaymentSuccessView: View {
                                 Text("おつり")
                                     .font(.system(size:40 , weight: .semibold, design: .default))
                                     .foregroundColor(.secondary)
-                                Text("¥\(viewModel.payment.changeAmount)")
+                                Text("¥\(store.payment.changeAmount)")
                                     .font(.system(size: 80, weight: .semibold, design: .default))
                                     .background(alignment: .bottom) {
                                         RoundedRectangle(cornerRadius: 0, style: .continuous)
@@ -59,11 +49,11 @@ struct PaymentSuccessView: View {
                                     Text("商品 ")
                                         .font(.title)
                                         .fontWeight(.medium)
-                                    Text("\(viewModel.totalQuantity())点")
+                                    Text("\(store.totalQuantity)点")
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥\(viewModel.totalCartAmount())")
+                                    Text("¥\(store.totalCartAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -71,11 +61,11 @@ struct PaymentSuccessView: View {
                                     Text("割引 ")
                                         .font(.title)
                                         .fontWeight(.medium)
-                                    Text("\(viewModel.orders[0].discounts.count)点")
+                                    Text("\(store.orders[0].discounts.count)点")
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("-¥\(viewModel.payment.paymentAmount - viewModel.orders[0].cart.getTotalPrice())")
+                                    Text("-¥\(store.payment.paymentAmount - store.orders[0].cart.getTotalPrice())")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -87,7 +77,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥\(viewModel.totalAmount())")
+                                    Text("¥\(store.totalAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -96,7 +86,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥\(viewModel.payment.receiveAmount)")
+                                    Text("¥\(store.payment.receiveAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -117,17 +107,17 @@ struct PaymentSuccessView: View {
                         Text("呼び出し番号")
                             .font(.system(size:40 , weight: .semibold, design: .default))
                             .foregroundColor(.secondary)
-                        Text("\(viewModel.callNumber)")
+                        Text("\(store.callNumber)")
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
-                        NavigationLink{
-                            OrderEntryView()
-                        } label:{
+                        Button {
+                            store.send(.onTapOrderEntry)
+                        } label: {
                             VStack(spacing: 0) {
                                 Text("注文入力・会計")
                                     .font(.system(.largeTitle, weight: .semibold))
                                     .lineLimit(0)
-                            }
+                        }
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                             .clipped()
@@ -151,26 +141,6 @@ struct PaymentSuccessView: View {
             .navigationTitle("お支払い完了")
             .navigationBarTitleDisplayMode(.inline)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack(spacing: 10) {
-                        Button("支払い画面に戻る") {
-                            //dismiss()
-                        }
-                    }
-                }
-            }
-            
         }
     }
 }
-//
-//struct PaymentSuccessView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PaymentSuccessView(order: Order(id: "", cart: Cart(), discounts: [], payment: OrderPayment(type: PaymentType.cash, paymentAmount: 500, receiveAmount: 1000), orderAt: Date()), callNumber: "L-101")
-//            .previewInterfaceOrientation(.landscapeRight)
-////            .previewDevice("iPad (9th generation)")
-////            .previewDevice("iPad mini (6th generation)")
-//            .previewDevice("iPad Pro (11-inch) (4th generation)")
-//    }
-//}

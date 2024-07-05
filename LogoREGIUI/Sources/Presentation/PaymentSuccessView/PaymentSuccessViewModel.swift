@@ -40,29 +40,4 @@ class PaymentSuccessViewModel: ObservableObject {
             return p + order.totalAmount
         })
     }
-    
-//    func execPrinter() {
-//        Task {
-//            let command = OpenCacher().Execute()
-//            
-//            
-//            do {
-//                try await printer?.open()
-//                defer {
-//                    Task {
-//                        await printer?.close()
-//                    }
-//                }
-//                
-//                try await printer?.print(command: command)
-//                
-//                if self.callNumber.count > 0 {
-//                    let receiptCommand = PrintReceipt().Execute(receipt: OrderReceipt(callNumber: self.callNumber))
-//                    try await printer?.print(command: receiptCommand)
-//                }
-//            } catch let error {
-//                print("Error: \(error)")
-//            }
-//        }
-//    }
 }
