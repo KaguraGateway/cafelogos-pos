@@ -15,7 +15,7 @@ struct StartTransactionView: View {
                     DenominationFormList(denominations: $viewModel.denominations)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "釣り銭準備金", amount: Int(viewModel.totalAmount()))
+                        TitledAmountView(title: "釣り銭準備金", amount: Int(viewModel.totalAmount()))
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()

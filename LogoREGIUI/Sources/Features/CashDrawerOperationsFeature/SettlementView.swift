@@ -24,12 +24,12 @@ struct SettlementView: View {
                     DenominationFormList(denominations: $viewModel.current)
                     Divider()
                     VStack(alignment: .leading){
-                        ChargeInfo(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
+                        TitledAmountView(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
                             .padding(.bottom)
                             .padding(.top, 50)
-                        ChargeInfo(title: "現在の釣り銭(B)", amount: viewModel.currentTotal())
+                        TitledAmountView(title: "現在の釣り銭(B)", amount: viewModel.currentTotal())
                             .padding(.bottom)
-                        ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
+                        TitledAmountView(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
                         TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                             .simultaneousGesture(TapGesture().onEnded {

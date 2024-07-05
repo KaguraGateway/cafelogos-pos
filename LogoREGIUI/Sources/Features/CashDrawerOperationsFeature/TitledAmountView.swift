@@ -1,7 +1,7 @@
 // タイトルと金額を表示するコンポーネント
 import SwiftUI
 
-struct ChargeInfo:View {
+struct TitledAmountView:View {
     var title: String
     var amount: Int
     
