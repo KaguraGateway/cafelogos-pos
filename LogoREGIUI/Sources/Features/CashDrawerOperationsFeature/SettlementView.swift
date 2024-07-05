@@ -2,6 +2,7 @@
 
 import SwiftUI
 import LogoREGICore
+import ComposableArchitecture
 
 // サンプルデータ
 struct ChargenData {
@@ -11,29 +12,26 @@ struct ChargenData {
 }
 
 struct SettlementView: View {
-    @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    
-    @ObservedObject var viewModel = SettlementViewModel()
+    @Bindable var store: StoreOf<CashDrawerOperationsFeature>
     
     
     var body: some View {
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "精算"){
+        ContainerWithNavBar{
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    DenominationFormList(denominations: $viewModel.current)
+                    DenominationFormList(store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction))
                     Divider()
                     VStack(alignment: .leading){
-                        TitledAmountView(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
+                        TitledAmountView(title: "あるべき釣り銭(A)", amount: store.expectedCashAmount)
                             .padding(.bottom)
                             .padding(.top, 50)
-                        TitledAmountView(title: "現在の釣り銭(B)", amount: viewModel.currentTotal())
+                        TitledAmountView(title: "現在の釣り銭(B)", amount: store.cashDrawerTotal)
                             .padding(.bottom)
-                        TitledAmountView(title: "誤差(B-A)", amount: viewModel.diffAmount())
+                        TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
                         Spacer()
                         TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                             .simultaneousGesture(TapGesture().onEnded {
-                                viewModel.complete()
+                                store.send(.completeSettlement)
                             })
                     }
                     .padding(.horizontal)
@@ -45,12 +43,8 @@ struct SettlementView: View {
     }
 }
 
-struct SettlementView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettlementView()
-            .previewInterfaceOrientation(.landscapeRight)
-        //            .previewDevice("iPad (9th generation)")
-        //            .previewDevice("iPad mini (6th generation)")
-            .previewDevice("iPad Pro (11-inch) (4th generation)")
-    }
+#Preview {
+    SettlementView(store: .init(initialState: .init(), reducer: {
+        CashDrawerOperationsFeature()
+    }))
 }

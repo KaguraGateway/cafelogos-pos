@@ -13,7 +13,7 @@ public struct DenominationFormListFeature {
         case updateDenomination(index: Int, newValue: Denomination)
     }
     
-    var body: some Reducer<State, Action> {
+    public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case let .updateDenomination(index, newValue):

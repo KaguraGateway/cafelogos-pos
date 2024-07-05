@@ -6,7 +6,6 @@ import ComposableArchitecture
 struct CashDrawerSetupView: View {
     @Bindable var store: StoreOf<CashDrawerOperationsFeature>
     
-    
     var body: some View {
         ContainerWithNavBar {
             GeometryReader {geometry in
