@@ -3,7 +3,7 @@ import ComposableArchitecture
 import LogoREGICore
 
 @Reducer
-struct DenominationFormListFeature {
+public struct DenominationFormListFeature {
     @ObservableState
     public struct State: Equatable {
         var denominations: Denominations

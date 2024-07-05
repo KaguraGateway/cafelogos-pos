@@ -8,11 +8,13 @@ import LogoREGICore
 public struct CashDrawerOperationsFeature {
     @ObservableState
     public struct State: Equatable {
-        var cashDrawerDenominations: Denominations
         var cashDrawerTotal: Int = 0
         var expectedCashAmount: Int = 0
         var cashDiscrepancy: Int = 0
+        
+        var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
     }
+    
     
     public enum Action {
         case updateCashDrawerDenominations(Denominations)
@@ -24,17 +26,19 @@ public struct CashDrawerOperationsFeature {
         case completeSettlement
         // レジ開け
         case startCashierTransaction
+        
+        case denominationFormList(DenominationFormListFeature.Action)
     }
     
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-            case .updateCashDrawerDenominations(let denominations):
-                state.cashDrawerDenominations = denominations
+            case let .updateCashDrawerDenominations(denominations):
+                state.denominationFormListFeatureState.denominations = denominations
                 return .send(.calculateCashDrawerTotal)
                 
             case .calculateCashDrawerTotal:
-                state.cashDrawerTotal = Int(state.cashDrawerDenominations.total())
+                state.cashDrawerTotal = Int(state.denominationFormListFeatureState.denominations.total())
                 return .send(.calculateCashDiscrepancy)
                 
             case .calculateExpectedCashAmount:
@@ -46,13 +50,18 @@ public struct CashDrawerOperationsFeature {
                 return .none
                 
             case .completeSettlement:
-                Settle().Execute(denominations: state.cashDrawerDenominations)
+                Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
                 return .none
-            
+                
             case .startCashierTransaction:
-                StartCacher().Execute(denominations: state.cashDrawerDenominations)
+                StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
                 return .none
+                
+                
+            case .denominationFormList:
+                return .send(.calculateCashDrawerTotal)
             }
+            
         }
     }
 }
