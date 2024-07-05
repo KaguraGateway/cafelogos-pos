@@ -11,7 +11,7 @@ public struct ContentView: View {
     public init() {}
     
     public var body: some View {
-        StartTransactionView()
+        CashDrawerSetupView()
     }
 }
 

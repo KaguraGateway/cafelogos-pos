@@ -1,15 +1,15 @@
 // レジ開け画面
 
 import SwiftUI
+import ComposableArchitecture
 
-struct StartTransactionView: View {
-    @State private var displayConnection: Bool = true // true: 接続中, false: 切断中
-    @State private var serverConnection: Bool = true // true: 接続中, false: 切断中
-    
+struct CashDrawerSetupView: View {
     @ObservedObject var viewModel = StartTransactionViewModel()
+//    @Bindable var store: StoreOf<CashDrawerOperationsFeature>
+    
     
     var body: some View {
-        NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "レジ開け"){
+        ContainerWithNavBar {
             GeometryReader {geometry in
                 HStack(spacing:0){
                     DenominationFormList(denominations: $viewModel.denominations)
@@ -39,7 +39,7 @@ struct StartTransactionView: View {
 
 struct StartTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        StartTransactionView()
+        CashDrawerSetupView()
             .previewInterfaceOrientation(.landscapeRight)
 //            .previewDevice("iPad (9th generation)")
 //            .previewDevice("iPad mini (6th generation)")
