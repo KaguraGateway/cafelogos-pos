@@ -4,7 +4,7 @@ import SwiftUI
 import LogoREGICore
 
 // 複数金種の入力フォーム
-struct ChargeInputView: View {
+struct DenominationFormList: View {
     @Binding var denominations: Denominations
     
     var body: some View {

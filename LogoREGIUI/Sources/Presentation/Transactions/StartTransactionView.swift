@@ -12,15 +12,15 @@ struct StartTransactionView: View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "レジ開け"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView(denominations: $viewModel.denominations)
+                    DenominationFormList(denominations: $viewModel.denominations)
                     Divider()
                     VStack(alignment: .leading){
                         ChargeInfo(title: "釣り銭準備金", amount: Int(viewModel.totalAmount()))
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
-                        TitleButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView()})
-                        TitleButton(title: "レジ開け完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "レジ開け完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                             .simultaneousGesture(TapGesture().onEnded {
                                 viewModel.onNextAction()
                             })

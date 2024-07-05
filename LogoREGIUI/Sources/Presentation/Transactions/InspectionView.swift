@@ -12,7 +12,7 @@ struct InspectionView: View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "点検"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView(denominations: $viewModel.current)
+                    DenominationFormList(denominations: $viewModel.current)
                     Divider()
                     VStack(alignment: .leading){
                         ChargeInfo(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
@@ -22,7 +22,7 @@ struct InspectionView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
-                        TitleButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView()})
                             .padding(.bottom)
                     }
                     .padding(.horizontal)

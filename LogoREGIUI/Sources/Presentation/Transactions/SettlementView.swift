@@ -21,7 +21,7 @@ struct SettlementView: View {
         NavBarBody(displayConnection: $displayConnection, serverConnection: $serverConnection, title: "精算"){
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    ChargeInputView(denominations: $viewModel.current)
+                    DenominationFormList(denominations: $viewModel.current)
                     Divider()
                     VStack(alignment: .leading){
                         ChargeInfo(title: "あるべき釣り銭(A)", amount: viewModel.shouldTotal())
@@ -31,7 +31,7 @@ struct SettlementView: View {
                             .padding(.bottom)
                         ChargeInfo(title: "誤差(B-A)", amount: viewModel.diffAmount())
                         Spacer()
-                        TitleButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
                             .simultaneousGesture(TapGesture().onEnded {
                                 viewModel.complete()
                             })
