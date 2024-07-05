@@ -12,7 +12,7 @@ public enum PaymentType: Int {
     case cash = 1
 }
 
-public struct Payment {
+public struct Payment: Equatable {
     public let id: String
     public let type: PaymentType
     public let orderIds: [String]
@@ -60,6 +60,10 @@ public struct Payment {
         self.updatedAt = updatedAt
         self.syncAt = syncAt
     }
+    
+    public func isEnoughAmount() -> Bool {
+        return receiveAmount >= paymentAmount
+    }
 }
 
 public struct PaymentDomainService {
@@ -71,6 +75,9 @@ public struct PaymentDomainService {
         })
     }
 
+    /**
+     * @Depracated
+     */
     public func isEnoughAmount(payment: Payment, orders: [Order]) -> Bool {
         let totalAmount = getTotalAmount(orders: orders)
         return payment.receiveAmount >= totalAmount

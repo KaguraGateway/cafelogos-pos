@@ -15,6 +15,10 @@ struct ContainerWithNavBar<Content : View>: View {
     
     public init(@ViewBuilder content: () -> Content) {
         self.content = content()
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = UIColor.systemBackground
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
     }
     
     var body: some View {

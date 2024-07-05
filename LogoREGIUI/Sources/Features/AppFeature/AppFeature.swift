@@ -10,10 +10,11 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-public struct AppReducer {
+public struct AppFeature {
     @Reducer(state: .equatable)
     public enum Path {
-        case payment(PaymentReducer)
+        case payment(PaymentFeature)
+        case printerTest(PrinterTestFeature)
     }
     
     @ObservableState

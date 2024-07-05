@@ -62,41 +62,8 @@ class GeneralSettingViewModel: ObservableObject, StarDeviceDiscoveryManagerDeleg
      }
     
     func openCacher() {
-        Task {
-            let command = OpenCacher().Execute()
-            
-            
-            do {
-                try await printer!.open()
-                defer {
-                    Task {
-                        await printer!.close()
-                    }
-                }
-                
-                try await printer?.print(command: command)
-            } catch let error {
-                print("Error: \(error)")
-            }
-        }
     }
     
     func printReceipt() {
-        Task {
-            do {
-                let command = PrintReceipt().Execute(receipt: OrderReceipt(callNumber: "L-101"))
-                
-                try await printer!.open()
-                defer {
-                    Task {
-                        await printer!.close()
-                    }
-                }
-                
-                try await printer?.print(command: command)
-            } catch let error {
-                print("Error: \(error)")
-            }
-        }
     }
 }

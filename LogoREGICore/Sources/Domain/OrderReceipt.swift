@@ -14,8 +14,3 @@ public struct OrderReceipt {
         self.callNumber = callNumber
     }
 }
-
-protocol OrderReceiptService {
-    func printReceipt(receipt: OrderReceipt) -> String
-    func openCacher() -> String
-}

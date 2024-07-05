@@ -1,19 +1,12 @@
-//
-//  OrderReceiptStarX.swift
-//  cafelogos-pos
-//
-//  Created by ygates on 2023/10/11.
-//
-
 import Foundation
 import UIKit
 import StarIO10
 
-public struct OrderReceiptStarX: OrderReceiptService {
-    func printReceipt(receipt: OrderReceipt) -> String {
+public struct StarXCashierAdapter: CashierAdapter {
+    func printReceipt(receipt: OrderReceipt) async {
         guard let logo = UIImage(named: "logos") else {
             print("Failed to load logos.png")
-            return "";
+            return;
         }
         
         let builder = StarXpandCommand.StarXpandCommandBuilder()
@@ -33,10 +26,10 @@ public struct OrderReceiptStarX: OrderReceiptService {
                 )
         )
         
-        return builder.getCommands()
+        await run(commands: builder.getCommands())
     }
     
-    func openCacher() -> String {
+    func openCacher() async {
         let builder = StarXpandCommand.StarXpandCommandBuilder()
         _ = builder.addDocument(StarXpandCommand.DocumentBuilder.init()
                             .addDrawer(StarXpandCommand.DrawerBuilder()
@@ -45,7 +38,28 @@ public struct OrderReceiptStarX: OrderReceiptService {
                                 )
                             )
         )
+        
+        await run(commands: builder.getCommands())
+    }
 
-        return builder.getCommands()
+    private func getStarPrinter() -> StarPrinter {
+        return StarPrinter(StarConnectionSettings(interfaceType: .bluetooth, identifier: StarConnectionSettings.FIRST_FOUND_DEVICE))
+    }
+    
+    private func run(commands: String) async {
+        let printer = getStarPrinter()
+        
+        do {
+            try await printer.open()
+            defer {
+                Task {
+                    await printer.close()
+                }
+            }
+            
+            try await printer.print(command: commands)
+        } catch let err {
+            print("Print Error: \(err)")
+        }
     }
 }
