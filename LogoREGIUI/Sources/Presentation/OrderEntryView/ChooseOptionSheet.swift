@@ -36,7 +36,11 @@ struct ChooseOptionSheet: View {
     var body: some View {
         NavigationStack() {
             ScrollView{
-                LazyVGrid(columns: gridItems, spacing: 20) {
+                LazyVGrid(columns: [
+                    GridItem(.flexible(),spacing: 20),
+                        GridItem(.flexible(),spacing: 20),
+                        GridItem(.flexible(),spacing: 20),
+                ], spacing: 20) {
                     ForEach(options, id: \.id) { option in
                         Button(action: {
                             onAction(option)
