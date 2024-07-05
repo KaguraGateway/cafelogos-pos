@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Denominations: Codable {
+public struct Denominations: Codable, Equatable {
     public var denominations: Array<Denomination>
     
     public init() {

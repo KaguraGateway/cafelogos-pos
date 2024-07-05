@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public struct Denomination: Codable {
+public struct Denomination: Codable, Equatable {
     public let amount: UInt16
     public var quantity: UInt64
     public let createdAt: Date

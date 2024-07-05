@@ -1,13 +1,9 @@
-//
-//  TitleButton.swift
-//  cafelogos-pos
-//
-//  Created by Owner on 2023/09/29.
-//
+// 遷移先が指定されているボタン
+// サブタイトルが付けれる
 
 import SwiftUI
 
-struct TitleButton<Destination>: View where Destination : View {
+struct TitleNavButton<Destination>: View where Destination : View {
     var title: String
     var bgColor: Color
     var fgColor: Color
@@ -42,5 +38,5 @@ struct TitleButton<Destination>: View where Destination : View {
 }
 
 #Preview {
-    TitleButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView()})
+    TitleNavButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView()})
 }
