@@ -20,12 +20,13 @@ struct OrderListView: View {
                         HStack{
                             VStack(alignment: .leading, spacing:0){
                                 Text(item.coffeeHowToBrew != nil ? "\(item.productName) (\(item.coffeeHowToBrew!.name))" : item.productName)
-                                    .lineLimit(0)
                                     .font(.system(.title2 , weight: .semibold))
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.5)
                                 Text("\(item.getQuantity())"+"点")
                                     .padding(.top, 16)
+                                    .font(.title2)
                             }
-                            .font(.title2)
                             Spacer()
                             Text("¥\(item.totalPrice)")
                                 .lineLimit(0)
