@@ -27,10 +27,13 @@ public struct CashDrawerOperationsFeature {
         // レジ開け
         case startCashierTransaction
         
-        case denominationFormList(DenominationFormListFeature.Action)
+        case denominationFormListFeatureAction(DenominationFormListFeature.Action)
     }
     
     public var body: some Reducer<State, Action> {
+        Scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction) {
+            DenominationFormListFeature()
+        }
         Reduce { state, action in
             switch action {
             case let .updateCashDrawerDenominations(denominations):
@@ -58,7 +61,7 @@ public struct CashDrawerOperationsFeature {
                 return .none
                 
                 
-            case .denominationFormList:
+            case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
             }
             
