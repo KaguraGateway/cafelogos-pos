@@ -2,10 +2,11 @@
 
 import SwiftUI
 import LogoREGICore
+import ComposableArchitecture
 
 // 複数金種の入力フォーム
 struct DenominationFormList: View {
-    @Binding var denominations: Denominations
+    let store: StoreOf<DenominationFormListFeature>
     
     var body: some View {
         VStack(spacing: 0){
@@ -16,8 +17,13 @@ struct DenominationFormList: View {
                     .font(.title)
                     .fontWeight(.semibold)
                 ){
-                    ForEach(denominations.denominations.indices, id: \.self) { index in
-                        DenominationForm(denomination: self.$denominations.denominations[index])
+                    ForEach(store.denominations.denominations.indices, id: \.self) { index in
+                        DenominationForm(
+                            denomination: store.denominations.denominations[index],
+                            onUpdate: { newValue in
+                                store.send(.updateDenomination(index: index, newValue: newValue))
+                            }
+                        )
                     }
                 }
             }
@@ -27,7 +33,7 @@ struct DenominationFormList: View {
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("¥\(denominations.total())")
+                Text("¥\(store.denominations.total())")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
             }
