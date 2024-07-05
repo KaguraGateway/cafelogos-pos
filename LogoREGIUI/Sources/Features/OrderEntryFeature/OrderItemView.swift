@@ -19,9 +19,10 @@ struct OrderItemView: View {
         VStack(spacing: 0){
             HStack(){
                 Text(name)
-                    .lineLimit(0)
                     .font(.title2)
                     .fontWeight(.semibold)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
                 Spacer()
                 RemoveButton(onAction: {
                     onRemove()
