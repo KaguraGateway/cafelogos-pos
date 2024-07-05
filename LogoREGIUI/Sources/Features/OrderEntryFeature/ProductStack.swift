@@ -1,13 +1,5 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by Owner on 2024/07/04.
-//
-
 import SwiftUI
 import LogoREGICore
-
 
 // 商品表示するView
 struct ProductStack: View {
@@ -36,7 +28,7 @@ struct ProductStack: View {
         })
         self.onAddItem(product, product.coffeeHowToBrews![brewIndex!])
     }
-
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -48,7 +40,7 @@ struct ProductStack: View {
                             .font(.system(.title, weight: .semibold))
                             .foregroundColor(.primary)
                             .padding(.top)
-                            
+                        
                         
                         // ProductsGrid
                         LazyVGrid(columns:
@@ -72,15 +64,24 @@ struct ProductStack: View {
                                                 .padding(.vertical, 5)
                                                 .lineLimit(3)
                                                 .frame(maxWidth: .infinity)
-
+                                            
                                             Spacer()
                                             
                                             // ProductAmount
-                                            Text("¥\(product.amount)")
-                                                .font(.title2)
-                                                .fontWeight(.regular)
-                                                .multilineTextAlignment(.trailing)
-                                                .lineLimit(1)
+                                            if product.productType == .coffee {
+                                                HStack{
+                                                    Spacer()
+                                                    Image(systemName: "chevron.right")
+                                                        .font(.title2)
+                                                        .fontWeight(.regular)
+                                                }
+                                            } else {
+                                                Text("¥\(product.amount)")
+                                                    .font(.title2)
+                                                    .fontWeight(.regular)
+                                                    .multilineTextAlignment(.trailing)
+                                                    .lineLimit(1)
+                                            }
                                         }
                                         .padding(10)
                                         .frame(minHeight: 120)
