@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-public struct AppReducer {
+public struct AppFeature {
     @Reducer(state: .equatable)
     public enum Path {
         case payment(PaymentFeature)
