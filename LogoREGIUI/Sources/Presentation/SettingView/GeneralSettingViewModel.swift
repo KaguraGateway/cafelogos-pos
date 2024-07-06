@@ -1,21 +1,13 @@
-//
-//  GeneralSettingViewModel.swift
-//  cafelogos-pos
-//
-//  Created by ygates on 2023/10/08.
-//
+// 一般設定のViewModel
 
 import Foundation
-import StarIO10
 import LogoREGICore
 
-class GeneralSettingViewModel: ObservableObject, StarDeviceDiscoveryManagerDelegate {
+class GeneralSettingViewModel: ObservableObject {
     @Published private var config: Config
-    @Published private var printer: StarPrinter? = nil
     
     public init() {
         self.config = GetConfig().Execute()
-        self.discovery()
     }
     
     public var clientId: String {
@@ -34,36 +26,15 @@ class GeneralSettingViewModel: ObservableObject, StarDeviceDiscoveryManagerDeleg
         }
     }
     
-    func manager(_ manager: StarDeviceDiscoveryManager, didFind printer: StarPrinter) {
-         DispatchQueue.main.async {
-             manager.stopDiscovery()
-             self.printer = printer
-             print("find")
-         }
-     }
-     
-     func managerDidFinishDiscovery(_ manager: StarIO10.StarDeviceDiscoveryManager) {
-         DispatchQueue.main.async {
-             print("did finish")
-         }
-     }
-     
-     func discovery(){
-         if let manager = try? StarDeviceDiscoveryManagerFactory.create(interfaceTypes: [.bluetooth]){
-             manager.delegate = self
-             manager.discoveryTime = 1000
-             do{
-                 try manager.startDiscovery()
-             }
-             catch{
-                 print("error")
-             }
-         }
-     }
-    
     func openCacher() {
+        Task {
+            await DrawerTest().Execute()
+        }
     }
     
     func printReceipt() {
+        Task {
+            await PrinterTest().Execute()
+        }
     }
 }

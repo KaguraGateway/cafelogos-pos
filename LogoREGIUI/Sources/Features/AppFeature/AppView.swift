@@ -16,6 +16,8 @@ public struct AppView: View {
             switch store.case {
             case let .printerTest(store):
                 PrinterTestView(store: store)
+            case let .settings(store):
+                SettingView()
             case let .orderEntry(store):
                 OrderEntryView(store: store)
             case let .payment(store):

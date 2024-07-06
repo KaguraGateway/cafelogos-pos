@@ -14,6 +14,7 @@ public struct AppFeature {
     @Reducer(state: .equatable)
     public enum Path {
         case printerTest(PrinterTestFeature)
+        case settings(SettingsFeature)
         case orderEntry(OrderEntryFeature)
         case payment(PaymentFeature)
         case paymentSuccess(PaymentSuccessFeature)
