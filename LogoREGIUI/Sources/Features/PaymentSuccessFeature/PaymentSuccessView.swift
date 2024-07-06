@@ -1,5 +1,14 @@
 // 支払い完了画面
 
+// 左
+    // お釣り
+    // 商品点数
+    // 割引の数
+    // 合計金額
+    // 受け取った金額
+// 右
+    // 引換券番号
+    // OrderEntryへの遷移
 import SwiftUI
 import ComposableArchitecture
 import LogoREGICore
@@ -23,7 +32,7 @@ struct PaymentSuccessView: View {
                                 Text("おつり")
                                     .font(.system(size:40 , weight: .semibold, design: .default))
                                     .foregroundColor(.secondary)
-                                Text("¥\(store.payment.changeAmount)")
+                                Text("¥\(store.payment?.changeAmount)")
                                     .font(.system(size: 80, weight: .semibold, design: .default))
                                     .background(alignment: .bottom) {
                                         RoundedRectangle(cornerRadius: 0, style: .continuous)
@@ -53,7 +62,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥\(store.totalCartAmount)")
+                                    Text("¥\(store.totalAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -65,7 +74,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("-¥\(store.payment.paymentAmount - store.orders[0].cart.getTotalPrice())")
+                                    Text("-¥\((store.payment?.paymentAmount ?? 0) - (store.orders.first?.cart.getTotalPrice() ?? 0))")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -86,7 +95,7 @@ struct PaymentSuccessView: View {
                                         .font(.title)
                                         .fontWeight(.medium)
                                     Spacer()
-                                    Text("¥\(store.payment.receiveAmount)")
+                                    Text("¥\(store.payment?.receiveAmount)")
                                         .font(.title)
                                         .fontWeight(.medium)
                                 }
@@ -111,7 +120,7 @@ struct PaymentSuccessView: View {
                                 .font(.system(size: 150, weight: .semibold, design: .default))
                             Spacer()
                             Button {
-                                store.send(.onTapOrderEntry)
+                                store.send(.navigateToTapOrderEntry)
                             } label: {
                                 VStack(spacing: 0) {
                                     Text("注文入力・会計")

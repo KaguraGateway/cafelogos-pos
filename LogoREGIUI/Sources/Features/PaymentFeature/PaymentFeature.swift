@@ -43,7 +43,7 @@ public struct PaymentFeature {
         case alert(PresentationAction<Action.Alert>)
         case onTapPay
         case onDidPayment(Result<NewPaymentOutput, Error>)
-        case navigateSuccess
+        case navigateToSuccess
         
         @CasePathable
         public enum Alert {
@@ -84,7 +84,7 @@ public struct PaymentFeature {
                     state.callNumber = result.callNumber
                 }
                 return .none
-            case .navigateSuccess:
+            case .navigateToSuccess:
                 return .none
                 
             default:
