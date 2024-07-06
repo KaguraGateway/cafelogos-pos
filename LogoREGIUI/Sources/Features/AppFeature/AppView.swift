@@ -18,6 +18,8 @@ public struct AppView: View {
                 PaymentView(store: store)
             case let .printerTest(store):
                 PrinterTestView(store: store)
+            case let .orderEntry(store):
+                OrderEntryView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)

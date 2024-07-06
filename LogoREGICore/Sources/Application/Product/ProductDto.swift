@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CoffeeHowToBrewDto {
+public struct CoffeeHowToBrewDto: Equatable {
     public let name: String
     public let id: String
     public let amount: UInt64
@@ -25,7 +25,7 @@ public struct CoffeeHowToBrewDto {
     }
 }
 
-public struct CoffeeBeanDto {
+public struct CoffeeBeanDto: Equatable {
     public let id: String
     public let name: String
     public let gramQuantity: Int32
@@ -41,7 +41,7 @@ public struct CoffeeBeanDto {
     }
 }
 
-public struct StockDto {
+public struct StockDto: Equatable {
     public let name: String
     public let id: String
     public let quantity: Int32
@@ -57,7 +57,7 @@ public struct StockDto {
     }
 }
 
-public struct ProductDto {
+public struct ProductDto: Equatable {
     public let productName: String
     public let productId: String
     public let productCategory: ProductCategoryDto
@@ -93,7 +93,7 @@ public struct ProductDto {
     }
 }
 
-public struct ProductCategoryDto {
+public struct ProductCategoryDto: Equatable {
     public let id: String
     public let name: String
     public let createdAt: Date
@@ -108,7 +108,7 @@ public struct ProductCategoryDto {
 }
 
 
-public struct ProductCategoryWithProductsDto {
+public struct ProductCatalogDto: Equatable {
     public let id: String
     public let name: String
     public let products: Array<ProductDto>

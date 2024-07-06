@@ -15,10 +15,10 @@ public struct ProductQueryServiceServer: ProductQueryService {
     private let posClient = ServerClient().GetPosClient()
     private var formatter = ISO8601DateFormatter()
 
-    public func fetchProductCategoriesWithProducts() async -> Array<ProductCategoryWithProductsDto> {
+    public func fetchProductCategoriesWithProducts() async -> Array<ProductCatalogDto> {
         let response = await self.posClient.getProducts(request: Cafelogos_Common_Empty(), headers: [:])
         if(response.message == nil) {
-            return [ProductCategoryWithProductsDto]()
+            return [ProductCatalogDto]()
         }
         let protoProducts = response.message!.products
         // Key: CategoryId
@@ -66,9 +66,9 @@ public struct ProductQueryServiceServer: ProductQueryService {
         }
         
         // ProductCategoryWithProductsDtoへ
-        var categories = [ProductCategoryWithProductsDto]()
+        var categories = [ProductCatalogDto]()
         for (_, productDtos) in products {
-            categories.append(ProductCategoryWithProductsDto(
+            categories.append(ProductCatalogDto(
                 id: productDtos[0].productCategory.id,
                 name: productDtos[0].productCategory.name,
                 createdAt: productDtos[0].productCategory.createdAt,
