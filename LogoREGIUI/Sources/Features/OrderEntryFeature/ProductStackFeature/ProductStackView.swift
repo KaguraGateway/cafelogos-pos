@@ -44,19 +44,12 @@ public struct ProductStackView: View {
                                             Spacer()
                                             
                                             // ProductAmount
-                                            if product.productType == .coffee {
-                                                HStack{
-                                                    Spacer()
-                                                    Image(systemName: "chevron.right")
-                                                        .font(.title2)
-                                                        .fontWeight(.regular)
+                                            VStack {
+                                                if product.productType == .coffee {
+                                                    coffeeProductView(product: product)
+                                                } else {
+                                                    nonCoffeeProductView(product: product)
                                                 }
-                                            } else {
-                                                Text("¥\(product.amount)")
-                                                    .font(.title2)
-                                                    .fontWeight(.regular)
-                                                    .multilineTextAlignment(.trailing)
-                                                    .lineLimit(1)
                                             }
                                         }
                                         .padding(10)
