@@ -13,9 +13,10 @@ import ComposableArchitecture
 public struct AppFeature {
     @Reducer(state: .equatable)
     public enum Path {
-        case payment(PaymentFeature)
         case printerTest(PrinterTestFeature)
         case orderEntry(OrderEntryFeature)
+        case payment(PaymentFeature)
+        case paymentSuccess(PaymentSuccessFeature)
     }
     
     @ObservableState
@@ -42,6 +43,11 @@ public struct AppFeature {
                 case let .element(id: _, action: .orderEntry(.navigatePaymentWithOrders(orders))):
                     state.path.append(.payment(PaymentFeature.State(orders: orders)))
                     return .none
+                case let .element(id: _, action: .payment(.navigateToSuccess(payment, orders, callNumber, totalQuantity, totalAmout))):
+                    state.path.append(.paymentSuccess(PaymentSuccessFeature.State(payment: payment, orders: orders, callNumber: callNumber, totalQuantity: totalQuantity, totalAmount: totalAmout)))
+                    return .none
+                case .element(id: _, action: .paymentSuccess(.navigateToTapOrderEntry)):
+                    return .send(.popToHome)
                 default:
                     return .none
                 }

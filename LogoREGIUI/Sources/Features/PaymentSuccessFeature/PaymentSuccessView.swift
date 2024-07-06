@@ -17,139 +17,136 @@ struct PaymentSuccessView: View {
     @Bindable var store: StoreOf<PaymentSuccessFeature>
     
     var body: some View {
-        NavigationStack() {
-            VStack(spacing:0){
-                Divider()
-                HStack(spacing:0){
-                    //左
-                    GeometryReader { geometry in
-                        VStack(spacing: 0) {
-                            VStack(spacing:0){
-                                Text("☑︎ お支払いを完了しました")
-                                    .font(.system(size:30 , weight: .semibold, design: .default))
-                                    .padding(.bottom, 20)
-                                    .foregroundColor(.green)
-                                Text("おつり")
-                                    .font(.system(size:40 , weight: .semibold, design: .default))
-                                    .foregroundColor(.secondary)
-                                Text("¥\(store.payment?.changeAmount)")
-                                    .font(.system(size: 80, weight: .semibold, design: .default))
-                                    .background(alignment: .bottom) {
-                                        RoundedRectangle(cornerRadius: 0, style: .continuous)
-                                            .fill(.orange)
-                                            .frame(height: 10)
-                                            .clipped()
-                                            .offset(x: 0, y: 5)
-                                    }
-                            }
-                            .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                            Divider()
-                            VStack(alignment: .leading, spacing:0){
-                                Text("注文リスト")
-                                    .font(.system(.title, weight: .semibold))
-                                    .padding(10)
-                                    .padding(.horizontal, 20)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                            .fill(Color(.systemFill))
-                                    }
-                                    .padding(.bottom, 30)
-                                HStack(spacing:0){
-                                    Text("商品 ")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Text("\(store.totalQuantity)点")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Spacer()
-                                    Text("¥\(store.totalAmount)")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                }
-                                HStack(spacing:0){
-                                    Text("割引 ")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Text("\(store.orders[0].discounts.count)点")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Spacer()
-                                    Text("-¥\((store.payment?.paymentAmount ?? 0) - (store.orders.first?.cart.getTotalPrice() ?? 0))")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                }
-                                .foregroundColor(Color.red)
-                                Divider()
-                                    .padding(.vertical, 20)
-                                HStack(spacing:0){
-                                    Text("計")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Spacer()
-                                    Text("¥\(store.totalAmount)")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                }
-                                HStack(spacing:0){
-                                    Text("現計")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                    Spacer()
-                                    Text("¥\(store.payment?.receiveAmount)")
-                                        .font(.title)
-                                        .fontWeight(.medium)
-                                }
-                                
-                                
-                            }
-                            .frame(height: geometry.size.height / 2)
-                            .frame(maxWidth: 350)
-                            
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    Divider()
-                    // 右
-                    GeometryReader { geometry in
+        ContainerWithNavBar() {
+            Divider()
+            HStack(spacing:0){
+                //左
+                GeometryReader { geometry in
+                    VStack(spacing: 0) {
                         VStack(spacing:0){
-                            Spacer()
-                            Text("呼び出し番号")
+                            Text("☑︎ お支払いを完了しました")
+                                .font(.system(size:30 , weight: .semibold, design: .default))
+                                .padding(.bottom, 20)
+                                .foregroundColor(.green)
+                            Text("おつり")
                                 .font(.system(size:40 , weight: .semibold, design: .default))
                                 .foregroundColor(.secondary)
-                            Text("\(store.callNumber)")
-                                .font(.system(size: 150, weight: .semibold, design: .default))
-                            Spacer()
-                            Button {
-                                store.send(.navigateToTapOrderEntry)
-                            } label: {
-                                VStack(spacing: 0) {
-                                    Text("注文入力・会計")
-                                        .font(.system(.largeTitle, weight: .semibold))
-                                        .lineLimit(0)
+                            Text("¥\(store.payment.changeAmount)")
+                                .font(.system(size: 80, weight: .semibold, design: .default))
+                                .background(alignment: .bottom) {
+                                    RoundedRectangle(cornerRadius: 0, style: .continuous)
+                                        .fill(.orange)
+                                        .frame(height: 10)
+                                        .clipped()
+                                        .offset(x: 0, y: 5)
                                 }
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
-                                .clipped()
-                                .padding(.vertical, 30)
+                        }
+                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                        Divider()
+                        VStack(alignment: .leading, spacing:0){
+                            Text("注文リスト")
+                                .font(.system(.title, weight: .semibold))
+                                .padding(10)
+                                .padding(.horizontal, 20)
                                 .background {
                                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .fill(Color.cyan)
+                                        .fill(Color(.systemFill))
                                 }
+                                .padding(.bottom, 30)
+                            HStack(spacing:0){
+                                Text("商品 ")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Text("\(store.totalQuantity)点")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text("¥\(store.totalAmount)")
+                                    .font(.title)
+                                    .fontWeight(.medium)
                             }
-                            .frame(width: geometry.size.width * 0.7)
+                            HStack(spacing:0){
+                                Text("割引 ")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Text("\(store.orders[0].discounts.count)点")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text("-¥\((store.payment.paymentAmount) - (store.orders.first?.cart.getTotalPrice() ?? 0))")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                            }
+                            .foregroundColor(Color.red)
+                            Divider()
+                                .padding(.vertical, 20)
+                            HStack(spacing:0){
+                                Text("計")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text("¥\(store.totalAmount)")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                            }
+                            HStack(spacing:0){
+                                Text("現計")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text("¥\(store.payment.receiveAmount)")
+                                    .font(.title)
+                                    .fontWeight(.medium)
+                            }
                             
                             
                         }
-                        .padding(.bottom, 130)
-                        .frame(maxWidth: .infinity)
+                        .frame(height: geometry.size.height / 2)
+                        .frame(maxWidth: 350)
+                        
                     }
                 }
-                .background(Color(.secondarySystemBackground))
+                .frame(maxWidth: .infinity)
+                Divider()
+                // 右
+                GeometryReader { geometry in
+                    VStack(spacing:0){
+                        Spacer()
+                        Text("呼び出し番号")
+                            .font(.system(size:40 , weight: .semibold, design: .default))
+                            .foregroundColor(.secondary)
+                        Text("\(store.callNumber)")
+                            .font(.system(size: 150, weight: .semibold, design: .default))
+                        Spacer()
+                        Button {
+                            store.send(.navigateToTapOrderEntry)
+                        } label: {
+                            VStack(spacing: 0) {
+                                Text("注文入力・会計")
+                                    .font(.system(.largeTitle, weight: .semibold))
+                                    .lineLimit(0)
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
+                            .clipped()
+                            .padding(.vertical, 30)
+                            .background {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(Color.cyan)
+                            }
+                        }
+                        .frame(width: geometry.size.width * 0.7)
+                        
+                        
+                    }
+                    .padding(.bottom, 130)
+                    .frame(maxWidth: .infinity)
+                }
             }
-            
-            .navigationTitle("お支払い完了")
-            .navigationBarTitleDisplayMode(.inline)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.secondarySystemBackground))
         }
+        .navigationTitle("お支払い完了")
+        .navigationBarTitleDisplayMode(.inline)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

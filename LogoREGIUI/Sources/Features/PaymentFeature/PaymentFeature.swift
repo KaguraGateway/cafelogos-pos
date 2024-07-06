@@ -11,7 +11,6 @@ public struct PaymentFeature {
         var payment: Payment
         let totalQuantity: UInt32
         let totalAmount: UInt64
-        var callNumber: String = "" // 引換券番号一旦空文字で対応
         
         var numericKeyboardState = NumericKeyboardFeature.State()
         
@@ -43,7 +42,7 @@ public struct PaymentFeature {
         case alert(PresentationAction<Action.Alert>)
         case onTapPay
         case onDidPayment(Result<NewPaymentOutput, Error>)
-        case navigateToSuccess
+        case navigateToSuccess(Payment, [Order], String, UInt32, UInt64)
         
         @CasePathable
         public enum Alert {
@@ -80,11 +79,9 @@ public struct PaymentFeature {
                         TextState("お支払いは完了していません。\nやり直してください。\n\(result.error?.localizedDescription ?? "")")
                     }
                 } else {
-                    // callNumberをStateにぶち投げる
-                    state.callNumber = result.callNumber
+                    print("success")
+                    return .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount))
                 }
-                return .none
-            case .navigateToSuccess:
                 return .none
                 
             default:

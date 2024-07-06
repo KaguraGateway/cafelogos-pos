@@ -14,12 +14,14 @@ public struct AppView: View {
             HomeView()
         } destination: { store in
             switch store.case {
-            case let .payment(store):
-                PaymentView(store: store)
             case let .printerTest(store):
                 PrinterTestView(store: store)
             case let .orderEntry(store):
                 OrderEntryView(store: store)
+            case let .payment(store):
+                PaymentView(store: store)
+            case let .paymentSuccess(store):
+                PaymentSuccessView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)

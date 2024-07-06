@@ -8,11 +8,20 @@ import LogoREGICore
 public struct PaymentSuccessFeature {
     @ObservableState
     public struct State: Equatable {
-        var payment: Payment?
+        var payment: Payment
         var orders: [Order]
-        let callNumber: String = ""
+        let callNumber: String
         let totalQuantity: UInt32
         let totalAmount: UInt64
+        
+        public init(payment: Payment, orders: [Order], callNumber: String, totalQuantity: UInt32, totalAmount: UInt64) {
+            self.payment = payment
+            self.orders = orders
+            self.callNumber = callNumber
+            self.totalQuantity = totalQuantity
+            self.totalAmount = totalAmount
+            print("aaaa")
+        }
     }
     
     public enum Action {
