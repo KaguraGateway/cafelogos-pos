@@ -15,6 +15,7 @@ public struct AppFeature {
     public enum Path {
         case payment(PaymentFeature)
         case printerTest(PrinterTestFeature)
+        case settings(SettingsFeature)
     }
     
     @ObservableState
