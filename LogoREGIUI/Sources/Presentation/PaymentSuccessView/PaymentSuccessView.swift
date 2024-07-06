@@ -121,7 +121,8 @@ struct PaymentSuccessView: View {
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
                         NavigationLink{
-                            OrderEntryView()
+                            // 遷移先を暫定的にContentViewにしています
+                            ContentView()
                         } label:{
                             VStack(spacing: 0) {
                                 Text("注文入力・会計")

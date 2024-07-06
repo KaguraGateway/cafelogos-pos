@@ -15,6 +15,7 @@ public struct AppFeature {
     public enum Path {
         case payment(PaymentFeature)
         case printerTest(PrinterTestFeature)
+        case orderEntry(OrderEntryFeature)
     }
     
     @ObservableState
@@ -38,6 +39,9 @@ public struct AppFeature {
             switch action {
             case let .path(action):
                 switch action {
+                case let .element(id: _, action: .orderEntry(.navigatePaymentWithOrders(orders))):
+                    state.path.append(.payment(PaymentFeature.State(orders: orders)))
+                    return .none
                 default:
                     return .none
                 }
