@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import LogoREGICore
 
 // 商品表示するView
 public struct ProductStackView: View {
