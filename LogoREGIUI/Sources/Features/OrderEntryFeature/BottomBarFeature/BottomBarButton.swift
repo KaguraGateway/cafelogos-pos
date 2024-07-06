@@ -9,10 +9,10 @@ import SwiftUI
 
 // 下部バーのボタン
 struct BottomBarButton: View {
-    public var text: String
-    public var action: () -> Void
-    public var bgColor: Color
-    public var fgColor: Color
+    public let text: String
+    public let action: () -> Void
+    public let bgColor: Color
+    public let fgColor: Color
     
     public init(text: String, action: @escaping () -> Void, bgColor: Color, fgColor: Color) {
         self.text = text

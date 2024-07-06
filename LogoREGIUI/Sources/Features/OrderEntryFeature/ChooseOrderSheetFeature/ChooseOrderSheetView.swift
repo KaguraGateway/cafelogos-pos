@@ -7,19 +7,17 @@
 
 import SwiftUI
 import LogoREGICore
+import ComposableArchitecture
 
-struct ChooseOrderSheet: View {
-    @Environment(\.dismiss) var dismiss
-    @State private var selection = 0
-    @State private var seats: [Seat] = [Seat]()
-    @Binding var orders: [Order]
-    @Binding var isOrderSheet: Bool
+public struct ChooseOrderSheetView: View {
+    @Bindable var store: StoreOf<ChooseOrderSheetFeature>
     
-    init(orders: Binding<[Order]>, isOrderSheet: Binding<Bool>) {
-        self._orders = orders
-        self._isOrderSheet = isOrderSheet
-        let semiboldFont = UIFont.boldSystemFont(ofSize: 30)
+    @Environment(\.dismiss) var dismiss
+    
+    public init(store: StoreOf<ChooseOrderSheetFeature>) {
+        self.store = store
         
+        let semiboldFont = UIFont.boldSystemFont(ofSize: 30)
         UISegmentedControl.appearance().setTitleTextAttributes(
             [.font : semiboldFont],
             for: .normal
@@ -27,7 +25,7 @@ struct ChooseOrderSheet: View {
     }
     
     func getGroupName() -> String {
-        switch(selection) {
+        switch(store.selectSeatType) {
         case 0:
             return "カウンター"
         case 1:
@@ -37,13 +35,12 @@ struct ChooseOrderSheet: View {
         }
     }
     
-    
-    var body: some View {
+    public var body: some View {
         NavigationStack() {
             VStack(spacing:0){
                 Divider()
                 VStack(spacing: 0) {
-                    Picker(selection: $selection, label: Text("Order")) {
+                    Picker(selection: $store.selectSeatType.sending(\.changeSelectSeatType), label: Text("Order")) {
                         Text("カウンター").tag(0)
                         Text("テーブル").tag(1)
                         Text("その他").tag(2)
@@ -55,12 +52,11 @@ struct ChooseOrderSheet: View {
                 
                 Spacer()
                 
-                ForEach(seats, id: \.id) { seat in
+                ForEach(store.seats, id: \.id) { seat in
                     if seat.name.hasPrefix(getGroupName()) {
                         Button(action: {
                             Task {
-                                self.orders = await GetUnpaidOrdersById().Execute(seatId: seat.id)
-                                self.isOrderSheet = true
+                                store.send(.delegate(.getUnpaidOrdersById(seat.id)))
                                 dismiss()
                             }
                         }, label: {
@@ -96,10 +92,6 @@ struct ChooseOrderSheet: View {
                     }
                 }
             }
-            
-        }
-        .task {
-            seats = await GetSeats().Execute()
         }
     }
 }

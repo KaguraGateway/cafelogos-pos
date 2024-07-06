@@ -6,42 +6,17 @@
 //
 
 import SwiftUI
-import LogoREGICore
-
+import ComposableArchitecture
 
 // 商品表示するView
-struct ProductStack: View {
-    
-    @State private var showingChooseOption: Bool = false
-    @State private var selectProduct: ProductDto? = nil
-    var productCategories = [ProductCategoryWithProductsDto]()
-    var onAddItem: (ProductDto, CoffeeHowToBrewDto?) -> Void
-    
-    func onTapProduct(product: ProductDto) {
-        if(product.productType == ProductType.coffee){
-            if(product.coffeeHowToBrews?.count == 1) {
-                self.onAddItem(product, product.coffeeHowToBrews![0])
-            } else {
-                self.selectProduct = product
-                self.showingChooseOption = true
-            }
-        } else {
-            self.onAddItem(product, nil)
-        }
-    }
-    
-    func onTapCoffeeBrew(product: ProductDto, option: Option) {
-        let brewIndex = product.coffeeHowToBrews!.firstIndex(where: {
-            $0.id == option.id
-        })
-        self.onAddItem(product, product.coffeeHowToBrews![brewIndex!])
-    }
+public struct ProductStackView: View {
+    @Bindable var store: StoreOf<ProductStackFeature>
 
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(productCategories, id: \.id) { category in
+                    ForEach(store.productCatalog, id: \.id) { category in
                         
                         // CategoryName
                         Text(category.name)
@@ -61,7 +36,7 @@ struct ProductStack: View {
                                 // ProductCell
                                 if product.isNowSales {
                                     Button(action: {
-                                        onTapProduct(product: product)
+                                        store.send(.onTapProduct(product))
                                     }, label: {
                                         VStack(alignment: .trailing, spacing: 0) {
                                             // ProductName
@@ -100,8 +75,11 @@ struct ProductStack: View {
                 .padding(.horizontal, 16)
             }
         }
-        .sheet(isPresented: $showingChooseOption) {
-            ChooseOptionSheetView(selectProduct: $selectProduct, onTapCoffeeBrew: onTapCoffeeBrew)
+        .onAppear {
+            store.send(.fetch)
+        }
+        .sheet(item: $store.scope(state: \.destination?.chooseCoffeeBrew, action: \.destination.chooseCoffeeBrew)) { store in
+            ChooseCoffeeBrewSheetView(store: store)
         }
     }
 }

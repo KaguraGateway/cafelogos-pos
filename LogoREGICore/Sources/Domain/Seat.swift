@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Seat {
+public struct Seat: Equatable {
     public let id: String
     public let name: String
     

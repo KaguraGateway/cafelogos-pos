@@ -6,47 +6,38 @@
 //
 
 import SwiftUI
-import LogoREGICore
+import ComposableArchitecture
 
 // 下部バーのView
-struct BottomBar: View {
-    @State private var showingChooseOrder: Bool = false // 席番号からモーダルの表示bool
-    @State private var orderNumber:String = ""
-    @State private var orders: [Order] = [Order]()
-    @State private var isOrderSheet = false
-    public let order: Order?
+public struct OrderBottomBarView: View {
+    @Bindable var store: StoreOf<OrderBottomBarFeature>
     
-    public let onRemoveAllItem: () -> Void
-       
-    var body:some View{
+    public var body: some View{
         let screenWidth = UIScreen.main.bounds.size.width
         
         HStack(spacing: 0) {
-            Text("\(order?.cart.totalQuantity ?? 0)点")
+            Text("\(store.newOrder?.cart.totalQuantity ?? 0)点")
                 .font(.title)
                 .foregroundColor(Color(.systemGray6))
-            Text("¥\(order?.totalAmount ?? 0)")
+            Text("¥\(store.newOrder?.totalAmount ?? 0)")
                 .font(.title)
                 .foregroundColor(Color(.systemGray6))
                 .padding(.leading)
             Spacer()
             BottomBarButton(text: "伝票呼出", action: {
-                self.showingChooseOrder.toggle()
+                store.send(.openChooseOrderSheet)
             }, bgColor: Color(.systemBackground), fgColor: Color.primary)
             .frame(width: 150, height: 60)
-            .sheet(isPresented: $showingChooseOrder) {
-                ChooseOrderSheet(orders: $orders, isOrderSheet: $isOrderSheet)
+            .sheet(item: $store.scope(state: \.destination?.chooseOrderSheet, action: \.destination.chooseOrderSheet)) { store in
+                ChooseOrderSheetView(store: store)
             }
-            
             BottomBarButton(text: "注文全削除", action: {
-                self.onRemoveAllItem()
+                store.send(.delegate(.removeAllItem))
             }, bgColor: Color.red, fgColor: Color.white)
             .frame(width: 130, height: 60)
             .padding(.leading, 50)
             // 支払いへのNavigationLink
-            NavigationLink {
-                PaymentView(printer: nil, orders: orders, newOrder: order)
-            } label: {
+            NavigationLink(state: store.newOrder != nil ? AppFeature.Path.State.payment(PaymentFeature.State(newOrder: store.newOrder!)) : AppFeature.Path.State.payment(PaymentFeature.State(orders: store.orders))) {
                 Text("支払いへ進む")
                     .frame(width: screenWidth * 0.27, height: 60)
                     .font(.system(.title2, weight: .bold))
@@ -62,11 +53,8 @@ struct BottomBar: View {
         .padding(.horizontal, 40)
         .padding(.vertical, 15)
         .background(.primary)
-        .navigationDestination(isPresented: $isOrderSheet) {
-            PaymentView(printer: nil, orders: orders, newOrder: nil)
-        }
         .onAppear {
-            orders.removeAll()
+            store.send(.delegate(.removeOrders))
         }
         
     }

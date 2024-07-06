@@ -1,17 +1,8 @@
 import SwiftUI
-import LogoREGICore
+import ComposableArchitecture
 
-struct ChooseOptionSheet: View {
-    @Environment(\.dismiss) var dismiss
-    public let productName: String
-    public let options: [Option]
-    public let onAction: (Option) -> Void
-    
-    public init(productName: String, options: [Option], onAction: @escaping (Option) -> Void) {
-        self.productName = productName
-        self.options = options
-        self.onAction = onAction
-    }
+struct ChooseOptionSheetView: View {
+    var store: StoreOf<ChooseOptionSheetFeature>
     
     var body: some View {
         NavigationStack() {
@@ -21,10 +12,9 @@ struct ChooseOptionSheet: View {
                         GridItem(.flexible(),spacing: 20),
                         GridItem(.flexible(),spacing: 20),
                 ], spacing: 20) {
-                    ForEach(options, id: \.id) { option in
+                    ForEach(store.options, id: \.id) { option in
                         Button(action: {
-                            onAction(option)
-                            dismiss()
+                            store.send(.onTapOption(option))
                         }){
                             VStack(spacing: 0) {
                                 // OptionTitle
@@ -51,7 +41,7 @@ struct ChooseOptionSheet: View {
                 .padding(20)
                 .padding(.top)
             }
-            .navigationTitle(productName + "のオプションを選択")
+            .navigationTitle(store.optionName + "のオプションを選択")
             .navigationBarTitleDisplayMode(.inline)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
@@ -59,33 +49,11 @@ struct ChooseOptionSheet: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     HStack(spacing: 10) {
                         Button("注文入力に戻る") {
-                            dismiss()
+                            store.send(.delegate(.close))
                         }
                     }
                 }
             }
         }
-    }
-}
-
-
-// サンプル構造体
-struct Option: Identifiable {
-    let id: String
-    let title: String
-    let description: String
-}
-
-struct ProductOptionsPickerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChooseOptionSheet(productName: "ドリップ", options: [
-            Option(id: "a", title: "ペーパー", description: "紙のフィルターを使ってコーヒーをドリップ"),
-            Option(id: "b", title: "ネル", description: "布のフィルターを使ってコーヒーをドリップ"),
-            Option(id: "c", title: "サイフォン", description: "サイフォンを使ってコーヒーをドリップ")
-        ], onAction: {_ in 
-            
-        })
-            .previewInterfaceOrientation(.landscapeRight)
-            .previewDevice("iPad Pro (11-inch) (4th generation)")
     }
 }

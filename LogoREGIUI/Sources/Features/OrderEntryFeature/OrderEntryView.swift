@@ -14,16 +14,11 @@ struct OrderEntryView: View {
     @Bindable var store: StoreOf<OrderEntryFeature>
     
     var body: some View {
-        GeometryReader{geometry in
-            ContainerWithNavBar {
+        ContainerWithNavBar {
+            GeometryReader{geometry in
                 VStack(spacing: 0){
                     HStack(spacing:0){
-                        ProductStack(
-                            productCategories: store.categoriesWithProduct,
-                            onAddItem: { product, brew in
-                                store.send(.addItem(product, brew))
-                            }
-                        )
+                        ProductStackView(store: store.scope(state: \.productStackState, action: \.productStackAction))
                         .padding(.leading, 10)
                         .frame(width: geometry.size.width * 0.6)
                         Divider()
@@ -50,22 +45,16 @@ struct OrderEntryView: View {
                         )
                         .frame(width: geometry.size.width * 0.3)
                     }
-                    BottomBar(
-                        order: store.order, 
-                        onRemoveAllItem: {
-                            store.send(.onRemoveAllItem)
-                        }
-                    )
-                    
+                    OrderBottomBarView(store: store.scope(state: \.orderBottomBarState, action: \.orderBottomBarAction))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(.secondarySystemBackground))
-                .navigationBarBackButtonHidden(true)
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
-        .onAppear {
-            store.send(.onAppear)
-        }
+        .navigationTitle("注文入力")
     }
 }
 
