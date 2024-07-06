@@ -11,7 +11,7 @@ public enum DiscountType: Int {
     case price = 0
 }
 
-public struct Discount {
+public struct Discount: Equatable {
     public let name: String
     public let id: String
     public let discountType: DiscountType

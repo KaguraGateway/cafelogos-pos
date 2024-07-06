@@ -13,7 +13,7 @@ public struct GetCategoriesWithProduct {
     
     public init() {}
     
-    public func Execute() async -> Array<ProductCategoryWithProductsDto> {
+    public func Execute() async -> Array<ProductCatalogDto> {
         return await serverProductQS.fetchProductCategoriesWithProducts()
     }
 }

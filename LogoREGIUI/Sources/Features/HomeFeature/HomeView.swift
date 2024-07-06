@@ -16,7 +16,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height,
-                            state: AppFeature.Path.State.printerTest(PrinterTestFeature.State())
+                            state: AppFeature.Path.State.orderEntry(OrderEntryFeature.State())
                         )
                     }
                     // 右列

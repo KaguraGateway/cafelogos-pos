@@ -42,6 +42,7 @@ public struct PaymentFeature {
         case alert(PresentationAction<Action.Alert>)
         case onTapPay
         case onDidPayment(Result<NewPaymentOutput, Error>)
+        case navigateToSuccess(Payment, [Order], String, UInt32, UInt64)
         
         @CasePathable
         public enum Alert {
@@ -77,8 +78,12 @@ public struct PaymentFeature {
                     } message: {
                         TextState("お支払いは完了していません。\nやり直してください。\n\(result.error?.localizedDescription ?? "")")
                     }
+                } else {
+                    print("success")
+                    return .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount))
                 }
                 return .none
+                
             default:
                 return .none
             }
