@@ -7,9 +7,9 @@ public struct ChooseOrderSheetFeature {
     @ObservableState
     public struct State: Equatable {
         var selectSeatType = 0
+        var seats: [Seat] = []
         
         let orders: [Order]
-        let seats: [Seat] = []
         
         public init(orders: [Order]) {
             self.orders = orders
@@ -18,11 +18,13 @@ public struct ChooseOrderSheetFeature {
     
     public enum Action {
         case changeSelectSeatType(Int)
-        case close
+        case fetchSeats
+        case fetchedSeats(Result<[Seat], Error>)
         case delegate(Delegate)
         
         public enum Delegate {
             case getUnpaidOrdersById(String)
+            case close
         }
     }
     
@@ -32,9 +34,18 @@ public struct ChooseOrderSheetFeature {
             case let .changeSelectSeatType(newSelect):
                 state.selectSeatType = newSelect
                 return .none
-            case .delegate:
+            case .fetchSeats:
+                return .run { send in
+                    await send(.fetchedSeats(Result {
+                        await GetSeats().Execute()
+                    }))
+                }
+            case let .fetchedSeats(.success(seats)):
+                state.seats = seats
                 return .none
-            case .close:
+            case .fetchedSeats(.failure):
+                return .none
+            case .delegate:
                 return .none
             }
         }

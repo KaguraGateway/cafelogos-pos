@@ -51,5 +51,6 @@ public struct OrderBottomBarFeature {
                 return .none
             }
         }
+        .ifLet(\.$destination, action: \.destination)
     }
 }

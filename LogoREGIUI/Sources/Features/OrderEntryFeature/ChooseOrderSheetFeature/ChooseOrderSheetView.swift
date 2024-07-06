@@ -93,5 +93,8 @@ public struct ChooseOrderSheetView: View {
                 }
             }
         }
+        .onAppear {
+            store.send(.fetchSeats)
+        }
     }
 }
