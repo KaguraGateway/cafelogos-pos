@@ -1,8 +1,12 @@
-//
-//  File.swift
-//  
-//
-//  Created by Owner on 2024/07/06.
-//
-
 import Foundation
+import Dependencies
+
+public struct DrawerTest {
+    @Dependency(\.cashierAdapter) var cashierAdapter
+    
+    public init() {}
+    
+    public func Execute() async {
+        await cashierAdapter.openCacher()
+    }
+}
