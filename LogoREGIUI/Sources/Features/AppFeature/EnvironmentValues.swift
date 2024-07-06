@@ -16,5 +16,5 @@ extension EnvironmentValues {
 }
 
 private struct IsServerConnectedKey: EnvironmentKey {
-    static var defaultValue: Bool { false }
+    static var defaultValue: Bool { true }
 }

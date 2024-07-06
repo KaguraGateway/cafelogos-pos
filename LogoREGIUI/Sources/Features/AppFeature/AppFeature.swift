@@ -18,6 +18,9 @@ public struct AppFeature {
         case orderEntry(OrderEntryFeature)
         case payment(PaymentFeature)
         case paymentSuccess(PaymentSuccessFeature)
+        case cashDrawerClosing(CashDrawerOperationsFeature)
+        case cashDrawerSetup(CashDrawerOperationsFeature)
+        case cashDrawerInspection(CashDrawerOperationsFeature)
     }
     
     @ObservableState

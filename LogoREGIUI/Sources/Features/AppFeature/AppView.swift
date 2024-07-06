@@ -24,6 +24,12 @@ public struct AppView: View {
                 PaymentView(store: store)
             case let .paymentSuccess(store):
                 PaymentSuccessView(store: store)
+            case let .cashDrawerClosing(store):
+                CashDrawerClosingView(store: store)
+            case let .cashDrawerSetup(store):
+                CashDrawerSetupView(store: store)
+            case let.cashDrawerInspection(store):
+                InspectionView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)
