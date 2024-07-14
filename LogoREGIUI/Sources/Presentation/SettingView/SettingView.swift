@@ -6,7 +6,6 @@ struct SettingView: View {
     @State private var usePrinter = true
     @State private var printTicket = true
     @State private var useDrawer = true
-    @State private var isLogoutDisabled = true
     
     @ObservedObject var viewModel = GeneralSettingViewModel()
     
