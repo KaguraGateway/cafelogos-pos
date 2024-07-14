@@ -24,6 +24,7 @@ public struct SettingsFeature {
     
     public enum Action: BindableAction {
         case onAppear
+        case onDisappear
         case binding(BindingAction<State>)
         case openDrawer
         case printTicket
@@ -37,6 +38,8 @@ public struct SettingsFeature {
             switch action {
             case .onAppear:
                 return .send(.loadConfig)
+            case .onDisappear:
+                return .send(.saveConfig)
             case .binding:
                 if state.clientName != state.config.clientName {
                     return .run { send in
