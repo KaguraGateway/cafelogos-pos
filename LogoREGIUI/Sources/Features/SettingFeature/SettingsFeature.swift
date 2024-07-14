@@ -12,35 +12,57 @@ public struct SettingsFeature {
         var printTicket: Bool = true
         var useDrawer: Bool = true
         var clientId: String = ""
+        var clientName: String = ""
+        var config: Config
+        
+        init() {
+            self.config = GetConfig().Execute()
+            self.clientId = config.clientId
+            self.clientName = config.clientName
+        }
     }
     
-    public enum Action {
-        case toggleUsePrinter
-        case togglePrintTicket
-        case toggleUseDrawer
+    public enum Action: BindableAction {
+        case onAppear
+        case binding(BindingAction<State>)
         case openDrawer
-        case printReceipt
-        case setClientId(String)
+        case printTicket
+        case saveConfig
+        case loadConfig
     }
     
     public var body: some Reducer<State, Action> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
-            case .toggleUsePrinter:
-                state.usePrinter.toggle()
+            case .onAppear:
+                return .send(.loadConfig)
+            case .binding:
+                if state.clientName != state.config.clientName {
+                    return .run { send in
+                        await send(.saveConfig)
+                    }
+                }
                 return .none
-            case .togglePrintTicket:
-                state.printTicket.toggle()
-                return .none
-            case .toggleUseDrawer:
-                state.useDrawer.toggle()
-                return .none
+            case .printTicket:
+                return .run {_ in
+                    await PrinterTest().Execute()
+                }
             case .openDrawer:
-                return .run{ _ in await DrawerTest().Execute()}
-            case .printReceipt:
-                return .run{ _ in await PrinterTest().Execute()}
-            case .setClientId(let id):
-                state.clientId = id
+                return .run { _ in
+                    await DrawerTest().Execute()
+                }
+            case .saveConfig:
+                return .run { [config = state.config, clientName = state.clientName] _ in
+                    var updatedConfig = config
+                    updatedConfig.clientName = clientName
+                    SaveConfig().Execute(config: updatedConfig)
+                }
+            case .loadConfig:
+                let config = GetConfig().Execute()
+                state.config = config
+                state.clientId = config.clientId
+                state.clientName = config.clientName
                 return .none
             }
         }
