@@ -69,6 +69,7 @@ public struct SettingsFeature {
                 state.config = config
                 state.clientId = config.clientId
                 state.clientName = config.clientName
+                state.usePrinter = config.isUsePrinter
                 return .none
             }
         }

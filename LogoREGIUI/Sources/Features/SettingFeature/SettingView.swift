@@ -62,5 +62,8 @@ struct SettingView: View {
         .padding(.horizontal ,120)
         .background(Color(.secondarySystemBackground))
         .frame(maxWidth:.infinity, maxHeight: .infinity)
+        .onAppear{
+            store.send(.onAppear)
+        }
     }
 }
