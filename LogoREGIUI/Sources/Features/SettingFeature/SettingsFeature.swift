@@ -19,6 +19,7 @@ public struct SettingsFeature {
             self.config = GetConfig().Execute()
             self.clientId = config.clientId
             self.clientName = config.clientName
+            self.usePrinter = config.isUsePrinter
         }
     }
     
@@ -41,7 +42,8 @@ public struct SettingsFeature {
             case .onDisappear:
                 return .send(.saveConfig)
             case .binding:
-                if state.clientName != state.config.clientName {
+                if state.clientName != state.config.clientName ||
+                    state.usePrinter != state.config.isUsePrinter {
                     return .run { send in
                         await send(.saveConfig)
                     }
@@ -56,9 +58,10 @@ public struct SettingsFeature {
                     await DrawerTest().Execute()
                 }
             case .saveConfig:
-                return .run { [config = state.config, clientName = state.clientName] _ in
-                    var updatedConfig = config
-                    updatedConfig.clientName = clientName
+                return .run { [state] _ in
+                    var updatedConfig = state.config
+                    updatedConfig.clientName = state.clientName
+                    updatedConfig.isUsePrinter = state.usePrinter
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:

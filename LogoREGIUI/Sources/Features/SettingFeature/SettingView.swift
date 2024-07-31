@@ -4,7 +4,6 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SettingView: View {
-    //    @ObservedObject var viewModel = GeneralSettingViewModel()
     @Bindable var store: StoreOf<SettingsFeature>
     
     var body: some View {
