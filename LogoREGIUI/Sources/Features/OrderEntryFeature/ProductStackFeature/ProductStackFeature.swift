@@ -39,7 +39,7 @@ public struct ProductStackFeature {
                 return .run { send in
                     await send(
                         .fetched(
-                            Result { await GetCategoriesWithProduct().Execute() }
+                            Result { await ProductQueryServiceMock().fetchProductCategoriesWithProducts() }
                         )
                     )
                 }

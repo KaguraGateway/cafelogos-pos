@@ -63,8 +63,10 @@ public struct PaymentFeature {
                 return .none
             case .onTapPay:
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
+                    // PaymentServiceMockのインスタンスをvarで宣言
+                    var paymentServiceMock = PaymentServiceMock()
                     await send(.onDidPayment(Result {
-                        await NewPayment().Execute(payment: payment, postOrder: newOrder)
+                        await paymentServiceMock.Execute(payment: payment, postOrder: newOrder)
                     }))
                 }
             case let .onDidPayment(.success(result)):
