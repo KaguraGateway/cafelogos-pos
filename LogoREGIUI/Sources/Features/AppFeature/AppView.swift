@@ -17,7 +17,7 @@ public struct AppView: View {
             case let .printerTest(store):
                 PrinterTestView(store: store)
             case let .settings(store):
-                SettingView()
+                SettingView(store: store)
             case let .orderEntry(store):
                 OrderEntryView(store: store)
             case let .payment(store):
