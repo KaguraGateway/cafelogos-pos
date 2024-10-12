@@ -9,7 +9,7 @@ import Foundation
 import ULID
 
 
-public struct Config: Equatable {
+public struct Config {
     public let clientId: String
     public var clientName: String
     public var isTrainingMode: Bool
