@@ -51,5 +51,12 @@ struct OrderItemView: View {
                     .fontWeight(.semibold)
             }
         }
+        .swipeActions {
+            Button(role: .destructive) {
+                onRemove()
+            } label: {
+                Label("削除", systemImage: "trash")
+            }
+        }
     }
 }
