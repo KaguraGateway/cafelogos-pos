@@ -56,6 +56,10 @@ public struct OrderEntryFeature {
         Reduce<State, Action> { state, action in
             switch action {
             case .onAppear:
+                // ホームから遷移するときに初期化したいが、dismissで戻る時は初期化したくないので、cartItemが空のときのみ初期化
+                if state.order.cart.items.isEmpty {
+                    state.order = Order()
+                }
                 return .none
                 
             case .fetchAllData:
