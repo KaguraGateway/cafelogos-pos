@@ -48,8 +48,8 @@ public struct OrderBottomBarView: View {
                     .foregroundColor(.white)
                     .padding(.leading, 50)
             }
-            .disabled(store.newOrder?.cart == nil || store.newOrder?.totalAmount == 0) // totalAmountだけだとViewのレンダリング時にdisableにならない問題があったのでcartの判定も追加した
-            .opacity(store.newOrder?.cart == nil || store.newOrder?.totalAmount == 0 ? 0.5 : 1)
+            .disabled(shouldDisableOrderButton())
+            .opacity(shouldDisableOrderButton() ? 0.5 : 1)
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 15)
@@ -58,5 +58,9 @@ public struct OrderBottomBarView: View {
             store.send(.delegate(.removeOrders))
         }
         
+    }
+
+    func shouldDisableOrderButton() -> Bool {
+        return store.newOrder?.cart == nil || store.newOrder?.totalAmount == 0  // totalAmountだけだとViewのレンダリング時にdisableにならない問題があったのでcartの判定を追加した
     }
 }
