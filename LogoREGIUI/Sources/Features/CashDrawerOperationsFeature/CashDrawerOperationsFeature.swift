@@ -26,6 +26,7 @@ public struct CashDrawerOperationsFeature {
         case completeSettlement
         // レジ開け
         case startCashierTransaction
+        case skipStartingCahierTransaction
         // 点検
         case completeInspection
         
@@ -60,6 +61,9 @@ public struct CashDrawerOperationsFeature {
                 
             case .startCashierTransaction:
                 StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                return .none
+                
+            case .skipStartingCahierTransaction:
                 return .none
 
             case .completeInspection:
