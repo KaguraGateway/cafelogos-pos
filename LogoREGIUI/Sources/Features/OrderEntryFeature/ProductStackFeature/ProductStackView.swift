@@ -16,7 +16,11 @@ public struct ProductStackView: View {
                     .fontWeight(.regular)
             }
         } else {
-            EmptyView()
+            Text("¥\(product.coffeeHowToBrews?.first?.amount ?? 0)") // warning回避のため、金額未記載の場合は0を返す
+                .font(.title2)
+                .fontWeight(.regular)
+                .multilineTextAlignment(.trailing)
+                .lineLimit(1)
         }
     }
 
