@@ -39,6 +39,9 @@ struct CashDrawerClosingView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .onAppear{
+            store.send(.calculateExpectedCashAmount)
+        }
         .navigationTitle("精算")
     }
 }
