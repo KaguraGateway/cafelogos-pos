@@ -147,6 +147,7 @@ struct PaymentSuccessView: View {
         }
         .navigationTitle("お支払い完了")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
