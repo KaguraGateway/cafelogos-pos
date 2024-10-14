@@ -17,8 +17,8 @@ struct CashDrawerSetupView: View {
                             .padding(.bottom)
                             .padding(.top, 50)
                         Spacer()
-                        TitleNavButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white, destination: {HomeView()})
-                        TitleNavButton(title: "レジ開け完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white)
+                        TitleNavButton(title: "レジ開け完了", bgColor: Color.cyan, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {
                                 store.send(.startCashierTransaction)
                             })

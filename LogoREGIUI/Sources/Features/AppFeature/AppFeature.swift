@@ -52,6 +52,10 @@ public struct AppFeature {
                     return .none
                 case .element(id: _, action: .paymentSuccess(.navigateToTapOrderEntry)):
                     return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerClosing(.completeSettlement)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerInspection(.completeInspection)):
+                    return .send(.popToHome)
                 default:
                     return .none
                 }

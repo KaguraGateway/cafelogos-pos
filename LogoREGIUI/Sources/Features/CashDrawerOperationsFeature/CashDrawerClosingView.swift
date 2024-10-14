@@ -28,7 +28,7 @@ struct CashDrawerClosingView: View {
                             .padding(.bottom)
                         TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
                         Spacer()
-                        TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white, destination: {HomeView()})
+                        TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {
                                 store.send(.completeSettlement)
                             })

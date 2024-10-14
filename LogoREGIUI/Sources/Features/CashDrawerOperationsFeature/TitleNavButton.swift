@@ -3,21 +3,18 @@
 
 import SwiftUI
 
-struct TitleNavButton<Destination>: View where Destination : View {
+struct TitleNavButton: View {
     var title: String
     var bgColor: Color
     var fgColor: Color
-    var destination: () -> Destination
 
-    public init(title: String, bgColor: Color, fgColor: Color, destination: @escaping () -> Destination) {
+    public init(title: String, bgColor: Color, fgColor: Color) {
         self.title = title
         self.bgColor = bgColor
         self.fgColor = fgColor
-        self.destination = destination
     }
 
     var body: some View {
-        NavigationLink(destination: destination) {
             VStack(spacing: 0) {
                 Text(title)
                     .font(.largeTitle)
@@ -33,10 +30,9 @@ struct TitleNavButton<Destination>: View where Destination : View {
                     .fill(bgColor)
             }
             .padding(.bottom)
-        }
     }
 }
 
 #Preview {
-    TitleNavButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white, destination: {HomeView()})
+    TitleNavButton(title: "hoge", bgColor: Color.blue, fgColor: Color.white)
 }
