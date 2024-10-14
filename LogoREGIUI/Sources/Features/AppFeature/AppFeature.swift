@@ -50,7 +50,16 @@ public struct AppFeature {
                 case let .element(id: _, action: .payment(.navigateToSuccess(payment, orders, callNumber, totalQuantity, totalAmout))):
                     state.path.append(.paymentSuccess(PaymentSuccessFeature.State(payment: payment, orders: orders, callNumber: callNumber, totalQuantity: totalQuantity, totalAmount: totalAmout)))
                     return .none
+                // ホームに戻るケース
                 case .element(id: _, action: .paymentSuccess(.navigateToTapOrderEntry)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerClosing(.completeSettlement)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerInspection(.completeInspection)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerSetup(.skipStartingCahierTransaction)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerSetup(.startCashierTransaction)):
                     return .send(.popToHome)
                 default:
                     return .none

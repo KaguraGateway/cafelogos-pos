@@ -20,8 +20,10 @@ struct InspectionView: View {
                             .padding(.bottom)
                         TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
                         Spacer()
-                        TitleNavButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white, destination: {HomeView()})
-                            .padding(.bottom)
+                        TitleNavButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white)
+                            .simultaneousGesture(TapGesture().onEnded {
+                                store.send(.completeInspection)
+                            })
                     }
                     .padding(.horizontal)
                     .frame(width: geometry.size.width * 0.3)
