@@ -47,36 +47,37 @@ public struct ChooseOrderSheetView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-                .frame(maxHeight: 300)
+                .frame(maxHeight: 200)
                 .padding(20)
                 
                 Spacer()
                 
-                ForEach(store.seats, id: \.id) { seat in
-                    if seat.name.hasPrefix(getGroupName()) {
-                        Button(action: {
-                            Task {
-                                store.send(.delegate(.getUnpaidOrdersById(seat.id)))
-                                dismiss()
-                            }
-                        }, label: {
-                            VStack(spacing: 0) {
-                                Text("\(seat.name)")
-                                    .font(.largeTitle)
-                                    .fontWeight(.semibold)
-                                    .lineLimit(0)
-                            }
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity, minHeight: 25, alignment: .center)
-                            .clipped()
-                            .padding(.vertical, 8)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(Color.green)
-                            }
-                            .padding(8)
-                        })
-                    }
+                ScrollView {
+                    ForEach(store.seats, id: \.id) { seat in
+                        if seat.name.hasPrefix(getGroupName()) {
+                            Button(action: {
+                                Task {
+                                    store.send(.delegate(.getUnpaidOrdersById(seat.id)))
+                                    dismiss()
+                                }
+                            }, label: {
+                                VStack(spacing: 0) {
+                                    Text("\(seat.name)")
+                                        .font(.largeTitle)
+                                        .fontWeight(.semibold)
+                                        .lineLimit(0)
+                                }
+                                .foregroundColor(Color.white)
+                                .frame(maxWidth: .infinity, minHeight: 25, alignment: .center)
+                                .clipped()
+                                .padding(.vertical, 8)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .fill(Color.green)
+                                }
+                                .padding(8)
+                            })
+                        }}
                 }
             }
             .background(Color(.secondarySystemBackground))
@@ -98,3 +99,12 @@ public struct ChooseOrderSheetView: View {
         }
     }
 }
+
+// Picker要素のPaddingを調整するextension
+extension UISegmentedControl {
+    override open func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        self.setContentHuggingPriority(.defaultLow, for: .vertical)
+    }
+}
+
