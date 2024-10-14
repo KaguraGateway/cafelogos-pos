@@ -39,6 +39,7 @@ struct CashDrawerClosingView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .navigationTitle("精算")
     }
 }
 

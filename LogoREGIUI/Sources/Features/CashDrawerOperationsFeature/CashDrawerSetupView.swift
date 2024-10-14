@@ -32,6 +32,7 @@ struct CashDrawerSetupView: View {
             }
             
         }
+        .navigationTitle("レジ開け")
     }
 }
 

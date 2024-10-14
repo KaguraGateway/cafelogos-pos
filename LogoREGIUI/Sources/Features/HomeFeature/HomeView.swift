@@ -22,13 +22,23 @@ struct HomeView: View {
                     // 右列
                     VStack(alignment: .leading, spacing: 15) {
                         HomeNavigationButton(
+                            title: "レジ開け",
+                            subTitle: "",
+                            description: "レジ内の釣り銭を設定",
+                            fgColor: Color.primary,
+                            bgColor: Color(.secondarySystemFill),
+                            width: geometry.size.width * (1/3),
+                            height: geometry.size.height * (1/4),
+                            state: AppFeature.Path.State.cashDrawerSetup(CashDrawerOperationsFeature.State())
+                        )
+                        HomeNavigationButton(
                             title: "点検",
                             subTitle: "",
                             description: "レジ内の釣り銭を差分を確認",
                             fgColor: Color.primary,
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/3),
+                            height: geometry.size.height * (1/4),
                             state: AppFeature.Path.State.cashDrawerInspection(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
@@ -38,7 +48,7 @@ struct HomeView: View {
                             fgColor: Color.primary,
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/3),
+                            height: geometry.size.height * (1/4),
                             state: AppFeature.Path.State.cashDrawerClosing(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
@@ -48,7 +58,7 @@ struct HomeView: View {
                             fgColor: Color.primary,
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/3),
+                            height: geometry.size.height * (1/4),
                             state: AppFeature.Path.State.settings(SettingsFeature.State())
                         )
                     }
