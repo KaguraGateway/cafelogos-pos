@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContainerWithNavBar<Content : View>: View {
     @Environment(\.isServerConnected) private var isServerConnected;
+    @Environment(\.useCashDrawer) private var useCashDrawer;
     
     let content: Content
     
@@ -32,8 +33,12 @@ struct ContainerWithNavBar<Content : View>: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack(spacing: 10) {
                         ConnectionStatus(connectionStatus: isServerConnected, connectionName: "サーバー通信")
-                        Button(action: {}) {
-                            Text("ドロアを開く")
+                        if useCashDrawer {
+                            Button(action: {
+                                
+                            }) {
+                                Text("ドロアを開く")
+                            }
                         }
                     }
                 }

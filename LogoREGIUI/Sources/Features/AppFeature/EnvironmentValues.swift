@@ -13,8 +13,16 @@ extension EnvironmentValues {
         get { self[IsServerConnectedKey.self] }
         set { self[IsServerConnectedKey.self] = newValue }
     }
+    public var useCashDrawer: Bool {
+        get { self[UseCashDrawerKey.self] }
+        set { self[UseCashDrawerKey.self] = newValue }
+    }
 }
 
 private struct IsServerConnectedKey: EnvironmentKey {
+    static var defaultValue: Bool { true }
+}
+
+private struct UseCashDrawerKey: EnvironmentKey {
     static var defaultValue: Bool { true }
 }
