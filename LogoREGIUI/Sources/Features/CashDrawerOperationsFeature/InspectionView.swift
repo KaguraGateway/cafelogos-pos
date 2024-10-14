@@ -31,6 +31,7 @@ struct InspectionView: View {
             }
             
         }
+        .navigationTitle("点検")
     }
 }
 
