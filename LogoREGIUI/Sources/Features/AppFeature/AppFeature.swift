@@ -27,6 +27,7 @@ public struct AppFeature {
     public struct State: Equatable {
         var path = StackState<Path.State>();
         var isServerConnected = false;
+        var useCashDrawer = true; // Configに使用可否を保存できるようになったら連携する
         
         public init() {}
     }
@@ -35,6 +36,7 @@ public struct AppFeature {
         case path(StackActionOf<Path>)
         case popToHome
         case setIsServerConnected(Bool)
+        case setUseCashDrawer(Bool)
     }
     
     public init() {}
@@ -74,6 +76,9 @@ public struct AppFeature {
                 return .none
             case let .setIsServerConnected(isConnected):
                 state.isServerConnected = isConnected;
+                return .none
+            case let .setUseCashDrawer(isDrawerUse): // 変数名が被った、変更可能な時にuseDrawerに変更したい
+                state.useCashDrawer = isDrawerUse;
                 return .none
             }
         }

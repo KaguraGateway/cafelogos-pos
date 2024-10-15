@@ -33,5 +33,6 @@ public struct AppView: View {
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)
+        .environment(\.useCashDrawer, store.useCashDrawer)
     }
 }
