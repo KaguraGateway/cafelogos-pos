@@ -27,7 +27,7 @@ public struct AppFeature {
     public struct State: Equatable {
         var path = StackState<Path.State>();
         var isServerConnected = false;
-        var useCashDrawer = false;
+        var useCashDrawer = true; // Configに使用可否を保存できるようになったら連携する
         
         public init() {}
     }

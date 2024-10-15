@@ -56,6 +56,9 @@ private enum CashierAdapterKey: DependencyKey {
 //private enum CustomerDisplayServiceKey: DependencyKey {
 //    static let liveValue: any CustomerDisplayService = SwifterCustomerDisplayService()
 //}
+private enum DrawerTestKey: DependencyKey { // ContainerWithNavBarでドロア解放を行うためのKey
+    static let liveValue = DrawerTest()
+}
 
 extension DependencyValues {
     var denominationRepository: any DenominationRepository {
@@ -106,4 +109,11 @@ extension DependencyValues {
 //        get {self[CustomerDisplayServiceKey.self] }
 //        set {self[CustomerDisplayServiceKey.self] = newValue }
 //    }
+
+    // ContainerWithNavBarでドロア解放を行うために実装
+    // NavBar用のFeatureを作ると複雑化して可読性が下がるため、DIして対応
+    public var drawerTest: DrawerTest {
+        get { self[DrawerTestKey.self] }
+        set { self[DrawerTestKey.self] = newValue }
+    }
 }
