@@ -33,6 +33,9 @@ struct InspectionView: View {
             }
             
         }
+        .onAppear{
+            store.send(.calculateExpectedCashAmount)
+        }
         .navigationTitle("点検")
     }
 }
