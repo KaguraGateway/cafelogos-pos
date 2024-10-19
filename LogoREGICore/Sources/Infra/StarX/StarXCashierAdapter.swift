@@ -46,7 +46,7 @@ public struct StarXCashierAdapter: CashierAdapter {
         return StarPrinter(StarConnectionSettings(interfaceType: .bluetooth, identifier: StarConnectionSettings.FIRST_FOUND_DEVICE))
     }
     
-    private func run(commands: String) async {
+    private func run(commands: String, retryCount: Int = 0) async {
         let printer = getStarPrinter()
         
         do {
@@ -60,6 +60,12 @@ public struct StarXCashierAdapter: CashierAdapter {
             try await printer.print(command: commands)
         } catch let err {
             print("Print Error: \(err)")
+            
+            if(retryCount > 5) {
+                print("[StarIO] Retry Over")
+            } else {
+                await run(commands: commands, retryCount: retryCount+1)
+            }
         }
     }
 }
