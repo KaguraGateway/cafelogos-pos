@@ -3,6 +3,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import UIKit
 
 @Reducer
 public struct CashDrawerOperationsFeature {
@@ -32,13 +33,15 @@ public struct CashDrawerOperationsFeature {
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
-        
+        case takeScreenshot(UIView)
+
         // Alert
         case alert(PresentationAction<Action.Alert>)
         
         @CasePathable
         public enum Alert {
             case okTapped
+            case settlementOkTapped
             case cancel
         }
     }
@@ -65,8 +68,20 @@ public struct CashDrawerOperationsFeature {
                 state.cashDiscrepancy = state.cashDrawerTotal - state.expectedCashAmount
                 return .none
                 
+            // レジ締め
             case .completeSettlement:
-                Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                state.alert = AlertState {
+                    TextState("精算確認")
+                } actions: {
+                    ButtonState(action: .settlementOkTapped) {
+                        TextState("OK")
+                    }
+                    ButtonState(action: .cancel) {
+                        TextState("キャンセル")
+                    }
+                } message: {
+                    TextState("現在の入力額で精算処理を行い、スクリーンショットを記録します。本当によろしいですか？")
+                }
                 return .none
                 
             case .alert:
@@ -77,6 +92,8 @@ public struct CashDrawerOperationsFeature {
                 case .okTapped:
                     // 画面遷移する
                     StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                case .settlementOkTapped:
+                    Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
                 case .cancel:
                     // アラートを閉じる
                     state.alert = nil
@@ -109,9 +126,21 @@ public struct CashDrawerOperationsFeature {
                 
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+            case let .takeScreenshot(view):
+                takeScreenshot(from: view)
+                return .none
             }
             
         }
         .ifLet(\.$alert, action: \.alert)
+    }
+    // スクリーンショットを撮る
+    private func takeScreenshot(from view: UIView) {
+        let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
+        let image = renderer.image { ctx in
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        }
+        // アルバムに保存
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
 }

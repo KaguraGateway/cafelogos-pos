@@ -306,6 +306,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -339,6 +342,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
