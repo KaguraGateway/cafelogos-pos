@@ -36,6 +36,7 @@ struct CashDrawerSetupView: View {
             
         }
         .navigationTitle("レジ開け")
+        .alert($store.scope(state: \.alert, action: \.alert))
     }
 }
 
