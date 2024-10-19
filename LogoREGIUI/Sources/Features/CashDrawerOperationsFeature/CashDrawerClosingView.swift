@@ -49,6 +49,7 @@ struct CashDrawerClosingView: View {
             store.send(.calculateExpectedCashAmount)
         }
         .navigationTitle("精算")
+        .alert($store.scope(state: \.alert, action: \.alert))
     }
 }
 

@@ -60,7 +60,7 @@ public struct AppFeature {
                     return .none
 
                 // ホームに戻るケース
-                case .element(id: _, action: .cashDrawerClosing(.completeSettlement)):
+                case .element(id: _, action: .cashDrawerClosing(.alert(.presented(.settlementOkTapped)))):
                     return .send(.popToHome)
                 case .element(id: _, action: .cashDrawerInspection(.completeInspection)):
                     return .send(.popToHome)
