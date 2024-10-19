@@ -66,7 +66,7 @@ public struct AppFeature {
                     return .send(.popToHome)
                 case .element(id: _, action: .cashDrawerSetup(.skipStartingCahierTransaction)):
                     return .send(.popToHome)
-                case .element(id: _, action: .cashDrawerSetup(.startCashierTransaction)):
+                case .element(id: _, action: .cashDrawerSetup(.alert(.presented(.okTapped)))):
                     return .send(.popToHome)
                 default:
                     return .none

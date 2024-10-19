@@ -13,6 +13,7 @@ public struct CashDrawerOperationsFeature {
         var cashDiscrepancy: Int = 0
         
         var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
+        @Presents var alert: AlertState<Action.Alert>?
     }
     
     
@@ -31,6 +32,15 @@ public struct CashDrawerOperationsFeature {
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
+        
+        // Alert
+        case alert(PresentationAction<Action.Alert>)
+        
+        @CasePathable
+        public enum Alert {
+            case okTapped
+            case cancel
+        }
     }
     
     public var body: some Reducer<State, Action> {
@@ -59,8 +69,35 @@ public struct CashDrawerOperationsFeature {
                 Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
                 return .none
                 
+            case .alert:
+                return .none
+                
+            case .alert(.presented(let alertAction)):
+                switch alertAction {
+                case .okTapped:
+                    // 画面遷移する
+                    StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                case .cancel:
+                    // アラートを閉じる
+                    state.alert = nil
+                }
+                return .none
+
+            
+            // レジ開け
             case .startCashierTransaction:
-                StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                state.alert = AlertState {
+                    TextState("レジ開け確認")
+                } actions: {
+                    ButtonState(action: .okTapped) {
+                        TextState("OK")
+                    }
+                    ButtonState(action: .cancel) {
+                        TextState("キャンセル")
+                    }
+                } message: {
+                    TextState("入力額は本当に合っていますか？今一度確認してください")
+                }
                 return .none
                 
             case .skipStartingCahierTransaction:
@@ -75,5 +112,6 @@ public struct CashDrawerOperationsFeature {
             }
             
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 }
