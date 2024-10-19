@@ -3,6 +3,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import UIKit
 
 @Reducer
 public struct CashDrawerOperationsFeature {
@@ -31,6 +32,7 @@ public struct CashDrawerOperationsFeature {
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
+        case takeScreenshot(UIView)
     }
     
     public var body: some Reducer<State, Action> {
@@ -72,8 +74,20 @@ public struct CashDrawerOperationsFeature {
                 
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+            case let .takeScreenshot(view):
+                takeScreenshot(from: view)
+                return .none
             }
             
         }
+    }
+    // スクリーンショットを撮る
+    private func takeScreenshot(from view: UIView) {
+        let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
+        let image = renderer.image { ctx in
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        }
+        // アルバムに保存
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
 }

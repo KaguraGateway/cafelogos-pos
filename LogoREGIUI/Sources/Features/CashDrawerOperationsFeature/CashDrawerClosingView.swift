@@ -30,6 +30,12 @@ struct CashDrawerClosingView: View {
                         Spacer()
                         TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {
+                                // 描画しているUIViewを取得して渡す
+                                if let windowScene = UIApplication.shared.connectedScenes
+                                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+                                   let rootView = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController?.view {
+                                    store.send(.takeScreenshot(rootView))
+                                }
                                 store.send(.completeSettlement)
                             })
                     }
