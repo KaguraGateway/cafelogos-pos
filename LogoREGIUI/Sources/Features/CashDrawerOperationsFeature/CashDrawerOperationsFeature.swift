@@ -84,9 +84,6 @@ public struct CashDrawerOperationsFeature {
                 }
                 return .none
                 
-            case .alert:
-                return .none
-                
             case .alert(.presented(let alertAction)):
                 switch alertAction {
                 case .okTapped:
@@ -95,11 +92,14 @@ public struct CashDrawerOperationsFeature {
                 case .settlementOkTapped:
                     Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
                 case .cancel:
-                    // アラートを閉じる
-                    state.alert = nil
+                    print("Tapped Cancel")
                 }
+                // アラートを閉じる
+                state.alert = nil
                 return .none
-
+                
+            case .alert:
+                return .none
             
             // レジ開け
             case .startCashierTransaction:
