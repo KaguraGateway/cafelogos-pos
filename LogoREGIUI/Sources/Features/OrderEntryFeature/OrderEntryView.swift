@@ -55,6 +55,7 @@ struct OrderEntryView: View {
             }
         }
         .navigationTitle("注文入力")
+        .alert($store.scope(state: \.alert, action: \.alert))
     }
 }
 
