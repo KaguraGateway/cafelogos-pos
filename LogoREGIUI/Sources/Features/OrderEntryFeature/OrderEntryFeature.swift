@@ -11,6 +11,7 @@ public struct OrderEntryFeature {
         
         var productStackState: ProductStackFeature.State
         var orderBottomBarState: OrderBottomBarFeature.State
+        @Presents var alert: AlertState<Action.Alert>?
         
         public init() {
             let order = Order()
@@ -18,6 +19,7 @@ public struct OrderEntryFeature {
             self.discounts = []
             self.productStackState = ProductStackFeature.State()
             orderBottomBarState = OrderBottomBarFeature.State(orders: [])
+            self.alert = nil
         }
     }
     
@@ -39,6 +41,14 @@ public struct OrderEntryFeature {
         case navigatePaymentWithOrders([Order])
         
         case fetchedUnPaidOrders(Result<[Order], Error>)
+        
+        // Alert
+        case alert(PresentationAction<Action.Alert>)
+        
+        @CasePathable
+        public enum Alert {
+            case okTapped
+        }
     }
     
     //    ToDo: エラーハンドリングをちゃんと実装する
@@ -243,10 +253,35 @@ public struct OrderEntryFeature {
                     )
                 }
             case let .fetchedUnPaidOrders(.success(orders)):
+                if orders.isEmpty {
+                    state.alert = AlertState {
+                        TextState("伝票呼出エラー")
+                    } actions: {
+                        ButtonState(action: .okTapped) {
+                            TextState("OK")
+                        }
+                    } message: {
+                        TextState("この伝票には注文が登録されていません")
+                    }
+                    return .none
+                }
                 return .send(.navigatePaymentWithOrders(orders))
+            
+            case .alert(.presented(let alertAction)):
+                switch alertAction {
+                case .okTapped:
+                    state.alert = nil
+                }
+                return .none
+
+            // アラートの処理を追加する場合はこれより上に書く
+            case .alert:
+                return .none
+
             default:
                 return .none
             }
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 }
