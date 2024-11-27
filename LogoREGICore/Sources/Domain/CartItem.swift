@@ -24,11 +24,11 @@ public struct CartItem {
             return productPrice
         }
     }
-    private var quantity: UInt32
+    public var quantity: UInt32
     public let coffeeHowToBrew: CoffeeHowToBrew?
     
     private let coffeeProduct: CoffeeProduct?
-    private let otherProduct: OtherProduct?
+    public let otherProduct: OtherProduct?
     public let createdAt: Date
     public let updatedAt: Date
     public var syncAt: Date?
