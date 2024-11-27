@@ -27,9 +27,9 @@ public struct ChooseOrderSheetView: View {
     func getGroupName() -> String {
         switch(store.selectSeatType) {
         case 0:
-            return "カウンター"
-        case 1:
             return "テーブル"
+        case 1:
+            return "カウンター"
         default:
             return ""
         }
@@ -41,8 +41,8 @@ public struct ChooseOrderSheetView: View {
                 Divider()
                 VStack(spacing: 0) {
                     Picker(selection: $store.selectSeatType.sending(\.changeSelectSeatType), label: Text("Order")) {
-                        Text("カウンター").tag(0)
-                        Text("テーブル").tag(1)
+                        Text("テーブル").tag(0)
+                        Text("カウンター").tag(1)
                         Text("その他").tag(2)
                     }
                     .pickerStyle(SegmentedPickerStyle())
