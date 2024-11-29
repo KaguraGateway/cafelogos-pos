@@ -42,7 +42,7 @@ struct SettingView: View {
                     if store.usePrinter {
                         Toggle("引換券印刷", isOn : $store.printTicket)
                             .padding(.leading)
-                            .disabled(store.printTicket == true)
+                            .disabled(store.printTicket)
                         if store.printTicket{
                             Button(action: {
                                 store.send(.printTicket)

@@ -67,7 +67,6 @@ public struct SettingsFeature {
                     updatedConfig.isUsePrinter = state.usePrinter
                     updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
                     SaveConfig().Execute(config: updatedConfig)
-                    print(updatedConfig)
                 }
             case .loadConfig:
                 let config = GetConfig().Execute()
