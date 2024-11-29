@@ -24,7 +24,7 @@ public struct CartItem {
             return productPrice
         }
     }
-    private var quantity: UInt32
+    public var quantity: UInt32
     public let coffeeHowToBrew: CoffeeHowToBrew?
     
     private let coffeeProduct: CoffeeProduct?

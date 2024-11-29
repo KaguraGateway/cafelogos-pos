@@ -13,13 +13,14 @@ public struct ConfigAppStorage: ConfigRepository {
     @AppStorage("clientNameKey") var clientName = ""
     @AppStorage("isTrainingModeKey") var isTrainingMode = false
     @AppStorage("isUsePrinter") var isUsePrinter = false
+    @AppStorage("isPrintKitchenReceipt") var isPrintKitchenReceipt = false
     
     func load() -> Config {
         if(self.clientId.isEmpty) {
             save(config: Config())
         }
         
-        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter)
+        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt)
     }
     
     func save(config: Config) {
@@ -27,5 +28,6 @@ public struct ConfigAppStorage: ConfigRepository {
         self.clientName = config.clientName
         self.isTrainingMode = config.isTrainingMode
         self.isUsePrinter = config.isUsePrinter
+        self.isPrintKitchenReceipt = config.isPrintKitchenReceipt
     }
 }
