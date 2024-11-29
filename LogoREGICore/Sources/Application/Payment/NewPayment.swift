@@ -34,6 +34,9 @@ public struct NewPayment {
                 await cashierAdapter.openCacher()
                 await cashierAdapter.printReceipt(receipt: OrderReceipt(callNumber: res.callNumber ?? ""))
             }
+            if(config.isPrintKitchenReceipt) {
+                await cashierAdapter.printKitchenReceipt(orderReceipt: OrderReceipt(callNumber: res.callNumber ?? ""), items: receiptItems)
+            }
         }
         return NewPaymentOutput(callNumber: res.callNumber ?? "", error: res.error)
     }

@@ -19,8 +19,9 @@ public struct StarXCashierAdapter: CashierAdapter {
                         .styleSecondPriorityCharacterEncoding(.japanese)
                         .styleBold(true)
                         .styleAlignment(.center)
-                        .styleMagnification(StarXpandCommand.MagnificationParameter(width: 3, height: 3))
+                        .styleMagnification(StarXpandCommand.MagnificationParameter(width: 2, height: 2))
                         .actionPrintText("引換券\n")
+                        .styleMagnification(StarXpandCommand.MagnificationParameter(width: 3, height: 3))
                         .actionPrintText("\(receipt.callNumber)\n")
                         .actionCut(StarXpandCommand.Printer.CutType.partial)
                 )
@@ -29,6 +30,55 @@ public struct StarXCashierAdapter: CashierAdapter {
         await run(commands: builder.getCommands())
     }
     
+    func printKitchenReceipt(orderReceipt: OrderReceipt, items: [ReceiptItem]) async {
+        let timestamp = getCurrentTimestamp()
+        let builder = StarXpandCommand.StarXpandCommandBuilder()
+        _ = builder.addDocument(
+            StarXpandCommand.DocumentBuilder()
+                .addPrinter(
+                    StarXpandCommand.PrinterBuilder()
+                        .styleSecondPriorityCharacterEncoding(.japanese)
+                        .styleBold(true)
+                        .styleMagnification(StarXpandCommand.MagnificationParameter(width: 2, height: 2))
+                        .actionPrintText("オーダー: \(orderReceipt.callNumber)\n")
+                        .actionFeedLine(1)
+                        .styleAlignment(.left)
+                        .styleMagnification(StarXpandCommand.MagnificationParameter(width: 1, height: 1))
+                        .styleAlignment(.right)
+                )
+        )
+        
+        // 各アイテムの間に用紙送りを2mm入れる
+        for item in items {
+            let brewMethod = item.brewMethod.map { " (\($0))" } ?? ""
+            let itemText = "・\(item.name)\(brewMethod) x\(item.quantity)\n"
+            
+            _ = builder.addDocument(
+                StarXpandCommand.DocumentBuilder()
+                    .addPrinter(
+                        StarXpandCommand.PrinterBuilder()
+                            .actionPrintText(itemText)
+                            .actionFeed(2) // 2mm送る
+                    )
+            )
+        }
+        
+        // タイムスタンプの追加とカット
+        _ = builder.addDocument(
+            StarXpandCommand.DocumentBuilder()
+                .addPrinter(
+                    StarXpandCommand.PrinterBuilder()
+                        .styleAlignment(.right)
+                        .actionFeed(3)
+                        .actionPrintText(timestamp)
+                        .actionCut(StarXpandCommand.Printer.CutType.partial)
+                )
+        )
+        
+        await run(commands: builder.getCommands())
+    }
+
+
     func openCacher() async {
         let builder = StarXpandCommand.StarXpandCommandBuilder()
         _ = builder.addDocument(StarXpandCommand.DocumentBuilder.init()
@@ -67,5 +117,12 @@ public struct StarXCashierAdapter: CashierAdapter {
                 await run(commands: commands, retryCount: retryCount+1)
             }
         }
+    }
+    
+    private func getCurrentTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "ja_JP")
+        return formatter.string(from: Date())
     }
 }

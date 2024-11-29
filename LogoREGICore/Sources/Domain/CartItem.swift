@@ -28,7 +28,7 @@ public struct CartItem {
     public let coffeeHowToBrew: CoffeeHowToBrew?
     
     private let coffeeProduct: CoffeeProduct?
-    public let otherProduct: OtherProduct?
+    private let otherProduct: OtherProduct?
     public let createdAt: Date
     public let updatedAt: Date
     public var syncAt: Date?
