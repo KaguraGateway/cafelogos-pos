@@ -28,5 +28,6 @@ public struct ConfigAppStorage: ConfigRepository {
         self.clientName = config.clientName
         self.isTrainingMode = config.isTrainingMode
         self.isUsePrinter = config.isUsePrinter
+        self.isPrintKitchenReceipt = config.isPrintKitchenReceipt
     }
 }

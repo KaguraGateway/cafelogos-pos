@@ -11,6 +11,7 @@ public struct SettingsFeature {
         var usePrinter: Bool = true
         var printTicket: Bool = true
         var useDrawer: Bool = true
+        var printKitchenReceipt: Bool = true
         var clientId: String = ""
         var clientName: String = ""
         var config: Config
@@ -20,6 +21,7 @@ public struct SettingsFeature {
             self.clientId = config.clientId
             self.clientName = config.clientName
             self.usePrinter = config.isUsePrinter
+            self.printKitchenReceipt = config.isPrintKitchenReceipt
         }
     }
     
@@ -43,7 +45,8 @@ public struct SettingsFeature {
                 return .send(.saveConfig)
             case .binding:
                 if state.clientName != state.config.clientName ||
-                    state.usePrinter != state.config.isUsePrinter {
+                    state.usePrinter != state.config.isUsePrinter ||
+                    state.printKitchenReceipt != state.config.isPrintKitchenReceipt {
                     return .run { send in
                         await send(.saveConfig)
                     }
@@ -62,7 +65,9 @@ public struct SettingsFeature {
                     var updatedConfig = state.config
                     updatedConfig.clientName = state.clientName
                     updatedConfig.isUsePrinter = state.usePrinter
+                    updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
                     SaveConfig().Execute(config: updatedConfig)
+                    print(updatedConfig)
                 }
             case .loadConfig:
                 let config = GetConfig().Execute()
@@ -70,6 +75,7 @@ public struct SettingsFeature {
                 state.clientId = config.clientId
                 state.clientName = config.clientName
                 state.usePrinter = config.isUsePrinter
+                state.printKitchenReceipt = config.isPrintKitchenReceipt
                 return .none
             }
         }
