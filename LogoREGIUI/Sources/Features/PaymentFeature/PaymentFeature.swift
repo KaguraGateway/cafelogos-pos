@@ -16,6 +16,8 @@ public struct PaymentFeature {
         
         @Presents var alert: AlertState<Action.Alert>?
         
+        var isPayButtonEnabled: Bool = true
+        
         /**
          * 新しい注文がある場合
          */
@@ -62,12 +64,14 @@ public struct PaymentFeature {
             case .numericKeyboardAction:
                 return .none
             case .onTapPay:
+                state.isPayButtonEnabled = false
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
                         await NewPayment().Execute(payment: payment, postOrder: newOrder)
                     }))
                 }
             case let .onDidPayment(.success(result)):
+                state.isPayButtonEnabled = true
                 if result.error != nil {
                     state.alert = AlertState {
                         TextState("サーバーとの通信に失敗しました")
