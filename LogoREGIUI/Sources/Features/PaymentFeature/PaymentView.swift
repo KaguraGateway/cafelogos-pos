@@ -59,6 +59,7 @@ struct PaymentView: View {
                     BottomBarView(
                         totalQuantity: store.totalQuantity,
                         payment: store.payment,
+                        isPayButtonEnabled: store.isPayButtonEnabled,
                         onTapPay: {
                             store.send(.onTapPay)
                         }

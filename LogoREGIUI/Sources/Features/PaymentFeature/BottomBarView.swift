@@ -4,12 +4,14 @@ import LogoREGICore
 struct BottomBarView: View {
     let totalQuantity: UInt32
     let payment: Payment
+    let isPayButtonEnabled: Bool
     
     let onTapPay: () -> Void
     
-    public init(totalQuantity: UInt32, payment: Payment, onTapPay: @escaping () -> Void) {
+    public init(totalQuantity: UInt32, payment: Payment,isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void) {
         self.totalQuantity = totalQuantity
         self.payment = payment
+        self.isPayButtonEnabled = isPayButtonEnabled
         self.onTapPay = onTapPay
     }
     
@@ -51,7 +53,8 @@ struct BottomBarView: View {
                     .foregroundColor(.white)
                     .padding(.leading, 70)
             }
-            .disabled(!payment.isEnoughAmount())
+            .disabled(!payment.isEnoughAmount() || !isPayButtonEnabled)
+            .opacity(!isPayButtonEnabled ? 0.5 : 1)
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 40)
@@ -67,7 +70,7 @@ struct BottomBarView: View {
 }
 
 #Preview {
-    BottomBarView(totalQuantity: 10, payment: Payment(type: PaymentType.cash, orderIds: [], paymentAmount: 1000, receiveAmount: 100), onTapPay: {
+    BottomBarView(totalQuantity: 10, payment: Payment(type: PaymentType.cash, orderIds: [], paymentAmount: 1000, receiveAmount: 100), isPayButtonEnabled: true, onTapPay: {
         print("tap")
     })
 }
