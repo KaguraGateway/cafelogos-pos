@@ -15,6 +15,8 @@ public struct NewPayment {
     @Dependency(\.cashierAdapter) var cashierAdapter
     @Dependency(\.configRepository) var configRepo
     
+    @Dependency(\.externalPaymentService) var externalPaymentService
+    
     public init() {}
     
     public func Execute(payment: Payment, postOrder: Order?) async -> NewPaymentOutput {
@@ -37,7 +39,19 @@ public struct NewPayment {
             if(config.isPrintKitchenReceipt) {
                 await cashierAdapter.printKitchenReceipt(orderReceipt: OrderReceipt(callNumber: res.callNumber ?? ""), items: receiptItems)
             }
+            
+            // 外部決済は在庫確保後に行う
+            // NOTE: 決済完了後に在庫がないとやばいからこうしているが、Square画面で✖︎ボタンを押すと決済完了扱いになってしまうので修正するべき
+            // FIXME: 決済と在庫確保を分離したい
+            if(payment.type == .external) {
+                let externalOutput = externalPaymentService.paymentRequest(payment: payment)
+                if externalOutput.error != nil {
+                    print(externalOutput.error!)
+                    return NewPaymentOutput(callNumber: res.callNumber ?? "", error: externalOutput.error)
+                }
+            }
         }
+        
         return NewPaymentOutput(callNumber: res.callNumber ?? "", error: res.error)
     }
     

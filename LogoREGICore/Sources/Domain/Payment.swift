@@ -10,6 +10,7 @@ import ULID
 
 public enum PaymentType: Int {
     case cash = 1
+    case external = 2
 }
 
 public struct Payment: Equatable {

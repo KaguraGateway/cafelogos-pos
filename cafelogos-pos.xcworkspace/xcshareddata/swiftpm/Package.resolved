@@ -6,7 +6,7 @@
       "location" : "https://github.com/KaguraGateway/cafelogos-grpc.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c8a092554f225499cceb0842e7758b519dda9ace"
+        "revision" : "9b277e6d6624f87f259bdf55837854c0f48bccda"
       }
     },
     {
@@ -43,6 +43,15 @@
       "state" : {
         "revision" : "ae827eabf45ba64562c75b6e99038da6ce12d427",
         "version" : "10.52.1"
+      }
+    },
+    {
+      "identity" : "squarepointofsalesdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/square/SquarePointOfSaleSDK-iOS",
+      "state" : {
+        "revision" : "b3b37f113f92ff07d1e60bea624a81dd1f00840a",
+        "version" : "3.5.4"
       }
     },
     {

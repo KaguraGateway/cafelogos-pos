@@ -10,6 +10,7 @@
 		3557C7182A826A1200C72F17 /* cafelogos_posApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */; };
 		3557C71C2A826A1300C72F17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71B2A826A1300C72F17 /* Assets.xcassets */; };
 		3557C71F2A826A1300C72F17 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3557C71E2A826A1300C72F17 /* Preview Assets.xcassets */; };
+		355D24ED2D05A01F000788EC /* SquarePointOfSaleSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 355D24EC2D05A01F000788EC /* SquarePointOfSaleSDK */; };
 		3586BDF72A8FC479009E346E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3586BDF62A8FC479009E346E /* .gitignore */; };
 		35B289952C31BD120014AD63 /* Signing.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 35B289922C31BD120014AD63 /* Signing.xcconfig */; };
 		35B289962C31BD120014AD63 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 35B289932C31BD120014AD63 /* Debug.xcconfig */; };
@@ -37,6 +38,7 @@
 			files = (
 				35E810AA2C31AC0600E56F2D /* LogoREGIUI in Frameworks */,
 				35E810A82C31AC0300E56F2D /* LogoREGICore in Frameworks */,
+				355D24ED2D05A01F000788EC /* SquarePointOfSaleSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +111,7 @@
 			packageProductDependencies = (
 				35E810A72C31AC0300E56F2D /* LogoREGICore */,
 				35E810A92C31AC0600E56F2D /* LogoREGIUI */,
+				355D24EC2D05A01F000788EC /* SquarePointOfSaleSDK */,
 			);
 			productName = "cafelogos-pos";
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
@@ -140,6 +143,7 @@
 			);
 			mainGroup = 3557C70B2A826A1200C72F17;
 			packageReferences = (
+				355D24EB2D05A01F000788EC /* XCRemoteSwiftPackageReference "SquarePointOfSaleSDK-iOS" */,
 			);
 			productRefGroup = 3557C7152A826A1200C72F17 /* Products */;
 			projectDirPath = "";
@@ -306,6 +310,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -342,6 +347,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -389,7 +395,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		355D24EB2D05A01F000788EC /* XCRemoteSwiftPackageReference "SquarePointOfSaleSDK-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/square/SquarePointOfSaleSDK-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		355D24EC2D05A01F000788EC /* SquarePointOfSaleSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 355D24EB2D05A01F000788EC /* XCRemoteSwiftPackageReference "SquarePointOfSaleSDK-iOS" */;
+			productName = SquarePointOfSaleSDK;
+		};
 		35E810A72C31AC0300E56F2D /* LogoREGICore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LogoREGICore;

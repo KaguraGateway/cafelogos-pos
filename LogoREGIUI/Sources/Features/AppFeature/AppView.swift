@@ -34,5 +34,8 @@ public struct AppView: View {
         }
         .environment(\.isServerConnected, store.isServerConnected)
         .environment(\.useCashDrawer, store.useCashDrawer)
+        .onOpenURL(perform: { url in
+            store.send(.onAppOpenWithURL(url))
+        })
     }
 }

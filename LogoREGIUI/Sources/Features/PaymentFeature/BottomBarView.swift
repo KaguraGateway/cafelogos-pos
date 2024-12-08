@@ -7,12 +7,14 @@ struct BottomBarView: View {
     let isPayButtonEnabled: Bool
     
     let onTapPay: () -> Void
+    let onTapPayBySquare: () -> Void // FIXME: Squareの名前は抽象化したい
     
-    public init(totalQuantity: UInt32, payment: Payment,isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void) {
+    public init(totalQuantity: UInt32, payment: Payment, isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void) {
         self.totalQuantity = totalQuantity
         self.payment = payment
         self.isPayButtonEnabled = isPayButtonEnabled
         self.onTapPay = onTapPay
+        self.onTapPayBySquare = onTapPayBySquare
     }
     
     var body: some View {
@@ -37,6 +39,26 @@ struct BottomBarView: View {
                 .foregroundColor(Color(.systemGray6))
                 .padding(.horizontal)
             Spacer()
+            // FIXME: 一旦雑実装
+            Button(action: {
+                onTapPayBySquare()
+            }){
+                Text("Square決済")
+                    .frame(width: 400)
+                    .clipped()
+                    .padding(.vertical)
+                    .font(.system(.title2, weight: .bold))
+                    .background {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(.green)
+                    }
+                    .lineLimit(0)
+                    .foregroundColor(.white)
+                    .padding(.leading, 70)
+            }
+            .disabled(!isPayButtonEnabled)
+            .opacity(!isPayButtonEnabled ? 0.5 : 1)
+            
             Button(action: {
                 onTapPay()
             }){
@@ -71,6 +93,8 @@ struct BottomBarView: View {
 
 #Preview {
     BottomBarView(totalQuantity: 10, payment: Payment(type: PaymentType.cash, orderIds: [], paymentAmount: 1000, receiveAmount: 100), isPayButtonEnabled: true, onTapPay: {
+        print("tap")
+    }, onTapPayBySquare: {
         print("tap")
     })
 }

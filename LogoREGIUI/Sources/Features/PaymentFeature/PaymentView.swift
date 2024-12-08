@@ -62,6 +62,9 @@ struct PaymentView: View {
                         isPayButtonEnabled: store.isPayButtonEnabled,
                         onTapPay: {
                             store.send(.onTapPay)
+                        },
+                        onTapPayBySquare: {
+                            store.send(.onTapPayBySquare)
                         }
                     )
                 }

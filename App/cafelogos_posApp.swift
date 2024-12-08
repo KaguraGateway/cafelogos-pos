@@ -18,6 +18,7 @@ struct cafelogos_posApp: SwiftUI.App {
     
     var body: some Scene {
         WindowGroup {
+            // NOTE: Deep LinkのコードはAppViewの中にあります
             AppView(
                 store: .init(initialState: .init()) {
                     AppFeature()

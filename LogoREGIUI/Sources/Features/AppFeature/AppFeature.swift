@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import LogoREGICore
 import ComposableArchitecture
 
 @Reducer
@@ -37,6 +38,7 @@ public struct AppFeature {
         case popToHome
         case setIsServerConnected(Bool)
         case setUseCashDrawer(Bool)
+        case onAppOpenWithURL(URL)
     }
     
     public init() {}
@@ -79,6 +81,12 @@ public struct AppFeature {
                 return .none
             case let .setUseCashDrawer(isDrawerUse): // 変数名が被った、変更可能な時にuseDrawerに変更したい
                 state.useCashDrawer = isDrawerUse;
+                return .none
+            // ディープリンク
+            case let .onAppOpenWithURL(url):
+                if(HandleLaunchWithOpenURL().Execute(url: url)) {
+                    // FIXME: 本当はここでPaymentSuccessに遷移させたい
+                }
                 return .none
             }
         }

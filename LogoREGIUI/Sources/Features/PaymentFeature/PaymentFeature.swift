@@ -43,6 +43,7 @@ public struct PaymentFeature {
         case numericKeyboardAction(NumericKeyboardFeature.Action)
         case alert(PresentationAction<Action.Alert>)
         case onTapPay
+        case onTapPayBySquare // FIXME: 外部サービス名がコードに存在してるのはあまりよくないので直したい
         case onDidPayment(Result<NewPaymentOutput, Error>)
         case navigateToSuccess(Payment, [Order], String, UInt32, UInt64)
         
@@ -64,6 +65,16 @@ public struct PaymentFeature {
             case .numericKeyboardAction:
                 return .none
             case .onTapPay:
+                state.isPayButtonEnabled = false
+                return .run { [newOrder = state.newOrder, payment = state.payment] send in
+                    await send(.onDidPayment(Result {
+                        await NewPayment().Execute(payment: payment, postOrder: newOrder)
+                    }))
+                }
+            case .onTapPayBySquare:
+                // FIXME: ちょっとハック感あるので修正
+                let totalAmount = PaymentDomainService().getTotalAmount(orders: state.orders)
+                state.payment = Payment(type: PaymentType.external, orderIds: state.orders.map { $0.id }, paymentAmount: totalAmount, receiveAmount: totalAmount)
                 state.isPayButtonEnabled = false
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {

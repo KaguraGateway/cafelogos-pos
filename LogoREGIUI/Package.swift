@@ -22,6 +22,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.24.0"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.6.0"),
         .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0"),
+        .package(url: "https://github.com/square/SquarePointOfSaleSDK-iOS", from: "3.5.0"),
         .package(path: "./LogoREGICore")
     ],
     targets: [
@@ -34,6 +35,7 @@ let package = Package(
                 .product(name: "ULID", package: "ULID.swift"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "SquarePointOfSaleSDK", package: "SquarePointOfSaleSDK-iOS"),
                 .product(name: "RealmSwift", package: "realm-swift"),
                 .product(name: "Connect", package: "connect-swift"),
                 .product(name: "cafelogos-grpc", package: "cafelogos-grpc"),
