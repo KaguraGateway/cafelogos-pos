@@ -115,7 +115,7 @@ public struct PaymentFeature {
                                 isSuccess = true
                                 break
                             }
-                            try await Task.sleep(nanoseconds: 2_000_000_000)
+                            try await Task.sleep(nanoseconds: 500_000_000)
                         }
                         return result
                     }))
@@ -135,7 +135,7 @@ public struct PaymentFeature {
                                 isSuccess = true
                                 break
                             }
-                            try await Task.sleep(nanoseconds: 2_000_000_000)
+                            try await Task.sleep(nanoseconds: 500_000_000)
                         }
                         return result
                     }))
