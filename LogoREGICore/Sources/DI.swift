@@ -27,9 +27,9 @@ private enum GrpcClientKey: DependencyKey {
     static let liveValue: ProtocolClient = ProtocolClient(
         httpClient: URLSessionHTTPClient(), config: ProtocolClientConfig(
             //host: "https://cafelogos-pos-backend-z4ljh3ykiq-dt.a.run.app",
-            host: "http://192.168.11.24:8080",
+            //host: "http://192.168.11.24:8080",
             //host: "http://localhost:8080",
-            //host: "https://logoregi-backend-768850626313.asia-northeast1.run.app",
+            host: "https://logoregi-backend-768850626313.asia-northeast1.run.app",
             networkProtocol: .connect,
             codec: ProtoCodec()
         )
