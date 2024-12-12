@@ -17,7 +17,7 @@ public struct NewPayment {
     
     public init() {}
     
-    public func Execute(payment: Payment, postOrder: Order?) async -> NewPaymentOutput {
+    public func Execute(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> NewPaymentOutput {
         let config = configRepo.load()
 
         var receiptItems: [ReceiptItem] = []
@@ -26,7 +26,7 @@ public struct NewPayment {
         }
         print(receiptItems)
         
-        let res = await paymentService.postPayment(payment: payment, postOrder: postOrder)
+        let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType)
         if res.error == nil {
             paymentRepo.save(payment: payment)
             

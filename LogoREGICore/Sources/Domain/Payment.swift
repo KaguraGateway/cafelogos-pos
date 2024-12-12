@@ -9,7 +9,8 @@ import Foundation
 import ULID
 
 public enum PaymentType: Int {
-    case cash = 1
+    case cash = 0
+    case external = 1
 }
 
 public struct Payment: Equatable {
