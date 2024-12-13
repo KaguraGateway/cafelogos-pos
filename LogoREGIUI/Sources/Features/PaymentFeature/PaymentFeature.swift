@@ -15,8 +15,10 @@ public struct PaymentFeature {
         var numericKeyboardState = NumericKeyboardFeature.State()
         
         @Presents var alert: AlertState<Action.Alert>?
+        @Presents var squarePaymentTypeSelector: ConfirmationDialogState<Action.SquarePaymentTypeSelectorDialog>?
         
         var isPayButtonEnabled: Bool = true
+        var isServerLoading: Bool = false
         
         /**
          * 新しい注文がある場合
@@ -43,12 +45,19 @@ public struct PaymentFeature {
         case numericKeyboardAction(NumericKeyboardFeature.Action)
         case alert(PresentationAction<Action.Alert>)
         case onTapPay
+        case onTapPayBySquare
         case onDidPayment(Result<NewPaymentOutput, Error>)
         case navigateToSuccess(Payment, [Order], String, UInt32, UInt64)
+        case squarePaymentTypeSelector(PresentationAction<Action.SquarePaymentTypeSelectorDialog>)
         
         @CasePathable
         public enum Alert {
             case okTapped
+        }
+        @CasePathable
+        public enum SquarePaymentTypeSelectorDialog {
+            case cardTapped
+            case felicaTapped
         }
     }
     
@@ -65,13 +74,75 @@ public struct PaymentFeature {
                 return .none
             case .onTapPay:
                 state.isPayButtonEnabled = false
+                state.isServerLoading = true
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
-                        await NewPayment().Execute(payment: payment, postOrder: newOrder)
+                        await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: nil)
+                    }))
+                }
+            case .onTapPayBySquare:
+                state.squarePaymentTypeSelector = .init(title: {
+                    TextState("決済手段")
+                }, actions: {
+                    ButtonState(action: .send(.cardTapped)) {
+                        TextState("クレジット決済")
+                    }
+                    ButtonState(action: .send(.felicaTapped)) {
+                        TextState("電子マネー決済")
+                    }
+                    ButtonState(role: .cancel) {
+                        TextState("キャンセル")
+                    }
+                }, message: {
+                    TextState("何で決済するか選択してください")
+                })
+                return .none
+            case .squarePaymentTypeSelector(.dismiss):
+                state.squarePaymentTypeSelector = nil
+                return .none
+            case .squarePaymentTypeSelector(.presented(.cardTapped)):
+                state.squarePaymentTypeSelector = nil
+                state.isPayButtonEnabled = false
+                state.isServerLoading = true
+                state.payment = .init(type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount)
+                return .run { [newOrder = state.newOrder, payment = state.payment] send in
+                    await send(.onDidPayment(Result {
+                        let result = await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: "CARD_PRESENT")
+                        var isSuccess = false
+                        while(!isSuccess) {
+                            let externalRes = await GetExternalPayment().Execute(paymentId: payment.id)
+                            if externalRes != nil && externalRes!.isComplete() {
+                                isSuccess = true
+                                break
+                            }
+                            try await Task.sleep(nanoseconds: 500_000_000)
+                        }
+                        return result
+                    }))
+                }
+            case .squarePaymentTypeSelector(.presented(.felicaTapped)):
+                state.squarePaymentTypeSelector = nil
+                state.isPayButtonEnabled = false
+                state.isServerLoading = true
+                state.payment = .init(type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount)
+                return .run { [newOrder = state.newOrder, payment = state.payment] send in
+                    await send(.onDidPayment(Result {
+                        let result = await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: "FELICA_ALL")
+                        var isSuccess = false
+                        while(!isSuccess) {
+                            let externalRes = await GetExternalPayment().Execute(paymentId: payment.id)
+                            if externalRes != nil && externalRes!.isComplete() {
+                                isSuccess = true
+                                break
+                            }
+                            try await Task.sleep(nanoseconds: 500_000_000)
+                        }
+                        return result
                     }))
                 }
             case let .onDidPayment(.success(result)):
                 state.isPayButtonEnabled = true
+                state.isServerLoading = false
                 if result.error != nil {
                     state.alert = AlertState {
                         TextState("サーバーとの通信に失敗しました")

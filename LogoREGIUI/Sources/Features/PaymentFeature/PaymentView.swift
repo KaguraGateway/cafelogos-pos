@@ -62,13 +62,27 @@ struct PaymentView: View {
                         isPayButtonEnabled: store.isPayButtonEnabled,
                         onTapPay: {
                             store.send(.onTapPay)
+                        },
+                        onTapPayBySquare: {
+                            store.send(.onTapPayBySquare)
                         }
                     )
+                    .confirmationDialog($store.scope(state: \.squarePaymentTypeSelector, action: \.squarePaymentTypeSelector))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.secondarySystemBackground))
             .alert($store.scope(state: \.alert, action: \.alert))
+            .overlay(content: {
+                if store.isServerLoading {
+                    ZStack {
+                        ProgressView()
+                            .scaleEffect(1.5)
+                        Text("決済中")
+                            .font(.headline)
+                    }
+                }
+            })
         }
         .navigationTitle("支払い")
     }

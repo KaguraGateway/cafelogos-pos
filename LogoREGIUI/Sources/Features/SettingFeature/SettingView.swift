@@ -57,6 +57,25 @@ struct SettingView: View {
                 } header: {
                     Text("印刷設定")
                 }
+                Section {
+                    Toggle("Squareターミナル利用", isOn : $store.isUseSquareTerminal )
+                    if store.isUseSquareTerminal {
+                        HStack(alignment: .center) {
+                            Text("SQUARE_ACCESS_TOKEN")
+                            Spacer()
+                            TextField("", text: $store.squareAccessToken)
+                                .multilineTextAlignment(.trailing)
+                        }
+                        HStack(alignment: .center) {
+                            Text("SQUARE_TERMINAL_DEVICE_ID")
+                            Spacer()
+                            TextField("", text: $store.squareTerminalDeviceId)
+                                .multilineTextAlignment(.trailing)
+                        }
+                    }
+                } header: {
+                    Text("外部機器設定")
+                }
                 
             }
         }

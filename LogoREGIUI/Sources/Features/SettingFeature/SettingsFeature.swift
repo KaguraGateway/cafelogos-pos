@@ -14,6 +14,11 @@ public struct SettingsFeature {
         var printKitchenReceipt: Bool = true
         var clientId: String = ""
         var clientName: String = ""
+        
+        var isUseSquareTerminal: Bool = false
+        var squareAccessToken: String = ""
+        var squareTerminalDeviceId: String = ""
+        
         var config: Config
         
         init() {
@@ -22,6 +27,9 @@ public struct SettingsFeature {
             self.clientName = config.clientName
             self.usePrinter = config.isUsePrinter
             self.printKitchenReceipt = config.isPrintKitchenReceipt
+            self.isUseSquareTerminal = config.isUseSquareTerminal
+            self.squareAccessToken = config.squareAccessToken
+            self.squareTerminalDeviceId = config.squareTerminalDeviceId
         }
     }
     
@@ -46,7 +54,10 @@ public struct SettingsFeature {
             case .binding:
                 if state.clientName != state.config.clientName ||
                     state.usePrinter != state.config.isUsePrinter ||
-                    state.printKitchenReceipt != state.config.isPrintKitchenReceipt {
+                    state.printKitchenReceipt != state.config.isPrintKitchenReceipt ||
+                    state.isUseSquareTerminal != state.config.isUseSquareTerminal ||
+                    state.squareAccessToken != state.config.squareAccessToken ||
+                    state.squareTerminalDeviceId != state.config.squareTerminalDeviceId {
                     return .run { send in
                         await send(.saveConfig)
                     }
@@ -66,6 +77,9 @@ public struct SettingsFeature {
                     updatedConfig.clientName = state.clientName
                     updatedConfig.isUsePrinter = state.usePrinter
                     updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
+                    updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
+                    updatedConfig.squareAccessToken = state.squareAccessToken
+                    updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
@@ -75,6 +89,9 @@ public struct SettingsFeature {
                 state.clientName = config.clientName
                 state.usePrinter = config.isUsePrinter
                 state.printKitchenReceipt = config.isPrintKitchenReceipt
+                state.isUseSquareTerminal = config.isUseSquareTerminal
+                state.squareAccessToken = config.squareAccessToken
+                state.squareTerminalDeviceId = config.squareTerminalDeviceId
                 return .none
             }
         }
