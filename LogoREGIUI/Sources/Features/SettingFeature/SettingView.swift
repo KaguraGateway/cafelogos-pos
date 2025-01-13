@@ -22,6 +22,15 @@ struct SettingView: View {
                         TextField("クライアント名", text: $store.clientName)
                             .multilineTextAlignment(.trailing)
                     }
+                    HStack(alignment: .center) {
+                        Text("ホストURL")
+                        Spacer()
+                        TextField("", text: $store.hostUrl)
+                            .multilineTextAlignment(.trailing)
+                            .keyboardType(.URL)
+                            .autocapitalization(.none)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 Section {
                     Toggle("キャッシュドロア利用", isOn : $store.useDrawer)
