@@ -22,7 +22,7 @@ struct RemoveButton: View {
                     .clipped()
                 Image(systemName: "trash")
                     .symbolRenderingMode(.monochrome)
-                    .foregroundColor(Color(.systemGray6))
+                    .foregroundStyle(Color(.systemGray6))
                     .fontWeight(.bold)
             }
         })

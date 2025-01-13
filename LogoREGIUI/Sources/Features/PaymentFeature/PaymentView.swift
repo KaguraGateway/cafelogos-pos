@@ -42,10 +42,10 @@ struct PaymentView: View {
                             } else {
                                 Text("不足")
                                     .font(.title)
-                                    .foregroundColor(.red)
+                                    .foregroundStyle(.red)
                                 Text("¥-\(store.payment.shortfallAmount)")
                                     .font(.system(.largeTitle, weight: .semibold))
-                                    .foregroundColor(.red)
+                                    .foregroundStyle(.red)
                             }
                         }
                         .padding(.bottom, 10)

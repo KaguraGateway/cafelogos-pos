@@ -21,7 +21,7 @@ struct TitleNavButton: View {
                     .fontWeight(.semibold)
                     .lineLimit(0)
             }
-            .foregroundColor(fgColor)
+            .foregroundStyle(fgColor)
             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
             .clipped()
             .padding(.vertical, 20)

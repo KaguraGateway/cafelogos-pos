@@ -67,7 +67,7 @@ public struct ChooseOrderSheetView: View {
                                         .fontWeight(.semibold)
                                         .lineLimit(0)
                                 }
-                                .foregroundColor(Color.white)
+                                .foregroundStyle(Color.white)
                                 .frame(maxWidth: .infinity, minHeight: 25, alignment: .center)
                                 .clipped()
                                 .padding(.vertical, 8)

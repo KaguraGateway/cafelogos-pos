@@ -23,7 +23,7 @@ struct IncreaseButton: View {
                 Image(systemName: "plus")
                     .imageScale(.large)
                     .symbolRenderingMode(.monochrome)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .fontWeight(.bold)
             }
         })

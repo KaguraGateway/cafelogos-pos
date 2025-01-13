@@ -18,10 +18,10 @@ public struct OrderBottomBarView: View {
         HStack(spacing: 0) {
             Text("\(store.newOrder?.cart.totalQuantity ?? 0)点")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
             Text("¥\(store.newOrder?.totalAmount ?? 0)")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
                 .padding(.leading)
             Spacer()
             BottomBarButton(text: "伝票呼出", action: {
@@ -45,7 +45,7 @@ public struct OrderBottomBarView: View {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .fill(.blue)
                     }
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.leading, 50)
             }
             .disabled(shouldDisableOrderButton())

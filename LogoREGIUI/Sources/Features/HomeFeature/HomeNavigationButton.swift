@@ -28,7 +28,7 @@ struct HomeNavigationButton<P>: View {
                     .lineLimit(2)
                     .padding(.top, 10)
             }
-            .foregroundColor(fgColor)
+            .foregroundStyle(fgColor)
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
             .padding(.horizontal, 0)
