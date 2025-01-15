@@ -14,12 +14,12 @@ struct TitledAmountView:View {
         VStack(alignment: .leading, spacing: 0){
             Text(title)
                 .font(.title)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             Text("¥\(amount)")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
                 .padding(.top, 10)
-                .foregroundColor(amount < 0 ? .red : .primary)
+                .foregroundStyle(amount < 0 ? .red : .primary)
         }
     }
 }

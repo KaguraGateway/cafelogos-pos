@@ -28,7 +28,7 @@ struct ChooseOptionSheetView: View {
                                     .font(.title3)
                                     .lineLimit(3)
                             }
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                             .frame(maxWidth: .infinity, minHeight: 130, alignment: .center)
                             .padding(20)
                             .background {

@@ -21,10 +21,10 @@ struct BottomBarView: View {
         HStack(spacing: 0) {
             Text("\(totalQuantity)点")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
             Text("¥\(payment.paymentAmount)")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
                 .padding(.leading)
             Divider()
                 .frame(height: 50)
@@ -32,11 +32,11 @@ struct BottomBarView: View {
                 .padding(.horizontal)
             Text("おつり：")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
                 .padding(.leading)
             Text("¥\(payment.changeAmount)")
                 .font(.title)
-                .foregroundColor(Color(.systemGray6))
+                .foregroundStyle(Color(.systemGray6))
                 .padding(.horizontal)
             Spacer()
             Button(action: {
@@ -52,7 +52,7 @@ struct BottomBarView: View {
                             .fill(.blue)
                     }
                     .lineLimit(0)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.leading, 70)
             }
             .disabled(!isPayButtonEnabled)
@@ -70,7 +70,7 @@ struct BottomBarView: View {
                             .fill(payment.isEnoughAmount() ? .blue : .gray)
                     }
                     .lineLimit(0)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.leading, 70)
             }
             .disabled(!payment.isEnoughAmount() || !isPayButtonEnabled)

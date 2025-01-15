@@ -42,7 +42,7 @@ public struct ProductStackView: View {
                         // CategoryName
                         Text(category.name)
                             .font(.system(.title, weight: .semibold))
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                             .padding(.top)
                         
                         
@@ -88,7 +88,7 @@ public struct ProductStackView: View {
                                                 .stroke(Color(.tertiaryLabel), lineWidth: 1)
                                                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.brown))
                                         )
-                                        .foregroundColor(.white)
+                                        .foregroundStyle(.white)
                                     })
                                 }
                             }

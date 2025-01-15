@@ -32,7 +32,7 @@ struct BottomBarButton: View {
                         .fill(bgColor)
                 }
                 .lineLimit(0)
-                .foregroundColor(fgColor)
+                .foregroundStyle(fgColor)
         }
     }
 }

@@ -40,7 +40,7 @@ struct DiscountStack: View {
                                 .lineLimit(1)
                         }
                         .padding(10)
-                        .foregroundColor(Color.primary)
+                        .foregroundStyle(Color.primary)
                         .frame(minHeight: 120)
                         .frame(maxWidth: abs((geometry.size.width) - 12))
                         .background {

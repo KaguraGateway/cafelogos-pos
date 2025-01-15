@@ -14,7 +14,7 @@ struct SettingView: View {
                         Text("クライアントID")
                         Spacer()
                         Text(store.clientId)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                     HStack(alignment: .center) {
                         Text("クライアント名")

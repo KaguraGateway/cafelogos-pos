@@ -23,7 +23,7 @@ struct DecreaseButton: View {
                 Image(systemName: "minus")
                     .imageScale(.large)
                     .symbolRenderingMode(.monochrome)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .fontWeight(.bold)
             }
         })

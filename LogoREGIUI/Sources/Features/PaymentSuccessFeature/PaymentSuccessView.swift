@@ -27,10 +27,10 @@ struct PaymentSuccessView: View {
                             Text("☑︎ お支払いを完了しました")
                                 .font(.system(size:30 , weight: .semibold, design: .default))
                                 .padding(.bottom, 20)
-                                .foregroundColor(.green)
+                                .foregroundStyle(.green)
                             Text("おつり")
                                 .font(.system(size:40 , weight: .semibold, design: .default))
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                             Text("¥\(store.payment.changeAmount)")
                                 .font(.system(size: 80, weight: .semibold, design: .default))
                                 .background(alignment: .bottom) {
@@ -77,7 +77,7 @@ struct PaymentSuccessView: View {
                                     .font(.title)
                                     .fontWeight(.medium)
                             }
-                            .foregroundColor(Color.red)
+                            .foregroundStyle(Color.red)
                             Divider()
                                 .padding(.vertical, 20)
                             HStack(spacing:0){
@@ -114,7 +114,7 @@ struct PaymentSuccessView: View {
                         Spacer()
                         Text("呼び出し番号")
                             .font(.system(size:40 , weight: .semibold, design: .default))
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                         Text("\(store.callNumber)")
                             .font(.system(size: 150, weight: .semibold, design: .default))
                         Spacer()
@@ -126,7 +126,7 @@ struct PaymentSuccessView: View {
                                     .font(.system(.largeTitle, weight: .semibold))
                                     .lineLimit(0)
                             }
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                             .clipped()
                             .padding(.vertical, 30)

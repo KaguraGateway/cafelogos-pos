@@ -10,7 +10,7 @@ struct NumericButton: View {
         }) {
             Text(numericStr)
                 .font(.title)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
