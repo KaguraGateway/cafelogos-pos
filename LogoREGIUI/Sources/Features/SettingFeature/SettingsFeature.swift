@@ -14,6 +14,7 @@ public struct SettingsFeature {
         var printKitchenReceipt: Bool = true
         var clientId: String = ""
         var clientName: String = ""
+        var hostUrl: String = ""
         
         var isUseSquareTerminal: Bool = false
         var squareAccessToken: String = ""
@@ -27,6 +28,7 @@ public struct SettingsFeature {
             self.clientName = config.clientName
             self.usePrinter = config.isUsePrinter
             self.printKitchenReceipt = config.isPrintKitchenReceipt
+            self.hostUrl = config.hostUrl
             self.isUseSquareTerminal = config.isUseSquareTerminal
             self.squareAccessToken = config.squareAccessToken
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
@@ -57,7 +59,9 @@ public struct SettingsFeature {
                     state.printKitchenReceipt != state.config.isPrintKitchenReceipt ||
                     state.isUseSquareTerminal != state.config.isUseSquareTerminal ||
                     state.squareAccessToken != state.config.squareAccessToken ||
-                    state.squareTerminalDeviceId != state.config.squareTerminalDeviceId {
+                    state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
+                    state.hostUrl != state.config.hostUrl
+                {
                     return .run { send in
                         await send(.saveConfig)
                     }
@@ -80,6 +84,7 @@ public struct SettingsFeature {
                     updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
                     updatedConfig.squareAccessToken = state.squareAccessToken
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
+                    updatedConfig.hostUrl = state.hostUrl
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
@@ -92,6 +97,7 @@ public struct SettingsFeature {
                 state.isUseSquareTerminal = config.isUseSquareTerminal
                 state.squareAccessToken = config.squareAccessToken
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
+                state.hostUrl = config.hostUrl
                 return .none
             }
         }
