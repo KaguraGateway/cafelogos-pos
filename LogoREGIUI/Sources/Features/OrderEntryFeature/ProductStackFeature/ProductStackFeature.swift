@@ -37,11 +37,23 @@ public struct ProductStackFeature {
             switch action {
             case .fetch:
                 return .run { send in
-                    await send(
-                        .fetched(
-                            Result { await GetCategoriesWithProduct().Execute() }
+                    let config = GetConfig().Execute()
+
+                    if config.isUseProductMock {
+                        // モックサービスを使用
+                        await send(
+                            .fetched(
+                                Result { await ProductQueryServiceMock().fetchProductCategoriesWithProducts() }
+                            )
                         )
-                    )
+                    } else {
+                        // APIサービスを使用
+                        await send(
+                            .fetched(
+                                Result { await GetCategoriesWithProduct().Execute() }
+                            )
+                        )
+                    }
                 }
             case let .fetched(.success(productCatalog)):
                 state.productCatalog = productCatalog
@@ -79,4 +91,3 @@ public struct ProductStackFeature {
         .ifLet(\.$destination, action: \.destination)
     }
 }
-

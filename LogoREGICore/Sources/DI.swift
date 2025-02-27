@@ -43,10 +43,7 @@ private enum GrpcClientKey: DependencyKey {
 
 
 private enum ServerProductQueryServiceKey: DependencyKey {
-    static var liveValue: any ProductQueryService {
-        let config = DependencyValues().configRepository.load()
-        return config.isUseProductMock ? ProductQueryServiceMock() : ProductQueryServiceServer()
-    }
+    static let liveValue: any ProductQueryService = ProductQueryServiceServer()
 }
 private enum ServerDiscountRepositoryKey: DependencyKey {
     static let liveValue: any DiscountRepository = DiscountRepositoryServer()
