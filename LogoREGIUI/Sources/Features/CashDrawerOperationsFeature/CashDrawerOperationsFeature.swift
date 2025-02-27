@@ -17,17 +17,19 @@ public struct CashDrawerOperationsFeature {
         @Presents var alert: AlertState<Action.Alert>?
     }
     
-    
     public enum Action {
         case updateCashDrawerDenominations(Denominations)
         // 計算
         case calculateCashDrawerTotal
         case calculateExpectedCashAmount
+        case updateExpectedCashAmount(Int)
         case calculateCashDiscrepancy
         // 精算
         case completeSettlement
+        case startSettlement(Denominations)
         // レジ開け
         case startCashierTransaction
+        case startCashierProcess(Denominations)
         case skipStartingCahierTransaction
         // 点検
         case completeInspection
@@ -61,7 +63,13 @@ public struct CashDrawerOperationsFeature {
                 return .send(.calculateCashDiscrepancy)
                 
             case .calculateExpectedCashAmount:
-                state.expectedCashAmount = Int(GetShouldHaveCash().Execute())
+                return .run { send in
+                    let amount = Int(await GetShouldHaveCash().Execute())
+                    await send(.updateExpectedCashAmount(amount))
+                }
+                
+            case let .updateExpectedCashAmount(amount):
+                state.expectedCashAmount = amount
                 return .send(.calculateCashDiscrepancy)
                 
             case .calculateCashDiscrepancy:
@@ -84,19 +92,31 @@ public struct CashDrawerOperationsFeature {
                 }
                 return .none
                 
+            case let .startSettlement(denominations):
+                return .run { _ in
+                    await Settle().Execute(denominations: denominations)
+                }
+                
+            case let .startCashierProcess(denominations):
+                return .run { _ in
+                    await StartCacher().Execute(denominations: denominations)
+                }
+                
             case .alert(.presented(let alertAction)):
+                state.alert = nil
                 switch alertAction {
                 case .okTapped:
-                    // 画面遷移する
-                    StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                    return .run { [denominations = state.denominationFormListFeatureState.denominations] _ in
+                        await StartCacher().Execute(denominations: denominations)
+                    }
                 case .settlementOkTapped:
-                    Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                    return .run { [denominations = state.denominationFormListFeatureState.denominations] _ in
+                        await Settle().Execute(denominations: denominations)
+                    }
                 case .cancel:
                     print("Tapped Cancel")
+                    return .none
                 }
-                // アラートを閉じる
-                state.alert = nil
-                return .none
                 
             case .alert:
                 return .none
@@ -123,17 +143,17 @@ public struct CashDrawerOperationsFeature {
             case .completeInspection:
                 return .none
                 
-                
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+                
             case let .takeScreenshot(view):
                 takeScreenshot(from: view)
                 return .none
             }
-            
         }
         .ifLet(\.$alert, action: \.alert)
     }
+    
     // スクリーンショットを撮る
     private func takeScreenshot(from view: UIView) {
         let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
