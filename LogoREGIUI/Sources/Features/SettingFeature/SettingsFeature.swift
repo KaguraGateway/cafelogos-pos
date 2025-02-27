@@ -20,6 +20,8 @@ public struct SettingsFeature {
         var squareAccessToken: String = ""
         var squareTerminalDeviceId: String = ""
         
+        var isUseProductMock: Bool = false
+        
         var config: Config
         
         init() {
@@ -32,6 +34,7 @@ public struct SettingsFeature {
             self.isUseSquareTerminal = config.isUseSquareTerminal
             self.squareAccessToken = config.squareAccessToken
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
+            self.isUseProductMock = config.isUseProductMock
         }
     }
     
@@ -60,7 +63,8 @@ public struct SettingsFeature {
                     state.isUseSquareTerminal != state.config.isUseSquareTerminal ||
                     state.squareAccessToken != state.config.squareAccessToken ||
                     state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
-                    state.hostUrl != state.config.hostUrl
+                    state.hostUrl != state.config.hostUrl ||
+                    state.isUseProductMock != state.config.isUseProductMock
                 {
                     return .run { send in
                         await send(.saveConfig)
@@ -85,6 +89,7 @@ public struct SettingsFeature {
                     updatedConfig.squareAccessToken = state.squareAccessToken
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
+                    updatedConfig.isUseProductMock = state.isUseProductMock
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
@@ -98,6 +103,7 @@ public struct SettingsFeature {
                 state.squareAccessToken = config.squareAccessToken
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
                 state.hostUrl = config.hostUrl
+                state.isUseProductMock = config.isUseProductMock
                 return .none
             }
         }
