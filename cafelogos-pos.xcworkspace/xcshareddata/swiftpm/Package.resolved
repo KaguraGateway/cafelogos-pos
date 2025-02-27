@@ -50,7 +50,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/star-micronics/StarXpand-SDK-iOS",
       "state" : {
-        "revision" : "2fc49f245a0c8e2e460cb53383c908011e1e9d1f",
+        "revision" : "aba5877b4514bff312ac9783fc46722c8734315f",
         "version" : "2.7.0"
       }
     },

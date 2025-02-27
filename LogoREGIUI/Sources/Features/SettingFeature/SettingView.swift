@@ -86,12 +86,6 @@ struct SettingView: View {
                     Text("外部機器設定")
                 }
                 
-                Section {
-                    Toggle("商品モックを有効化", isOn: $store.isUseProductMock)
-                } header: {
-                    Text("開発設定")
-                }
-                
             }
         }
         .navigationTitle("設定")
