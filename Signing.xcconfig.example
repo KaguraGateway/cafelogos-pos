@@ -1,0 +1,7 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = [YOUR DEVELOPMENT ID]
+CODE_SIGN_IDENTITY = Apple Development
+
