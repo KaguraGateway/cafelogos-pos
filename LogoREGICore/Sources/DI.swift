@@ -9,9 +9,14 @@ import Foundation
 import Dependencies
 import Connect
 import cafelogos_grpc
+import SwiftData
 
 private enum DenominationRepositoryKey: DependencyKey {
-    static let liveValue: any DenominationRepository = DenominationRealm()
+    @MainActor
+    static let liveValue: any DenominationRepository = {
+        let container = ModelContainerFactory.shared
+        return DenominationSwiftData(modelContainer: container)
+    }()
 }
 private enum PaymentRepositoryKey: DependencyKey {
     static let liveValue: any PaymentRepository = PaymentRealm()
