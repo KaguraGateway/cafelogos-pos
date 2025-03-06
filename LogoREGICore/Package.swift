@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.0.0"),
         .package(url: "https://github.com/yaslab/ULID.swift.git", from: "1.3.0"),
         .package(url: "https://github.com/realm/realm-swift.git", from: "10.52.0"),
-        .package(url: "https://github.com/KaguraGateway/cafelogos-grpc.git", branch: "main"),
+        .package(url: "https://github.com/KaguraGateway/cafelogos-grpc.git", .upToNextMajor(from: "0.1.0")),
         .package(url: "https://github.com/connectrpc/connect-swift", from: "0.8.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.24.0"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.6.0"),
