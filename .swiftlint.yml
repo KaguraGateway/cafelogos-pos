@@ -1,0 +1,23 @@
+included:
+  - App
+  - LogoREGICore/Sources
+  - LogoREGIUI/Sources
+excluded:
+  - .build
+  - LogoREGICore/.build
+  - LogoREGIUI/.build
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+force_cast: warning
+force_try: warning
