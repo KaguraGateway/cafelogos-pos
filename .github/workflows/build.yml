@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  push
+
+jobs:          
+  build:
+    name: Build
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Archive Project
+        run: |                        
+          xcodebuild archive -project App/App.xcodeproj \
+                             -scheme cafelogos-pos \
+                             -sdk iphoneos \
+                             -configuration Release \
+                             -archivePath App.xcarchive \
+                             CODE_SIGNING_ALLOWED=NO
