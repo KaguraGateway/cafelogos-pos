@@ -9,12 +9,12 @@ import Foundation
 import SwiftData
 
 @Model
-final class OrderModel {
-    @Attribute(.unique) let id: String
-    let orderAt: Date
-    var syncAt: Date?
+public final class OrderModel {
+    @Attribute(.unique) public let id: String
+    public let orderAt: Date
+    public var syncAt: Date?
     
-    init(id: String, orderAt: Date, syncAt: Date? = nil) {
+    public init(id: String, orderAt: Date, syncAt: Date? = nil) {
         self.id = id
         self.orderAt = orderAt
         self.syncAt = syncAt
@@ -22,7 +22,7 @@ final class OrderModel {
 }
 
 extension OrderModel {
-    func toDomain() -> Order {
+    public func toDomain() -> Order {
         Order(
             id: id,
             cart: Cart(),
@@ -31,7 +31,7 @@ extension OrderModel {
         )
     }
     
-    static func fromDomain(_ domain: Order) -> OrderModel {
+    public static func fromDomain(_ domain: Order) -> OrderModel {
         OrderModel(
             id: domain.id,
             orderAt: domain.orderAt,

@@ -9,18 +9,18 @@ import Foundation
 import SwiftData
 
 @Model
-final class PaymentModel {
-    @Attribute(.unique) let id: String
-    let paymentType: Int
-    var receiveAmount: Int64
-    let paymentAmount: Int64
-    let changeAmount: Int64
-    let paymentAt: Date
-    var updatedAt: Date
-    var syncAt: Date?
-    var settleAt: Date?
+public final class PaymentModel {
+    @Attribute(.unique) public let id: String
+    public let paymentType: Int
+    public var receiveAmount: Int64
+    public let paymentAmount: Int64
+    public let changeAmount: Int64
+    public let paymentAt: Date
+    public var updatedAt: Date
+    public var syncAt: Date?
+    public var settleAt: Date?
     
-    init(id: String, paymentType: Int, receiveAmount: Int64, paymentAmount: Int64, changeAmount: Int64, paymentAt: Date, updatedAt: Date, syncAt: Date? = nil, settleAt: Date? = nil) {
+    public init(id: String, paymentType: Int, receiveAmount: Int64, paymentAmount: Int64, changeAmount: Int64, paymentAt: Date, updatedAt: Date, syncAt: Date? = nil, settleAt: Date? = nil) {
         self.id = id
         self.paymentType = paymentType
         self.receiveAmount = receiveAmount
@@ -34,7 +34,7 @@ final class PaymentModel {
 }
 
 extension PaymentModel {
-    func toDomain() -> Payment {
+    public func toDomain() -> Payment {
         Payment(
             id: id,
             type: PaymentType(rawValue: paymentType) ?? .cash,
@@ -47,7 +47,7 @@ extension PaymentModel {
         )
     }
     
-    static func fromDomain(_ domain: Payment) -> PaymentModel {
+    public static func fromDomain(_ domain: Payment) -> PaymentModel {
         PaymentModel(
             id: domain.id,
             paymentType: domain.type.rawValue,

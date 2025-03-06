@@ -9,19 +9,19 @@ import Foundation
 import SwiftData
 
 @Model
-final class ConfigModel {
-    @Attribute(.unique) let clientId: String
-    var clientName: String
-    var isTrainingMode: Bool
-    var isUsePrinter: Bool
-    var isPrintKitchenReceipt: Bool
-    var hostUrl: String
-    var isUseSquareTerminal: Bool
-    var squareAccessToken: String
-    var squareTerminalDeviceId: String
-    var isUseProductMock: Bool
+public final class ConfigModel {
+    @Attribute(.unique) public let clientId: String
+    public var clientName: String
+    public var isTrainingMode: Bool
+    public var isUsePrinter: Bool
+    public var isPrintKitchenReceipt: Bool
+    public var hostUrl: String
+    public var isUseSquareTerminal: Bool
+    public var squareAccessToken: String
+    public var squareTerminalDeviceId: String
+    public var isUseProductMock: Bool
     
-    init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, hostUrl: String, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, isUseProductMock: Bool) {
+    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, hostUrl: String, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, isUseProductMock: Bool) {
         self.clientId = clientId
         self.clientName = clientName
         self.isTrainingMode = isTrainingMode
@@ -36,7 +36,7 @@ final class ConfigModel {
 }
 
 extension ConfigModel {
-    func toDomain() -> Config {
+    public func toDomain() -> Config {
         Config(
             clientId: clientId,
             clientName: clientName,
@@ -51,7 +51,7 @@ extension ConfigModel {
         )
     }
     
-    static func fromDomain(_ domain: Config) -> ConfigModel {
+    public static func fromDomain(_ domain: Config) -> ConfigModel {
         ConfigModel(
             clientId: domain.clientId,
             clientName: domain.clientName,
