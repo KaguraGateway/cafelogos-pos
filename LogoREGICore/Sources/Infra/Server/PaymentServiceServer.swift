@@ -29,7 +29,7 @@ public struct PaymentServiceServer: PaymentService {
                 
                 if payment.type == .external && externalPaymentType != nil {
                     $0.external = Cafelogos_Pos_PaymentExternalParam.with {
-                        let config = configRepo.load()
+                        let config = await configRepo.load()
                         $0.externalDeviceID = config.squareTerminalDeviceId
                         $0.paymentType = externalPaymentType!
                     }
@@ -39,7 +39,7 @@ public struct PaymentServiceServer: PaymentService {
                 $0.postOrders = [
                     Cafelogos_Pos_OrderParam.with {
                         $0.id = postOrder!.id
-                        $0.clientID = configRepo.load().clientId
+                        $0.clientID = (await configRepo.load()).clientId
                         $0.orderAt = Date().ISO8601Format()
                         $0.orderType = Cafelogos_Pos_OrderType.takeOut
                         $0.items = postOrder!.cart.items.map { item in

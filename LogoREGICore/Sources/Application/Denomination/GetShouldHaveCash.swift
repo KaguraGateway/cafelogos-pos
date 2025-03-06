@@ -14,7 +14,7 @@ public struct GetShouldHaveCash {
     public init() {}
     
     public func Execute() async -> UInt64 {
-        let payments = paymentRepo.findAllByUnSettled()
+        let payments = await paymentRepo.findAllByUnSettled()
         let firstAmount = await GetDenominations().Execute()
         return payments.reduce(firstAmount.total()) { prev, payment in
             prev + payment.paymentAmount
