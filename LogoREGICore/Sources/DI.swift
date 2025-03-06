@@ -13,7 +13,7 @@ import SwiftData
 
 private enum DenominationRepositoryKey: DependencyKey {
     @MainActor
-    static let liveValue: any DenominationRepository = {
+    static private(set) var liveValue: any DenominationRepository = {
         let container = ModelContainerFactory.shared
         return DenominationSwiftData(modelContainer: container)
     }()

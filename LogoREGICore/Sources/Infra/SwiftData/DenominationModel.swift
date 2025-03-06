@@ -12,7 +12,7 @@ import SwiftData
 final class DenominationModel {
     @Attribute(.unique) let amount: Int16
     var quantity: Int64
-    let createdAt: Date
+    private(set) var createdAt: Date
     var updatedAt: Date
     var syncAt: Date?
     
