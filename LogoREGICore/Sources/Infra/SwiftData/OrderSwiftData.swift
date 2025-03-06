@@ -18,11 +18,12 @@ public final class OrderSwiftData: OrderRepository {
     
     public func save(order: Order) async {
         let context = modelContainer.mainContext
+        let orderId = order.id
         
         do {
             let descriptor = FetchDescriptor<OrderModel>(
                 predicate: #Predicate {
-                    $0.id == order.id
+                    $0.id == orderId
                 }
             )
             let existingModels = try context.fetch(descriptor)

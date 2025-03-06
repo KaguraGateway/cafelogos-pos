@@ -49,11 +49,12 @@ public final class PaymentSwiftData: PaymentRepository {
     
     public func save(payment: Payment) async {
         let context = modelContainer.mainContext
+        let paymentId = payment.id
         
         do {
             let descriptor = FetchDescriptor<PaymentModel>(
                 predicate: #Predicate {
-                    $0.id == payment.id
+                    $0.id == paymentId
                 }
             )
             let existingModels = try context.fetch(descriptor)

@@ -36,11 +36,12 @@ public final class ConfigSwiftData: ConfigRepository {
     
     public func save(config: Config) async {
         let context = modelContainer.mainContext
+        let clientId = config.clientId
         
         do {
             let descriptor = FetchDescriptor<ConfigModel>(
                 predicate: #Predicate {
-                    $0.clientId == config.clientId
+                    $0.clientId == clientId
                 }
             )
             let existingModels = try context.fetch(descriptor)
