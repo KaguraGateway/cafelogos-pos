@@ -17,6 +17,19 @@ public struct PaymentServiceServer: PaymentService {
     
     // FIXME: ここの引数イケてなさすぎる
     func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> PostPaymentResponse {
+        // Load all configs before creating the request
+        var externalConfig: Config?
+        var orderConfig: Config?
+        
+        if payment.type == .external && externalPaymentType != nil {
+            externalConfig = await configRepo.load()
+        }
+        
+        if postOrder != nil {
+            orderConfig = await configRepo.load()
+        }
+        
+        // Create the request with all async operations already completed
         let request = Cafelogos_Pos_PostPaymentRequest.with {
             $0.payment = Cafelogos_Pos_PaymentParam.with {
                 $0.id = payment.id
@@ -27,19 +40,18 @@ public struct PaymentServiceServer: PaymentService {
                 $0.paymentAt = payment.paymentAt.ISO8601Format()
                 $0.updatedAt = payment.updatedAt.ISO8601Format()
                 
-                if payment.type == .external && externalPaymentType != nil {
+                if payment.type == .external && externalPaymentType != nil && externalConfig != nil {
                     $0.external = Cafelogos_Pos_PaymentExternalParam.with {
-                        let config = configRepo.load()
-                        $0.externalDeviceID = config.squareTerminalDeviceId
+                        $0.externalDeviceID = externalConfig!.squareTerminalDeviceId
                         $0.paymentType = externalPaymentType!
                     }
                 }
             }
-            if postOrder != nil {
+            if postOrder != nil && orderConfig != nil {
                 $0.postOrders = [
                     Cafelogos_Pos_OrderParam.with {
                         $0.id = postOrder!.id
-                        $0.clientID = configRepo.load().clientId
+                        $0.clientID = orderConfig!.clientId
                         $0.orderAt = Date().ISO8601Format()
                         $0.orderType = Cafelogos_Pos_OrderType.takeOut
                         $0.items = postOrder!.cart.items.map { item in

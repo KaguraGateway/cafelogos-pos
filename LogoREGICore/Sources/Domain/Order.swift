@@ -51,8 +51,8 @@ protocol OrderService {
     func getUnpaidOrdersBySeatId(seatId: String) async -> [Order]
 }
 
-protocol OrderRepository {
-    func save(order: Order)
+public protocol OrderRepository {
+    func save(order: Order) async
 }
 
 

@@ -13,7 +13,7 @@ public struct SaveConfig {
     
     public init() {}
     
-    public func Execute(config: Config) {
-        configRepo.save(config: config)
+    public func Execute(config: Config) async {
+        await configRepo.save(config: config)
     }
 }

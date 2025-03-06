@@ -19,18 +19,46 @@ private enum DenominationRepositoryKey: DependencyKey {
     }()
 }
 private enum PaymentRepositoryKey: DependencyKey {
-    static let liveValue: any PaymentRepository = PaymentRealm()
+    @MainActor
+    static private(set) var liveValue: any PaymentRepository = {
+        let container = ModelContainerFactory.shared
+        return PaymentSwiftData(modelContainer: container)
+    }()
 }
 private enum OrderRepositoryKey: DependencyKey {
-    static let liveValue: any OrderRepository = OrderRealm()
+    @MainActor
+    static private(set) var liveValue: any OrderRepository = {
+        let container = ModelContainerFactory.shared
+        return OrderSwiftData(modelContainer: container)
+    }()
 }
 private enum ConfigRepositoryKey: DependencyKey {
-    static let liveValue: any ConfigRepository = ConfigAppStorage()
+    @MainActor
+    static private(set) var liveValue: any ConfigRepository = {
+        let container = ModelContainerFactory.shared
+        return ConfigSwiftData(modelContainer: container)
+    }()
 }
 
 private enum GrpcClientKey: DependencyKey {
+    @MainActor
     static var liveValue: ProtocolClient {
-        let config = DependencyValues().configRepository.load()
+        // 非同期処理を同期的に実行するためのワークアラウンド
+        let defaultConfig = Config()
+        var config = defaultConfig
+        
+        // 同期的に非同期処理を実行
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            do {
+                config = await DependencyValues().configRepository.load()
+            } catch {
+                print("Error loading config: \(error)")
+            }
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: .now() + 1.0)
+        
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(

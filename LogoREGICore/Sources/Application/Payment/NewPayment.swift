@@ -18,7 +18,7 @@ public struct NewPayment {
     public init() {}
     
     public func Execute(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> NewPaymentOutput {
-        let config = configRepo.load()
+        let config = await configRepo.load()
 
         var receiptItems: [ReceiptItem] = []
         if let order = postOrder {
@@ -28,7 +28,7 @@ public struct NewPayment {
         
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType)
         if res.error == nil {
-            paymentRepo.save(payment: payment)
+            await paymentRepo.save(payment: payment)
             
             if(config.isUsePrinter) {
                 await cashierAdapter.openCacher()

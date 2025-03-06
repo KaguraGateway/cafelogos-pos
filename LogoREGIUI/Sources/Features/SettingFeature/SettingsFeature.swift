@@ -25,16 +25,18 @@ public struct SettingsFeature {
         var config: Config
         
         init() {
-            self.config = GetConfig().Execute()
-            self.clientId = config.clientId
-            self.clientName = config.clientName
-            self.usePrinter = config.isUsePrinter
-            self.printKitchenReceipt = config.isPrintKitchenReceipt
-            self.hostUrl = config.hostUrl
-            self.isUseSquareTerminal = config.isUseSquareTerminal
-            self.squareAccessToken = config.squareAccessToken
-            self.squareTerminalDeviceId = config.squareTerminalDeviceId
-            self.isUseProductMock = config.isUseProductMock
+            // デフォルト設定で初期化
+            let defaultConfig = Config()
+            self.config = defaultConfig
+            self.clientId = defaultConfig.clientId
+            self.clientName = defaultConfig.clientName
+            self.usePrinter = defaultConfig.isUsePrinter
+            self.printKitchenReceipt = defaultConfig.isPrintKitchenReceipt
+            self.hostUrl = defaultConfig.hostUrl
+            self.isUseSquareTerminal = defaultConfig.isUseSquareTerminal
+            self.squareAccessToken = defaultConfig.squareAccessToken
+            self.squareTerminalDeviceId = defaultConfig.squareTerminalDeviceId
+            self.isUseProductMock = defaultConfig.isUseProductMock
         }
     }
     
@@ -46,6 +48,7 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
+        case onDidLoadConfig(Config)
     }
     
     public var body: some Reducer<State, Action> {
@@ -90,10 +93,13 @@ public struct SettingsFeature {
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
-                    SaveConfig().Execute(config: updatedConfig)
+                    await SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
-                let config = GetConfig().Execute()
+                return .run { send in
+                    await send(.onDidLoadConfig(await GetConfig().Execute()))
+                }
+            case .onDidLoadConfig(let config):
                 state.config = config
                 state.clientId = config.clientId
                 state.clientName = config.clientName

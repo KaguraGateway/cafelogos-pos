@@ -13,7 +13,9 @@ import LogoREGIUI
 struct cafelogos_posApp: SwiftUI.App {
     public init() {
         // Launch
-        Launch().Execute()
+        Task {
+            await Launch().Execute()
+        }
     }
     
     var body: some Scene {

@@ -50,7 +50,7 @@ public struct Config: Equatable {
     }
 }
 
-protocol ConfigRepository {
-    func load() -> Config
-    func save(config: Config)
+public protocol ConfigRepository {
+    func load() async -> Config
+    func save(config: Config) async
 }
