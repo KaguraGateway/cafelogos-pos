@@ -1,21 +1,53 @@
 import Foundation
+#if os(iOS)
 import UIKit
+#endif
 import StarIO10
 
 public struct StarXCashierAdapter: CashierAdapter {
     func printReceipt(receipt: OrderReceipt) async {
-        guard let logo = UIImage(named: "logos") else {
-            print("Failed to load logos.png")
-            return;
-        }
-        
         let builder = StarXpandCommand.StarXpandCommandBuilder()
+        
+        #if os(iOS)
+        if let logo = UIImage(named: "logos") {
+            _ = builder.addDocument(
+                StarXpandCommand.DocumentBuilder()
+                    .addPrinter(
+                        StarXpandCommand.PrinterBuilder()
+                            .actionPrintImage(StarXpandCommand.Printer.ImageParameter(image: logo, width: 400))
+                            .actionFeedLine(1)
+                            .styleSecondPriorityCharacterEncoding(.japanese)
+                            .styleBold(true)
+                            .styleAlignment(.center)
+                            .styleMagnification(StarXpandCommand.MagnificationParameter(width: 2, height: 2))
+                            .actionPrintText("引換券\n")
+                            .styleMagnification(StarXpandCommand.MagnificationParameter(width: 3, height: 3))
+                            .actionPrintText("\(receipt.callNumber)\n")
+                            .actionCut(StarXpandCommand.Printer.CutType.partial)
+                    )
+            )
+        } else {
+            print("Failed to load logos.png")
+            _ = builder.addDocument(
+                StarXpandCommand.DocumentBuilder()
+                    .addPrinter(
+                        StarXpandCommand.PrinterBuilder()
+                            .styleSecondPriorityCharacterEncoding(.japanese)
+                            .styleBold(true)
+                            .styleAlignment(.center)
+                            .styleMagnification(StarXpandCommand.MagnificationParameter(width: 2, height: 2))
+                            .actionPrintText("引換券\n")
+                            .styleMagnification(StarXpandCommand.MagnificationParameter(width: 3, height: 3))
+                            .actionPrintText("\(receipt.callNumber)\n")
+                            .actionCut(StarXpandCommand.Printer.CutType.partial)
+                    )
+            )
+        }
+        #else
         _ = builder.addDocument(
             StarXpandCommand.DocumentBuilder()
                 .addPrinter(
                     StarXpandCommand.PrinterBuilder()
-                        .actionPrintImage(StarXpandCommand.Printer.ImageParameter(image: logo, width: 400))
-                        .actionFeedLine(1)
                         .styleSecondPriorityCharacterEncoding(.japanese)
                         .styleBold(true)
                         .styleAlignment(.center)
@@ -26,6 +58,7 @@ public struct StarXCashierAdapter: CashierAdapter {
                         .actionCut(StarXpandCommand.Printer.CutType.partial)
                 )
         )
+        #endif
         
         await run(commands: builder.getCommands())
     }
