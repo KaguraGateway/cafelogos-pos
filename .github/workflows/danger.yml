@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -28,7 +28,7 @@ jobs:
       - name: Get Swift Version
         id: get-swift-version
         run: |
-          echo "::set-output name=swift-version::$(swift --version | head -1 | sed 's/^.*Swift version \([0-9]\.[0-9]\.[0-9]\) (.*)$/\1/')"
+          echo "swift-version=$(swift --version | head -1 | sed 's/^.*Swift version \([0-9]\.[0-9]\.[0-9]\) (.*)$/\1/')" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get Swift Version
@@ -38,7 +38,7 @@ jobs:
         uses: ruby/setup-ruby@v1
 
       - name: Cache Gems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: gems
         with:
@@ -56,7 +56,7 @@ jobs:
           bundle check || bundle install
 
       - name: Cache DangerTools
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: danger-tools
         with:
