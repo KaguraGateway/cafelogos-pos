@@ -48,6 +48,7 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
+        case onDidLoadConfig(Config)
     }
     
     public var body: some Reducer<State, Action> {
@@ -96,18 +97,20 @@ public struct SettingsFeature {
                 }
             case .loadConfig:
                 return .run { send in
-                    let config = await GetConfig().Execute()
-                    await send(.binding(.set(\.$config, config)))
-                    await send(.binding(.set(\.$clientId, config.clientId)))
-                    await send(.binding(.set(\.$clientName, config.clientName)))
-                    await send(.binding(.set(\.$usePrinter, config.isUsePrinter)))
-                    await send(.binding(.set(\.$printKitchenReceipt, config.isPrintKitchenReceipt)))
-                    await send(.binding(.set(\.$isUseSquareTerminal, config.isUseSquareTerminal)))
-                    await send(.binding(.set(\.$squareAccessToken, config.squareAccessToken)))
-                    await send(.binding(.set(\.$squareTerminalDeviceId, config.squareTerminalDeviceId)))
-                    await send(.binding(.set(\.$hostUrl, config.hostUrl)))
-                    await send(.binding(.set(\.$isUseProductMock, config.isUseProductMock)))
+                    await send(.onDidLoadConfig(await GetConfig().Execute()))
                 }
+            case .onDidLoadConfig(let config):
+                state.config = config
+                state.clientId = config.clientId
+                state.clientName = config.clientName
+                state.usePrinter = config.isUsePrinter
+                state.printKitchenReceipt = config.isPrintKitchenReceipt
+                state.isUseSquareTerminal = config.isUseSquareTerminal
+                state.squareAccessToken = config.squareAccessToken
+                state.squareTerminalDeviceId = config.squareTerminalDeviceId
+                state.hostUrl = config.hostUrl
+                state.isUseProductMock = config.isUseProductMock
+                return .none
             }
         }
     }
