@@ -13,7 +13,7 @@ public struct GetConfig {
     
     public init() {}
     
-    public func Execute() -> Config {
-        return configRepo.load()
+    public func Execute() async -> Config {
+        return await configRepo.load()
     }
 }
