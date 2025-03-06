@@ -19,13 +19,25 @@ private enum DenominationRepositoryKey: DependencyKey {
     }()
 }
 private enum PaymentRepositoryKey: DependencyKey {
-    static let liveValue: any PaymentRepository = PaymentRealm()
+    @MainActor
+    static private(set) var liveValue: any PaymentRepository = {
+        let container = ModelContainerFactory.shared
+        return PaymentSwiftData(modelContainer: container)
+    }()
 }
 private enum OrderRepositoryKey: DependencyKey {
-    static let liveValue: any OrderRepository = OrderRealm()
+    @MainActor
+    static private(set) var liveValue: any OrderRepository = {
+        let container = ModelContainerFactory.shared
+        return OrderSwiftData(modelContainer: container)
+    }()
 }
 private enum ConfigRepositoryKey: DependencyKey {
-    static let liveValue: any ConfigRepository = ConfigAppStorage()
+    @MainActor
+    static private(set) var liveValue: any ConfigRepository = {
+        let container = ModelContainerFactory.shared
+        return ConfigSwiftData(modelContainer: container)
+    }()
 }
 
 private enum GrpcClientKey: DependencyKey {

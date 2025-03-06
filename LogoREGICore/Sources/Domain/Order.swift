@@ -52,7 +52,7 @@ protocol OrderService {
 }
 
 protocol OrderRepository {
-    func save(order: Order)
+    func save(order: Order) async
 }
 
 

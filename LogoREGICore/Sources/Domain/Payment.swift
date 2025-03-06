@@ -86,8 +86,8 @@ public struct PaymentDomainService {
 }
 
 protocol PaymentRepository {
-    func findAllByUnSettled() -> [Payment]
-    func removeAll() -> Void
-    func save(payment: Payment) -> Void
+    func findAllByUnSettled() async -> [Payment]
+    func removeAll() async -> Void
+    func save(payment: Payment) async -> Void
 }
 
