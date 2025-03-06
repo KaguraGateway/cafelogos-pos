@@ -1,0 +1,18 @@
+included:
+  - Sources
+  - Tests
+excluded:
+  - .build
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - redundant_nil_coalescing
+  - redundant_optional_initialization
+
+identifier_name:
+  min_length: 2
