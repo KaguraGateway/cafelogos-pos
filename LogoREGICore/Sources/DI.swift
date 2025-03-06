@@ -43,9 +43,22 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     @MainActor
     static var liveValue: ProtocolClient {
-        let config = Task { 
-            await DependencyValues().configRepository.load()
-        }.result.value ?? Config()
+        // 非同期処理を同期的に実行するためのワークアラウンド
+        let defaultConfig = Config()
+        var config = defaultConfig
+        
+        // 同期的に非同期処理を実行
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            do {
+                config = await DependencyValues().configRepository.load()
+            } catch {
+                print("Error loading config: \(error)")
+            }
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: .now() + 1.0)
+        
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(
