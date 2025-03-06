@@ -25,16 +25,23 @@ public struct SettingsFeature {
         var config: Config
         
         init() {
-            self.config = GetConfig().Execute()
-            self.clientId = config.clientId
-            self.clientName = config.clientName
-            self.usePrinter = config.isUsePrinter
-            self.printKitchenReceipt = config.isPrintKitchenReceipt
-            self.hostUrl = config.hostUrl
-            self.isUseSquareTerminal = config.isUseSquareTerminal
-            self.squareAccessToken = config.squareAccessToken
-            self.squareTerminalDeviceId = config.squareTerminalDeviceId
-            self.isUseProductMock = config.isUseProductMock
+            // 非同期処理を同期的に実行するためのワークアラウンド
+            let defaultConfig = Config()
+            self.config = defaultConfig
+            
+            // 同期的に非同期処理を実行
+            Task {
+                self.config = await GetConfig().Execute()
+                self.clientId = config.clientId
+                self.clientName = config.clientName
+                self.usePrinter = config.isUsePrinter
+                self.printKitchenReceipt = config.isPrintKitchenReceipt
+                self.hostUrl = config.hostUrl
+                self.isUseSquareTerminal = config.isUseSquareTerminal
+                self.squareAccessToken = config.squareAccessToken
+                self.squareTerminalDeviceId = config.squareTerminalDeviceId
+                self.isUseProductMock = config.isUseProductMock
+            }
         }
     }
     
@@ -90,21 +97,22 @@ public struct SettingsFeature {
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
-                    SaveConfig().Execute(config: updatedConfig)
+                    await SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
-                let config = GetConfig().Execute()
-                state.config = config
-                state.clientId = config.clientId
-                state.clientName = config.clientName
-                state.usePrinter = config.isUsePrinter
-                state.printKitchenReceipt = config.isPrintKitchenReceipt
-                state.isUseSquareTerminal = config.isUseSquareTerminal
-                state.squareAccessToken = config.squareAccessToken
-                state.squareTerminalDeviceId = config.squareTerminalDeviceId
-                state.hostUrl = config.hostUrl
-                state.isUseProductMock = config.isUseProductMock
-                return .none
+                return .run { send in
+                    let config = await GetConfig().Execute()
+                    await send(.binding(.set(\.$config, config)))
+                    await send(.binding(.set(\.$clientId, config.clientId)))
+                    await send(.binding(.set(\.$clientName, config.clientName)))
+                    await send(.binding(.set(\.$usePrinter, config.isUsePrinter)))
+                    await send(.binding(.set(\.$printKitchenReceipt, config.isPrintKitchenReceipt)))
+                    await send(.binding(.set(\.$isUseSquareTerminal, config.isUseSquareTerminal)))
+                    await send(.binding(.set(\.$squareAccessToken, config.squareAccessToken)))
+                    await send(.binding(.set(\.$squareTerminalDeviceId, config.squareTerminalDeviceId)))
+                    await send(.binding(.set(\.$hostUrl, config.hostUrl)))
+                    await send(.binding(.set(\.$isUseProductMock, config.isUseProductMock)))
+                }
             }
         }
     }
