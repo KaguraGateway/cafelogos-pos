@@ -14,9 +14,10 @@ jobs:
 
       - name: Archive Project
         run: |                        
-          xcodebuild archive -project App/App.xcodeproj \
-                             -scheme cafelogos-pos \
-                             -sdk iphoneos \
-                             -configuration Release \
-                             -archivePath App.xcarchive \
-                             CODE_SIGNING_ALLOWED=NO
+          xcodebuild \
+          -workspace cafelogos-pos.xcworkspace \
+          -scheme cafelogos-pos \
+          -sdk iphoneos \
+          -configuration debug \
+          -archivePath . \
+          CODE_SIGNING_ALLOWED=NO
