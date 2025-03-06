@@ -41,8 +41,11 @@ private enum ConfigRepositoryKey: DependencyKey {
 }
 
 private enum GrpcClientKey: DependencyKey {
+    @MainActor
     static var liveValue: ProtocolClient {
-        let config = DependencyValues().configRepository.load()
+        let config = Task { 
+            await DependencyValues().configRepository.load()
+        }.result.value ?? Config()
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(

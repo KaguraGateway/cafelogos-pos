@@ -22,15 +22,15 @@ public struct ConfigAppStorage: ConfigRepository {
     
     @AppStorage("isUseProductMock") var isUseProductMock = false
     
-    func load() -> Config {
+    public func load() async -> Config {
         if(self.clientId.isEmpty) {
-            save(config: Config())
+            await save(config: Config())
         }
         
         return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt, isUseSquareTerminal: self.isUseSquareTerminal, squareAccessToken: self.squareAccessToken, squareTerminalDeviceId: self.squareTerminalDeviceId, hostUrl: self.hostUrl, isUseProductMock: self.isUseProductMock)
     }
     
-    func save(config: Config) {
+    public func save(config: Config) async {
         self.clientId = config.clientId
         self.clientName = config.clientName
         self.isTrainingMode = config.isTrainingMode
