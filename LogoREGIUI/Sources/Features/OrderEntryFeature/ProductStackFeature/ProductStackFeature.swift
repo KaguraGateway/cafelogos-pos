@@ -37,7 +37,7 @@ public struct ProductStackFeature {
             switch action {
             case .fetch:
                 return .run { send in
-                    let config = GetConfig().Execute()
+                    let config = await GetConfig().Execute()
 
                     if config.isUseProductMock {
                         // モックサービスを使用
