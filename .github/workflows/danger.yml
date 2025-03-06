@@ -36,6 +36,8 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
 
       - name: Cache Gems
         uses: actions/cache@v3
