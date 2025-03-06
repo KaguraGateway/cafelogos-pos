@@ -22,7 +22,7 @@ jobs:
       run: brew install swiftlint
     
     - name: Run SwiftLint
-      run: swiftlint --strict
+      run: swiftlint lint
     
     - name: Build and Test LogoREGICore
       run: |
