@@ -8,13 +8,12 @@ on:
 
 jobs:
   swiftlint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install SwiftLint
         run: |
-          sudo apt-get update
-          sudo apt-get install -y swiftlint
+          brew install swiftlint
       - name: Run SwiftLint
         run: |
           ./run-swiftlint.sh
