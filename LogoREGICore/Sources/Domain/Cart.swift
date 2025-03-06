@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Cart {
-    private (set) public var items: Array<CartItem>
+    public private(set) var items: [CartItem]
     public var totalQuantity: UInt32 { get { self.items.reduce(0, { x, y in x + y.getQuantity() }) } }
     
     public init() {

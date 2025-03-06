@@ -13,9 +13,9 @@ public struct StartCacher {
     
     public init() {}
     
-    public func Execute(denominations: Denominations) {
+    public func Execute(denominations: Denominations) async {
         for denomination in denominations.denominations {
-            denominationRepo.save(denomination: denomination)
+            await denominationRepo.save(denomination: denomination)
         }
     }
 }

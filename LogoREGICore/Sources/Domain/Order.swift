@@ -12,7 +12,7 @@ public struct Order: Equatable {
     public let id: String
     public var cart: Cart
     public var discounts: Array<Discount>
-    private (set) public var orderAt: Date
+    public private(set) var orderAt: Date
     public var syncAt: Date?
     
     public var totalAmount: UInt64 {
