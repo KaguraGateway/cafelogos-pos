@@ -27,11 +27,11 @@ jobs:
     - name: Build and Test LogoREGICore
       run: |
         cd LogoREGICore
-        swift build
-        swift test
+        swift build -Xswiftc "-sdk" -Xswiftc "$(xcrun --sdk iphonesimulator --show-sdk-path)" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios17.0-simulator"
+        swift test -Xswiftc "-sdk" -Xswiftc "$(xcrun --sdk iphonesimulator --show-sdk-path)" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios17.0-simulator"
     
     - name: Build Debug Configuration
-      run: xcodebuild -workspace cafelogos-pos.xcworkspace -scheme cafelogos-pos -configuration Debug build CODE_SIGNING_ALLOWED=NO
+      run: xcodebuild -workspace cafelogos-pos.xcworkspace -scheme cafelogos-pos -configuration Debug -destination "platform=iOS Simulator,name=iPhone 14,OS=17.0" build CODE_SIGNING_ALLOWED=NO
     
     - name: Build Release Configuration
-      run: xcodebuild -workspace cafelogos-pos.xcworkspace -scheme cafelogos-pos -configuration Release build CODE_SIGNING_ALLOWED=NO
+      run: xcodebuild -workspace cafelogos-pos.xcworkspace -scheme cafelogos-pos -configuration Release -destination "platform=iOS Simulator,name=iPhone 14,OS=17.0" build CODE_SIGNING_ALLOWED=NO
