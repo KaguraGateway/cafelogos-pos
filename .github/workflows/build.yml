@@ -3,7 +3,7 @@ name: Build
 on:
   push
 
-jobs:          
+jobs:
   build:
     name: Build
     runs-on: macos-latest
@@ -12,12 +12,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Clean Build
+        run: |
+          xcodebuild clean \
+          -workspace cafelogos-pos.xcworkspace \
+          -scheme cafelogos-pos \
+          -configuration debug
+
+      - name: Resolve Swift Package Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+          -workspace cafelogos-pos.xcworkspace \
+          -scheme cafelogos-pos \
+          -configuration debug
+
       - name: Archive Project
-        run: |                        
+        run: |
           xcodebuild \
           -workspace cafelogos-pos.xcworkspace \
           -scheme cafelogos-pos \
           -sdk iphoneos \
           -configuration debug \
-          -archivePath . \
+          -derivedDataPath build \
+          -archivePath build/archive.xcarchive \
           CODE_SIGNING_ALLOWED=NO
