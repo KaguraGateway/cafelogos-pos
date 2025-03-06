@@ -35,7 +35,7 @@ public final class DenominationSwiftData: DenominationRepository {
         }
         
         let descriptor = FetchDescriptor<DenominationModel>(
-            predicate: #Predicate<DenominationModel> {
+            predicate: #Predicate {
                 $0.amount == idInt
             }
         )
@@ -54,7 +54,7 @@ public final class DenominationSwiftData: DenominationRepository {
         
         do {
             let descriptor = FetchDescriptor<DenominationModel>(
-                predicate: #Predicate<DenominationModel> {
+                predicate: #Predicate {
                     $0.amount == amountInt16
                 }
             )

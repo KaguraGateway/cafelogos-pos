@@ -39,7 +39,7 @@ public final class ConfigSwiftData: ConfigRepository {
         
         do {
             let descriptor = FetchDescriptor<ConfigModel>(
-                predicate: #Predicate<ConfigModel> {
+                predicate: #Predicate {
                     $0.clientId == config.clientId
                 }
             )

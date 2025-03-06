@@ -21,7 +21,7 @@ public final class OrderSwiftData: OrderRepository {
         
         do {
             let descriptor = FetchDescriptor<OrderModel>(
-                predicate: #Predicate<OrderModel> {
+                predicate: #Predicate {
                     $0.id == order.id
                 }
             )

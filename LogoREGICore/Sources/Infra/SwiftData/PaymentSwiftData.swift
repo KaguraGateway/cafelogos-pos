@@ -19,7 +19,7 @@ public final class PaymentSwiftData: PaymentRepository {
     public func findAllByUnSettled() async -> [Payment] {
         let context = modelContainer.mainContext
         let descriptor = FetchDescriptor<PaymentModel>(
-            predicate: #Predicate<PaymentModel> {
+            predicate: #Predicate {
                 $0.settleAt == nil
             }
         )
@@ -52,7 +52,7 @@ public final class PaymentSwiftData: PaymentRepository {
         
         do {
             let descriptor = FetchDescriptor<PaymentModel>(
-                predicate: #Predicate<PaymentModel> {
+                predicate: #Predicate {
                     $0.id == payment.id
                 }
             )
