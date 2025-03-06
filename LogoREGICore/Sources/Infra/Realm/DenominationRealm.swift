@@ -13,7 +13,7 @@ func toDenomination(dao: DenominationDao) -> Denomination {
 }
 
 public struct DenominationRealm: DenominationRepository {
-    func findAll() -> Denominations {
+    public func findAll() async -> Denominations {
         do {
             let realm = try Realm()
             let daoDenominations = realm.objects(DenominationDao.self)
@@ -24,7 +24,7 @@ public struct DenominationRealm: DenominationRepository {
         }
     }
     
-    func findById(id: String) -> Denomination? {
+    public func findById(id: String) async -> Denomination? {
         do {
             let realm = try Realm()
             let dao = realm.object(ofType: DenominationDao.self, forPrimaryKey: id)
@@ -38,7 +38,7 @@ public struct DenominationRealm: DenominationRepository {
         }
     }
     
-    func save(denomination: Denomination) {
+    public func save(denomination: Denomination) async {
         let dao = DenominationDao(value: ["denomination": denomination.amount, "amount": denomination.quantity, "createdAt": denomination.createdAt, "updatedAt": denomination.updatedAt, "syncAt": denomination.syncAt as Any])
         
         do {

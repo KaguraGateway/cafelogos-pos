@@ -35,7 +35,7 @@ public struct Denomination: Codable, Equatable {
 }
 
 @MainActor
-protocol DenominationRepository {
+public protocol DenominationRepository {
     func findAll() async -> Denominations
     func findById(id: String) async -> Denomination?
     func save(denomination: Denomination) async

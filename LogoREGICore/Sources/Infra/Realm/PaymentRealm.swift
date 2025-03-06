@@ -13,7 +13,7 @@ func toPayment(dao: PaymentDao) -> Payment {
 }
 
 public struct PaymentRealm: PaymentRepository {
-    func findAllByUnSettled() -> [Payment] {
+    public func findAllByUnSettled() async -> [Payment] {
         do {
             let realm = try Realm()
             let daoPayments = realm.objects(PaymentDao.self)
@@ -28,7 +28,7 @@ public struct PaymentRealm: PaymentRepository {
         }
     }
     
-    func removeAll() {
+    public func removeAll() async {
         do {
             let realm = try Realm()
             let payments = realm.objects(PaymentDao.self)
@@ -41,7 +41,7 @@ public struct PaymentRealm: PaymentRepository {
         }
     }
     
-    func save(payment: Payment) {
+    public func save(payment: Payment) async {
         let dao = PaymentDao(value: ["id": payment.id, "paymentType": PaymentTypeEnumDao.CASH, "receiveAmount": payment.receiveAmount, "paymentAmount": payment.paymentAmount, "changeAmount": payment.changeAmount, "paymentAt": payment.paymentAt, "updatedAt": Date(), "syncAt": payment.syncAt as Any])
         
         do {

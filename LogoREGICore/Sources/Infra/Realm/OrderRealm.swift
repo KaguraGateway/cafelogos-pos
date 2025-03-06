@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 public struct OrderRealm: OrderRepository {
-    func save(order: Order) {
+    public func save(order: Order) async {
         let dao = OrderDao(
             value: ["id": order.id,  "orderAt": order.orderAt, "syncAt": order.syncAt as Any]
         )
