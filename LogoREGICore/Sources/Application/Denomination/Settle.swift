@@ -18,6 +18,6 @@ public struct Settle {
         for denomination in denominations.denominations {
             await denominationRepo.save(denomination: denomination)
         }
-        paymentRepo.removeAll()
+        await paymentRepo.removeAll()
     }
 }
