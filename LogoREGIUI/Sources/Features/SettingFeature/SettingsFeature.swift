@@ -25,23 +25,18 @@ public struct SettingsFeature {
         var config: Config
         
         init() {
-            // 非同期処理を同期的に実行するためのワークアラウンド
+            // デフォルト設定で初期化
             let defaultConfig = Config()
             self.config = defaultConfig
-            
-            // 同期的に非同期処理を実行
-            Task {
-                self.config = await GetConfig().Execute()
-                self.clientId = config.clientId
-                self.clientName = config.clientName
-                self.usePrinter = config.isUsePrinter
-                self.printKitchenReceipt = config.isPrintKitchenReceipt
-                self.hostUrl = config.hostUrl
-                self.isUseSquareTerminal = config.isUseSquareTerminal
-                self.squareAccessToken = config.squareAccessToken
-                self.squareTerminalDeviceId = config.squareTerminalDeviceId
-                self.isUseProductMock = config.isUseProductMock
-            }
+            self.clientId = defaultConfig.clientId
+            self.clientName = defaultConfig.clientName
+            self.usePrinter = defaultConfig.isUsePrinter
+            self.printKitchenReceipt = defaultConfig.isPrintKitchenReceipt
+            self.hostUrl = defaultConfig.hostUrl
+            self.isUseSquareTerminal = defaultConfig.isUseSquareTerminal
+            self.squareAccessToken = defaultConfig.squareAccessToken
+            self.squareTerminalDeviceId = defaultConfig.squareTerminalDeviceId
+            self.isUseProductMock = defaultConfig.isUseProductMock
         }
     }
     
