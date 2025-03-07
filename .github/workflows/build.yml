@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Copy Signing Config
-        run: cp ./Signing.xcconfig.example ./Signing.xcconfig
+        run: ls
 
       - name: Clean Build
         run: |
