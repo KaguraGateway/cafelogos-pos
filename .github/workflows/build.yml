@@ -12,6 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Copy Signing Config
+        run: cp Signing.xcconfig.example Signing.xcconfig
+
       - name: Clean Build
         run: |
           xcodebuild clean \
