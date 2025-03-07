@@ -13,7 +13,7 @@ public struct GetDenominations {
     
     public init() {}
     
-    public func Execute() -> Denominations {
-        return denominationRepo.findAll()
+    public func Execute() async -> Denominations {
+        return await denominationRepo.findAll()
     }
 }
