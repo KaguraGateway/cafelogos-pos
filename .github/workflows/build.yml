@@ -20,17 +20,20 @@ jobs:
 
       - name: Clean Build
         run: |
+          export DEVELOPER_DIR="/Applications/Xcode_16.2.app/Contents/Developer"
           xcodebuild clean \
-          -workspace cafelogos-pos.xcworkspace \
-          -scheme cafelogos-pos \
-          -configuration debug
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -configuration debug \
+            -Xswiftc -enable-experimental-feature -Xswiftc Macros
 
       - name: Resolve Swift Package Dependencies
         run: |
+          export DEVELOPER_DIR="/Applications/Xcode_16.2.app/Contents/Developer"
           xcodebuild -resolvePackageDependencies \
-          -workspace cafelogos-pos.xcworkspace \
-          -scheme cafelogos-pos \
-          -configuration debug
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -configuration debug
 
       - name: Archive Project
         run: |
@@ -42,4 +45,5 @@ jobs:
             -configuration debug \
             -derivedDataPath build \
             -archivePath build/archive.xcarchive \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            -Xswiftc -enable-experimental-feature -Xswiftc Macros
