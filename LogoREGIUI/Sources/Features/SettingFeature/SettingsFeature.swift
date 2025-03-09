@@ -21,6 +21,7 @@ public struct SettingsFeature {
         var squareTerminalDeviceId: String = ""
         
         var isUseProductMock: Bool = false
+        var isUseIndividualBilling: Bool = false
         
         var config: Config
         
@@ -35,6 +36,7 @@ public struct SettingsFeature {
             self.squareAccessToken = config.squareAccessToken
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
             self.isUseProductMock = config.isUseProductMock
+            self.isUseIndividualBilling = config.isUseIndividualBilling
         }
     }
     
@@ -46,6 +48,7 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
+        case toggleUseIndividualBilling
     }
     
     public var body: some Reducer<State, Action> {
@@ -64,7 +67,8 @@ public struct SettingsFeature {
                     state.squareAccessToken != state.config.squareAccessToken ||
                     state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
                     state.hostUrl != state.config.hostUrl ||
-                    state.isUseProductMock != state.config.isUseProductMock
+                    state.isUseProductMock != state.config.isUseProductMock ||
+                    state.isUseIndividualBilling != state.config.isUseIndividualBilling
                 {
                     return .run { send in
                         await send(.saveConfig)
@@ -90,6 +94,7 @@ public struct SettingsFeature {
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
+                    updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
@@ -104,7 +109,11 @@ public struct SettingsFeature {
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
                 state.hostUrl = config.hostUrl
                 state.isUseProductMock = config.isUseProductMock
+                state.isUseIndividualBilling = config.isUseIndividualBilling
                 return .none
+            case .toggleUseIndividualBilling:
+                state.isUseIndividualBilling.toggle()
+                return .send(.saveConfig)
             }
         }
     }

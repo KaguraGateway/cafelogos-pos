@@ -22,6 +22,7 @@ public struct Config: Equatable {
     public var squareTerminalDeviceId: String
     
     public var isUseProductMock: Bool
+    public var isUseIndividualBilling: Bool
     
     public init() {
         self.clientId = ULID().ulidString
@@ -34,9 +35,10 @@ public struct Config: Equatable {
         self.squareAccessToken = ""
         self.squareTerminalDeviceId = ""
         self.isUseProductMock = false
+        self.isUseIndividualBilling = false
     }
     
-    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, isUseProductMock: Bool = false) {
+    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, isUseProductMock: Bool = false, isUseIndividualBilling: Bool = false) {
         self.clientId = clientId
         self.clientName = clientName
         self.isTrainingMode = isTrainingMode
@@ -47,6 +49,7 @@ public struct Config: Equatable {
         self.squareAccessToken = squareAccessToken
         self.squareTerminalDeviceId = squareTerminalDeviceId
         self.isUseProductMock = isUseProductMock
+        self.isUseIndividualBilling = isUseIndividualBilling
     }
 }
 
