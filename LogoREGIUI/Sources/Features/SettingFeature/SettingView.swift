@@ -88,10 +88,7 @@ struct SettingView: View {
                 
                 Section {
                     Toggle("商品モックを有効化", isOn: $store.isUseProductMock)
-                    Toggle(isOn: $store.isUseIndividualBilling.sending(\.toggleUseIndividualBilling)) {
-                        Text("個別会計を有効にする")
-                    }
-                    .toggleStyle(.switch)
+                    Toggle("個別会計を有効にする", isOn: $store.isUseIndividualBilling)
                 } header: {
                     Text("開発設定")
                 }
