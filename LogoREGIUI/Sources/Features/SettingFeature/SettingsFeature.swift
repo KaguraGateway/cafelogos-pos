@@ -48,7 +48,6 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
-        case toggleUseIndividualBilling
     }
     
     public var body: some Reducer<State, Action> {
@@ -111,9 +110,6 @@ public struct SettingsFeature {
                 state.isUseProductMock = config.isUseProductMock
                 state.isUseIndividualBilling = config.isUseIndividualBilling
                 return .none
-            case .toggleUseIndividualBilling:
-                state.isUseIndividualBilling.toggle()
-                return .send(.saveConfig)
             }
         }
     }
