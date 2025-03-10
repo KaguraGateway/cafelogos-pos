@@ -21,13 +21,14 @@ public struct ConfigAppStorage: ConfigRepository {
     @AppStorage("squareTerminalDeviceId") var squareTerminalDeviceId = ""
     
     @AppStorage("isUseProductMock") var isUseProductMock = false
+    @AppStorage("isUseIndividualBilling") var isUseIndividualBilling = false
     
     func load() -> Config {
         if(self.clientId.isEmpty) {
             save(config: Config())
         }
         
-        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt, isUseSquareTerminal: self.isUseSquareTerminal, squareAccessToken: self.squareAccessToken, squareTerminalDeviceId: self.squareTerminalDeviceId, hostUrl: self.hostUrl, isUseProductMock: self.isUseProductMock)
+        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt, isUseSquareTerminal: self.isUseSquareTerminal, squareAccessToken: self.squareAccessToken, squareTerminalDeviceId: self.squareTerminalDeviceId, hostUrl: self.hostUrl, isUseProductMock: self.isUseProductMock, isUseIndividualBilling: self.isUseIndividualBilling)
     }
     
     func save(config: Config) {
@@ -41,5 +42,6 @@ public struct ConfigAppStorage: ConfigRepository {
         self.squareAccessToken = config.squareAccessToken
         self.squareTerminalDeviceId = config.squareTerminalDeviceId
         self.isUseProductMock = config.isUseProductMock
+        self.isUseIndividualBilling = config.isUseIndividualBilling
     }
 }
