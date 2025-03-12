@@ -42,6 +42,11 @@ public struct OrderEntryFeature {
         
         case fetchedUnPaidOrders(Result<[Order], Error>)
         
+        case productConnectionError(Int)
+        
+        // Navigation
+        case popToRoot
+        
         // Alert
         case alert(PresentationAction<Action.Alert>)
         
@@ -141,6 +146,19 @@ public struct OrderEntryFeature {
                 state.order.cart.removeAllItem()
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                return .none
+                
+            case .productStackAction(.delegate(.onConnectionError(_))):
+                // サーバー接続エラーの処理
+                state.alert = AlertState {
+                    TextState("接続エラー")
+                } actions: {
+                    ButtonState(action: .okTapped) {
+                        TextState("OK")
+                    }
+                } message: {
+                    TextState("サーバーに接続できませんでした。インターネットに接続されていますか？もしくは、設定 ＞ ホストURLが正しいか確認してください。")
+                }
                 return .none
                 
             case let .productStackAction(.delegate(.onAddItem(productDto, brew))):
@@ -271,12 +289,15 @@ public struct OrderEntryFeature {
                 switch alertAction {
                 case .okTapped:
                     state.alert = nil
+                    // 前のページに戻る
+                    return .send(.popToRoot)
                 }
-                return .none
 
             // アラートの処理を追加する場合はこれより上に書く
             case .alert:
                 return .none
+                
+
 
             default:
                 return .none
