@@ -235,6 +235,15 @@
       }
     },
     {
+      "identity" : "webui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/WebUI.git",
+      "state" : {
+        "revision" : "0112c53e383c3ac5b27d0be452356fcd97f147e8",
+        "version" : "3.0.3"
+      }
+    },
+    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
