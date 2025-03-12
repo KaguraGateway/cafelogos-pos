@@ -41,6 +41,8 @@ public struct AppView: View {
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("UpdateHostUrl"))) { notification in
             if let hostUrl = notification.object as? String {
                 store.send(.setHostUrl(hostUrl))
+                // DependencyValuesのhostUrlも更新する
+                DependencyValues().hostUrl = hostUrl
             }
         }
     }

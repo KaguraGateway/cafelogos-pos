@@ -90,7 +90,8 @@ public struct SettingsFeature {
                     )
                     SaveConfig().Execute(config: updatedConfig)
                     
-                    // AppFeatureのhostUrlも更新する
+                    // AppFeatureとDependencyValuesのhostUrlも更新する
+                    DependencyValues().hostUrl = state.hostUrl
                     NotificationCenter.default.post(name: NSNotification.Name("UpdateHostUrl"), object: state.hostUrl)
                 }
             case .loadConfig:

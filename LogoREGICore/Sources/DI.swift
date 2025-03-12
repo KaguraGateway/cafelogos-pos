@@ -28,6 +28,10 @@ private enum ConfigRepositoryKey: DependencyKey {
     static let liveValue: any ConfigRepository = ConfigAppStorage()
 }
 
+private enum HostUrlKey: DependencyKey {
+    static var liveValue: String = "http://localhost:8080"
+}
+
 private enum GrpcClientKey: DependencyKey {
     static var liveValue: ProtocolClient {
         let config = DependencyValues().configRepository.load()
@@ -36,7 +40,13 @@ private enum GrpcClientKey: DependencyKey {
         if let environmentHostUrl = ProcessInfo.processInfo.environment["HOST_URL"], !environmentHostUrl.isEmpty {
             hostUrl = environmentHostUrl
         } else {
-            hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+            // configから動的に取得、空の場合はlocalhostを使用
+            let dependencyHostUrl = DependencyValues().hostUrl
+            if dependencyHostUrl != "http://localhost:8080" {
+                hostUrl = dependencyHostUrl
+            } else {
+                hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+            }
         }
         
         return ProtocolClient(
@@ -124,6 +134,10 @@ extension DependencyValues {
     var cashierAdapter: any CashierAdapter {
         get { self[CashierAdapterKey.self] }
         set { self[CashierAdapterKey.self] = newValue }
+    }
+    var hostUrl: String {
+        get { self[HostUrlKey.self] }
+        set { self[HostUrlKey.self] = newValue }
     }
 //    var customerDisplay: any CustomerDisplayService {
 //        get {self[CustomerDisplayServiceKey.self] }
