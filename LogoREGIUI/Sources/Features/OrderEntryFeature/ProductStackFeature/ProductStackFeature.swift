@@ -48,12 +48,8 @@ public struct ProductStackFeature {
                         )
                     } else {
                         // APIサービスを使用
-                        // GetDiscounts().Execute()を呼び出すことで、内部的にServerClientが作成され、
-                        // GrpcClientが再インスタンス化される
-                        // 注: 実際にDiscountデータを使用する必要はなく、GrpcClientの再インスタンス化が目的
-                        Task {
-                            _ = try? await GetDiscounts().Execute()
-                        }
+                        // GetCategoriesWithProduct().Execute()を呼び出すことで、内部的にServerClientが作成され、
+                        // GrpcClientが自動的に再インスタンス化される
                         await send(
                             .fetched(
                                 Result { await GetCategoriesWithProduct().Execute() }
