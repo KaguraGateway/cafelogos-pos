@@ -14,8 +14,16 @@ struct NumericButton: View {
                 .foregroundStyle(getTextColor())
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(getBackgroundColor())
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(getBackgroundColor())
+                        
+                        // ⌫ボタンのみdarkGrayのアウトラインを追加
+                        if numericStr == "⌫" {
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(Color(.darkGray), lineWidth: 4)
+                        }
+                    }
                 )
         }
     }
