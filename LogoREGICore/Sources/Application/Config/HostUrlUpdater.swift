@@ -10,7 +10,11 @@ import Dependencies
 
 public struct HostUrlUpdater {
     // グローバルなhostUrl値を保持する
-    private static var currentHostUrl: String = "http://localhost:8080"
+    // ConfigAppStorageから初期値を読み込む
+    private static var currentHostUrl: String = {
+        let config = GetConfig().Execute()
+        return config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+    }()
     
     public static func updateHostUrl(_ hostUrl: String) {
         // グローバルなhostUrl値を更新する
