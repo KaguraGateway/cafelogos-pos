@@ -1,6 +1,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import SwiftUI
 
 @Reducer
 public struct ProductStackFeature {
@@ -60,7 +61,15 @@ public struct ProductStackFeature {
                 if productCatalog.isEmpty {
                     // FIXME: GetCategoriesWithProduct().Execute() がResult型を返さず、全てSuccessを返すためSuccessの中でハンドリング
                     // 正常にfetchできない場合は空配列が返ってくるためisEmptyで判断
+                    // サーバー接続状態を更新
+                    Task {
+                        await ViewStore(AppFeature()).send(.setIsServerConnected(false))
+                    }
                     return .send(.delegate(.onConnectionError(-1)))
+                }
+                // サーバー接続状態を更新
+                Task {
+                    await ViewStore(AppFeature()).send(.setIsServerConnected(true))
                 }
                 state.productCatalog = productCatalog
                 return .none

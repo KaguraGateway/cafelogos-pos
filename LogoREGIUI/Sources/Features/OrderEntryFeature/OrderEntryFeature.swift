@@ -1,6 +1,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import SwiftUI
 
 @Reducer
 public struct OrderEntryFeature {
@@ -159,7 +160,7 @@ public struct OrderEntryFeature {
                 } message: {
                     TextState("サーバーに接続できませんでした。インターネットに接続されていますか？もしくは、設定 ＞ ホストURLが正しいか確認してください。")
                 }
-                return .none
+                return .send(.productConnectionError(-1))
                 
             case let .productStackAction(.delegate(.onAddItem(productDto, brew))):
                 // 商品カテゴリの生成
@@ -297,7 +298,11 @@ public struct OrderEntryFeature {
             case .alert:
                 return .none
                 
-
+            case .productConnectionError(_):
+                // サーバー接続エラーを親コンポーネントに通知
+                return .run { _ in
+                    await ViewStore(AppFeature()).send(.setIsServerConnected(false))
+                }
 
             default:
                 return .none
