@@ -70,6 +70,8 @@ public struct AppFeature {
                     return .send(.popToHome)
                 case .element(id: _, action: .orderEntry(.popToRoot)):
                     return .send(.popToHome)
+                case let .element(id: _, action: .orderEntry(.setIsServerConnected(isConnected))):
+                    return .send(.setIsServerConnected(isConnected))
                 default:
                     return .none
                 }

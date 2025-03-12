@@ -44,6 +44,9 @@ public struct OrderEntryFeature {
         
         case productConnectionError(Int)
         
+        // サーバー接続状態
+        case setIsServerConnected(Bool)
+        
         // Navigation
         case popToRoot
         
@@ -159,7 +162,11 @@ public struct OrderEntryFeature {
                 } message: {
                     TextState("サーバーに接続できませんでした。インターネットに接続されていますか？もしくは、設定 ＞ ホストURLが正しいか確認してください。")
                 }
-                return .none
+                return .send(.productConnectionError(-1))
+                
+            case let .productStackAction(.delegate(.onServerConnectionChanged(isConnected))):
+                // サーバー接続状態を更新
+                return .send(.setIsServerConnected(isConnected))
                 
             case let .productStackAction(.delegate(.onAddItem(productDto, brew))):
                 // 商品カテゴリの生成
@@ -297,7 +304,9 @@ public struct OrderEntryFeature {
             case .alert:
                 return .none
                 
-
+            case .productConnectionError(_):
+                // サーバー接続エラーを親コンポーネントに通知
+                return .send(.setIsServerConnected(false))
 
             default:
                 return .none
