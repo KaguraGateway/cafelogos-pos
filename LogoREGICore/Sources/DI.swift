@@ -135,7 +135,7 @@ extension DependencyValues {
         get { self[CashierAdapterKey.self] }
         set { self[CashierAdapterKey.self] = newValue }
     }
-    var hostUrl: String {
+    public var hostUrl: String {
         get { self[HostUrlKey.self] }
         set { self[HostUrlKey.self] = newValue }
     }
