@@ -5,16 +5,18 @@ struct BottomBarView: View {
     let totalQuantity: UInt32
     let payment: Payment
     let isPayButtonEnabled: Bool
+    let showSquarePaymentButton: Bool
     
     let onTapPay: () -> Void
     let onTapPayBySquare: () -> Void
     
-    public init(totalQuantity: UInt32, payment: Payment,isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void) {
+    public init(totalQuantity: UInt32, payment: Payment, isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void, showSquarePaymentButton: Bool = true) {
         self.totalQuantity = totalQuantity
         self.payment = payment
         self.isPayButtonEnabled = isPayButtonEnabled
         self.onTapPay = onTapPay
         self.onTapPayBySquare = onTapPayBySquare
+        self.showSquarePaymentButton = showSquarePaymentButton
     }
     
     var body: some View {
@@ -39,24 +41,26 @@ struct BottomBarView: View {
                 .foregroundStyle(Color(.systemGray6))
                 .padding(.horizontal)
             Spacer()
-            Button(action: {
-                onTapPayBySquare()
-            }){
-                Text("Square決済")
-                    .frame(width: 400)
-                    .clipped()
-                    .padding(.vertical)
-                    .font(.system(.title2, weight: .bold))
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(.blue)
-                    }
-                    .lineLimit(0)
-                    .foregroundStyle(.white)
-                    .padding(.leading, 70)
+            if showSquarePaymentButton {
+                Button(action: {
+                    onTapPayBySquare()
+                }){
+                    Text("Square決済")
+                        .frame(width: 400)
+                        .clipped()
+                        .padding(.vertical)
+                        .font(.system(.title2, weight: .bold))
+                        .background {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(.blue)
+                        }
+                        .lineLimit(0)
+                        .foregroundStyle(.white)
+                        .padding(.leading, 70)
+                }
+                .disabled(!isPayButtonEnabled)
+                .opacity(!isPayButtonEnabled ? 0.5 : 1)
             }
-            .disabled(!isPayButtonEnabled)
-            .opacity(!isPayButtonEnabled ? 0.5 : 1)
             Button(action: {
                 onTapPay()
             }){
@@ -94,5 +98,5 @@ struct BottomBarView: View {
         print("tap")
     }, onTapPayBySquare: {
         print("Tap Square")
-    })
+    }, showSquarePaymentButton: true)
 }
