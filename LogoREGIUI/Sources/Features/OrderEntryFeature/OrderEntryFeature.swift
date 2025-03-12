@@ -13,6 +13,8 @@ public struct OrderEntryFeature {
         var orderBottomBarState: OrderBottomBarFeature.State
         @Presents var alert: AlertState<Action.Alert>?
         
+        var isLoading: Bool = false
+        
         public init() {
             let order = Order()
             self.order = order
@@ -78,6 +80,14 @@ public struct OrderEntryFeature {
                 if state.order.cart.items.isEmpty {
                     state.order = Order()
                 }
+                return .none
+                
+            case .productStackAction(.fetch):
+                state.isLoading = true
+                return .none
+                
+            case .productStackAction(.fetched(.success(_))):
+                state.isLoading = false
                 return .none
                 
             case .fetchAllData:
@@ -153,6 +163,7 @@ public struct OrderEntryFeature {
                 
             case .productStackAction(.delegate(.onConnectionError(_))):
                 // サーバー接続エラーの処理
+                state.isLoading = false
                 state.alert = AlertState {
                     TextState("接続エラー")
                 } actions: {

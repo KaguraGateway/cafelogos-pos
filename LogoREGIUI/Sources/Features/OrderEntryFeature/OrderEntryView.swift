@@ -56,6 +56,18 @@ struct OrderEntryView: View {
         }
         .navigationTitle("注文入力")
         .alert($store.scope(state: \.alert, action: \.alert))
+        .overlay(content: {
+            if store.isLoading {
+                ZStack {
+                    Color(.systemBackground).opacity(0.7)
+                    ProgressView()
+                        .scaleEffect(1.5)
+                    Text("読み込み中")
+                        .font(.headline)
+                        .padding(.top, 50)
+                }
+            }
+        })
     }
 }
 
