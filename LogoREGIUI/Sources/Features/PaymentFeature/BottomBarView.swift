@@ -10,7 +10,7 @@ struct BottomBarView: View {
     let onTapPay: () -> Void
     let onTapPayBySquare: () -> Void
     
-    public init(totalQuantity: UInt32, payment: Payment, isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void, showSquarePaymentButton: Bool = true) {
+    public init(totalQuantity: UInt32, payment: Payment, isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void, showSquarePaymentButton: Bool) {
         self.totalQuantity = totalQuantity
         self.payment = payment
         self.isPayButtonEnabled = isPayButtonEnabled
@@ -98,5 +98,5 @@ struct BottomBarView: View {
         print("tap")
     }, onTapPayBySquare: {
         print("Tap Square")
-    }, showSquarePaymentButton: true)
+    }, showSquarePaymentButton: false)
 }

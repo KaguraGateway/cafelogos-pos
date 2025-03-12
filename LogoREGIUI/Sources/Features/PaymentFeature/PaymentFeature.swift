@@ -19,6 +19,7 @@ public struct PaymentFeature {
         
         var isPayButtonEnabled: Bool = true
         var isServerLoading: Bool = false
+        var config: Config
         
         /**
          * 新しい注文がある場合
@@ -38,6 +39,7 @@ public struct PaymentFeature {
                 p + order.cart.totalQuantity
             })
             self.totalAmount = PaymentDomainService().getTotalAmount(orders: orders)
+            self.config = GetConfig().Execute()
         }
     }
     

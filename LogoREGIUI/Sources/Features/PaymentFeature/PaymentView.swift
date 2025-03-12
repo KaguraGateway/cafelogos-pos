@@ -56,7 +56,6 @@ struct PaymentView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 HStack(spacing: 0) {
-                    let config = GetConfig().Execute()
                     BottomBarView(
                         totalQuantity: store.totalQuantity,
                         payment: store.payment,
@@ -67,7 +66,7 @@ struct PaymentView: View {
                         onTapPayBySquare: {
                             store.send(.onTapPayBySquare)
                         },
-                        showSquarePaymentButton: config.isUseSquareTerminal
+                        showSquarePaymentButton: store.config.isUseSquareTerminal
                     )
                     .confirmationDialog($store.scope(state: \.squarePaymentTypeSelector, action: \.squarePaymentTypeSelector))
                 }
