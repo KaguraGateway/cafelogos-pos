@@ -29,6 +29,7 @@ public struct ProductStackFeature {
         
         public enum Delegate {
             case onAddItem(ProductDto, CoffeeHowToBrewDto?)
+            case onConnectionError(Error)
         }
     }
     
@@ -58,6 +59,9 @@ public struct ProductStackFeature {
             case let .fetched(.success(productCatalog)):
                 state.productCatalog = productCatalog
                 return .none
+            case let .fetched(.failure(error)):
+                // NSURLErrorDomain Code=-1004 のエラーを処理
+                return .send(.delegate(.onConnectionError(error)))
             case let .onTapProduct(product):
                 if(product.productType == ProductType.coffee) {
                     if(product.coffeeHowToBrews?.count == 1) {
