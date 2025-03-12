@@ -75,8 +75,12 @@ public struct OrderEntryFeature {
                 return .run { _ in
                     // 設定を更新
                     _ = GetConfig().Execute()
-                    // ServerClientを新しく作成することで、GrpcClientが再インスタンス化される
-                    _ = ServerClient()
+                    // GetDiscounts().Execute()を呼び出すことで、内部的にServerClientが作成され、
+                    // GrpcClientが再インスタンス化される
+                    // 注: 実際にDiscountデータを使用する必要はなく、GrpcClientの再インスタンス化が目的
+                    Task {
+                        _ = try? await GetDiscounts().Execute()
+                    }
                 }
                 
             case .fetchAllData:
