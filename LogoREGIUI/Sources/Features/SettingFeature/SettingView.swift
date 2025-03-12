@@ -31,6 +31,15 @@ struct SettingView: View {
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
                     }
+                    HStack(alignment: .center) {
+                        Text("管理画面URL")
+                        Spacer()
+                        TextField("", text: $store.adminUrl)
+                            .multilineTextAlignment(.trailing)
+                            .keyboardType(.URL)
+                            .autocapitalization(.none)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 Section {
                     Toggle("キャッシュドロア利用", isOn : $store.useDrawer)

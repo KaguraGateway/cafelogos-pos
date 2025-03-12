@@ -52,6 +52,16 @@ struct HomeView: View {
                             state: AppFeature.Path.State.cashDrawerClosing(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
+                            title: "取引・商品一覧",
+                            subTitle: "",
+                            description: "取引履歴と商品を確認",
+                            fgColor: Color.primary,
+                            bgColor: Color(.secondarySystemFill),
+                            width: geometry.size.width * (1/3),
+                            height: geometry.size.height * (1/4),
+                            state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
+                        )
+                        HomeNavigationButton(
                             title: "設定",
                             subTitle: "",
                             description: "レジ・プリンターの動作や表示をカスタマイズ",
