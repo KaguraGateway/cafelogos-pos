@@ -25,7 +25,11 @@ private enum OrderRepositoryKey: DependencyKey {
     static let liveValue: any OrderRepository = OrderRealm()
 }
 private enum ConfigRepositoryKey: DependencyKey {
-    static let liveValue: any ConfigRepository = ConfigAppStorage()
+    @MainActor
+    static private(set) var liveValue: any ConfigRepository = {
+        let container = ModelContainerFactory.shared
+        return ConfigSwiftData(modelContainer: container)
+    }()
 }
 
 private enum GrpcClientKey: DependencyKey {

@@ -11,7 +11,8 @@ import SwiftData
 public enum ModelContainerFactory {
     public static let shared: ModelContainer = {
         let schema = Schema([
-            DenominationModel.self
+            DenominationModel.self,
+            ConfigModel.self
         ])
         
         let modelConfiguration = ModelConfiguration(
