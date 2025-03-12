@@ -31,6 +31,7 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     static var liveValue: ProtocolClient {
         let config = DependencyValues().configRepository.load()
+        let hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(
@@ -38,7 +39,7 @@ private enum GrpcClientKey: DependencyKey {
                 //host: "http://192.168.11.24:8080",
                 //host: "http://localhost:8080",
                 //host: "https://logoregi-backend-768850626313.asia-northeast1.run.app",
-                host: config.hostUrl, // configから動的に取得
+                host: hostUrl, // configから動的に取得、空の場合はlocalhostを使用
                 networkProtocol: .connect,
                 codec: ProtoCodec()
             )
