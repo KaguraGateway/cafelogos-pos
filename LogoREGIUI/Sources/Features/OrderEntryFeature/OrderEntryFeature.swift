@@ -71,17 +71,7 @@ public struct OrderEntryFeature {
                 if state.order.cart.items.isEmpty {
                     state.order = Order()
                 }
-                // GrpcClientを完全に再インスタンス化する
-                return .run { _ in
-                    // 設定を更新
-                    _ = GetConfig().Execute()
-                    // GetDiscounts().Execute()を呼び出すことで、内部的にServerClientが作成され、
-                    // GrpcClientが再インスタンス化される
-                    // 注: 実際にDiscountデータを使用する必要はなく、GrpcClientの再インスタンス化が目的
-                    Task {
-                        _ = try? await GetDiscounts().Execute()
-                    }
-                }
+                return .none
                 
             case .fetchAllData:
 //                return .run { send in
