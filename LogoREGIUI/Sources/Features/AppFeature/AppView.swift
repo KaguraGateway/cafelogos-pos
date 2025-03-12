@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import LogoREGICore
+import Dependencies
 
 public struct AppView: View {
     @Bindable var store: StoreOf<AppFeature>
@@ -42,7 +43,7 @@ public struct AppView: View {
             if let hostUrl = notification.object as? String {
                 store.send(.setHostUrl(hostUrl))
                 // DependencyValuesのhostUrlも更新する
-                DependencyValues().hostUrl = hostUrl
+                HostUrlUpdater.updateHostUrl(hostUrl)
             }
         }
     }

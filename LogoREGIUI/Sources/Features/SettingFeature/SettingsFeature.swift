@@ -3,6 +3,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import Dependencies
 
 @Reducer
 public struct SettingsFeature {
@@ -91,7 +92,7 @@ public struct SettingsFeature {
                     SaveConfig().Execute(config: updatedConfig)
                     
                     // AppFeatureとDependencyValuesのhostUrlも更新する
-                    DependencyValues().hostUrl = state.hostUrl
+                    HostUrlUpdater.updateHostUrl(state.hostUrl)
                     NotificationCenter.default.post(name: NSNotification.Name("UpdateHostUrl"), object: state.hostUrl)
                 }
             case .loadConfig:
