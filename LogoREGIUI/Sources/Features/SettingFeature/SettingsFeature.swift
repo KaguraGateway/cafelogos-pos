@@ -59,19 +59,9 @@ public struct SettingsFeature {
             case .onDisappear:
                 return .send(.saveConfig)
             case .binding:
-                if state.clientName != state.config.clientName ||
-                    state.usePrinter != state.config.isUsePrinter ||
-                    state.printKitchenReceipt != state.config.isPrintKitchenReceipt ||
-                    state.isUseSquareTerminal != state.config.isUseSquareTerminal ||
-                    state.squareAccessToken != state.config.squareAccessToken ||
-                    state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
-                    state.hostUrl != state.config.hostUrl ||
-                    state.isUseProductMock != state.config.isUseProductMock ||
-                    state.isUseIndividualBilling != state.config.isUseIndividualBilling
-                {
-                    return .run { send in
-                        await send(.saveConfig)
-                    }
+                // 値が変更されたら即座に保存する
+                return .run { send in
+                    await send(.saveConfig)
                 }
                 return .none
             case .printTicket:
