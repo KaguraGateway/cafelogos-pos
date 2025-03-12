@@ -3,7 +3,23 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         ContainerWithNavBar {
-            Divider()
+            // アクセントヘアライン
+            // LogoREGI・ブランドカラー
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color(red: 0.44, green: 0.25, blue: 0.25), location: 0.00),
+                            .init(color: Color(red: 0.26, green: 0.1, blue: 0.1), location: 1.00),
+                        ]),
+                        startPoint: UnitPoint(x: -0.05, y: 0.5),
+                        endPoint: UnitPoint(x: 1.02, y: 0.5)
+                    )
+                )
+                .frame(height: 8)
+                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 4)
+                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 10)
+
             GeometryReader { geometry in
                 HStack(alignment: .top, spacing: 15) {
                     // 左列
