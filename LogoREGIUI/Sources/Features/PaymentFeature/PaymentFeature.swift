@@ -27,6 +27,7 @@ public struct PaymentFeature {
         public init(newOrder: Order) {
             self.init(orders: [newOrder])
             self.newOrder = newOrder
+            self.config = GetConfig().Execute()
         }
         
         /**
