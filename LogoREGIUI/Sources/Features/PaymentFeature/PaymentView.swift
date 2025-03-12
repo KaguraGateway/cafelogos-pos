@@ -65,7 +65,8 @@ struct PaymentView: View {
                         },
                         onTapPayBySquare: {
                             store.send(.onTapPayBySquare)
-                        }
+                        },
+                        showSquarePaymentButton: store.config.isUseSquareTerminal
                     )
                     .confirmationDialog($store.scope(state: \.squarePaymentTypeSelector, action: \.squarePaymentTypeSelector))
                 }
