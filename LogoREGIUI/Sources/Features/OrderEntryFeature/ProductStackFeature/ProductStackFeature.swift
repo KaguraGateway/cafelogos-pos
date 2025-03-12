@@ -49,7 +49,7 @@ public struct ProductStackFeature {
                     } else {
                         // APIサービスを使用
                         // GetCategoriesWithProduct().Execute()を呼び出すことで、内部的にServerClientが作成され、
-                        // GrpcClientが自動的に再インスタンス化される
+                        // 最新のEnvironmentObject hostUrlを使用してGrpcClientが再インスタンス化される
                         await send(
                             .fetched(
                                 Result { await GetCategoriesWithProduct().Execute() }

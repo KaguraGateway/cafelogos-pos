@@ -26,3 +26,14 @@ private struct IsServerConnectedKey: EnvironmentKey {
 private struct UseCashDrawerKey: EnvironmentKey {
     static var defaultValue: Bool { true }
 }
+
+private struct HostUrlKey: EnvironmentKey {
+    static var defaultValue: String { "http://localhost:8080" }
+}
+
+extension EnvironmentValues {
+    public var hostUrl: String {
+        get { self[HostUrlKey.self] }
+        set { self[HostUrlKey.self] = newValue }
+    }
+}

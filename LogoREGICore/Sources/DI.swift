@@ -31,7 +31,14 @@ private enum ConfigRepositoryKey: DependencyKey {
 private enum GrpcClientKey: DependencyKey {
     static var liveValue: ProtocolClient {
         let config = DependencyValues().configRepository.load()
-        let hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+        // 環境変数からhostUrlを取得する試み
+        var hostUrl = ""
+        if let environmentHostUrl = ProcessInfo.processInfo.environment["HOST_URL"], !environmentHostUrl.isEmpty {
+            hostUrl = environmentHostUrl
+        } else {
+            hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+        }
+        
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(

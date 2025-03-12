@@ -28,6 +28,7 @@ public struct AppFeature {
         var path = StackState<Path.State>();
         var isServerConnected = false;
         var useCashDrawer = true; // Configに使用可否を保存できるようになったら連携する
+        var hostUrl = "http://localhost:8080"; // ホストURLを保持する状態を追加
         
         public init() {}
     }
@@ -37,6 +38,7 @@ public struct AppFeature {
         case popToHome
         case setIsServerConnected(Bool)
         case setUseCashDrawer(Bool)
+        case setHostUrl(String) // ホストURLを設定するアクションを追加
     }
     
     public init() {}
@@ -79,6 +81,9 @@ public struct AppFeature {
                 return .none
             case let .setUseCashDrawer(isDrawerUse): // 変数名が被った、変更可能な時にuseDrawerに変更したい
                 state.useCashDrawer = isDrawerUse;
+                return .none
+            case let .setHostUrl(url):
+                state.hostUrl = url;
                 return .none
             }
         }

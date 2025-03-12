@@ -7,6 +7,9 @@ public struct AppView: View {
     
     public init(store: StoreOf<AppFeature>) {
         self.store = store
+        // 初期化時にConfigからhostUrlを読み込む
+        let config = GetConfig().Execute()
+        store.send(.setHostUrl(config.hostUrl))
     }
     
     public var body: some View {
@@ -34,5 +37,11 @@ public struct AppView: View {
         }
         .environment(\.isServerConnected, store.isServerConnected)
         .environment(\.useCashDrawer, store.useCashDrawer)
+        .environment(\.hostUrl, store.hostUrl) // hostUrlのEnvironmentを追加
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("UpdateHostUrl"))) { notification in
+            if let hostUrl = notification.object as? String {
+                store.send(.setHostUrl(hostUrl))
+            }
+        }
     }
 }

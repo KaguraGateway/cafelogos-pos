@@ -89,6 +89,9 @@ public struct SettingsFeature {
                         isUseIndividualBilling: state.isUseIndividualBilling
                     )
                     SaveConfig().Execute(config: updatedConfig)
+                    
+                    // AppFeatureのhostUrlも更新する
+                    NotificationCenter.default.post(name: NSNotification.Name("UpdateHostUrl"), object: state.hostUrl)
                 }
             case .loadConfig:
                 let config = GetConfig().Execute()
