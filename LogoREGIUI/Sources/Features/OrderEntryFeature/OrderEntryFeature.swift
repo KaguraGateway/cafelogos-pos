@@ -1,6 +1,7 @@
 import Foundation
 import ComposableArchitecture
 import LogoREGICore
+import Dependencies
 
 @Reducer
 public struct OrderEntryFeature {
@@ -70,7 +71,12 @@ public struct OrderEntryFeature {
                 if state.order.cart.items.isEmpty {
                     state.order = Order()
                 }
-                return .none
+                // GrpcClientのhostUrlを再取得するために、ServerClientを初期化する
+                return .run { _ in
+                    // ServerClientを初期化することで、GrpcClientKeyのliveValueが呼び出され、
+                    // 最新のconfig.hostUrlが使用される
+                    _ = ServerClient()
+                }
                 
             case .fetchAllData:
 //                return .run { send in
