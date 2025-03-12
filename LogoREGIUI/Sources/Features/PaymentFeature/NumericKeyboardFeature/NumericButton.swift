@@ -9,13 +9,36 @@ struct NumericButton: View {
             onAction()
         }) {
             Text(numericStr)
-                .font(.title)
-                .foregroundStyle(.primary)
+                .font(.largeTitle)
+                .fontWeight(.medium)
+                .foregroundStyle(getTextColor())
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(Color(.systemFill))
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(getBackgroundColor())
+                    }
                 )
+        }
+    }
+    
+    private func getBackgroundColor() -> Color {
+        if numericStr == "⌫" {
+            return Color(.darkGray)
+        } else if numericStr.hasPrefix("¥") {
+            return Color(.darkGray)
+        } else {
+            return Color(.systemFill)
+        }
+    }
+    
+    private func getTextColor() -> Color {
+        if numericStr.hasPrefix("¥") {
+            return .white
+        } else if numericStr == "⌫" {
+            return .white
+        } else {
+            return .primary
         }
     }
 }

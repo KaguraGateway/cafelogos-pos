@@ -40,6 +40,7 @@ public struct PaymentFeature {
                 p + order.cart.totalQuantity
             })
             self.totalAmount = PaymentDomainService().getTotalAmount(orders: orders)
+            self.numericKeyboardState = NumericKeyboardFeature.State(totalAmount: self.totalAmount)
             self.config = GetConfig().Execute()
         }
     }
