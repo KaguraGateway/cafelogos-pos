@@ -5,6 +5,11 @@ import ComposableArchitecture
 
 struct SettingView: View {
     @Bindable var store: StoreOf<SettingsFeature>
+    @FocusState private var focusedField: Field?
+    
+    private enum Field {
+        case clientName, hostUrl, squareAccessToken, squareTerminalDeviceId
+    }
     
     var body: some View {
         ContainerWithNavBar {
@@ -21,6 +26,13 @@ struct SettingView: View {
                         Spacer()
                         TextField("クライアント名", text: $store.clientName)
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .clientName)
+                            .onSubmit {
+                                store.send(.saveConfig)
+                            }
+                            .onChange(of: store.clientName) { _, _ in
+                                store.send(.saveConfig)
+                            }
                     }
                     HStack(alignment: .center) {
                         Text("ホストURL")
@@ -30,6 +42,13 @@ struct SettingView: View {
                             .keyboardType(.URL)
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
+                            .focused($focusedField, equals: .hostUrl)
+                            .onSubmit {
+                                store.send(.saveConfig)
+                            }
+                            .onChange(of: store.hostUrl) { _, _ in
+                                store.send(.saveConfig)
+                            }
                     }
                 }
                 Section {
@@ -74,12 +93,26 @@ struct SettingView: View {
                             Spacer()
                             TextField("", text: $store.squareAccessToken)
                                 .multilineTextAlignment(.trailing)
+                                .focused($focusedField, equals: .squareAccessToken)
+                                .onSubmit {
+                                    store.send(.saveConfig)
+                                }
+                                .onChange(of: store.squareAccessToken) { _, _ in
+                                    store.send(.saveConfig)
+                                }
                         }
                         HStack(alignment: .center) {
                             Text("SQUARE_TERMINAL_DEVICE_ID")
                             Spacer()
                             TextField("", text: $store.squareTerminalDeviceId)
                                 .multilineTextAlignment(.trailing)
+                                .focused($focusedField, equals: .squareTerminalDeviceId)
+                                .onSubmit {
+                                    store.send(.saveConfig)
+                                }
+                                .onChange(of: store.squareTerminalDeviceId) { _, _ in
+                                    store.send(.saveConfig)
+                                }
                         }
                     }
                 } header: {
