@@ -61,6 +61,16 @@ struct HomeView: View {
                             height: geometry.size.height * (1/4),
                             state: AppFeature.Path.State.settings(SettingsFeature.State())
                         )
+                        HomeNavigationButton(
+                            title: "取引一覧",
+                            subTitle: "",
+                            description: "取引履歴を確認",
+                            fgColor: Color.primary,
+                            bgColor: Color(.secondarySystemFill),
+                            width: geometry.size.width * (1/3),
+                            height: geometry.size.height * (1/4),
+                            state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
+                        )
                     }
                 }
                 .padding(20)

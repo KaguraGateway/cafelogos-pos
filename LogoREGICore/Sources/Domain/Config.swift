@@ -16,6 +16,7 @@ public struct Config: Equatable {
     public var isUsePrinter: Bool
     public var isPrintKitchenReceipt: Bool
     public var hostUrl: String
+    public var adminUrl: String
     
     public var isUseSquareTerminal: Bool
     public var squareAccessToken: String
@@ -31,6 +32,7 @@ public struct Config: Equatable {
         self.isUsePrinter = false
         self.isPrintKitchenReceipt = false
         self.hostUrl = "http://localhost:8080"
+        self.adminUrl = ""
         self.isUseSquareTerminal = false
         self.squareAccessToken = ""
         self.squareTerminalDeviceId = ""
@@ -38,13 +40,14 @@ public struct Config: Equatable {
         self.isUseIndividualBilling = false
     }
     
-    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, isUseProductMock: Bool = false, isUseIndividualBilling: Bool = false) {
+    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, adminUrl: String = "", isUseProductMock: Bool = false, isUseIndividualBilling: Bool = false) {
         self.clientId = clientId
         self.clientName = clientName
         self.isTrainingMode = isTrainingMode
         self.isUsePrinter = isUsePrinter
         self.isPrintKitchenReceipt = isPrintKitchenReceipt
         self.hostUrl = hostUrl
+        self.adminUrl = adminUrl
         self.isUseSquareTerminal = isUseSquareTerminal
         self.squareAccessToken = squareAccessToken
         self.squareTerminalDeviceId = squareTerminalDeviceId

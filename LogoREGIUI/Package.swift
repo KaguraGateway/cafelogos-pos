@@ -22,6 +22,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.24.0"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.6.0"),
         .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0"),
+        .package(url: "https://github.com/cybozu/WebUI.git", from: "3.0.0"),
         .package(path: "./LogoREGICore")
     ],
     targets: [
@@ -37,6 +38,7 @@ let package = Package(
                 .product(name: "RealmSwift", package: "realm-swift"),
                 .product(name: "Connect", package: "connect-swift"),
                 .product(name: "cafelogos-grpc", package: "cafelogos-grpc"),
+                .product(name: "WebUI", package: "WebUI"),
                 .product(name: "LogoREGICore", package: "LogoREGICore")
             ]),
         .testTarget(

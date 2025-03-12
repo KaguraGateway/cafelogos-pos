@@ -21,6 +21,7 @@ public struct AppFeature {
         case cashDrawerClosing(CashDrawerOperationsFeature)
         case cashDrawerSetup(CashDrawerOperationsFeature)
         case cashDrawerInspection(CashDrawerOperationsFeature)
+        case ordersList(OrdersListFeature)
     }
     
     @ObservableState
@@ -69,6 +70,8 @@ public struct AppFeature {
                 case .element(id: _, action: .cashDrawerSetup(.alert(.presented(.okTapped)))):
                     return .send(.popToHome)
                 case .element(id: _, action: .orderEntry(.popToRoot)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .ordersList(.popToRoot)):
                     return .send(.popToHome)
                 case let .element(id: _, action: .orderEntry(.setIsServerConnected(isConnected))):
                     return .send(.setIsServerConnected(isConnected))

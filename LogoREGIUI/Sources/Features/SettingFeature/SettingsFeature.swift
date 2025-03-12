@@ -15,6 +15,7 @@ public struct SettingsFeature {
         var clientId: String = ""
         var clientName: String = ""
         var hostUrl: String = ""
+        var adminUrl: String = ""
         
         var isUseSquareTerminal: Bool = false
         var squareAccessToken: String = ""
@@ -32,6 +33,7 @@ public struct SettingsFeature {
             self.usePrinter = config.isUsePrinter
             self.printKitchenReceipt = config.isPrintKitchenReceipt
             self.hostUrl = config.hostUrl
+            self.adminUrl = config.adminUrl
             self.isUseSquareTerminal = config.isUseSquareTerminal
             self.squareAccessToken = config.squareAccessToken
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
@@ -66,6 +68,7 @@ public struct SettingsFeature {
                     state.squareAccessToken != state.config.squareAccessToken ||
                     state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
                     state.hostUrl != state.config.hostUrl ||
+                    state.adminUrl != state.config.adminUrl ||
                     state.isUseProductMock != state.config.isUseProductMock ||
                     state.isUseIndividualBilling != state.config.isUseIndividualBilling
                 {
@@ -92,6 +95,7 @@ public struct SettingsFeature {
                     updatedConfig.squareAccessToken = state.squareAccessToken
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
+                    updatedConfig.adminUrl = state.adminUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
                     updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
                     SaveConfig().Execute(config: updatedConfig)
@@ -107,6 +111,7 @@ public struct SettingsFeature {
                 state.squareAccessToken = config.squareAccessToken
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
                 state.hostUrl = config.hostUrl
+                state.adminUrl = config.adminUrl
                 state.isUseProductMock = config.isUseProductMock
                 state.isUseIndividualBilling = config.isUseIndividualBilling
                 return .none
