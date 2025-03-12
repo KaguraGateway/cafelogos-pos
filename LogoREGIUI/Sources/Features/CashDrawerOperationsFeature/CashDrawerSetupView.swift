@@ -11,11 +11,20 @@ struct CashDrawerSetupView: View {
             GeometryReader {geometry in
                 HStack(spacing:0){
                     DenominationFormList(store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction))
+                        .environmentObject(store)
                     Divider()
                     VStack(alignment: .leading){
                         TitledAmountView(title: "釣り銭準備金", amount: Int(store.cashDrawerTotal))
                             .padding(.bottom)
                             .padding(.top, 50)
+                            
+                        // テンキーを追加（フォーカス時のみ表示）
+                        if store.isTextFieldFocused {
+                            CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: store.isTextFieldFocused)
+                        }
+                            
                         Spacer()
                         TitleNavButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {

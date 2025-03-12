@@ -11,6 +11,7 @@ struct InspectionView: View {
             GeometryReader {geometry in
                 HStack(spacing:0){
                     DenominationFormList(store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction))
+                        .environmentObject(store)
                     Divider()
                     VStack(alignment: .leading){
                         TitledAmountView(title: "あるべき釣り銭(A)", amount: store.expectedCashAmount)
@@ -19,6 +20,14 @@ struct InspectionView: View {
                         TitledAmountView(title: "現在の釣り銭(B)", amount: store.cashDrawerTotal)
                             .padding(.bottom)
                         TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
+                        
+                        // テンキーを追加（フォーカス時のみ表示）
+                        if store.isTextFieldFocused {
+                            CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: store.isTextFieldFocused)
+                        }
+                        
                         Spacer()
                         TitleNavButton(title: "点検完了", bgColor: Color.teal, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {

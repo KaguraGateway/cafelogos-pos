@@ -14,6 +14,9 @@ public struct CashDrawerOperationsFeature {
         var cashDiscrepancy: Int = 0
         
         var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
+        var numericKeyboardState = CashDrawerNumericKeyboardFeature.State()
+        var isTextFieldFocused: Bool = false
+        
         @Presents var alert: AlertState<Action.Alert>?
     }
     
@@ -35,6 +38,8 @@ public struct CashDrawerOperationsFeature {
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
+        case numericKeyboardAction(CashDrawerNumericKeyboardFeature.Action)
+        case updateTextFieldFocus(Bool)
         case takeScreenshot(UIView)
 
         // Alert
@@ -51,6 +56,9 @@ public struct CashDrawerOperationsFeature {
     public var body: some Reducer<State, Action> {
         Scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction) {
             DenominationFormListFeature()
+        }
+        Scope(state: \.numericKeyboardState, action: \.numericKeyboardAction) {
+            CashDrawerNumericKeyboardFeature()
         }
         Reduce { state, action in
             switch action {
@@ -145,6 +153,15 @@ public struct CashDrawerOperationsFeature {
                 
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+                
+            case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
+                // 入力された数値を処理する（必要に応じて）
+                return .none
+            case .numericKeyboardAction:
+                return .none
+            case let .updateTextFieldFocus(isFocused):
+                state.isTextFieldFocused = isFocused
+                return .none
                 
             case let .takeScreenshot(view):
                 takeScreenshot(from: view)
