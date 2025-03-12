@@ -9,9 +9,16 @@ import Foundation
 import Dependencies
 
 public struct HostUrlUpdater {
+    // グローバルなhostUrl値を保持する
+    private static var currentHostUrl: String = "http://localhost:8080"
+    
     public static func updateHostUrl(_ hostUrl: String) {
-        // グローバルなDependencyValuesを更新するためのメソッド
-        // DependencyValues._currentを使用して、グローバルなDependencyValuesインスタンスにアクセスする
-        DependencyValues._current.hostUrl = hostUrl
+        // グローバルなhostUrl値を更新する
+        currentHostUrl = hostUrl
+    }
+    
+    public static func getHostUrl() -> String {
+        // 現在のhostUrl値を取得する
+        return currentHostUrl
     }
 }
