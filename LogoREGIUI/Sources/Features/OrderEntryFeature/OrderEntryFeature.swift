@@ -71,11 +71,11 @@ public struct OrderEntryFeature {
                 if state.order.cart.items.isEmpty {
                     state.order = Order()
                 }
-                // GrpcClientのhostUrlを再取得するために、ServerClientを初期化する
+                // GrpcClientのhostUrlを再取得するために、GetConfigを実行する
                 return .run { _ in
-                    // ServerClientを初期化することで、GrpcClientKeyのliveValueが呼び出され、
-                    // 最新のconfig.hostUrlが使用される
-                    _ = ServerClient()
+                    // GetConfig().Execute()を呼び出すことで、configRepositoryにアクセスし、
+                    // 次回grpcClientが使用される時に最新のconfig.hostUrlが使用される
+                    _ = GetConfig().Execute()
                 }
                 
             case .fetchAllData:
