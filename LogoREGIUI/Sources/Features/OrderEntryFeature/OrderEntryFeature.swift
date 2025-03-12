@@ -157,7 +157,7 @@ public struct OrderEntryFeature {
                         TextState("OK")
                     }
                 } message: {
-                    TextState("サーバーに接続できませんでした。エンドポイントのURLを確認してください。")
+                    TextState("サーバーに接続できませんでした。インターネットに接続されていますか？もしくは、設定 ＞ ホストURLが正しいか確認してください。")
                 }
                 return .none
                 
@@ -292,7 +292,6 @@ public struct OrderEntryFeature {
                     // 前のページに戻る
                     return .send(.popToRoot)
                 }
-                return .none
 
             // アラートの処理を追加する場合はこれより上に書く
             case .alert:
