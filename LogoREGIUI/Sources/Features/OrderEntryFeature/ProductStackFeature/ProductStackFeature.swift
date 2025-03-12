@@ -29,7 +29,7 @@ public struct ProductStackFeature {
         
         public enum Delegate {
             case onAddItem(ProductDto, CoffeeHowToBrewDto?)
-            case onConnectionError(Error)
+            case onConnectionError(Int)
         }
     }
     
@@ -57,11 +57,13 @@ public struct ProductStackFeature {
                     }
                 }
             case let .fetched(.success(productCatalog)):
+                if productCatalog.isEmpty {
+                    // FIXME: GetCategoriesWithProduct().Execute() がResult型を返さず、全てSuccessを返すためSuccessの中でハンドリング
+                    // 正常にfetchできない場合は空配列が返ってくるためisEmptyで判断
+                    return .send(.delegate(.onConnectionError(-1)))
+                }
                 state.productCatalog = productCatalog
                 return .none
-            case let .fetched(.failure(error)):
-                // NSURLErrorDomain Code=-1004 のエラーを処理
-                return .send(.delegate(.onConnectionError(error)))
             case let .onTapProduct(product):
                 if(product.productType == ProductType.coffee) {
                     if(product.coffeeHowToBrews?.count == 1) {

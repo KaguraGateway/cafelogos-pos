@@ -42,7 +42,7 @@ public struct OrderEntryFeature {
         
         case fetchedUnPaidOrders(Result<[Order], Error>)
         
-        case productConnectionError(Error)
+        case productConnectionError(Int)
         
         // Alert
         case alert(PresentationAction<Action.Alert>)
@@ -145,7 +145,7 @@ public struct OrderEntryFeature {
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 return .none
                 
-            case let .productStackAction(.delegate(.onConnectionError(error))):
+            case .productStackAction(.delegate(.onConnectionError(_))):
                 // サーバー接続エラーの処理
                 state.alert = AlertState {
                     TextState("接続エラー")
