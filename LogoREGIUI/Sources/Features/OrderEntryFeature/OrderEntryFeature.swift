@@ -12,7 +12,6 @@ public struct OrderEntryFeature {
         var productStackState: ProductStackFeature.State
         var orderBottomBarState: OrderBottomBarFeature.State
         @Presents var alert: AlertState<Action.Alert>?
-        var navigateBack: Bool = false
         
         public init() {
             let order = Order()
@@ -21,7 +20,6 @@ public struct OrderEntryFeature {
             self.productStackState = ProductStackFeature.State()
             orderBottomBarState = OrderBottomBarFeature.State(orders: [])
             self.alert = nil
-            self.navigateBack = false
         }
     }
     
@@ -47,7 +45,7 @@ public struct OrderEntryFeature {
         case productConnectionError(Int)
         
         // Navigation
-        case navigateBack
+        case popToRoot
         
         // Alert
         case alert(PresentationAction<Action.Alert>)
@@ -292,8 +290,7 @@ public struct OrderEntryFeature {
                 case .okTapped:
                     state.alert = nil
                     // 前のページに戻る
-                    state.navigateBack = true
-                    return .none
+                    return .send(.popToRoot)
                 }
                 return .none
 
@@ -301,10 +298,7 @@ public struct OrderEntryFeature {
             case .alert:
                 return .none
                 
-            case .navigateBack:
-                // 前のページに戻る処理
-                state.navigateBack = true
-                return .none
+
 
             default:
                 return .none
