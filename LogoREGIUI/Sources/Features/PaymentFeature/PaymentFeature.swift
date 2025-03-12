@@ -12,7 +12,9 @@ public struct PaymentFeature {
         let totalQuantity: UInt32
         let totalAmount: UInt64
         
-        var numericKeyboardState = NumericKeyboardFeature.State()
+        var numericKeyboardState: NumericKeyboardFeature.State {
+            .init(totalAmount: totalAmount)
+        }
         
         @Presents var alert: AlertState<Action.Alert>?
         @Presents var squarePaymentTypeSelector: ConfirmationDialogState<Action.SquarePaymentTypeSelectorDialog>?
