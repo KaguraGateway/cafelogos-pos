@@ -12,6 +12,7 @@ import ComposableArchitecture
 
 struct OrderEntryView: View {
     @Bindable var store: StoreOf<OrderEntryFeature>
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ContainerWithNavBar {
@@ -56,6 +57,11 @@ struct OrderEntryView: View {
         }
         .navigationTitle("注文入力")
         .alert($store.scope(state: \.alert, action: \.alert))
+        .onReceive(store.publisher.map(\.navigateBack)) { navigateBack in
+            if navigateBack {
+                dismiss()
+            }
+        }
     }
 }
 
