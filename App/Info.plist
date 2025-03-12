@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>Use Bluetooth for communication with the printer.</string>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>Use Local Network for communication with the printer or discovery the printers.</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>Use Bluetooth for communication with the printer.</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

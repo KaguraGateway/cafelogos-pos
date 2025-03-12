@@ -306,10 +306,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9P7M734N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -323,7 +325,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos-1006";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.cirkit.logos-systems.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -342,10 +344,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9P7M734N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -359,7 +363,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos-1006";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.cirkit.logos-systems.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
