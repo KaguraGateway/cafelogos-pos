@@ -40,10 +40,10 @@ private enum GrpcClientKey: DependencyKey {
         if let environmentHostUrl = ProcessInfo.processInfo.environment["HOST_URL"], !environmentHostUrl.isEmpty {
             hostUrl = environmentHostUrl
         } else {
-            // configから動的に取得、空の場合はlocalhostを使用
-            let dependencyHostUrl = DependencyValues().hostUrl
-            if dependencyHostUrl != "http://localhost:8080" {
-                hostUrl = dependencyHostUrl
+            // HostUrlUpdaterから最新のhostUrl値を取得
+            let updatedHostUrl = HostUrlUpdater.getHostUrl()
+            if updatedHostUrl != "http://localhost:8080" {
+                hostUrl = updatedHostUrl
             } else {
                 hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
             }
