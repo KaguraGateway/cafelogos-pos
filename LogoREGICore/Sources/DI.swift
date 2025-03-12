@@ -25,7 +25,7 @@ private enum OrderRepositoryKey: DependencyKey {
     static let liveValue: any OrderRepository = OrderRealm()
 }
 private enum ConfigRepositoryKey: DependencyKey {
-    static let liveValue: any ConfigRepository = ConfigAppStorage()
+    static let liveValue: any ConfigRepository = ConfigRealm()
 }
 
 private enum GrpcClientKey: DependencyKey {
