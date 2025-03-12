@@ -74,16 +74,20 @@ public struct SettingsFeature {
                 }
             case .saveConfig:
                 return .run { [state] _ in
-                    var updatedConfig = state.config
-                    updatedConfig.clientName = state.clientName
-                    updatedConfig.isUsePrinter = state.usePrinter
-                    updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
-                    updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
-                    updatedConfig.squareAccessToken = state.squareAccessToken
-                    updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
-                    updatedConfig.hostUrl = state.hostUrl
-                    updatedConfig.isUseProductMock = state.isUseProductMock
-                    updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
+                    // 新しいConfigインスタンスを作成して、最新のstate値を直接設定する
+                    let updatedConfig = Config(
+                        clientId: state.clientId,
+                        clientName: state.clientName,
+                        isTrainingMode: state.config.isTrainingMode,
+                        isUsePrinter: state.usePrinter,
+                        isPrintKitchenReceipt: state.printKitchenReceipt,
+                        isUseSquareTerminal: state.isUseSquareTerminal,
+                        squareAccessToken: state.squareAccessToken,
+                        squareTerminalDeviceId: state.squareTerminalDeviceId,
+                        hostUrl: state.hostUrl,
+                        isUseProductMock: state.isUseProductMock,
+                        isUseIndividualBilling: state.isUseIndividualBilling
+                    )
                     SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
