@@ -26,12 +26,16 @@ public struct NewPayment {
         }
         print(receiptItems)
         
+        // サーバーリクエスト送信前にドロアを開く
+        if(config.isUsePrinter) {
+            await cashierAdapter.openCacher()
+        }
+        
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType)
         if res.error == nil {
             paymentRepo.save(payment: payment)
             
             if(config.isUsePrinter) {
-                await cashierAdapter.openCacher()
                 await cashierAdapter.printReceipt(receipt: OrderReceipt(callNumber: res.callNumber ?? ""))
             }
             if(config.isPrintKitchenReceipt) {
