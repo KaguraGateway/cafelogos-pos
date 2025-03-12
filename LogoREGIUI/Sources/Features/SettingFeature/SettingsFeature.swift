@@ -26,7 +26,29 @@ public struct SettingsFeature {
         var config: Config
         
         init() {
-            self.config = GetConfig().Execute()
+            // デフォルト値で初期化
+            self.config = Config()
+            self.clientId = config.clientId
+            self.clientName = config.clientName
+            self.usePrinter = config.isUsePrinter
+            self.printKitchenReceipt = config.isPrintKitchenReceipt
+            self.hostUrl = config.hostUrl
+            self.isUseSquareTerminal = config.isUseSquareTerminal
+            self.squareAccessToken = config.squareAccessToken
+            self.squareTerminalDeviceId = config.squareTerminalDeviceId
+            self.isUseProductMock = config.isUseProductMock
+            self.isUseIndividualBilling = config.isUseIndividualBilling
+            
+            // 初期化後に非同期でロード
+            Task {
+                await loadConfig()
+            }
+        }
+        
+        @MainActor
+        private func loadConfig() async {
+            let config = await GetConfig().Execute()
+            self.config = config
             self.clientId = config.clientId
             self.clientName = config.clientName
             self.usePrinter = config.isUsePrinter
@@ -48,6 +70,7 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
+        case updateConfig(Config)
     }
     
     public var body: some Reducer<State, Action> {
@@ -94,10 +117,14 @@ public struct SettingsFeature {
                     updatedConfig.hostUrl = state.hostUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
                     updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
-                    SaveConfig().Execute(config: updatedConfig)
+                    await SaveConfig().Execute(config: updatedConfig)
                 }
             case .loadConfig:
-                let config = GetConfig().Execute()
+                return .run { send in
+                    let config = await GetConfig().Execute()
+                    await send(.updateConfig(config))
+                }
+            case .updateConfig(let config):
                 state.config = config
                 state.clientId = config.clientId
                 state.clientName = config.clientName

@@ -8,12 +8,13 @@
 import Foundation
 import Dependencies
 
+@MainActor
 public struct GetConfig {
     @Dependency(\.configRepository) private var configRepo
     
     public init() {}
     
-    public func Execute() -> Config {
+    public func Execute() async -> Config {
         return configRepo.load()
     }
 }

@@ -53,7 +53,8 @@ public struct Config: Equatable {
     }
 }
 
+@MainActor
 protocol ConfigRepository {
-    func load() -> Config
-    func save(config: Config)
+    func load() async -> Config
+    func save(config: Config) async
 }

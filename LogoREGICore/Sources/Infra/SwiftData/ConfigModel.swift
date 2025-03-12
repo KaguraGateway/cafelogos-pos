@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class ConfigModel {
-    @Attribute(.unique) let clientId: String
+    @Attribute(.unique) var clientId: String
     var clientName: String
     var isTrainingMode: Bool
     var isUsePrinter: Bool

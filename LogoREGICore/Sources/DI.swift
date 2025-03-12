@@ -33,7 +33,8 @@ private enum ConfigRepositoryKey: DependencyKey {
 }
 
 private enum GrpcClientKey: DependencyKey {
-    static var liveValue: ProtocolClient {
+    @MainActor
+    static private(set) var liveValue: ProtocolClient = {
         let config = DependencyValues().configRepository.load()
         let hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
         return ProtocolClient(
@@ -48,7 +49,7 @@ private enum GrpcClientKey: DependencyKey {
                 codec: ProtoCodec()
             )
         )
-    }
+    }()
 }
 
 

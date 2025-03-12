@@ -16,7 +16,7 @@ public final class ConfigSwiftData: ConfigRepository {
         self.modelContainer = modelContainer
     }
     
-    public func load() -> Config {
+    public func load() async -> Config {
         let context = modelContainer.mainContext
         let descriptor = FetchDescriptor<ConfigModel>()
         
@@ -27,7 +27,7 @@ public final class ConfigSwiftData: ConfigRepository {
             } else {
                 // 設定が存在しない場合は新しい設定を作成して保存
                 let newConfig = Config()
-                save(config: newConfig)
+                await save(config: newConfig)
                 return newConfig
             }
         } catch {
@@ -35,16 +35,14 @@ public final class ConfigSwiftData: ConfigRepository {
         }
     }
     
-    public func save(config: Config) {
+    public func save(config: Config) async {
         let context = modelContainer.mainContext
         
         do {
-            let descriptor = FetchDescriptor<ConfigModel>(
-                predicate: #Predicate<ConfigModel> {
-                    $0.clientId == config.clientId
-                }
-            )
-            let existingModels = try context.fetch(descriptor)
+            // Predicateの構文を修正
+            let descriptor = FetchDescriptor<ConfigModel>()
+            let allModels = try context.fetch(descriptor)
+            let existingModels = allModels.filter { $0.clientId == config.clientId }
             
             if let existingModel = existingModels.first {
                 // 既存の設定を更新
