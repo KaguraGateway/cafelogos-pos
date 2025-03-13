@@ -42,6 +42,7 @@ public struct CashDrawerOperationsFeature {
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
         case numericKeyboardAction(CashDrawerNumericKeyboardFeature.Action)
         case updateTextFieldFocus(Bool, Int?)
+        case registerTextField(UITextField, Int)
         case takeScreenshot(UIView)
 
         // Alert
@@ -56,15 +57,7 @@ public struct CashDrawerOperationsFeature {
     }
     
     public init() {
-        // TextFieldの参照を保存するための通知を監視
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("StoreTextFieldReference"), 
-                                              object: nil, 
-                                              queue: .main) { [weak self] notification in
-            if let textField = notification.userInfo?["textField"] as? UITextField,
-               let index = notification.userInfo?["index"] as? Int {
-                self?.state.activeTextFields[index] = textField
-            }
-        }
+        // 空のinitメソッド - TCAパターンに従う
     }
     
     public var body: some Reducer<State, Action> {
@@ -201,6 +194,10 @@ public struct CashDrawerOperationsFeature {
                         state.numericKeyboardState.suffixNumeric = "\(quantity)"
                     }
                 }
+                return .none
+                
+            case let .registerTextField(textField, index):
+                state.activeTextFields[index] = textField
                 return .none
                 
             case let .takeScreenshot(view):

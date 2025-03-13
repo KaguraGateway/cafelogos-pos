@@ -27,6 +27,12 @@ struct DenominationFormList: View {
                                 // 明示的にフォーカスインデックスを渡す
                                 print("DenominationFormList focus change: isFocused=\(isFocused), index=\(idx)")
                                 onFocusChange(isFocused, isFocused ? index : nil)
+                                
+                                // TextFieldの参照を登録 - UITextFieldの参照はDenominationFormから直接取得できないため、
+                                // フォーカス変更時にCashDrawerOperationsFeatureのregisterTextFieldアクションを使用
+                                if let textField = UIApplication.shared.windows.first?.rootViewController?.view.viewWithTag(index) as? UITextField {
+                                    store.send(.registerTextField(textField, index))
+                                }
                             },
                             index: index
                         )

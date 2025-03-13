@@ -43,10 +43,8 @@ struct DenominationForm: View {
                                 // タグを設定してTextFieldを識別できるようにする
                                 textField.tag = index
                                 
-                                // グローバル変数にTextFieldの参照を保存
-                                NotificationCenter.default.post(name: NSNotification.Name("StoreTextFieldReference"), 
-                                                              object: nil, 
-                                                              userInfo: ["textField": textField, "index": index])
+                                // TextFieldの参照を保存 - 通知の代わりにonFocusChangeを使用
+                                onFocusChange(true, index)
                             }
                         })
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification), perform: { _ in
