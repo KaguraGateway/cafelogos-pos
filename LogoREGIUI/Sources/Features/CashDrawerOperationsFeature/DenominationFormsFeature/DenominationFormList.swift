@@ -27,13 +27,11 @@ struct DenominationFormList: View {
                                 // 重複イベントを防止するため、フォーカス状態が変わった時だけ通知
                                 if idx == index { // 同じインデックスの場合のみ処理
                                     onFocusChange(isFocused, isFocused ? index : nil)
-                                    
-                                    // TextFieldの参照を登録 - UITextFieldの参照はDenominationFormから直接取得できないため、
-                                    // フォーカス変更時にDelegateを通じて親Featureに通知
-                                    if isFocused, let textField = UIApplication.shared.windows.first?.rootViewController?.view.viewWithTag(index) as? UITextField {
-                                        store.send(.delegate(.registerTextField(textField, index)))
-                                    }
                                 }
+                            },
+                            onRegisterTextField: { textField in
+                                // TextFieldの参照を直接登録
+                                store.send(.delegate(.registerTextField(textField, index)))
                             },
                             index: index
                         )

@@ -200,6 +200,13 @@ public struct CashDrawerOperationsFeature {
                 
             case let .registerTextField(textField, index):
                 state.activeTextFields[index] = textField
+                // TextFieldが登録されたら、現在の値を設定
+                if let focusedIndex = state.focusedDenominationIndex, focusedIndex == index {
+                    let quantity = state.denominationFormListFeatureState.denominations.denominations[index].quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
                 return .none
                 
             case let .takeScreenshot(view):
