@@ -28,11 +28,11 @@ struct HomeView: View {
                             title: "注文入力・会計",
                             subTitle: "（イートイン管理対応）",
                             description: "POSレジ・ハンディ端末から注文を管理",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height,
-                            icon: "cart.fill",
+                            icon: "cart",
                             state: AppFeature.Path.State.orderEntry(OrderEntryFeature.State())
                         )
                     }
@@ -42,55 +42,55 @@ struct HomeView: View {
                             title: "レジ開け",
                             subTitle: "",
                             description: "レジ内の釣り銭を設定",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
-                            icon: "dollarsign.circle.fill",
+                            icon: "dollarsign.circle",
                             state: AppFeature.Path.State.cashDrawerSetup(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
                             title: "点検",
                             subTitle: "",
                             description: "レジ内の釣り銭を差分を確認",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
-                            icon: "magnifyingglass.circle.fill",
+                            icon: "magnifyingglass.circle",
                             state: AppFeature.Path.State.cashDrawerInspection(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
                             title: "精算",
                             subTitle: "",
                             description: "レジ内の釣り銭を差分を確認・保存",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
-                            icon: "checkmark.circle.fill",
+                            icon: "checkmark.circle",
                             state: AppFeature.Path.State.cashDrawerClosing(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
                             title: "取引・商品一覧",
                             subTitle: "",
                             description: "取引履歴と商品を確認",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
-                            icon: "list.bullet.clipboard.fill",
+                            icon: "list.bullet.clipboard",
                             state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
                         )
                         HomeNavigationButton(
                             title: "設定",
                             subTitle: "",
                             description: "レジ・プリンターの動作や表示をカスタマイズ",
-                            fgColor: Color.primary,
-                            bgColor: Color(.secondarySystemFill),
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
-                            icon: "gearshape.fill",
+                            icon: "gearshape",
                             state: AppFeature.Path.State.settings(SettingsFeature.State())
                         )
                     }

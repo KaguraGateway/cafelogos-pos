@@ -22,35 +22,33 @@ struct HomeNavigationButton<P>: View {
                     if let iconName = icon {
                         Image(systemName: iconName)
                             .font(.system(size: 32, weight: .light))
-                            .symbolVariant(.outline)
-                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
+                            .foregroundStyle(fgColor)
                     }
-                    VStack(alignment: .leading, spacing: 2) {
+                    VStack(alignment: .leading) {
                         Text(title)
                             .font(.system(.largeTitle, weight: .semibold))
-                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
+                            .foregroundStyle(fgColor)
                             .lineLimit(0)
                         Text(subTitle)
                             .font(.title3)
-                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
+                            .foregroundStyle(fgColor)
                             .lineLimit(2)
                     }
                 }
                 Text(description)
                     .font(.body)
-                    .foregroundStyle(Color(.systemGray))
+                    .foregroundStyle(Color(.darkGray))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
-                    .padding(.top, 10)
+                    .padding(.top)
             }
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
             .padding(.horizontal, 0)
             .padding(.vertical, 0)
             .background {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color(.systemGray), lineWidth: 2)
-                    .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBackground)))
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(bgColor)
             }
         }
     }
