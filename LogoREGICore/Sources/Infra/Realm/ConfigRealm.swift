@@ -42,24 +42,84 @@ public struct ConfigRealm: ConfigRepository {
     }
     
     public func save(config: Config) {
-        let dao = ConfigDao()
-        dao.clientId = config.clientId
-        dao.clientName = config.clientName
-        dao.isTrainingMode = config.isTrainingMode
-        dao.isUsePrinter = config.isUsePrinter
-        dao.isPrintKitchenReceipt = config.isPrintKitchenReceipt
-        dao.hostUrl = config.hostUrl
-        dao.adminUrl = config.adminUrl
-        dao.isUseSquareTerminal = config.isUseSquareTerminal
-        dao.squareAccessToken = config.squareAccessToken
-        dao.squareTerminalDeviceId = config.squareTerminalDeviceId
-        dao.isUseProductMock = config.isUseProductMock
-        dao.isUseIndividualBilling = config.isUseIndividualBilling
-        
         do {
             let realm = try Realm()
-            try realm.write {
-                realm.add(dao, update: .modified)
+            
+            // Check if config exists and if values have changed
+            if let existingDao = realm.objects(ConfigDao.self).first {
+                var needsUpdate = false
+                
+                try realm.write {
+                    // Only update properties that have changed
+                    if existingDao.clientName != config.clientName {
+                        existingDao.clientName = config.clientName
+                        needsUpdate = true
+                    }
+                    if existingDao.isTrainingMode != config.isTrainingMode {
+                        existingDao.isTrainingMode = config.isTrainingMode
+                        needsUpdate = true
+                    }
+                    if existingDao.isUsePrinter != config.isUsePrinter {
+                        existingDao.isUsePrinter = config.isUsePrinter
+                        needsUpdate = true
+                    }
+                    if existingDao.isPrintKitchenReceipt != config.isPrintKitchenReceipt {
+                        existingDao.isPrintKitchenReceipt = config.isPrintKitchenReceipt
+                        needsUpdate = true
+                    }
+                    if existingDao.hostUrl != config.hostUrl {
+                        existingDao.hostUrl = config.hostUrl
+                        needsUpdate = true
+                    }
+                    if existingDao.adminUrl != config.adminUrl {
+                        existingDao.adminUrl = config.adminUrl
+                        needsUpdate = true
+                    }
+                    if existingDao.isUseSquareTerminal != config.isUseSquareTerminal {
+                        existingDao.isUseSquareTerminal = config.isUseSquareTerminal
+                        needsUpdate = true
+                    }
+                    if existingDao.squareAccessToken != config.squareAccessToken {
+                        existingDao.squareAccessToken = config.squareAccessToken
+                        needsUpdate = true
+                    }
+                    if existingDao.squareTerminalDeviceId != config.squareTerminalDeviceId {
+                        existingDao.squareTerminalDeviceId = config.squareTerminalDeviceId
+                        needsUpdate = true
+                    }
+                    if existingDao.isUseProductMock != config.isUseProductMock {
+                        existingDao.isUseProductMock = config.isUseProductMock
+                        needsUpdate = true
+                    }
+                    if existingDao.isUseIndividualBilling != config.isUseIndividualBilling {
+                        existingDao.isUseIndividualBilling = config.isUseIndividualBilling
+                        needsUpdate = true
+                    }
+                    
+                    if !needsUpdate {
+                        // No changes, cancel the transaction
+                        realm.cancelWrite()
+                    }
+                }
+            } else {
+                // Config doesn't exist, create a new one
+                let dao = ConfigDao()
+                dao.clientId = config.clientId
+                dao.clientName = config.clientName
+                dao.isTrainingMode = config.isTrainingMode
+                dao.isUsePrinter = config.isUsePrinter
+                dao.isPrintKitchenReceipt = config.isPrintKitchenReceipt
+                dao.hostUrl = config.hostUrl
+                dao.adminUrl = config.adminUrl
+                dao.isUseSquareTerminal = config.isUseSquareTerminal
+                dao.squareAccessToken = config.squareAccessToken
+                dao.squareTerminalDeviceId = config.squareTerminalDeviceId
+                dao.isUseProductMock = config.isUseProductMock
+                dao.isUseIndividualBilling = config.isUseIndividualBilling
+                
+                try realm.write {
+                    realm.add(dao)
+                }
             }
         } catch let err {
             print("Config save error: \(err.localizedDescription)")
