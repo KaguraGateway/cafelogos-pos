@@ -10,8 +10,10 @@ struct CashDrawerSetupView: View {
         ContainerWithNavBar {
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    DenominationFormList(store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction))
-                        .environmentObject(store)
+                    DenominationFormList(
+                        store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction),
+                        onFocusChange: { isFocused in store.send(.updateTextFieldFocus(isFocused)) }
+                    )
                     Divider()
                     VStack(alignment: .leading){
                         TitledAmountView(title: "釣り銭準備金", amount: Int(store.cashDrawerTotal))

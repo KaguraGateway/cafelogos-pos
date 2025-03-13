@@ -6,7 +6,7 @@ import ComposableArchitecture
 // 複数金種の入力フォーム
 struct DenominationFormList: View {
     let store: StoreOf<DenominationFormListFeature>
-    @EnvironmentObject var cashDrawerStore: StoreOf<CashDrawerOperationsFeature>
+    let onFocusChange: (Bool) -> Void
     
     var body: some View {
         VStack(spacing: 0){
@@ -22,9 +22,9 @@ struct DenominationFormList: View {
                             denomination: store.denominations.denominations[index],
                             onUpdate: { newValue in
                                 store.send(.updateDenomination(index: index, newValue: newValue))
-                            }
+                            },
+                            onFocusChange: onFocusChange
                         )
-                        .environmentObject(cashDrawerStore)
                     }
                 }
             }
