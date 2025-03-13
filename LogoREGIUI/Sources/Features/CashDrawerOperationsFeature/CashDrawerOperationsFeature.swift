@@ -17,6 +17,7 @@ public struct CashDrawerOperationsFeature {
         var numericKeyboardState = CashDrawerNumericKeyboardFeature.State()
         var isTextFieldFocused: Bool = false
         var focusedDenominationIndex: Int? = nil
+        var activeTextFields: [Int: UITextField] = [:] // 追加: TextFieldの参照を保持
         
         @Presents var alert: AlertState<Action.Alert>?
     }
@@ -51,6 +52,18 @@ public struct CashDrawerOperationsFeature {
             case okTapped
             case settlementOkTapped
             case cancel
+        }
+    }
+    
+    public init() {
+        // TextFieldの参照を保存するための通知を監視
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("StoreTextFieldReference"), 
+                                              object: nil, 
+                                              queue: .main) { [weak self] notification in
+            if let textField = notification.userInfo?["textField"] as? UITextField,
+               let index = notification.userInfo?["index"] as? Int {
+                self?.state.activeTextFields[index] = textField
+            }
         }
     }
     
@@ -161,6 +174,12 @@ public struct CashDrawerOperationsFeature {
                     let inputValue = Int(state.numericKeyboardState.inputNumeric)
                     var updatedDenomination = state.denominationFormListFeatureState.denominations.denominations[focusedIndex]
                     updatedDenomination.setQuantity(newValue: inputValue)
+                    
+                    // 直接TextFieldの値を更新
+                    if let textField = state.activeTextFields[focusedIndex] {
+                        textField.text = "\(inputValue)"
+                    }
+                    
                     return .send(.denominationFormListFeatureAction(.updateDenomination(index: focusedIndex, newValue: updatedDenomination)))
                 }
                 return .none

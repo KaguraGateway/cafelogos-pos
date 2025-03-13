@@ -39,6 +39,14 @@ struct DenominationForm: View {
                                 // ソフトウェアキーボードを非表示にする
                                 textField.inputView = UIView()
                                 textField.reloadInputViews() // Add this line to ensure the input view is updated
+                                
+                                // タグを設定してTextFieldを識別できるようにする
+                                textField.tag = index
+                                
+                                // グローバル変数にTextFieldの参照を保存
+                                NotificationCenter.default.post(name: NSNotification.Name("StoreTextFieldReference"), 
+                                                              object: nil, 
+                                                              userInfo: ["textField": textField, "index": index])
                             }
                         })
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification), perform: { _ in
@@ -61,13 +69,8 @@ struct DenominationForm: View {
                     .frame(maxWidth: 100)
                     .padding(.trailing)
                 }
-                    .frame(maxWidth: .infinity)
-                
-                
-                
-                    .padding(.vertical, 5)
-                
-                    .font(.title3)
-                
-                }
-                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 5)
+                .font(.title3)
+            }
+        }

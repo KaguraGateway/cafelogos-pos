@@ -24,6 +24,8 @@ struct DenominationFormList: View {
                                 store.send(.updateDenomination(index: index, newValue: newValue))
                             },
                             onFocusChange: { isFocused, idx in
+                                // 明示的にフォーカスインデックスを渡す
+                                print("DenominationFormList focus change: isFocused=\(isFocused), index=\(idx)")
                                 onFocusChange(isFocused, isFocused ? index : nil)
                             },
                             index: index
