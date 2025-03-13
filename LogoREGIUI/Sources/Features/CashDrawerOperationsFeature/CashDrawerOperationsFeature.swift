@@ -158,13 +158,16 @@ public struct CashDrawerOperationsFeature {
             case .completeInspection:
                 return .none
                 
+            case .denominationFormListFeatureAction(.delegate(.registerTextField(let textField, let index))):
+                return .send(.registerTextField(textField, index))
+                
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
                 
             case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
                 // 入力された数値を処理する
                 if let focusedIndex = state.focusedDenominationIndex {
-                    let inputValue = Int(state.numericKeyboardState.inputNumeric)
+                    let inputValue = UInt64(state.numericKeyboardState.inputNumeric)
                     var updatedDenomination = state.denominationFormListFeatureState.denominations.denominations[focusedIndex]
                     updatedDenomination.setQuantity(newValue: inputValue)
                     

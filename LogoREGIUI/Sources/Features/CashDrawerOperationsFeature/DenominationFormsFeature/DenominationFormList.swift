@@ -29,9 +29,9 @@ struct DenominationFormList: View {
                                 onFocusChange(isFocused, isFocused ? index : nil)
                                 
                                 // TextFieldの参照を登録 - UITextFieldの参照はDenominationFormから直接取得できないため、
-                                // フォーカス変更時にCashDrawerOperationsFeatureのregisterTextFieldアクションを使用
+                                // フォーカス変更時にDelegateを通じて親Featureに通知
                                 if let textField = UIApplication.shared.windows.first?.rootViewController?.view.viewWithTag(index) as? UITextField {
-                                    store.send(.registerTextField(textField, index))
+                                    store.send(.delegate(.registerTextField(textField, index)))
                                 }
                             },
                             index: index

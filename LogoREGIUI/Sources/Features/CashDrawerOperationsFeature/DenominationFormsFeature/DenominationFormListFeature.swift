@@ -11,6 +11,11 @@ public struct DenominationFormListFeature {
     
     public enum Action {
         case updateDenomination(index: Int, newValue: Denomination)
+        case delegate(Delegate)
+        
+        public enum Delegate {
+            case registerTextField(UITextField, Int)
+        }
     }
     
     public var body: some Reducer<State, Action> {
@@ -18,6 +23,8 @@ public struct DenominationFormListFeature {
             switch action {
             case let .updateDenomination(index, newValue):
                 state.denominations.denominations[index] = newValue
+                return .none
+            case .delegate:
                 return .none
             }
         }
