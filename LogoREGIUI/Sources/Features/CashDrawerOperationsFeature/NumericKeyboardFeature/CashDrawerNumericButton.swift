@@ -4,7 +4,7 @@ public struct CashDrawerNumericButton: View {
     public let numericStr: String
     public let onAction: () -> Void
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             onAction()
         }) {

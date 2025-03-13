@@ -14,7 +14,7 @@ public struct CashDrawerNumericKeyboardView: View {
         ]
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 12) {
             ForEach(rows, id: \.self) { row in
                 HStack(spacing: 12) {
