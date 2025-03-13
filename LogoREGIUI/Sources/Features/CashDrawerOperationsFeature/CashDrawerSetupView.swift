@@ -2,6 +2,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UIKit
 
 struct CashDrawerSetupView: View {
     @Bindable var store: StoreOf<CashDrawerOperationsFeature>

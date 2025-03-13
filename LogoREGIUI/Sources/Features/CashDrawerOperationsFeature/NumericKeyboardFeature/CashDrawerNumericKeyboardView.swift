@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct CashDrawerNumericKeyboardView: View {
+public struct CashDrawerNumericKeyboardView: View {
     let store: StoreOf<CashDrawerNumericKeyboardFeature>
     
     var rows: [[String]] {

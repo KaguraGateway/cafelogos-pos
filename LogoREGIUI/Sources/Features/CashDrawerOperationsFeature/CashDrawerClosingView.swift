@@ -2,6 +2,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UIKit
 
 // サンプルデータ
 struct ChargenData {
