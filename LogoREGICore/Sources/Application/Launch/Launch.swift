@@ -32,5 +32,8 @@ public struct Launch {
         
         let config = configRepo.load()
         print("Launch; ClientId: \(config.clientId)")
+        
+        // ConfigObserverを初期化
+        _ = ConfigObserver.shared
     }
 }

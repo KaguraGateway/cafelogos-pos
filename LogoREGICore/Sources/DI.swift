@@ -29,17 +29,15 @@ private enum ConfigRepositoryKey: DependencyKey {
 }
 
 private enum GrpcClientKey: DependencyKey {
-    static var liveValue: ProtocolClient {
-        let config = DependencyValues().configRepository.load()
-        let hostUrl = config.hostUrl.isEmpty ? "http://localhost:8080" : config.hostUrl
+    // 静的なデフォルト値を提供
+    static let liveValue: ProtocolClient = createClient(hostUrl: "http://localhost:8080")
+    
+    // クライアント作成用のヘルパーメソッド
+    static func createClient(hostUrl: String) -> ProtocolClient {
         return ProtocolClient(
             httpClient: URLSessionHTTPClient(),
             config: ProtocolClientConfig(
-                //host: "https://cafelogos-pos-backend-z4ljh3ykiq-dt.a.run.app",
-                //host: "http://192.168.11.24:8080",
-                //host: "http://localhost:8080",
-                //host: "https://logoregi-backend-768850626313.asia-northeast1.run.app",
-                host: hostUrl, // configから動的に取得、空の場合はlocalhostを使用
+                host: hostUrl,
                 networkProtocol: .connect,
                 codec: ProtoCodec()
             )
@@ -138,5 +136,18 @@ extension DependencyValues {
     public var drawerTest: DrawerTest {
         get { self[DrawerTestKey.self] }
         set { self[DrawerTestKey.self] = newValue }
+    }
+    
+    // 依存関係を動的に更新するためのヘルパーメソッド
+    static func withValues(_ update: (inout DependencyValues) -> Void) {
+        var values = DependencyValues()
+        update(&values)
+        
+        // グローバルな依存関係を更新
+        withDependencies {
+            update(&$0)
+        } operation: {
+            // 空のオペレーションを実行して依存関係を更新
+        }
     }
 }
