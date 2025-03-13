@@ -5,7 +5,8 @@ import LogoREGICore
 struct DenominationForm: View {
     let denomination: Denomination
     let onUpdate: (Denomination) -> Void
-    let onFocusChange: (Bool) -> Void
+    let onFocusChange: (Bool, Int) -> Void
+    let index: Int
     
     var body: some View {
         HStack(alignment: .center){
@@ -33,12 +34,15 @@ struct DenominationForm: View {
                             if let textField = obj.object as? UITextField {
                                 textField.selectAll(textField.text)
                                 // フォーカス状態を更新
-                                onFocusChange(true)
+                                onFocusChange(true, index)
+                                
+                                // ソフトウェアキーボードを非表示にする
+                                textField.inputView = UIView()
                             }
                         })
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification), perform: { _ in
                             // フォーカス状態を更新
-                            onFocusChange(false)
+                            onFocusChange(false, index)
                         })
                         .keyboardType(.numberPad) // 数字のみ入力可能に
                         .multilineTextAlignment(.trailing)

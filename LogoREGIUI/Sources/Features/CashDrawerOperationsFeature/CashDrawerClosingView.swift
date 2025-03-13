@@ -20,7 +20,7 @@ struct CashDrawerClosingView: View {
                 HStack(spacing:0){
                     DenominationFormList(
                         store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction),
-                        onFocusChange: { isFocused in store.send(.updateTextFieldFocus(isFocused)) }
+                        onFocusChange: { isFocused, index in store.send(.updateTextFieldFocus(isFocused, index)) }
                     )
                     Divider()
                     VStack(alignment: .leading){

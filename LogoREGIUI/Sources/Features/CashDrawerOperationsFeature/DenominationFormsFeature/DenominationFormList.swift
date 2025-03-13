@@ -6,7 +6,7 @@ import ComposableArchitecture
 // 複数金種の入力フォーム
 struct DenominationFormList: View {
     let store: StoreOf<DenominationFormListFeature>
-    let onFocusChange: (Bool) -> Void
+    let onFocusChange: (Bool, Int?) -> Void
     
     var body: some View {
         VStack(spacing: 0){
@@ -23,7 +23,10 @@ struct DenominationFormList: View {
                             onUpdate: { newValue in
                                 store.send(.updateDenomination(index: index, newValue: newValue))
                             },
-                            onFocusChange: onFocusChange
+                            onFocusChange: { isFocused, idx in
+                                onFocusChange(isFocused, isFocused ? index : nil)
+                            },
+                            index: index
                         )
                     }
                 }

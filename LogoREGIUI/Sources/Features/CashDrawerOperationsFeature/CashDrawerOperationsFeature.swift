@@ -16,6 +16,7 @@ public struct CashDrawerOperationsFeature {
         var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
         var numericKeyboardState = CashDrawerNumericKeyboardFeature.State()
         var isTextFieldFocused: Bool = false
+        var focusedDenominationIndex: Int? = nil
         
         @Presents var alert: AlertState<Action.Alert>?
     }
@@ -39,7 +40,7 @@ public struct CashDrawerOperationsFeature {
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
         case numericKeyboardAction(CashDrawerNumericKeyboardFeature.Action)
-        case updateTextFieldFocus(Bool)
+        case updateTextFieldFocus(Bool, Int?)
         case takeScreenshot(UIView)
 
         // Alert
@@ -155,12 +156,30 @@ public struct CashDrawerOperationsFeature {
                 return .send(.calculateCashDrawerTotal)
                 
             case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
-                // 入力された数値を処理する（必要に応じて）
+                // 入力された数値を処理する
+                if let focusedIndex = state.focusedDenominationIndex {
+                    let inputValue = Int(state.numericKeyboardState.inputNumeric)
+                    var updatedDenomination = state.denominationFormListFeatureState.denominations.denominations[focusedIndex]
+                    updatedDenomination.setQuantity(newValue: inputValue)
+                    return .send(.denominationFormListFeatureAction(.updateDenomination(index: focusedIndex, newValue: updatedDenomination)))
+                }
                 return .none
             case .numericKeyboardAction:
                 return .none
-            case let .updateTextFieldFocus(isFocused):
+            case let .updateTextFieldFocus(isFocused, index):
                 state.isTextFieldFocused = isFocused
+                state.focusedDenominationIndex = index
+                if isFocused && index != nil {
+                    // Reset numeric keyboard when focusing on a new field
+                    state.numericKeyboardState.baseNumeric = 0
+                    state.numericKeyboardState.suffixNumeric = ""
+                    // Set initial value from the focused denomination
+                    let denomination = state.denominationFormListFeatureState.denominations.denominations[index!]
+                    let quantity = denomination.quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
                 return .none
                 
             case let .takeScreenshot(view):
