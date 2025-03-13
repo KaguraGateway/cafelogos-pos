@@ -8,13 +8,25 @@
 import Foundation
 import Dependencies
 
-public final class ConfigObserver {
+public protocol ConfigObserverProtocol {
+    func startObserving()
+    func stopObserving()
+}
+
+public final class ConfigObserver: ConfigObserverProtocol {
     private var cancellable: Any?
     
-    public static let shared = ConfigObserver()
+    public init() {}
     
-    private init() {
+    public func startObserving() {
         setupObserver()
+    }
+    
+    public func stopObserving() {
+        if let cancellable = cancellable {
+            NotificationCenter.default.removeObserver(cancellable)
+            self.cancellable = nil
+        }
     }
     
     private func setupObserver() {
@@ -38,8 +50,6 @@ public final class ConfigObserver {
     }
     
     deinit {
-        if let cancellable = cancellable {
-            NotificationCenter.default.removeObserver(cancellable)
-        }
+        stopObserving()
     }
 }

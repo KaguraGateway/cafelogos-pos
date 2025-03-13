@@ -14,6 +14,7 @@ import LogoREGICore.ConfigObserver
 
 public struct Launch {
     @Dependency(\.configRepository) private var configRepo
+    @Dependency(\.configObserver) private var configObserver
     
     public init() {}
     
@@ -36,7 +37,7 @@ public struct Launch {
         let config = configRepo.load()
         print("Launch; ClientId: \(config.clientId)")
         
-        // ConfigObserverを初期化
-        _ = ConfigObserver.shared
+        // ConfigObserverを初期化して監視を開始
+        configObserver.startObserving()
     }
 }

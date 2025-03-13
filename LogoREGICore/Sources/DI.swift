@@ -81,6 +81,10 @@ private enum DrawerTestKey: DependencyKey { // ContainerWithNavBarでドロア�
     static let liveValue = DrawerTest()
 }
 
+private enum ConfigObserverKey: DependencyKey {
+    static let liveValue: any ConfigObserverProtocol = ConfigObserver()
+}
+
 extension DependencyValues {
     var denominationRepository: any DenominationRepository {
         get { self[DenominationRepositoryKey.self] }
@@ -136,6 +140,11 @@ extension DependencyValues {
     public var drawerTest: DrawerTest {
         get { self[DrawerTestKey.self] }
         set { self[DrawerTestKey.self] = newValue }
+    }
+    
+    public var configObserver: any ConfigObserverProtocol {
+        get { self[ConfigObserverKey.self] }
+        set { self[ConfigObserverKey.self] = newValue }
     }
     
     // 依存関係を動的に更新するためのヘルパーメソッド
