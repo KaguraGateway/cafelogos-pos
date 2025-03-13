@@ -55,9 +55,8 @@ struct CashDrawerSetupView: View {
             }
         )) {
             PopupNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
-                .presentationDetents([.height(300)])
+                .presentationDetents([.height(400)])
                 .presentationDragIndicator(.visible)
-                .presentationAlignment(.bottom)
         }
         .navigationTitle("レジ開け")
         .alert($store.scope(state: \.alert, action: \.alert))

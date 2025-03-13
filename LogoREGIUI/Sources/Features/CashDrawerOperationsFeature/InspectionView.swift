@@ -47,9 +47,8 @@ struct InspectionView: View {
             }
         )) {
             PopupNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
-                .presentationDetents([.height(300)])
+                .presentationDetents([.height(400)])
                 .presentationDragIndicator(.visible)
-                .presentationAlignment(.bottom)
         }
         .onAppear{
             store.send(.calculateExpectedCashAmount)

@@ -5,7 +5,7 @@ public struct PopupNumericKeyboardView: View {
     public let store: StoreOf<CashDrawerNumericKeyboardFeature>
     
     public var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             HStack {
                 Spacer()
                 Button(action: {
@@ -24,7 +24,7 @@ public struct PopupNumericKeyboardView: View {
             
             CashDrawerNumericKeyboardView(store: store)
         }
-        .padding(12)
+        .padding(16)
         .background(Color(.systemBackground))
         .cornerRadius(16)
         .shadow(radius: 10)
