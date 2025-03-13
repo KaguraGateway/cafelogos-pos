@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct CashDrawerNumericButton: View {
-    let numericStr: String
-    let onAction: () -> Void
+    public let numericStr: String
+    public let onAction: () -> Void
 
     var body: some View {
         Button(action: {
