@@ -179,6 +179,12 @@ public struct CashDrawerOperationsFeature {
                     return .send(.denominationFormListFeatureAction(.updateDenomination(index: focusedIndex, newValue: updatedDenomination)))
                 }
                 return .none
+                
+            case .numericKeyboardAction(.delegate(.onDone)):
+                // 完了ボタンが押されたときの処理
+                state.numericKeyboardState.isPresented = false
+                return .none
+                
             case .numericKeyboardAction:
                 return .none
             case let .updateTextFieldFocus(isFocused, index):
@@ -195,6 +201,10 @@ public struct CashDrawerOperationsFeature {
                     if quantity > 0 {
                         state.numericKeyboardState.suffixNumeric = "\(quantity)"
                     }
+                    return .send(.numericKeyboardAction(.showKeyboard))
+                } else {
+                    // Hide keyboard when focus is lost
+                    return .send(.numericKeyboardAction(.hideKeyboard))
                 }
                 return .none
                 

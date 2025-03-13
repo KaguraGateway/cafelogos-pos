@@ -32,14 +32,6 @@ struct CashDrawerClosingView: View {
                             .padding(.bottom)
                         TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
                         
-                        // テンキーを追加（フォーカス時のみ表示）
-                        if store.isTextFieldFocused {
-
-                            CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
-                                .transition(.opacity)
-                                .animation(.easeInOut(duration: 0.3), value: store.isTextFieldFocused)
-                        }
-                        
                         Spacer()
                         TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {
@@ -57,6 +49,18 @@ struct CashDrawerClosingView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+        }
+        .sheet(isPresented: Binding(
+            get: { store.numericKeyboardState.isPresented && store.isTextFieldFocused },
+            set: { newValue in
+                if !newValue {
+                    store.send(.numericKeyboardAction(.hideKeyboard))
+                }
+            }
+        )) {
+            PopupNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
+                .presentationDetents([.height(400)])
+                .presentationDragIndicator(.visible)
         }
         .onAppear{
             store.send(.calculateExpectedCashAmount)
