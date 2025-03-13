@@ -32,6 +32,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height,
+                            icon: "cart.fill",
                             state: AppFeature.Path.State.orderEntry(OrderEntryFeature.State())
                         )
                     }
@@ -45,6 +46,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
+                            icon: "dollarsign.circle.fill",
                             state: AppFeature.Path.State.cashDrawerSetup(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
@@ -55,6 +57,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
+                            icon: "magnifyingglass.circle.fill",
                             state: AppFeature.Path.State.cashDrawerInspection(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
@@ -65,6 +68,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
+                            icon: "checkmark.circle.fill",
                             state: AppFeature.Path.State.cashDrawerClosing(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
@@ -75,6 +79,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
+                            icon: "list.bullet.clipboard.fill",
                             state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
                         )
                         HomeNavigationButton(
@@ -85,6 +90,7 @@ struct HomeView: View {
                             bgColor: Color(.secondarySystemFill),
                             width: geometry.size.width * (1/3),
                             height: geometry.size.height * (1/4),
+                            icon: "gearshape.fill",
                             state: AppFeature.Path.State.settings(SettingsFeature.State())
                         )
                     }

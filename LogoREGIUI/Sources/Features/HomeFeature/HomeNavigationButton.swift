@@ -10,12 +10,19 @@ struct HomeNavigationButton<P>: View {
     
     let width: Double
     let height: Double
+    
+    let icon: String?
 
     let state: P?
     
     var body: some View {
         NavigationLink(state: state) {
             VStack(spacing: 0) {
+                if let iconName = icon {
+                    Image(systemName: iconName)
+                        .font(.system(size: 24))
+                        .padding(.bottom, 5)
+                }
                 Text(title)
                     .font(.system(.largeTitle, weight: .semibold))
                     .lineLimit(0)
@@ -35,7 +42,8 @@ struct HomeNavigationButton<P>: View {
             .padding(.vertical, 0)
             .background {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(bgColor)
+                    .stroke(Color(red: 0.44, green: 0.25, blue: 0.25), lineWidth: 4)
+                    .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBackground)))
             }
         }
     }
@@ -50,6 +58,7 @@ struct HomeNavigationButton<P>: View {
         bgColor: Color(.secondarySystemFill),
         width: 100,
         height: 100,
+        icon: "house.fill",
         state: {}
     )
 }
