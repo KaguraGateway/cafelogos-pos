@@ -33,17 +33,18 @@ struct DenominationForm: View {
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification), perform: { obj in
                             if let textField = obj.object as? UITextField {
                                 textField.selectAll(textField.text)
-                                // フォーカス状態を更新
-                                onFocusChange(true, index)
-                                
-                                // ソフトウェアキーボードを非表示にする
-                                textField.inputView = UIView()
-                                textField.reloadInputViews() // Add this line to ensure the input view is updated
                                 
                                 // タグを設定してTextFieldを識別できるようにする
                                 textField.tag = index
                                 
-                                // TextFieldの参照を保存 - 通知の代わりにonFocusChangeを使用
+                                // ソフトウェアキーボードを非表示にする - 高さゼロのUIViewを使用して制約問題を解決
+                                let emptyInputView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 0))
+                                emptyInputView.backgroundColor = .clear
+                                textField.inputView = emptyInputView
+                                textField.inputAccessoryView = nil
+                                textField.reloadInputViews()
+                                
+                                // フォーカス状態を更新 - 最後に呼び出して重複を防止
                                 onFocusChange(true, index)
                             }
                         })

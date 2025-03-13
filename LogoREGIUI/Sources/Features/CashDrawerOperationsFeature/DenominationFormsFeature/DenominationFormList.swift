@@ -24,14 +24,15 @@ struct DenominationFormList: View {
                                 store.send(.updateDenomination(index: index, newValue: newValue))
                             },
                             onFocusChange: { isFocused, idx in
-                                // 明示的にフォーカスインデックスを渡す
-                                print("DenominationFormList focus change: isFocused=\(isFocused), index=\(idx)")
-                                onFocusChange(isFocused, isFocused ? index : nil)
-                                
-                                // TextFieldの参照を登録 - UITextFieldの参照はDenominationFormから直接取得できないため、
-                                // フォーカス変更時にDelegateを通じて親Featureに通知
-                                if let textField = UIApplication.shared.windows.first?.rootViewController?.view.viewWithTag(index) as? UITextField {
-                                    store.send(.delegate(.registerTextField(textField, index)))
+                                // 重複イベントを防止するため、フォーカス状態が変わった時だけ通知
+                                if idx == index { // 同じインデックスの場合のみ処理
+                                    onFocusChange(isFocused, isFocused ? index : nil)
+                                    
+                                    // TextFieldの参照を登録 - UITextFieldの参照はDenominationFormから直接取得できないため、
+                                    // フォーカス変更時にDelegateを通じて親Featureに通知
+                                    if isFocused, let textField = UIApplication.shared.windows.first?.rootViewController?.view.viewWithTag(index) as? UITextField {
+                                        store.send(.delegate(.registerTextField(textField, index)))
+                                    }
                                 }
                             },
                             index: index

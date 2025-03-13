@@ -184,7 +184,6 @@ public struct CashDrawerOperationsFeature {
             case let .updateTextFieldFocus(isFocused, index):
                 state.isTextFieldFocused = isFocused
                 state.focusedDenominationIndex = index
-                print("Focus changed: isFocused=\(isFocused), index=\(String(describing: index))")
 
                 if isFocused && index != nil {
                     // Reset numeric keyboard when focusing on a new field
