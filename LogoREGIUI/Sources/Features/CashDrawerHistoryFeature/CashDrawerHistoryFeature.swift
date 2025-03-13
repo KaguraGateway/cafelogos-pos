@@ -34,8 +34,6 @@ public struct CashDrawerHistoryFeature {
     
     public init() {}
     
-    @Dependency(\.denominationRepository) private var denominationRepo
-    
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
@@ -45,8 +43,8 @@ public struct CashDrawerHistoryFeature {
             case .loadDenominations:
                 state.isLoading = true
                 return .run { send in
-                    let denominations = await GetDenominations().Execute()
-                    await send(.denominationsLoaded(denominations.denominations))
+                    let denominations = await GetDenominationHistory().Execute()
+                    await send(.denominationsLoaded(denominations))
                 }
                 
             case let .denominationsLoaded(denominations):
