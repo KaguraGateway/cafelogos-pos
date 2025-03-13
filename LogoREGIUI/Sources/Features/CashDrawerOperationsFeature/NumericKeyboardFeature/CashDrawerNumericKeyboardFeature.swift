@@ -10,21 +10,16 @@ public struct CashDrawerNumericKeyboardFeature {
         var inputNumeric: UInt64 {
             baseNumeric + (UInt64(suffixNumeric) ?? 0)
         }
-        var isPresented: Bool = false
         
         public init() {}
     }
 
     public enum Action {
         case onTapNumericButton(String)
-        case onTapDoneButton
-        case showKeyboard
-        case hideKeyboard
         case delegate(Delegate)
 
         public enum Delegate {
             case onChangeInputNumeric
-            case onDone
         }
     }
 
@@ -57,19 +52,6 @@ public struct CashDrawerNumericKeyboardFeature {
                     }
                 }
                 return .send(.delegate(.onChangeInputNumeric))
-                
-            case .onTapDoneButton:
-                state.isPresented = false
-                return .send(.delegate(.onDone))
-                
-            case .showKeyboard:
-                state.isPresented = true
-                return .none
-                
-            case .hideKeyboard:
-                state.isPresented = false
-                return .none
-                
             case .delegate:
                 return .none
             }

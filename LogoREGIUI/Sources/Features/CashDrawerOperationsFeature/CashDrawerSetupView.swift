@@ -21,6 +21,14 @@ struct CashDrawerSetupView: View {
                             .padding(.bottom)
                             .padding(.top, 50)
                             
+                        // テンキーを追加（フォーカス時のみ表示）
+                        if store.isTextFieldFocused {
+
+                            CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
+                                .transition(.opacity)
+                                .animation(.easeInOut(duration: 0.3), value: store.isTextFieldFocused)
+                        }
+                            
                         Spacer()
                         TitleNavButton(title: "スキップ",bgColor: Color.secondary, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {
@@ -45,18 +53,6 @@ struct CashDrawerSetupView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             
-        }
-        .sheet(isPresented: Binding(
-            get: { store.numericKeyboardState.isPresented && store.isTextFieldFocused },
-            set: { newValue in
-                if !newValue {
-                    store.send(.numericKeyboardAction(.hideKeyboard))
-                }
-            }
-        )) {
-            PopupNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
-                .presentationDetents([.height(400)])
-                .presentationDragIndicator(.visible)
         }
         .navigationTitle("レジ開け")
         .alert($store.scope(state: \.alert, action: \.alert))
