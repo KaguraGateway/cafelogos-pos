@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 16.2
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.2'
+
+      - name: Disable Macro Fingerprint Validation
+        run: defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+
+      - name: Copy Signing Config
+        run: cp Signing.xcconfig.example Signing.xcconfig
+
+      - name: Clean Build
+        run: |
+          xcodebuild clean \
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -configuration debug \
+            OTHER_SWIFT_FLAGS="-enable-experimental-feature Macros"
+
+      - name: Resolve Swift Package Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -configuration debug
+
+      - name: Archive Project
+        run: |
+          xcodebuild \
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -sdk iphoneos \
+            -configuration debug \
+            -derivedDataPath build \
+            -archivePath build/archive.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            OTHER_SWIFT_FLAGS="-enable-experimental-feature Macros"
