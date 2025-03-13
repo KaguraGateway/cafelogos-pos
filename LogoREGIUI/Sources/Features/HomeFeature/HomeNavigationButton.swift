@@ -18,34 +18,36 @@ struct HomeNavigationButton<P>: View {
     var body: some View {
         NavigationLink(state: state) {
             VStack(spacing: 0) {
-                HStack(alignment: .center, spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 10) {
                     if let iconName = icon {
                         Image(systemName: iconName)
-                            .font(.system(size: 24))
+                            .font(.system(size: 32))
                     }
                     VStack(alignment: .leading, spacing: 2) {
                         Text(title)
                             .font(.system(.largeTitle, weight: .semibold))
+                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
                             .lineLimit(0)
                         Text(subTitle)
                             .font(.title3)
+                            .foregroundStyle(Color(.systemGray))
                             .lineLimit(2)
                     }
                 }
                 Text(description)
                     .font(.body)
+                    .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .padding(.top, 10)
             }
-            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
             .padding(.horizontal, 0)
             .padding(.vertical, 0)
             .background {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color(red: 0.44, green: 0.25, blue: 0.25), lineWidth: 4)
+                    .stroke(Color(red: 0.44, green: 0.25, blue: 0.25).opacity(0.6), lineWidth: 2)
                     .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBackground)))
             }
         }
