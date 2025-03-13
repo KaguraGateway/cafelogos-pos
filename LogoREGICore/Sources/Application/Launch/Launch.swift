@@ -11,16 +11,21 @@ import RealmSwift
 
 public struct Launch {
     @Dependency(\.configRepository) private var configRepo
+    @Dependency(\.configObserver) private var configObserver
     
     public init() {}
     
     public func Execute() {
         // Realm Migrate
         let realmConfig = Realm.Configuration(
-            schemaVersion: 2,
+            schemaVersion: 3,
             migrationBlock: { migration, oldSchemaVer in
                 if oldSchemaVer < 1 {
                     migration.create(PaymentDao.className(), value: ["settleAt": nil])
+                }
+                if oldSchemaVer < 3 {
+                    // ConfigDaoを作成
+                    migration.create(ConfigDao.className())
                 }
             }
         )
@@ -28,5 +33,8 @@ public struct Launch {
         
         let config = configRepo.load()
         print("Launch; ClientId: \(config.clientId)")
+        
+        // ConfigObserverを初期化して監視を開始
+        configObserver.startObserving()
     }
 }

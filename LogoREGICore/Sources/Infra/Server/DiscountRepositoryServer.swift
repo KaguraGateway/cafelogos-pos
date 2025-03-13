@@ -9,7 +9,10 @@ import Foundation
 import cafelogos_grpc
 
 public struct DiscountRepositoryServer: DiscountRepository {
-    private let posClient = ServerClient().GetPosClient()
+    // Use computed property to get a fresh client each time
+    private var posClient: Cafelogos_Pos_PosServiceClient {
+        return ServerClient().GetPosClient()
+    }
     
     public func findAll() async -> Array<Discount> {
         let protoDiscounts = await posClient.getDiscounts(request: Cafelogos_Common_Empty(), headers: [:])

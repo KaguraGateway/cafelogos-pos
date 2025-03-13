@@ -60,3 +60,8 @@ protocol ConfigRepository {
     func load() -> Config
     func save(config: Config)
 }
+
+// 設定変更通知用の拡張
+extension Notification.Name {
+    public static let configChanged = Notification.Name("configChanged")
+}

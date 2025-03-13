@@ -9,7 +9,10 @@ import Foundation
 import cafelogos_grpc
 
 public struct SeatRepositoryServer: SeatRepository {
-    private let posClient = ServerClient().GetPosClient()
+    // Use computed property to get a fresh client each time
+    private var posClient: Cafelogos_Pos_PosServiceClient {
+        return ServerClient().GetPosClient()
+    }
     
     public func findAll() async -> [Seat] {
         let response = await posClient.getSeats(request: Cafelogos_Common_Empty(), headers: [:])

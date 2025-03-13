@@ -10,8 +10,12 @@ import cafelogos_grpc
 import Dependencies
 
 public struct OrderServiceServer: OrderService {
-    private let posClient = ServerClient().GetPosClient()
     private let formatter = ISO8601DateFormatter()
+    
+    // Use computed property to get a fresh client each time
+    private var posClient: Cafelogos_Pos_PosServiceClient {
+        return ServerClient().GetPosClient()
+    }
     
     func getUnpaidOrdersBySeatId(seatId: String) async -> [Order] {
         let req = Cafelogos_Pos_GetUnpaidOrdersBySeatIdRequest.with {

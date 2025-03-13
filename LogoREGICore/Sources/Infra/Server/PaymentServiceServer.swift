@@ -12,8 +12,12 @@ import Dependencies
 public struct PaymentServiceServer: PaymentService {
     @Dependency(\.configRepository) var configRepo
     
-    private let posClient = ServerClient().GetPosClient()
     private let formatter = ISO8601DateFormatter()
+    
+    // Use computed property to get a fresh client each time
+    private var posClient: Cafelogos_Pos_PosServiceClient {
+        return ServerClient().GetPosClient()
+    }
     
     // FIXME: ここの引数イケてなさすぎる
     func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> PostPaymentResponse {

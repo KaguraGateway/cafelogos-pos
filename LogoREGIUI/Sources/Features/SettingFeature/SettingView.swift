@@ -21,6 +21,9 @@ struct SettingView: View {
                         Spacer()
                         TextField("クライアント名", text: $store.clientName)
                             .multilineTextAlignment(.trailing)
+                            .onChange(of: store.clientName) { _, _ in
+                                store.send(.saveConfig)
+                            }
                     }
                     HStack(alignment: .center) {
                         Text("ホストURL")
@@ -30,6 +33,9 @@ struct SettingView: View {
                             .keyboardType(.URL)
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
+                            .onChange(of: store.hostUrl) { _, _ in
+                                store.send(.saveConfig)
+                            }
                     }
                     HStack(alignment: .center) {
                         Text("管理画面URL")
@@ -39,6 +45,9 @@ struct SettingView: View {
                             .keyboardType(.URL)
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
+                            .onChange(of: store.adminUrl) { _, _ in
+                                store.send(.saveConfig)
+                            }
                     }
                 }
                 Section {
@@ -83,12 +92,18 @@ struct SettingView: View {
                             Spacer()
                             TextField("", text: $store.squareAccessToken)
                                 .multilineTextAlignment(.trailing)
+                                .onChange(of: store.squareAccessToken) { _, _ in
+                                    store.send(.saveConfig)
+                                }
                         }
                         HStack(alignment: .center) {
                             Text("SQUARE_TERMINAL_DEVICE_ID")
                             Spacer()
                             TextField("", text: $store.squareTerminalDeviceId)
                                 .multilineTextAlignment(.trailing)
+                                .onChange(of: store.squareTerminalDeviceId) { _, _ in
+                                    store.send(.saveConfig)
+                                }
                         }
                     }
                 } header: {
