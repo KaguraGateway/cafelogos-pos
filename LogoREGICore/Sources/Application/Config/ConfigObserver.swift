@@ -43,10 +43,9 @@ public final class ConfigObserver: ConfigObserverProtocol {
     private func updateGrpcClient(with hostUrl: String) {
         guard !hostUrl.isEmpty else { return }
         
-        // withDependenciesを使用して、グローバルにgRPCクライアントを更新
-        DependencyValues.withValues { values in
-            values.grpcClient = GrpcClientKey.createClient(hostUrl: hostUrl)
-        }
+        // 設定が変更されたことを通知するだけ
+        // 各サービスは自身でServerClientを作成するときに最新の設定を使用する
+        print("Config hostUrl updated to: \(hostUrl)")
     }
     
     deinit {
