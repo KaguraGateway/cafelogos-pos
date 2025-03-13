@@ -21,7 +21,9 @@ struct HomeNavigationButton<P>: View {
                 HStack(alignment: .firstTextBaseline, spacing: 10) {
                     if let iconName = icon {
                         Image(systemName: iconName)
-                            .font(.system(size: 32))
+                            .font(.system(size: 32, weight: .light))
+                            .symbolVariant(.outline)
+                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
                     }
                     VStack(alignment: .leading, spacing: 2) {
                         Text(title)
@@ -30,13 +32,13 @@ struct HomeNavigationButton<P>: View {
                             .lineLimit(0)
                         Text(subTitle)
                             .font(.title3)
-                            .foregroundStyle(Color(.systemGray))
+                            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
                             .lineLimit(2)
                     }
                 }
                 Text(description)
                     .font(.body)
-                    .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
+                    .foregroundStyle(Color(.systemGray))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .padding(.top, 10)
@@ -47,7 +49,7 @@ struct HomeNavigationButton<P>: View {
             .padding(.vertical, 0)
             .background {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color(red: 0.44, green: 0.25, blue: 0.25).opacity(0.6), lineWidth: 2)
+                    .stroke(Color(.systemGray), lineWidth: 2)
                     .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemBackground)))
             }
         }
