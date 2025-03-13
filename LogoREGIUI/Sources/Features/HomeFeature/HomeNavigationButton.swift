@@ -18,24 +18,27 @@ struct HomeNavigationButton<P>: View {
     var body: some View {
         NavigationLink(state: state) {
             VStack(spacing: 0) {
-                if let iconName = icon {
-                    Image(systemName: iconName)
-                        .font(.system(size: 24))
-                        .padding(.bottom, 5)
+                HStack(alignment: .center, spacing: 8) {
+                    if let iconName = icon {
+                        Image(systemName: iconName)
+                            .font(.system(size: 24))
+                    }
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(title)
+                            .font(.system(.largeTitle, weight: .semibold))
+                            .lineLimit(0)
+                        Text(subTitle)
+                            .font(.title3)
+                            .lineLimit(2)
+                    }
                 }
-                Text(title)
-                    .font(.system(.largeTitle, weight: .semibold))
-                    .lineLimit(0)
-                Text(subTitle)
-                    .font(.title3)
-                    .lineLimit(2)
                 Text(description)
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .padding(.top, 10)
             }
-            .foregroundStyle(fgColor)
+            .foregroundStyle(Color(red: 0.44, green: 0.25, blue: 0.25))
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
             .padding(.horizontal, 0)
@@ -56,8 +59,8 @@ struct HomeNavigationButton<P>: View {
         description: "POSレジ・ハンディ端末から注文を管理",
         fgColor: Color.primary,
         bgColor: Color(.secondarySystemFill),
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 150,
         icon: "house.fill",
         state: {}
     )
