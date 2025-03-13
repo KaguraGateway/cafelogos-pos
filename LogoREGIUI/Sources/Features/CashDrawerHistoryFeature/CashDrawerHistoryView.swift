@@ -13,6 +13,14 @@ struct CashDrawerHistoryView: View {
                 if store.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else if(store.denominations.isEmpty) {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        Text("操作履歴が存在しません。\nレジ操作後に確認してください。")
+                            .font(.system(.title3, weight: .bold))
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     Form {
                             ForEach(store.denominations.sorted(by: { $0.amount > $1.amount }), id: \.amount) { denomination in
@@ -44,6 +52,7 @@ struct CashDrawerHistoryView: View {
                                 .padding(.vertical, 8)
                             }
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .scrollContentBackground(.hidden)
                         .background(Color.clear)
                         .listStyle(PlainListStyle())
