@@ -1,13 +1,13 @@
 import SwiftUI
 import UIKit
 
-struct NumericTextField: UIViewRepresentable {
-    @Binding var value: UInt64
-    let index: Int
-    let onFocusChange: (Bool) -> Void
-    let onRegisterTextField: (UITextField) -> Void
+public struct NumericTextField: UIViewRepresentable {
+    @Binding public var value: UInt64
+    public let index: Int
+    public let onFocusChange: (Bool) -> Void
+    public let onRegisterTextField: (UITextField) -> Void
     
-    func makeUIView(context: Context) -> UITextField {
+    public func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         textField.delegate = context.coordinator
         textField.keyboardType = .numberPad
@@ -28,33 +28,33 @@ struct NumericTextField: UIViewRepresentable {
         return textField
     }
     
-    func updateUIView(_ textField: UITextField, context: Context) {
+    public func updateUIView(_ textField: UITextField, context: Context) {
         if textField.text != "\(value)" && !textField.isFirstResponder {
             textField.text = "\(value)"
         }
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    class Coordinator: NSObject, UITextFieldDelegate {
-        var parent: NumericTextField
+    public class Coordinator: NSObject, UITextFieldDelegate {
+        public var parent: NumericTextField
         
-        init(_ parent: NumericTextField) {
+        public init(_ parent: NumericTextField) {
             self.parent = parent
         }
         
-        func textFieldDidBeginEditing(_ textField: UITextField) {
+        public func textFieldDidBeginEditing(_ textField: UITextField) {
             textField.selectAll(nil)
             parent.onFocusChange(true)
         }
         
-        func textFieldDidEndEditing(_ textField: UITextField) {
+        public func textFieldDidEndEditing(_ textField: UITextField) {
             parent.onFocusChange(false)
         }
         
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             // 数字のみ許可
             let allowedCharacters = CharacterSet.decimalDigits
             let characterSet = CharacterSet(charactersIn: string)

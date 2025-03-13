@@ -2,6 +2,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UIKit
 
 // 複数金種の入力フォーム
 struct DenominationFormList: View {

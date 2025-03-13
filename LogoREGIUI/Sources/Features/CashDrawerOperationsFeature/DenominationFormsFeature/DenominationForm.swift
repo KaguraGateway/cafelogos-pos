@@ -1,6 +1,7 @@
 // 1行の金種入力フォーム
 import SwiftUI
 import LogoREGICore
+import UIKit
 
 struct DenominationForm: View {
     let denomination: Denomination
