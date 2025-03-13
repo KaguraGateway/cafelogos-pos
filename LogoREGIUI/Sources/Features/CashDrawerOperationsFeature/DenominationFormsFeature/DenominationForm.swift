@@ -38,6 +38,7 @@ struct DenominationForm: View {
                                 
                                 // ソフトウェアキーボードを非表示にする
                                 textField.inputView = UIView()
+                                textField.reloadInputViews() // Add this line to ensure the input view is updated
                             }
                         })
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification), perform: { _ in

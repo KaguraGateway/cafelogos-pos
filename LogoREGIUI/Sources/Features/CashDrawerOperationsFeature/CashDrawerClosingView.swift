@@ -33,9 +33,10 @@ struct CashDrawerClosingView: View {
                         
                         // テンキーを追加（フォーカス時のみ表示）
                         if store.isTextFieldFocused {
+
                             CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
                                 .transition(.opacity)
-                                .animation(.easeInOut, value: store.isTextFieldFocused)
+                                .animation(.easeInOut(duration: 0.3), value: store.isTextFieldFocused)
                         }
                         
                         Spacer()
