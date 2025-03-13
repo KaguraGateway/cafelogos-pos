@@ -15,8 +15,18 @@ public struct Settle {
     public init() {}
     
     public func Execute(denominations: Denominations) async {
-        for denomination in denominations.denominations {
-            await denominationRepo.save(denomination: denomination)
+        for var denomination in denominations.denominations {
+            // 精算操作として記録
+            var updatedDenomination = denomination
+            updatedDenomination = Denomination(
+                amount: denomination.amount,
+                quantity: denomination.quantity,
+                createdAt: denomination.createdAt,
+                updatedAt: Date(),
+                syncAt: denomination.syncAt,
+                operationType: .settlement
+            )
+            await denominationRepo.save(denomination: updatedDenomination)
         }
         paymentRepo.removeAll()
     }

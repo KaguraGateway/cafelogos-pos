@@ -40,7 +40,7 @@ struct HomeNavigationButton<P>: View {
                     .foregroundStyle(Color(.darkGray))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
-                    .padding(.top)
+                    .padding(.top, 2)
             }
             .frame(maxWidth: width, maxHeight: height)
             .clipped()

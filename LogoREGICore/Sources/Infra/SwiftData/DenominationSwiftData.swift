@@ -64,6 +64,7 @@ public final class DenominationSwiftData: DenominationRepository {
                 existingModel.quantity = Int64(denomination.quantity)
                 existingModel.updatedAt = denomination.updatedAt
                 existingModel.syncAt = denomination.syncAt
+                existingModel.operationType = denomination.operationType.rawValue
             } else {
                 let model = DenominationModel.fromDomain(denomination)
                 context.insert(model)
