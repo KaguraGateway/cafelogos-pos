@@ -37,6 +37,9 @@ struct CashDrawerHistoryView: View {
                                 Spacer()
                                 
                                 VStack(alignment: .trailing) {
+                                    Text("\(denomination.operationType.rawValue)")
+                                        .font(.system(.headline, weight: .bold))
+                                        .foregroundColor(getOperationTypeColor(denomination.operationType))
                                     Text("更新: \(formatDate(denomination.updatedAt))")
                                         .font(.caption)
                                     Text("作成: \(formatDate(denomination.createdAt))")
@@ -63,6 +66,17 @@ struct CashDrawerHistoryView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         return formatter.string(from: date)
+    }
+    
+    private func getOperationTypeColor(_ operationType: DenominationOperationType) -> Color {
+        switch operationType {
+        case .cashDrawerOpening:
+            return Color.blue
+        case .settlement:
+            return Color.green
+        case .unknown:
+            return Color.gray
+        }
     }
 }
 
