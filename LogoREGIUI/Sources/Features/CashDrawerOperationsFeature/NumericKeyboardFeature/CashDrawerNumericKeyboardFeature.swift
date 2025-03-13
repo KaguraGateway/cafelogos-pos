@@ -12,16 +12,6 @@ public struct CashDrawerNumericKeyboardFeature {
         }
         
         public init() {}
-        
-        // 右側の固定キーの値（1000円）
-        var rightFixedKeyAmount: UInt64 {
-            return 1000
-        }
-        
-        // 左側の固定キーの値（500円）
-        var leftFixedKeyAmount: UInt64 {
-            return 500
-        }
     }
 
     public enum Action {
@@ -38,12 +28,6 @@ public struct CashDrawerNumericKeyboardFeature {
             switch action {
             case let .onTapNumericButton(inputStr):
                 switch inputStr {
-                case "¥\(state.leftFixedKeyAmount)":
-                    state.baseNumeric = state.leftFixedKeyAmount
-                    state.suffixNumeric = ""
-                case "¥\(state.rightFixedKeyAmount)":
-                    state.baseNumeric = state.rightFixedKeyAmount
-                    state.suffixNumeric = ""
                 case "⌫":
                     state.baseNumeric = 0
                     state.suffixNumeric = ""
@@ -57,12 +41,6 @@ public struct CashDrawerNumericKeyboardFeature {
                         }
                     } else {
                         state.suffixNumeric += inputStr // 通常の数字の連結
-                    }
-                    // baseNumeric のリセット条件チェック
-                    let suffixLength = state.suffixNumeric.count
-                    if (state.baseNumeric == 1000 && suffixLength >= 4) ||
-                       (state.baseNumeric == 500 && suffixLength >= 3) {
-                        state.baseNumeric = 0
                     }
                 }
                 // 上限値のチェック

@@ -6,7 +6,7 @@ struct CashDrawerNumericKeyboardView: View {
     
     var rows: [[String]] {
         [
-            ["¥\(store.leftFixedKeyAmount)", "¥\(store.rightFixedKeyAmount)", "⌫"],
+            ["⌫"],
             ["7", "8", "9"],
             ["4", "5", "6"],
             ["1", "2", "3"],

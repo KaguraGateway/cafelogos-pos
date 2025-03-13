@@ -25,17 +25,13 @@ struct CashDrawerNumericButton: View {
     private func getBackgroundColor() -> Color {
         if numericStr == "⌫" {
             return Color(.darkGray)
-        } else if numericStr.hasPrefix("¥") {
-            return Color(.darkGray)
         } else {
             return Color(.systemFill)
         }
     }
     
     private func getTextColor() -> Color {
-        if numericStr.hasPrefix("¥") {
-            return .white
-        } else if numericStr == "⌫" {
+        if numericStr == "⌫" {
             return .white
         } else {
             return .primary
