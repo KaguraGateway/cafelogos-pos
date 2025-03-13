@@ -8,6 +8,7 @@
 import Foundation
 import Dependencies
 import cafelogos_grpc
+import Connect
 
 public struct ServerClient {
     // 依存関係を直接取得せず、毎回最新の設定を取得する

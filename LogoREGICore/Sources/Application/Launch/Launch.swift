@@ -8,9 +8,6 @@
 import Foundation
 import Dependencies
 import RealmSwift
-// Import specific modules to avoid circular imports
-import LogoREGICore.ConfigDao
-import LogoREGICore.ConfigObserver
 
 public struct Launch {
     @Dependency(\.configRepository) private var configRepo
