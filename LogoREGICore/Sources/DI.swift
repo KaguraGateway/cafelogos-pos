@@ -49,19 +49,29 @@ private enum GrpcClientKey: DependencyKey {
 
 
 private enum ServerProductQueryServiceKey: DependencyKey {
-    static let liveValue: any ProductQueryService = ProductQueryServiceServer()
+    static var liveValue: any ProductQueryService {
+        return ProductQueryServiceServer()
+    }
 }
 private enum ServerDiscountRepositoryKey: DependencyKey {
-    static let liveValue: any DiscountRepository = DiscountRepositoryServer()
+    static var liveValue: any DiscountRepository {
+        return DiscountRepositoryServer()
+    }
 }
 private enum PaymentServerServiceKey: DependencyKey {
-    static let liveValue: any PaymentService = PaymentServiceServer()
+    static var liveValue: any PaymentService {
+        return PaymentServiceServer()
+    }
 }
 private enum SeatServerRepositoryKey: DependencyKey {
-    static let liveValue: any SeatRepository = SeatRepositoryServer()
+    static var liveValue: any SeatRepository {
+        return SeatRepositoryServer()
+    }
 }
 private enum OrderServerServiceKey: DependencyKey {
-    static let liveValue: any OrderService = OrderServiceServer()
+    static var liveValue: any OrderService {
+        return OrderServiceServer()
+    }
 }
 private enum CashierAdapterKey: DependencyKey {
     static let liveValue: any CashierAdapter = StarXCashierAdapter()
