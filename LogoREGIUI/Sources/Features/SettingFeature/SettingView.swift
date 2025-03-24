@@ -71,6 +71,7 @@ struct SettingView: View {
                             .padding(.leading, 24)
                         }
                         Toggle("キッチンレシート印刷", isOn: $store.printKitchenReceipt)
+                        Toggle("チケット発行機能", isOn: $store.useTicket)
                     }
                 } header: {
                     Text("印刷設定")

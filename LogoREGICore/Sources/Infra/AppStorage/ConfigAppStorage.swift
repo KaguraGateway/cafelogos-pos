@@ -14,6 +14,7 @@ public struct ConfigAppStorage: ConfigRepository {
     @AppStorage("isTrainingModeKey") var isTrainingMode = false
     @AppStorage("isUsePrinter") var isUsePrinter = false
     @AppStorage("isPrintKitchenReceipt") var isPrintKitchenReceipt = false
+    @AppStorage("isUseTicket") var isUseTicket = false
     @AppStorage("hostKey") var hostUrl = "http://localhost:8080"
     @AppStorage("adminUrlKey") var adminUrl = ""
     
@@ -29,7 +30,7 @@ public struct ConfigAppStorage: ConfigRepository {
             save(config: Config())
         }
         
-        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt, isUseSquareTerminal: self.isUseSquareTerminal, squareAccessToken: self.squareAccessToken, squareTerminalDeviceId: self.squareTerminalDeviceId, hostUrl: self.hostUrl, adminUrl: self.adminUrl, isUseProductMock: self.isUseProductMock, isUseIndividualBilling: self.isUseIndividualBilling)
+        return Config(clientId: self.clientId, clientName: self.clientName, isTrainingMode: self.isTrainingMode, isUsePrinter: self.isUsePrinter, isPrintKitchenReceipt: self.isPrintKitchenReceipt, isUseTicket: self.isUseTicket, isUseSquareTerminal: self.isUseSquareTerminal, squareAccessToken: self.squareAccessToken, squareTerminalDeviceId: self.squareTerminalDeviceId, hostUrl: self.hostUrl, adminUrl: self.adminUrl, isUseProductMock: self.isUseProductMock, isUseIndividualBilling: self.isUseIndividualBilling)
     }
     
     func save(config: Config) {
@@ -38,6 +39,7 @@ public struct ConfigAppStorage: ConfigRepository {
         self.isTrainingMode = config.isTrainingMode
         self.isUsePrinter = config.isUsePrinter
         self.isPrintKitchenReceipt = config.isPrintKitchenReceipt
+        self.isUseTicket = config.isUseTicket
         self.hostUrl = config.hostUrl
         self.adminUrl = config.adminUrl
         self.isUseSquareTerminal = config.isUseSquareTerminal
