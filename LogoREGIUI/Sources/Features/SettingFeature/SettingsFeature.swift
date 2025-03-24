@@ -12,7 +12,7 @@ public struct SettingsFeature {
         var printTicket: Bool = true
         var useDrawer: Bool = true
         var printKitchenReceipt: Bool = true
-        var useTicket: Bool = false
+        var useClientTicketNumbering: Bool = false
         var clientId: String = ""
         var clientName: String = ""
         var hostUrl: String = ""
@@ -33,7 +33,7 @@ public struct SettingsFeature {
             self.clientName = config.clientName
             self.usePrinter = config.isUsePrinter
             self.printKitchenReceipt = config.isPrintKitchenReceipt
-            self.useTicket = config.isUseTicket
+            self.useClientTicketNumbering = config.isUseClientTicketNumbering
             self.hostUrl = config.hostUrl
             self.adminUrl = config.adminUrl
             self.isUseSquareTerminal = config.isUseSquareTerminal
@@ -66,7 +66,7 @@ public struct SettingsFeature {
                 if state.clientName != state.config.clientName ||
                     state.usePrinter != state.config.isUsePrinter ||
                     state.printKitchenReceipt != state.config.isPrintKitchenReceipt ||
-                    state.useTicket != state.config.isUseTicket ||
+                    state.useClientTicketNumbering != state.config.isUseClientTicketNumbering ||
                     state.isUseSquareTerminal != state.config.isUseSquareTerminal ||
                     state.squareAccessToken != state.config.squareAccessToken ||
                     state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
@@ -94,7 +94,7 @@ public struct SettingsFeature {
                     updatedConfig.clientName = state.clientName
                     updatedConfig.isUsePrinter = state.usePrinter
                     updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
-                    updatedConfig.isUseTicket = state.useTicket
+                    updatedConfig.isUseClientTicketNumbering = state.useClientTicketNumbering
                     updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
                     updatedConfig.squareAccessToken = state.squareAccessToken
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
@@ -111,7 +111,7 @@ public struct SettingsFeature {
                 state.clientName = config.clientName
                 state.usePrinter = config.isUsePrinter
                 state.printKitchenReceipt = config.isPrintKitchenReceipt
-                state.useTicket = config.isUseTicket
+                state.useClientTicketNumbering = config.isUseClientTicketNumbering
                 state.isUseSquareTerminal = config.isUseSquareTerminal
                 state.squareAccessToken = config.squareAccessToken
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
