@@ -22,7 +22,7 @@ struct SettingView: View {
                         TextField("クライアント名", text: $store.clientName)
                             .multilineTextAlignment(.trailing)
                             .onChange(of: store.clientName) { _, _ in
-                                store.send(.debouncedSaveConfig)
+                                store.send(.saveConfig)
                             }
                     }
                     HStack(alignment: .center) {
@@ -34,7 +34,7 @@ struct SettingView: View {
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
                             .onChange(of: store.hostUrl) { _, _ in
-                                store.send(.debouncedSaveConfig)
+                                store.send(.saveConfig)
                             }
                     }
                     HStack(alignment: .center) {
@@ -46,15 +46,12 @@ struct SettingView: View {
                             .autocapitalization(.none)
                             .foregroundStyle(.secondary)
                             .onChange(of: store.adminUrl) { _, _ in
-                                store.send(.debouncedSaveConfig)
+                                store.send(.saveConfig)
                             }
                     }
                 }
                 Section {
                     Toggle("キャッシュドロア利用", isOn : $store.useDrawer)
-                        .onChange(of: store.useDrawer) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                     if store.useDrawer{
                         Button(action: {
                             store.send(.openDrawer)
@@ -69,14 +66,8 @@ struct SettingView: View {
                 }
                 Section {
                     Toggle("プリンター利用", isOn : $store.usePrinter )
-                        .onChange(of: store.usePrinter) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                     if store.usePrinter {
                         Toggle("引換券印刷", isOn : $store.printTicket)
-                            .onChange(of: store.printTicket) { _, _ in
-                                store.send(.toggleValueChanged)
-                            }
                             .padding(.leading)
                             .disabled(store.printTicket)
                         if store.printTicket{
@@ -89,18 +80,12 @@ struct SettingView: View {
                             .padding(.leading, 24)
                         }
                         Toggle("キッチンレシート印刷", isOn: $store.printKitchenReceipt)
-                            .onChange(of: store.printKitchenReceipt) { _, _ in
-                                store.send(.toggleValueChanged)
-                            }
                     }
                 } header: {
                     Text("印刷設定")
                 }
                 Section {
                     Toggle("Squareターミナル利用", isOn : $store.isUseSquareTerminal )
-                        .onChange(of: store.isUseSquareTerminal) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                     if store.isUseSquareTerminal {
                         HStack(alignment: .center) {
                             Text("SQUARE_ACCESS_TOKEN")
@@ -108,7 +93,7 @@ struct SettingView: View {
                             TextField("", text: $store.squareAccessToken)
                                 .multilineTextAlignment(.trailing)
                                 .onChange(of: store.squareAccessToken) { _, _ in
-                                    store.send(.debouncedSaveConfig)
+                                    store.send(.saveConfig)
                                 }
                         }
                         HStack(alignment: .center) {
@@ -117,7 +102,7 @@ struct SettingView: View {
                             TextField("", text: $store.squareTerminalDeviceId)
                                 .multilineTextAlignment(.trailing)
                                 .onChange(of: store.squareTerminalDeviceId) { _, _ in
-                                    store.send(.debouncedSaveConfig)
+                                    store.send(.saveConfig)
                                 }
                         }
                     }
@@ -127,22 +112,13 @@ struct SettingView: View {
                 
                 Section {
                     Toggle("商品モックを有効化", isOn: $store.isUseProductMock)
-                        .onChange(of: store.isUseProductMock) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                     Toggle("個別会計を有効にする", isOn: $store.isUseIndividualBilling)
-                        .onChange(of: store.isUseIndividualBilling) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                 } header: {
                     Text("開発設定")
                 }
                 
                 Section {
                     Toggle("チケット番号を有効にする", isOn: $store.isUseTicketNumber)
-                        .onChange(of: store.isUseTicketNumber) { _, _ in
-                            store.send(.toggleValueChanged)
-                        }
                     if store.isUseTicketNumber {
                         HStack(alignment: .center) {
                             Text("チケット番号プレフィックス")
@@ -150,7 +126,7 @@ struct SettingView: View {
                             TextField("", text: $store.ticketNumberPrefix)
                                 .multilineTextAlignment(.trailing)
                                 .onChange(of: store.ticketNumberPrefix) { _, _ in
-                                    store.send(.debouncedSaveConfig)
+                                    store.send(.saveConfig)
                                 }
                         }
                         HStack(alignment: .center) {
@@ -160,7 +136,7 @@ struct SettingView: View {
                                 .keyboardType(.numberPad)
                                 .multilineTextAlignment(.trailing)
                                 .onChange(of: store.ticketNumberStart) { _, _ in
-                                    store.send(.debouncedSaveConfig)
+                                    store.send(.saveConfig)
                                 }
                         }
                     }

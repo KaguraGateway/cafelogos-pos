@@ -28,8 +28,6 @@ public struct SettingsFeature {
         var ticketNumberStart: Int = 1
         var isUseTicketNumber: Bool = false
         
-        var textFieldDebounceTask: Task<Void, Never>?
-        
         var config: Config
 
         
@@ -60,8 +58,6 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
-        case debouncedSaveConfig
-        case toggleValueChanged
     }
     
     public var body: some Reducer<State, Action> {
@@ -71,8 +67,6 @@ public struct SettingsFeature {
             case .onAppear:
                 return .send(.loadConfig)
             case .onDisappear:
-                state.textFieldDebounceTask?.cancel()
-                state.textFieldDebounceTask = nil
                 return .send(.saveConfig)
             case .binding:
                 if state.clientName != state.config.clientName ||
@@ -89,26 +83,11 @@ public struct SettingsFeature {
                     state.ticketNumberStart != state.config.ticketNumberStart ||
                     state.isUseTicketNumber != state.config.isUseTicketNumber
                 {
-                    return .none
+                    return .run { send in
+                        await send(.saveConfig)
+                    }
                 }
                 return .none
-                
-            case .toggleValueChanged:
-                return .send(.saveConfig)
-                
-            case .debouncedSaveConfig:
-                state.textFieldDebounceTask?.cancel()
-                
-                state.textFieldDebounceTask = Task {
-                    do {
-                        try await Task.sleep(nanoseconds: 500_000_000)
-                        await MainActor.run {
-                            ViewStore(self, observe: { $0 }).send(.saveConfig)
-                        }
-                    } catch {}
-                }
-                return .none
-                
             case .printTicket:
                 return .run {_ in
                     await PrinterTest().Execute()
