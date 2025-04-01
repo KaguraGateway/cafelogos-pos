@@ -85,6 +85,14 @@ private enum ConfigObserverKey: DependencyKey {
     static let liveValue: any ConfigObserverProtocol = ConfigObserver()
 }
 
+private enum TicketRepositoryKey: DependencyKey {
+    @MainActor
+    static private(set) var liveValue: any TicketRepository = {
+        let container = ModelContainerFactory.shared
+        return TicketSwiftData(modelContainer: container)
+    }()
+}
+
 extension DependencyValues {
     var denominationRepository: any DenominationRepository {
         get { self[DenominationRepositoryKey.self] }
@@ -145,6 +153,11 @@ extension DependencyValues {
     public var configObserver: any ConfigObserverProtocol {
         get { self[ConfigObserverKey.self] }
         set { self[ConfigObserverKey.self] = newValue }
+    }
+    
+    public var ticketRepository: any TicketRepository {
+        get { self[TicketRepositoryKey.self] }
+        set { self[TicketRepositoryKey.self] = newValue }
     }
     
     // 依存関係を動的に更新するためのヘルパーメソッド

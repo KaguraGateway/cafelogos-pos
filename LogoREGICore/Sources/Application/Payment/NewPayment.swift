@@ -31,7 +31,14 @@ public struct NewPayment {
             await cashierAdapter.openCacher()
         }
         
-        let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType)
+        var ticketNumber: String? = nil
+        if configRepo.load().isUseTicketNumber {
+            let issueTicket = IssueTicket()
+            let ticket = await issueTicket.Execute()
+            ticketNumber = ticket.displayNumber
+        }
+        
+        let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType, ticketNumber: ticketNumber)
         if res.error == nil {
             paymentRepo.save(payment: payment)
             
