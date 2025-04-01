@@ -83,9 +83,9 @@ struct HomeView: View {
                             state: AppFeature.Path.State.cashDrawerHistory(CashDrawerHistoryFeature.State())
                         )
                         HomeNavigationButton(
-                            title: "レジ操作履歴",
+                            title: "レジ決済履歴",
                             subTitle: "",
-                            description: "レジ入金・精算履歴を確認",
+                            description: "レジ内の決済履歴を確認",
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
                             bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
