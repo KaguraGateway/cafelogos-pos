@@ -89,5 +89,6 @@ protocol PaymentRepository {
     func findAllByUnSettled() -> [Payment]
     func removeAll() -> Void
     func save(payment: Payment) -> Void
+    func findAll() -> [Payment]
 }
 
