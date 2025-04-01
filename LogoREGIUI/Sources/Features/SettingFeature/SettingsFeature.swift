@@ -121,6 +121,8 @@ public struct SettingsFeature {
                 state.isUseProductMock = config.isUseProductMock
                 state.isUseIndividualBilling = config.isUseIndividualBilling
                 return .none
+            case .paymentList(_):
+                return .none
             }
         }
     }
