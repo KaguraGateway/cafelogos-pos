@@ -13,9 +13,7 @@ public final class TicketSwiftData: TicketRepository {
         let context = modelContainer.mainContext
         
         let descriptor = FetchDescriptor<TicketModel>(
-            predicate: #Predicate<TicketModel> {
-                $0.prefix == prefix
-            },
+            predicate: NSPredicate(format: "prefix == %@", prefix),
             sortBy: [SortDescriptor(\.number, order: .reverse)]
         )
         descriptor.fetchLimit = 1
@@ -33,9 +31,7 @@ public final class TicketSwiftData: TicketRepository {
         let context = modelContainer.mainContext
         
         let descriptor = FetchDescriptor<TicketModel>(
-            predicate: #Predicate<TicketModel> {
-                $0.id == ticket.id
-            }
+            predicate: NSPredicate(format: "id == %@", ticket.id)
         )
         
         do {
