@@ -10,6 +10,7 @@ import Dependencies
 
 public struct StartCacher {
     @Dependency(\.denominationRepository) private var denominationRepo
+    @Dependency(\.paymentRepository) private var paymentRepo
     
     public init() {}
     
@@ -27,5 +28,6 @@ public struct StartCacher {
             )
             await denominationRepo.save(denomination: updatedDenomination)
         }
+        paymentRepo.removeAll()
     }
 }
