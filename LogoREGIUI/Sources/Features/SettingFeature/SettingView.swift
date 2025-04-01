@@ -102,6 +102,12 @@ struct SettingView: View {
                     Text("開発設定")
                 }
                 
+                Section {
+                    PaymentListView(store: store.scope(state: \.paymentList, action: \.paymentList))
+                } header: {
+                    Text("決済履歴")
+                }
+                
             }
         }
         .navigationTitle("設定")

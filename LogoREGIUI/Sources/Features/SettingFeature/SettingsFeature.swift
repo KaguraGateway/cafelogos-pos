@@ -26,6 +26,8 @@ public struct SettingsFeature {
         
         var config: Config
         
+        var paymentList: PaymentListFeature.State = PaymentListFeature.State()
+        
         init() {
             self.config = GetConfig().Execute()
             self.clientId = config.clientId
@@ -50,10 +52,14 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
+        case paymentList(PaymentListFeature.Action)
     }
     
     public var body: some Reducer<State, Action> {
         BindingReducer()
+        Scope(state: \.paymentList, action: \.paymentList) {
+            PaymentListFeature()
+        }
         Reduce { state, action in
             switch action {
             case .onAppear:
