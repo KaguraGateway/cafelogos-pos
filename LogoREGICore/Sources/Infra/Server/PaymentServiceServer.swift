@@ -60,7 +60,10 @@ public struct PaymentServiceServer: PaymentService {
             $0.orderIds = payment.orderIds
             
             if let ticketNumber = ticketNumber {
-                $0.ticketNumber = ticketNumber
+                $0.option = Cafelogos_Pos_PostPaymentRequestOption.with {
+                    $0.isPostOrderlink = false
+                }
+                // $0.ticketNumber = ticketNumber
             }
         }
         let response = await posClient.postPayment(request: request, headers: [:])
