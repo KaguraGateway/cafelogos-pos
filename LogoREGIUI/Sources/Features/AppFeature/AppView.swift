@@ -34,6 +34,8 @@ public struct AppView: View {
                 OrdersListView(store: store)
             case let .cashDrawerHistory(store):
                 CashDrawerHistoryView(store: store)
+            case let .paymentList(store):
+                PaymentListView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)

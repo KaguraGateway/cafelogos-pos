@@ -25,8 +25,7 @@ public struct SettingsFeature {
         var isUseIndividualBilling: Bool = false
         
         var config: Config
-        
-        var paymentList: PaymentListFeature.State = PaymentListFeature.State()
+
         
         init() {
             self.config = GetConfig().Execute()
@@ -52,14 +51,10 @@ public struct SettingsFeature {
         case printTicket
         case saveConfig
         case loadConfig
-        case paymentList(PaymentListFeature.Action)
     }
     
     public var body: some Reducer<State, Action> {
         BindingReducer()
-        Scope(state: \.paymentList, action: \.paymentList) {
-            PaymentListFeature()
-        }
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -120,8 +115,6 @@ public struct SettingsFeature {
                 state.adminUrl = config.adminUrl
                 state.isUseProductMock = config.isUseProductMock
                 state.isUseIndividualBilling = config.isUseIndividualBilling
-                return .none
-            case .paymentList(_):
                 return .none
             }
         }
