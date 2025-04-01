@@ -23,7 +23,6 @@ public struct AppFeature {
         case cashDrawerInspection(CashDrawerOperationsFeature)
         case ordersList(OrdersListFeature)
         case cashDrawerHistory(CashDrawerHistoryFeature)
-        case paymentList(PaymentListFeature)
     }
     
     @ObservableState

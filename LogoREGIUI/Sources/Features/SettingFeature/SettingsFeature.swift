@@ -25,7 +25,6 @@ public struct SettingsFeature {
         var isUseIndividualBilling: Bool = false
         
         var config: Config
-
         
         init() {
             self.config = GetConfig().Execute()

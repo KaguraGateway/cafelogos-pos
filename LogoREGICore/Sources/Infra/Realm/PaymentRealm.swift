@@ -54,16 +54,4 @@ public struct PaymentRealm: PaymentRepository {
             print("Can't Payment save: \(err.localizedDescription)")
         }
     }
-    
-    func findAll() -> [Payment] {
-        do {
-            let realm = try Realm()
-            let daoPayments = realm.objects(PaymentDao.self)
-            
-            return daoPayments.map({ toPayment(dao: $0) })
-        } catch let err {
-            print("Error in Payment findAll: \(err.localizedDescription)")
-            return []
-        }
-    }
 }
