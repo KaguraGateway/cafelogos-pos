@@ -24,6 +24,10 @@ public struct SettingsFeature {
         var isUseProductMock: Bool = false
         var isUseIndividualBilling: Bool = false
         
+        var ticketNumberPrefix: String = "L"
+        var ticketNumberStart: Int = 1
+        var isUseTicketNumber: Bool = false
+        
         var config: Config
 
         
@@ -40,6 +44,9 @@ public struct SettingsFeature {
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
             self.isUseProductMock = config.isUseProductMock
             self.isUseIndividualBilling = config.isUseIndividualBilling
+            self.ticketNumberPrefix = config.ticketNumberPrefix
+            self.ticketNumberStart = config.ticketNumberStart
+            self.isUseTicketNumber = config.isUseTicketNumber
         }
     }
     
@@ -71,7 +78,10 @@ public struct SettingsFeature {
                     state.hostUrl != state.config.hostUrl ||
                     state.adminUrl != state.config.adminUrl ||
                     state.isUseProductMock != state.config.isUseProductMock ||
-                    state.isUseIndividualBilling != state.config.isUseIndividualBilling
+                    state.isUseIndividualBilling != state.config.isUseIndividualBilling ||
+                    state.ticketNumberPrefix != state.config.ticketNumberPrefix ||
+                    state.ticketNumberStart != state.config.ticketNumberStart ||
+                    state.isUseTicketNumber != state.config.isUseTicketNumber
                 {
                     return .run { send in
                         await send(.saveConfig)
@@ -120,6 +130,15 @@ public struct SettingsFeature {
                     if state.isUseIndividualBilling != state.config.isUseIndividualBilling {
                         updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
                     }
+                    if state.ticketNumberPrefix != state.config.ticketNumberPrefix {
+                        updatedConfig.ticketNumberPrefix = state.ticketNumberPrefix
+                    }
+                    if state.ticketNumberStart != state.config.ticketNumberStart {
+                        updatedConfig.ticketNumberStart = state.ticketNumberStart
+                    }
+                    if state.isUseTicketNumber != state.config.isUseTicketNumber {
+                        updatedConfig.isUseTicketNumber = state.isUseTicketNumber
+                    }
                     
                     // Only save if any value has changed
                     if updatedConfig != state.config {
@@ -140,6 +159,9 @@ public struct SettingsFeature {
                 state.adminUrl = config.adminUrl
                 state.isUseProductMock = config.isUseProductMock
                 state.isUseIndividualBilling = config.isUseIndividualBilling
+                state.ticketNumberPrefix = config.ticketNumberPrefix
+                state.ticketNumberStart = config.ticketNumberStart
+                state.isUseTicketNumber = config.isUseTicketNumber
                 return .none
             }
         }

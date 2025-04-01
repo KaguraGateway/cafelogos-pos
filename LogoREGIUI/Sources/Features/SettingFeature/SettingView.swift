@@ -117,6 +117,33 @@ struct SettingView: View {
                     Text("開発設定")
                 }
                 
+                Section {
+                    Toggle("チケット番号を有効にする", isOn: $store.isUseTicketNumber)
+                    if store.isUseTicketNumber {
+                        HStack(alignment: .center) {
+                            Text("チケット番号プレフィックス")
+                            Spacer()
+                            TextField("", text: $store.ticketNumberPrefix)
+                                .multilineTextAlignment(.trailing)
+                                .onChange(of: store.ticketNumberPrefix) { _, _ in
+                                    store.send(.saveConfig)
+                                }
+                        }
+                        HStack(alignment: .center) {
+                            Text("チケット番号開始番号")
+                            Spacer()
+                            TextField("", value: $store.ticketNumberStart, formatter: NumberFormatter())
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                                .onChange(of: store.ticketNumberStart) { _, _ in
+                                    store.send(.saveConfig)
+                                }
+                        }
+                    }
+                } header: {
+                    Text("チケット番号設定")
+                }
+                
             }
         }
         .navigationTitle("設定")

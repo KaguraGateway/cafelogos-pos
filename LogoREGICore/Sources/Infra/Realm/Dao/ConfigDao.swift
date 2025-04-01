@@ -21,4 +21,8 @@ class ConfigDao: Object {
     @Persisted var squareTerminalDeviceId: String
     @Persisted var isUseProductMock: Bool
     @Persisted var isUseIndividualBilling: Bool
+    
+    @Persisted var ticketNumberPrefix: String = "L"
+    @Persisted var ticketNumberStart: Int = 1
+    @Persisted var isUseTicketNumber: Bool = false
 }
