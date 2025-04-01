@@ -99,46 +99,19 @@ public struct SettingsFeature {
             case .saveConfig:
                 return .run { [state] _ in
                     var updatedConfig = state.config
-                    // Only update if values have changed
-                    if state.clientName != state.config.clientName {
-                        updatedConfig.clientName = state.clientName
-                    }
-                    if state.usePrinter != state.config.isUsePrinter {
-                        updatedConfig.isUsePrinter = state.usePrinter
-                    }
-                    if state.printKitchenReceipt != state.config.isPrintKitchenReceipt {
-                        updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
-                    }
-                    if state.isUseSquareTerminal != state.config.isUseSquareTerminal {
-                        updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
-                    }
-                    if state.squareAccessToken != state.config.squareAccessToken {
-                        updatedConfig.squareAccessToken = state.squareAccessToken
-                    }
-                    if state.squareTerminalDeviceId != state.config.squareTerminalDeviceId {
-                        updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
-                    }
-                    if state.hostUrl != state.config.hostUrl {
-                        updatedConfig.hostUrl = state.hostUrl
-                    }
-                    if state.adminUrl != state.config.adminUrl {
-                        updatedConfig.adminUrl = state.adminUrl
-                    }
-                    if state.isUseProductMock != state.config.isUseProductMock {
-                        updatedConfig.isUseProductMock = state.isUseProductMock
-                    }
-                    if state.isUseIndividualBilling != state.config.isUseIndividualBilling {
-                        updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
-                    }
-                    if state.ticketNumberPrefix != state.config.ticketNumberPrefix {
-                        updatedConfig.ticketNumberPrefix = state.ticketNumberPrefix
-                    }
-                    if state.ticketNumberStart != state.config.ticketNumberStart {
-                        updatedConfig.ticketNumberStart = state.ticketNumberStart
-                    }
-                    if state.isUseTicketNumber != state.config.isUseTicketNumber {
-                        updatedConfig.isUseTicketNumber = state.isUseTicketNumber
-                    }
+                    updatedConfig.clientName = state.clientName
+                    updatedConfig.isUsePrinter = state.usePrinter
+                    updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
+                    updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
+                    updatedConfig.squareAccessToken = state.squareAccessToken
+                    updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
+                    updatedConfig.hostUrl = state.hostUrl
+                    updatedConfig.adminUrl = state.adminUrl
+                    updatedConfig.isUseProductMock = state.isUseProductMock
+                    updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
+                    updatedConfig.ticketNumberPrefix = state.ticketNumberPrefix
+                    updatedConfig.ticketNumberStart = state.ticketNumberStart
+                    updatedConfig.isUseTicketNumber = state.isUseTicketNumber
                     
                     // Only save if any value has changed
                     if updatedConfig != state.config {
