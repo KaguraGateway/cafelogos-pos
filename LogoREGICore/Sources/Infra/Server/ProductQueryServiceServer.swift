@@ -11,9 +11,12 @@ import cafelogos_grpc
 
 public struct ProductQueryServiceServer: ProductQueryService {
     
-
-    private let posClient = ServerClient().GetPosClient()
     private var formatter = ISO8601DateFormatter()
+    
+    // Use computed property to get a fresh client each time
+    private var posClient: Cafelogos_Pos_PosServiceClient {
+        return ServerClient().GetPosClient()
+    }
 
     public func fetchProductCategoriesWithProducts() async -> Array<ProductCatalogDto> {
         let response = await self.posClient.getProducts(request: Cafelogos_Common_Empty(), headers: [:])

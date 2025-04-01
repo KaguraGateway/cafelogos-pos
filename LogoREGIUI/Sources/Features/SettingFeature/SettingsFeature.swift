@@ -89,17 +89,42 @@ public struct SettingsFeature {
             case .saveConfig:
                 return .run { [state] _ in
                     var updatedConfig = state.config
-                    updatedConfig.clientName = state.clientName
-                    updatedConfig.isUsePrinter = state.usePrinter
-                    updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
-                    updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
-                    updatedConfig.squareAccessToken = state.squareAccessToken
-                    updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
-                    updatedConfig.hostUrl = state.hostUrl
-                    updatedConfig.adminUrl = state.adminUrl
-                    updatedConfig.isUseProductMock = state.isUseProductMock
-                    updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
-                    SaveConfig().Execute(config: updatedConfig)
+                    // Only update if values have changed
+                    if state.clientName != state.config.clientName {
+                        updatedConfig.clientName = state.clientName
+                    }
+                    if state.usePrinter != state.config.isUsePrinter {
+                        updatedConfig.isUsePrinter = state.usePrinter
+                    }
+                    if state.printKitchenReceipt != state.config.isPrintKitchenReceipt {
+                        updatedConfig.isPrintKitchenReceipt = state.printKitchenReceipt
+                    }
+                    if state.isUseSquareTerminal != state.config.isUseSquareTerminal {
+                        updatedConfig.isUseSquareTerminal = state.isUseSquareTerminal
+                    }
+                    if state.squareAccessToken != state.config.squareAccessToken {
+                        updatedConfig.squareAccessToken = state.squareAccessToken
+                    }
+                    if state.squareTerminalDeviceId != state.config.squareTerminalDeviceId {
+                        updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
+                    }
+                    if state.hostUrl != state.config.hostUrl {
+                        updatedConfig.hostUrl = state.hostUrl
+                    }
+                    if state.adminUrl != state.config.adminUrl {
+                        updatedConfig.adminUrl = state.adminUrl
+                    }
+                    if state.isUseProductMock != state.config.isUseProductMock {
+                        updatedConfig.isUseProductMock = state.isUseProductMock
+                    }
+                    if state.isUseIndividualBilling != state.config.isUseIndividualBilling {
+                        updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
+                    }
+                    
+                    // Only save if any value has changed
+                    if updatedConfig != state.config {
+                        SaveConfig().Execute(config: updatedConfig)
+                    }
                 }
             case .loadConfig:
                 let config = GetConfig().Execute()
