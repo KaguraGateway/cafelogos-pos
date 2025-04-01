@@ -13,14 +13,13 @@ public final class TicketSwiftData: TicketRepository {
         let context = modelContainer.mainContext
         
         let descriptor = FetchDescriptor<TicketModel>(
-            predicate: NSPredicate(format: "prefix == %@", prefix),
             sortBy: [SortDescriptor(\.number, order: .reverse)]
         )
-        descriptor.fetchLimit = 1
         
         do {
-            let models = try context.fetch(descriptor)
-            return models.first?.toDomain()
+            let allModels = try context.fetch(descriptor)
+            let filteredModels = allModels.filter { $0.prefix == prefix }
+            return filteredModels.first?.toDomain()
         } catch {
             print("Error fetching last ticket: \(error.localizedDescription)")
             return nil
@@ -30,14 +29,13 @@ public final class TicketSwiftData: TicketRepository {
     public func save(ticket: Ticket) async throws {
         let context = modelContainer.mainContext
         
-        let descriptor = FetchDescriptor<TicketModel>(
-            predicate: NSPredicate(format: "id == %@", ticket.id)
-        )
+        let descriptor = FetchDescriptor<TicketModel>()
         
         do {
-            let existingModels = try context.fetch(descriptor)
+            let allModels = try context.fetch(descriptor)
+            let existingModel = allModels.first { $0.id == ticket.id }
             
-            if let existingModel = existingModels.first {
+            if let existingModel = existingModel {
                 existingModel.number = ticket.number
                 existingModel.prefix = ticket.prefix
                 existingModel.createdAt = ticket.createdAt
