@@ -2,6 +2,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UIKit
 
 // サンプルデータ
 struct ChargenData {
@@ -18,7 +19,10 @@ struct CashDrawerClosingView: View {
         ContainerWithNavBar{
             GeometryReader {geometry in
                 HStack(spacing:0){
-                    DenominationFormList(store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction))
+                    DenominationFormList(
+                        store: store.scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction),
+                        onFocusChange: { isFocused, index in store.send(.updateTextFieldFocus(isFocused, index)) }
+                    )
                     Divider()
                     VStack(alignment: .leading){
                         TitledAmountView(title: "あるべき釣り銭(A)", amount: store.expectedCashAmount)
@@ -27,6 +31,15 @@ struct CashDrawerClosingView: View {
                         TitledAmountView(title: "現在の釣り銭(B)", amount: store.cashDrawerTotal)
                             .padding(.bottom)
                         TitledAmountView(title: "誤差(B-A)", amount: store.cashDiscrepancy)
+                        
+                        // テンキーを追加（フォーカス時のみ表示）
+                        if store.isTextFieldFocused {
+
+                            CashDrawerNumericKeyboardView(store: store.scope(state: \.numericKeyboardState, action: \.numericKeyboardAction))
+                                .transition(.opacity)
+                                .animation(.easeInOut(duration: 0.3), value: store.isTextFieldFocused)
+                        }
+                        
                         Spacer()
                         TitleNavButton(title: "精算完了", bgColor: Color.cyan, fgColor: Color.white)
                             .simultaneousGesture(TapGesture().onEnded {

@@ -14,6 +14,11 @@ public struct CashDrawerOperationsFeature {
         var cashDiscrepancy: Int = 0
         
         var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
+        var numericKeyboardState = CashDrawerNumericKeyboardFeature.State()
+        var isTextFieldFocused: Bool = false
+        var focusedDenominationIndex: Int? = nil
+        var activeTextFields: [Int: UITextField] = [:] // 追加: TextFieldの参照を保持
+        
         @Presents var alert: AlertState<Action.Alert>?
     }
     
@@ -35,6 +40,9 @@ public struct CashDrawerOperationsFeature {
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
+        case numericKeyboardAction(CashDrawerNumericKeyboardFeature.Action)
+        case updateTextFieldFocus(Bool, Int?)
+        case registerTextField(UITextField, Int)
         case takeScreenshot(UIView)
 
         // Alert
@@ -48,9 +56,16 @@ public struct CashDrawerOperationsFeature {
         }
     }
     
+    public init() {
+        // 空のinitメソッド - TCAパターンに従う
+    }
+    
     public var body: some Reducer<State, Action> {
         Scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction) {
             DenominationFormListFeature()
+        }
+        Scope(state: \.numericKeyboardState, action: \.numericKeyboardAction) {
+            CashDrawerNumericKeyboardFeature()
         }
         Reduce { state, action in
             switch action {
@@ -143,8 +158,56 @@ public struct CashDrawerOperationsFeature {
             case .completeInspection:
                 return .none
                 
+            case .denominationFormListFeatureAction(.delegate(.registerTextField(let textField, let index))):
+                return .send(.registerTextField(textField, index))
+                
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+                
+            case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
+                // 入力された数値を処理する
+                if let focusedIndex = state.focusedDenominationIndex {
+                    let inputValue = UInt64(state.numericKeyboardState.inputNumeric)
+                    var updatedDenomination = state.denominationFormListFeatureState.denominations.denominations[focusedIndex]
+                    updatedDenomination.setQuantity(newValue: inputValue)
+                    
+                    // 直接TextFieldの値を更新
+                    if let textField = state.activeTextFields[focusedIndex] {
+                        textField.text = "\(inputValue)"
+                    }
+                    
+                    return .send(.denominationFormListFeatureAction(.updateDenomination(index: focusedIndex, newValue: updatedDenomination)))
+                }
+                return .none
+            case .numericKeyboardAction:
+                return .none
+            case let .updateTextFieldFocus(isFocused, index):
+                state.isTextFieldFocused = isFocused
+                state.focusedDenominationIndex = index
+
+                if isFocused && index != nil {
+                    // Reset numeric keyboard when focusing on a new field
+                    state.numericKeyboardState.baseNumeric = 0
+                    state.numericKeyboardState.suffixNumeric = ""
+                    // Set initial value from the focused denomination
+                    let denomination = state.denominationFormListFeatureState.denominations.denominations[index!]
+                    let quantity = denomination.quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
+                return .none
+                
+            case let .registerTextField(textField, index):
+                state.activeTextFields[index] = textField
+                // TextFieldが登録されたら、現在の値を設定
+                if let focusedIndex = state.focusedDenominationIndex, focusedIndex == index {
+                    let quantity = state.denominationFormListFeatureState.denominations.denominations[index].quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
+                return .none
                 
             case let .takeScreenshot(view):
                 takeScreenshot(from: view)

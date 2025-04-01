@@ -1,10 +1,14 @@
 // 1行の金種入力フォーム
 import SwiftUI
 import LogoREGICore
+import UIKit
 
 struct DenominationForm: View {
     let denomination: Denomination
     let onUpdate: (Denomination) -> Void
+    let onFocusChange: (Bool, Int) -> Void
+    let onRegisterTextField: (UITextField) -> Void
+    let index: Int
     
     var body: some View {
         HStack(alignment: .center){
@@ -20,23 +24,23 @@ struct DenominationForm: View {
             Spacer()
             Text("×")
                 .padding(.trailing)
-            TextField("0", value: Binding(
-                get: { denomination.quantity },
-                set: { newValue in
-                    var updatedDenomination = denomination
-                    updatedDenomination.setQuantity(newValue: newValue)
-                    onUpdate(updatedDenomination)
-                }
-                    ), formatter: NumberFormatter())
-                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification), perform: { obj in
-                            if let textField = obj.object as? UITextField {
-                                textField.selectAll(textField.text)
-                                
-                            }
-                        })
-                        .multilineTextAlignment(.trailing)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(maxWidth: 180)
+            NumericTextField(
+                value: Binding(
+                    get: { denomination.quantity },
+                    set: { newValue in
+                        var updatedDenomination = denomination
+                        updatedDenomination.setQuantity(newValue: newValue)
+                        onUpdate(updatedDenomination)
+                    }
+                ),
+                index: index,
+                onFocusChange: { isFocused in
+                    onFocusChange(isFocused, index)
+                },
+                onRegisterTextField: onRegisterTextField
+            )
+            .frame(maxWidth: 180)
+            .multilineTextAlignment(.trailing)
                     
                     
                     Text("=")
@@ -49,13 +53,8 @@ struct DenominationForm: View {
                     .frame(maxWidth: 100)
                     .padding(.trailing)
                 }
-                    .frame(maxWidth: .infinity)
-                
-                
-                
-                    .padding(.vertical, 5)
-                
-                    .font(.title3)
-                
-                }
-                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 5)
+                .font(.title3)
+            }
+        }

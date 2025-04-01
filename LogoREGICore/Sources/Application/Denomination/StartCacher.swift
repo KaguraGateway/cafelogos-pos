@@ -14,8 +14,18 @@ public struct StartCacher {
     public init() {}
     
     public func Execute(denominations: Denominations) async {
-        for denomination in denominations.denominations {
-            await denominationRepo.save(denomination: denomination)
+        for var denomination in denominations.denominations {
+            // レジ開け操作として記録
+            var updatedDenomination = denomination
+            updatedDenomination = Denomination(
+                amount: denomination.amount,
+                quantity: denomination.quantity,
+                createdAt: denomination.createdAt,
+                updatedAt: Date(),
+                syncAt: denomination.syncAt,
+                operationType: .cashDrawerOpening
+            )
+            await denominationRepo.save(denomination: updatedDenomination)
         }
     }
 }

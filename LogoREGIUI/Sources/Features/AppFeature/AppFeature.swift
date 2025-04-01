@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 @Reducer
 public struct AppFeature {
-    @Reducer(state: .equatable)
+   @Reducer(state: .equatable)
     public enum Path {
         case printerTest(PrinterTestFeature)
         case settings(SettingsFeature)
@@ -22,6 +22,7 @@ public struct AppFeature {
         case cashDrawerSetup(CashDrawerOperationsFeature)
         case cashDrawerInspection(CashDrawerOperationsFeature)
         case ordersList(OrdersListFeature)
+        case cashDrawerHistory(CashDrawerHistoryFeature)
     }
     
     @ObservableState
@@ -72,6 +73,8 @@ public struct AppFeature {
                 case .element(id: _, action: .orderEntry(.popToRoot)):
                     return .send(.popToHome)
                 case .element(id: _, action: .ordersList(.popToRoot)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerHistory(.popToRoot)):
                     return .send(.popToHome)
                 case let .element(id: _, action: .orderEntry(.setIsServerConnected(isConnected))):
                     return .send(.setIsServerConnected(isConnected))
