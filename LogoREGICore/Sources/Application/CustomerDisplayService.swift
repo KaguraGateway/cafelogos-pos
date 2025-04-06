@@ -7,8 +7,9 @@
 
 import Foundation
 
-protocol CustomerDisplayService {
+public protocol CustomerDisplayService {
     func updateOrder(orders: [Order])
     func transitionPayment()
     func transitionPaymentSuccess(payment: Payment)
+    func updateReceiveAmount(amount: UInt64)
 }

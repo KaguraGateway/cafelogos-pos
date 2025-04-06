@@ -168,6 +168,8 @@ struct SettingView: View {
                     Text("チケット番号設定")
                 }
                 
+                CustomerDisplaySettingView(store: store)
+                
             }
         }
         .navigationTitle("設定")

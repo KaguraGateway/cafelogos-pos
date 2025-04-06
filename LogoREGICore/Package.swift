@@ -20,7 +20,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.29.0"),
         .package(url: "https://github.com/connectrpc/connect-swift.git", from: "1.0.2"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.8.0"),
-        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0")
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/httpswift/swifter.git", from: "1.5.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -33,7 +34,8 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "RealmSwift", package: "realm-swift"),
                 .product(name: "Connect", package: "connect-swift"),
-                .product(name: "cafelogos-grpc", package: "logosone")
+                .product(name: "cafelogos-grpc", package: "logosone"),
+                .product(name: "Swifter", package: "swifter")
             ]),
         .testTarget(
             name: "LogoREGICoreTests",
