@@ -5,7 +5,7 @@
 import Foundation
 import Swifter
 
-public struct HTTPServerCustomerDisplayService: CustomerDisplayService {
+public class HTTPServerCustomerDisplayService: CustomerDisplayService {
     private let httpServer: HttpServer
     private var apiDataStore: CustomerDisplayAPIDataStore
     
