@@ -11,7 +11,6 @@ public struct PaymentFeature {
         var payment: Payment
         let totalQuantity: UInt32
         let totalAmount: UInt64
-        @Dependency(\.customerDisplay) var customerDisplay
         
         var numericKeyboardState = NumericKeyboardFeature.State()
         
@@ -80,9 +79,11 @@ public struct PaymentFeature {
             case .onTapPay:
                 state.isPayButtonEnabled = false
                 state.isServerLoading = true
-                state.customerDisplay.updateOrder(orders: state.orders)
-                state.customerDisplay.transitionPayment()
-                return .run { [newOrder = state.newOrder, payment = state.payment] send in
+                return .run { [orders = state.orders, newOrder = state.newOrder, payment = state.payment] send in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: orders)
+                    customerDisplay.transitionPayment()
+                    
                     await send(.onDidPayment(Result {
                         await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: nil)
                     }))
@@ -162,8 +163,10 @@ public struct PaymentFeature {
                     }
                 } else {
                     print("success")
-                    state.customerDisplay.transitionPaymentSuccess(payment: state.payment)
-                    return .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount))
+                    return .run { [payment = state.payment] _ in
+                        @Dependency(\.customerDisplay) var customerDisplay
+                        customerDisplay.transitionPaymentSuccess(payment: payment)
+                    }.concatenate(with: .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount)))
                 }
                 return .none
                 
