@@ -74,9 +74,9 @@ private enum OrderServerServiceKey: DependencyKey {
 private enum CashierAdapterKey: DependencyKey {
     static let liveValue: any CashierAdapter = StarXCashierAdapter()
 }
-//private enum CustomerDisplayServiceKey: DependencyKey {
-//    static let liveValue: any CustomerDisplayService = SwifterCustomerDisplayService()
-//}
+private enum CustomerDisplayServiceKey: DependencyKey {
+    static let liveValue: any CustomerDisplayService = HTTPServerCustomerDisplayService()
+}
 private enum DrawerTestKey: DependencyKey { // ContainerWithNavBarでドロア解放を行うためのKey
     static let liveValue = DrawerTest()
 }
@@ -138,10 +138,10 @@ extension DependencyValues {
         get { self[CashierAdapterKey.self] }
         set { self[CashierAdapterKey.self] = newValue }
     }
-//    var customerDisplay: any CustomerDisplayService {
-//        get {self[CustomerDisplayServiceKey.self] }
-//        set {self[CustomerDisplayServiceKey.self] = newValue }
-//    }
+    var customerDisplay: any CustomerDisplayService {
+        get {self[CustomerDisplayServiceKey.self] }
+        set {self[CustomerDisplayServiceKey.self] = newValue }
+    }
 
     // ContainerWithNavBarでドロア解放を行うために実装
     // NavBar用のFeatureを作ると複雑化して可読性が下がるため、DIして対応

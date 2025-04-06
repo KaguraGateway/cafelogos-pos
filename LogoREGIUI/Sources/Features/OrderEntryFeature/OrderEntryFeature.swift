@@ -8,6 +8,7 @@ public struct OrderEntryFeature {
     public struct State: Equatable {
         var discounts: [Discount]
         var order: Order
+        @Dependency(\.customerDisplay) var customerDisplay
         
         var productStackState: ProductStackFeature.State
         var orderBottomBarState: OrderBottomBarFeature.State
@@ -279,6 +280,7 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                state.customerDisplay.updateOrder(orders: [state.order])
                 return .none
             case let .orderBottomBarAction(.destination(.presented(.chooseOrderSheet(.delegate(.getUnpaidOrdersById(seatId)))))):
                 return .run { send in
