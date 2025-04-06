@@ -21,4 +21,5 @@ public struct Ticket: Equatable {
 public protocol TicketRepository {
     func findLastTicketByPrefix(prefix: String) async -> Ticket?
     func save(ticket: Ticket) async throws
+    func removeAll() async
 }

@@ -49,4 +49,20 @@ public final class TicketSwiftData: TicketRepository {
             throw error
         }
     }
+    
+    public func removeAll() async {
+        let context = modelContainer.mainContext
+        let descriptor = FetchDescriptor<TicketModel>()
+        
+        do {
+            let allModels = try context.fetch(descriptor)
+            for model in allModels {
+                context.delete(model)
+            }
+            try context.save()
+            print("All ticket records removed successfully")
+        } catch {
+            print("Error removing all ticket records: \(error.localizedDescription)")
+        }
+    }
 }

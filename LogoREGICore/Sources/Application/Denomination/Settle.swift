@@ -11,6 +11,7 @@ import Dependencies
 public struct Settle {
     @Dependency(\.denominationRepository) private var denominationRepo
     @Dependency(\.paymentRepository) private var paymentRepo
+    @Dependency(\.ticketRepository) private var ticketRepo
     
     public init() {}
     
@@ -29,5 +30,7 @@ public struct Settle {
             await denominationRepo.save(denomination: updatedDenomination)
         }
         paymentRepo.removeAll()
+        await ticketRepo.removeAll()
+        print("Settle: チケットDBをクリアしました")
     }
 }
