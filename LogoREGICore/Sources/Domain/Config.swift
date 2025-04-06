@@ -35,8 +35,14 @@ public struct Config: Equatable {
         self.isTrainingMode = false
         self.isUsePrinter = false
         self.isPrintKitchenReceipt = false
-        self.hostUrl = "http://localhost:8080"
-        self.adminUrl = ""
+        
+        let apiProtocol = Bundle.main.object(forInfoDictionaryKey: "API_PROTOCOL") as? String ?? "http"
+        let apiHost = Bundle.main.object(forInfoDictionaryKey: "API_HOST") as? String ?? "localhost:8080"
+        self.hostUrl = "\(apiProtocol)://\(apiHost)"
+        
+        let apiAdminHost = Bundle.main.object(forInfoDictionaryKey: "API_ADMIN_HOST") as? String ?? ""
+        self.adminUrl = apiAdminHost.isEmpty ? "" : "\(apiProtocol)://\(apiAdminHost)"
+        
         self.isUseSquareTerminal = false
         self.squareAccessToken = ""
         self.squareTerminalDeviceId = ""
