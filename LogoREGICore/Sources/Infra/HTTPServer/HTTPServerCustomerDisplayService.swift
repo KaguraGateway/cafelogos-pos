@@ -108,6 +108,12 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
         broadcastCurrentData()
     }
     
+    public func updateReceiveAmount(amount: UInt64) {
+        apiDataStore.currentData.receiveAmount = Int(amount)
+        
+        broadcastCurrentData()
+    }
+    
     private func broadcastCurrentData() {
         guard !webSocketSessions.isEmpty else { return }
         

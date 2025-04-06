@@ -73,7 +73,10 @@ public struct PaymentFeature {
             switch action {
             case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
                 state.payment.receiveAmount = state.numericKeyboardState.inputNumeric
-                return .none
+                return .run { [amount = state.numericKeyboardState.inputNumeric] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateReceiveAmount(amount: amount)
+                }
             case .numericKeyboardAction:
                 return .none
             case .onTapPay:
