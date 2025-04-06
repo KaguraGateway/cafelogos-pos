@@ -65,6 +65,8 @@ public struct OrderEntryFeature {
     //    頑張りましたが、コンパイラがやる気を無くしたので見送り
     //    https://github.com/KaguraGateway/cafelogos-pos/pull/43#issuecomment-2204918216
     
+    @Dependency(\.customerDisplay) var customerDisplay
+    
     public var body: some Reducer<State, Action> {
         Scope(state: \.productStackState, action: \.productStackAction) {
             ProductStackFeature()
@@ -132,10 +134,8 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
                 
             case let .onTapIncrease(index):
                 if index < state.order.cart.items.count {
@@ -144,43 +144,33 @@ public struct OrderEntryFeature {
                     // TODO: 設計ミスったからゴリ押した、直す
                     state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 }
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
                 
             case let .onRemoveItem(cartItem):
                 state.order.cart.removeItem(removeItem: cartItem)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
                 
             case let .onTapDiscount(discount):
                 state.order.discounts.append(discount)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
                 
             case .orderBottomBarAction(.delegate(.removeAllItem)):
                 state.order.cart.removeAllItem()
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
                 
             case .orderBottomBarAction(.delegate(.transitionPayment)):
-                return .run { _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.transitionPayment()
-                }
+                customerDisplay.transitionPayment()
+                return .none
                 
             case .productStackAction(.delegate(.onConnectionError(_))):
                 // サーバー接続エラーの処理
@@ -300,10 +290,8 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .run { [order = state.order] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: [order])
-                }
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
             case let .orderBottomBarAction(.destination(.presented(.chooseOrderSheet(.delegate(.getUnpaidOrdersById(seatId)))))):
                 return .run { send in
                     await send(

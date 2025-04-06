@@ -86,9 +86,5 @@ struct PaymentView: View {
             })
         }
         .navigationTitle("支払い")
-        .onAppear {
-            @Dependency(\.customerDisplay) var customerDisplay
-            customerDisplay.transitionPayment()
-        }
     }
 }

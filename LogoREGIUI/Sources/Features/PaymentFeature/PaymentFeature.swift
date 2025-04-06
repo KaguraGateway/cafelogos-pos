@@ -65,6 +65,8 @@ public struct PaymentFeature {
         }
     }
     
+    @Dependency(\.customerDisplay) var customerDisplay
+    
     public var body: some Reducer<State, Action> {
         Scope(state: \.numericKeyboardState, action: \.numericKeyboardAction) {
             NumericKeyboardFeature()
@@ -73,20 +75,17 @@ public struct PaymentFeature {
             switch action {
             case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
                 state.payment.receiveAmount = state.numericKeyboardState.inputNumeric
-                return .run { [amount = state.numericKeyboardState.inputNumeric] _ in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateReceiveAmount(amount: amount)
-                }
+                customerDisplay.updateReceiveAmount(amount: state.numericKeyboardState.inputNumeric)
+                return .none
             case .numericKeyboardAction:
                 return .none
             case .onTapPay:
                 state.isPayButtonEnabled = false
                 state.isServerLoading = true
-                return .run { [orders = state.orders, newOrder = state.newOrder, payment = state.payment] send in
-                    @Dependency(\.customerDisplay) var customerDisplay
-                    customerDisplay.updateOrder(orders: orders)
-                    customerDisplay.transitionPayment()
-                    
+                customerDisplay.updateOrder(orders: state.orders)
+                customerDisplay.transitionPayment()
+                
+                return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
                         await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: nil)
                     }))
@@ -166,10 +165,8 @@ public struct PaymentFeature {
                     }
                 } else {
                     print("success")
-                    return .run { [payment = state.payment] _ in
-                        @Dependency(\.customerDisplay) var customerDisplay
-                        customerDisplay.transitionPaymentSuccess(payment: payment)
-                    }.concatenate(with: .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount)))
+                    customerDisplay.transitionPaymentSuccess(payment: state.payment)
+                    return .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount))
                 }
                 return .none
                 

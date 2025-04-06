@@ -12,6 +12,7 @@ import RealmSwift
 public struct Launch {
     @Dependency(\.configRepository) private var configRepo
     @Dependency(\.configObserver) private var configObserver
+    @Dependency(\.customerDisplay) private var customerDisplay
     
     public init() {}
     
@@ -36,5 +37,7 @@ public struct Launch {
         
         // ConfigObserverを初期化して監視を開始
         configObserver.startObserving()
+        
+        _ = customerDisplay
     }
 }
