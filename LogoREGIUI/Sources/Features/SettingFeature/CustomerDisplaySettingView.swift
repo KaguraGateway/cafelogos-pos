@@ -13,47 +13,40 @@ struct CustomerDisplaySettingView: View {
     
     var body: some View {
         Section {
-            Toggle("カスタマーディスプレイ利用", isOn: $store.isUseCustomerDisplay)
-                .onChange(of: store.isUseCustomerDisplay) { _, _ in
-                    store.send(.saveConfig)
-                }
+            HStack {
+                Text("接続ステータス")
+                Spacer()
+                Text(displayConnection ? "接続中" : "未接続")
+                    .foregroundStyle(.secondary)
+            }
             
-            if store.isUseCustomerDisplay {
+            Section {
                 HStack {
-                    Text("接続ステータス")
+                    Text("IPアドレス")
                     Spacer()
-                    Text(displayConnection ? "接続中" : "未接続")
+                    Text(ipAddress)
                         .foregroundStyle(.secondary)
                 }
                 
-                Section {
-                    HStack {
-                        Text("IPアドレス")
-                        Spacer()
-                        Text(ipAddress)
-                            .foregroundStyle(.secondary)
-                    }
+                HStack(alignment: .center) {
+                    Spacer()
+                    Text("表示されているIPアドレスとポート8090にアクセスすることで、\nカスタマーディスプレイに接続することができます。")
+                        .font(.system(.body))
+                    Spacer()
                     
-                    HStack(alignment: .center) {
-                        Spacer()
-                        Text("表示されているIPアドレスとポート8090にアクセスすることで、\nカスタマーディスプレイに接続することができます。")
-                            .font(.system(.body))
-                        Spacer()
-                        
-                        VStack {
-                            Text("http://\(ipAddress):8090")
-                                .font(.system(.title3, weight: .bold))
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
-                        }
-                        .frame(width: 250, height: 100)
-                        Spacer()
+                    VStack {
+                        Text("http://\(ipAddress):8090")
+                            .font(.system(.title3, weight: .bold))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
                     }
-                    .padding(.vertical, 30)
-                    
-                } header: {
-                    Text("接続情報")
+                    .frame(width: 250, height: 100)
+                    Spacer()
                 }
+                .padding(.vertical, 30)
+                
+            } header: {
+                Text("接続情報")
             }
         } header: {
             Text("カスタマーディスプレイ設定")
