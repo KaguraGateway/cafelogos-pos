@@ -9,6 +9,8 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
     private let httpServer: HttpServer
     private var apiDataStore: CustomerDisplayAPIDataStore
     private var webSocketSessions: [WebSocketSession] = []
+    private var inactivityTimer: Timer?
+    private let inactivityTimeInterval: TimeInterval = 2.0 // 2秒
     
     public init() {
         httpServer = HttpServer()
@@ -69,6 +71,8 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
         do {
             try httpServer.start(8090)
             print("顧客モニター用サーバーを起動しました: http://localhost:8090")
+            
+            resetInactivityTimer()
         } catch {
             print("サーバー起動エラー: \(error)")
         }
@@ -126,6 +130,23 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
             }
         } catch {
             print("WebSocketブロードキャストエラー: \(error)")
+        }
+        
+        resetInactivityTimer()
+    }
+    
+    private func resetInactivityTimer() {
+        inactivityTimer?.invalidate()
+        
+        inactivityTimer = Timer.scheduledTimer(withTimeInterval: inactivityTimeInterval, repeats: false) { [weak self] _ in
+            self?.showAdsAfterInactivity()
+        }
+    }
+    
+    private func showAdsAfterInactivity() {
+        if apiDataStore.currentData.state == .entryList || apiDataStore.currentData.state == .payment {
+            apiDataStore.currentData.state = .ads
+            broadcastCurrentData()
         }
     }
     
