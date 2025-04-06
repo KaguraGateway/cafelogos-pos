@@ -8,6 +8,7 @@ import Swifter
 public class HTTPServerCustomerDisplayService: CustomerDisplayService {
     private let httpServer: HttpServer
     private var apiDataStore: CustomerDisplayAPIDataStore
+    private var webSocketSessions: [WebSocketSession] = []
     
     public init() {
         httpServer = HttpServer()
@@ -36,7 +37,26 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
             }
         }
         
-        httpServer["/api/data"] = { request in
+        httpServer["/ws"] = websocket(text: { [weak self] session, text in
+            print("WebSocketテキストメッセージを受信: \(text)")
+        }, binary: { session, binary in
+            print("WebSocketバイナリメッセージを受信")
+        }, connected: { [weak self] session in
+            print("WebSocketクライアントが接続されました")
+            self?.webSocketSessions.append(session)
+            
+            if let self = self, let jsonData = try? JSONEncoder().encode(self.apiDataStore.currentData) {
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                    session.writeText(jsonString)
+                }
+            }
+        }, disconnected: { [weak self] session in
+            print("WebSocketクライアントが切断されました")
+            self?.webSocketSessions.removeAll(where: { $0 === session })
+        })
+        
+        httpServer["/api/data"] = { [weak self] request in
+            guard let self = self else { return .internalServerError }
             do {
                 let data = try JSONEncoder().encode(self.apiDataStore.currentData)
                 return .ok(.data(data, contentType: "application/json"))
@@ -70,16 +90,37 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
         apiDataStore.currentData.items = items
         apiDataStore.currentData.totalAmount = Int(orders.reduce(0) { $0 + $1.totalAmount })
         apiDataStore.currentData.totalQuantity = Int(orders.reduce(0) { $0 + $1.cart.totalQuantity })
+        
+        broadcastCurrentData()
     }
     
     public func transitionPayment() {
         apiDataStore.currentData.state = .payment
+        
+        broadcastCurrentData()
     }
     
     public func transitionPaymentSuccess(payment: Payment) {
         apiDataStore.currentData.state = .thanks
         apiDataStore.currentData.receiveAmount = Int(payment.receiveAmount)
         apiDataStore.currentData.changeAmount = Int(payment.changeAmount)
+        
+        broadcastCurrentData()
+    }
+    
+    private func broadcastCurrentData() {
+        guard !webSocketSessions.isEmpty else { return }
+        
+        do {
+            let jsonData = try JSONEncoder().encode(apiDataStore.currentData)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                for session in webSocketSessions {
+                    session.writeText(jsonString)
+                }
+            }
+        } catch {
+            print("WebSocketブロードキャストエラー: \(error)")
+        }
     }
     
     private func getEmbeddedHTML() -> String {
@@ -183,6 +224,73 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
                     ads2: 6
                 };
 
+                const defaultData = {
+                    state: 0, // logo
+                    items: [],
+                    totalAmount: 0,
+                    totalQuantity: 0,
+                    receiveAmount: 0,
+                    changeAmount: 0
+                };
+
+                let socket;
+                let isConnected = false;
+                let reconnectAttempts = 0;
+                const maxReconnectAttempts = 5;
+                const reconnectDelay = 3000; // 3秒
+
+                function connectWebSocket() {
+                    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                    const wsUrl = `${protocol}//${window.location.host}/ws`;
+                    
+                    console.log(`WebSocketに接続します: ${wsUrl}`);
+                    socket = new WebSocket(wsUrl);
+                    
+                    socket.onopen = function() {
+                        console.log('WebSocket接続が確立されました');
+                        isConnected = true;
+                        reconnectAttempts = 0;
+                        
+                        const appElement = document.getElementById('app');
+                        if (appElement.innerHTML.includes('接続中')) {
+                            updateDisplay(defaultData);
+                        }
+                    };
+                    
+                    socket.onmessage = function(event) {
+                        console.log('WebSocketメッセージを受信しました');
+                        try {
+                            const data = JSON.parse(event.data);
+                            updateDisplay(data);
+                        } catch (error) {
+                            console.error('WebSocketメッセージの解析エラー:', error);
+                        }
+                    };
+                    
+                    socket.onclose = function() {
+                        console.log('WebSocket接続が閉じられました');
+                        isConnected = false;
+                        
+                        if (reconnectAttempts < maxReconnectAttempts) {
+                            reconnectAttempts++;
+                            console.log(`WebSocketに再接続を試みます (${reconnectAttempts}/${maxReconnectAttempts})...`);
+                            setTimeout(connectWebSocket, reconnectDelay);
+                            
+                            const appElement = document.getElementById('app');
+                            appElement.innerHTML = `
+                                <div class="logo">
+                                    <h1>Cafe Logos</h1>
+                                    <p>接続中...(${reconnectAttempts}/${maxReconnectAttempts})</p>
+                                </div>
+                            `;
+                        }
+                    };
+                    
+                    socket.onerror = function(error) {
+                        console.error('WebSocketエラー:', error);
+                    };
+                }
+
                 async function fetchDisplayData() {
                     try {
                         const response = await fetch('/api/data');
@@ -192,14 +300,7 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
                         return await response.json();
                     } catch (error) {
                         console.error('Error fetching display data:', error);
-                        return {
-                            state: 0, // logo
-                            items: [],
-                            totalAmount: 0,
-                            totalQuantity: 0,
-                            receiveAmount: 0,
-                            changeAmount: 0
-                        };
+                        return defaultData;
                     }
                 }
 
@@ -289,9 +390,8 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
                     `;
                 }
 
-                async function updateDisplay() {
+                function updateDisplay(data) {
                     const appElement = document.getElementById('app');
-                    const data = await fetchDisplayData();
                     
                     let content = '';
                     
@@ -322,9 +422,17 @@ public class HTTPServerCustomerDisplayService: CustomerDisplayService {
                     appElement.innerHTML = content;
                 }
 
-                updateDisplay();
+                updateDisplay(defaultData);
                 
-                setInterval(updateDisplay, 1000);
+                connectWebSocket();
+                
+                if (!window.WebSocket) {
+                    console.log('WebSocketがサポートされていません。ポーリングにフォールバックします。');
+                    setInterval(async () => {
+                        const data = await fetchDisplayData();
+                        updateDisplay(data);
+                    }, 1000);
+                }
             </script>
         </body>
         </html>
