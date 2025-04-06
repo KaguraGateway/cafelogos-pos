@@ -132,7 +132,10 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
                 
             case let .onTapIncrease(index):
                 if index < state.order.cart.items.count {
@@ -141,25 +144,37 @@ public struct OrderEntryFeature {
                     // TODO: 設計ミスったからゴリ押した、直す
                     state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 }
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
                 
             case let .onRemoveItem(cartItem):
                 state.order.cart.removeItem(removeItem: cartItem)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
                 
             case let .onTapDiscount(discount):
                 state.order.discounts.append(discount)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
                 
             case .orderBottomBarAction(.delegate(.removeAllItem)):
                 state.order.cart.removeAllItem()
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
                 
             case .orderBottomBarAction(.delegate(.transitionPayment)):
                 return .run { _ in

@@ -52,6 +52,8 @@ struct OrderEntryView: View {
             }
             .onAppear {
                 store.send(.onAppear)
+                @Dependency(\.customerDisplay) var customerDisplay
+                customerDisplay.updateOrder(orders: [store.order])
             }
         }
         .navigationTitle("注文入力")

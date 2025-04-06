@@ -87,7 +87,10 @@ public struct AppFeature {
                 }
             case .popToHome:
                 state.path.removeAll()
-                return .none
+                return .run { _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [])
+                }
             case let .setIsServerConnected(isConnected):
                 state.isServerConnected = isConnected;
                 return .none

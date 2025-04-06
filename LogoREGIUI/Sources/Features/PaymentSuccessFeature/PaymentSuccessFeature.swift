@@ -52,7 +52,10 @@ public struct PaymentSuccessFeature {
                 
             case .navigateToTapOrderEntry:
                 // OrderEntryへの遷移
-                return .none
+                return .run { _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [Order()])
+                }
             }
         }
     }
