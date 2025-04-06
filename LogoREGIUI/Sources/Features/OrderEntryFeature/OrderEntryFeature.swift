@@ -161,6 +161,12 @@ public struct OrderEntryFeature {
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 return .none
                 
+            case .orderBottomBarAction(.delegate(.transitionPayment)):
+                return .run { _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.transitionPayment()
+                }
+                
             case .productStackAction(.delegate(.onConnectionError(_))):
                 // サーバー接続エラーの処理
                 state.isLoading = false

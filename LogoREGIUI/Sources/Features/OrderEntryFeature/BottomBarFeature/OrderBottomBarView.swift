@@ -48,6 +48,11 @@ public struct OrderBottomBarView: View {
                     .foregroundStyle(.white)
                     .padding(.leading, 50)
             }
+            .onTapGesture {
+                if !shouldDisableOrderButton() {
+                    store.send(.delegate(.transitionPayment))
+                }
+            }
             .disabled(shouldDisableOrderButton())
             .opacity(shouldDisableOrderButton() ? 0.5 : 1)
         }
