@@ -29,6 +29,8 @@ public struct Config: Equatable {
     public var ticketNumberStart: Int
     public var isUseTicketNumber: Bool
     
+    public var isUseCustomerDisplay: Bool
+    
     public init() {
         self.clientId = ULID().ulidString
         self.clientName = ""
@@ -51,9 +53,10 @@ public struct Config: Equatable {
         self.ticketNumberPrefix = "L"
         self.ticketNumberStart = 1
         self.isUseTicketNumber = false
+        self.isUseCustomerDisplay = false
     }
     
-    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, adminUrl: String = "", isUseProductMock: Bool = false, isUseIndividualBilling: Bool = false, ticketNumberPrefix: String = "L", ticketNumberStart: Int = 1, isUseTicketNumber: Bool = false) {
+    public init(clientId: String, clientName: String, isTrainingMode: Bool, isUsePrinter: Bool, isPrintKitchenReceipt: Bool, isUseSquareTerminal: Bool, squareAccessToken: String, squareTerminalDeviceId: String, hostUrl: String, adminUrl: String = "", isUseProductMock: Bool = false, isUseIndividualBilling: Bool = false, ticketNumberPrefix: String = "L", ticketNumberStart: Int = 1, isUseTicketNumber: Bool = false, isUseCustomerDisplay: Bool = false) {
         self.clientId = clientId
         self.clientName = clientName
         self.isTrainingMode = isTrainingMode
@@ -69,6 +72,7 @@ public struct Config: Equatable {
         self.ticketNumberPrefix = ticketNumberPrefix
         self.ticketNumberStart = ticketNumberStart
         self.isUseTicketNumber = isUseTicketNumber
+        self.isUseCustomerDisplay = isUseCustomerDisplay
     }
 }
 

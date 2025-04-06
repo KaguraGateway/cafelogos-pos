@@ -28,6 +28,8 @@ public struct SettingsFeature {
         var ticketNumberStart: Int = 1
         var isUseTicketNumber: Bool = false
         
+        var isUseCustomerDisplay: Bool = false
+        
         var config: Config
 
         
@@ -47,6 +49,7 @@ public struct SettingsFeature {
             self.ticketNumberPrefix = config.ticketNumberPrefix
             self.ticketNumberStart = config.ticketNumberStart
             self.isUseTicketNumber = config.isUseTicketNumber
+            self.isUseCustomerDisplay = config.isUseCustomerDisplay
         }
     }
     
@@ -81,7 +84,8 @@ public struct SettingsFeature {
                     state.isUseIndividualBilling != state.config.isUseIndividualBilling ||
                     state.ticketNumberPrefix != state.config.ticketNumberPrefix ||
                     state.ticketNumberStart != state.config.ticketNumberStart ||
-                    state.isUseTicketNumber != state.config.isUseTicketNumber
+                    state.isUseTicketNumber != state.config.isUseTicketNumber ||
+                    state.isUseCustomerDisplay != state.config.isUseCustomerDisplay
                 {
                     return .run { send in
                         await send(.saveConfig)
@@ -112,6 +116,7 @@ public struct SettingsFeature {
                     updatedConfig.ticketNumberPrefix = state.ticketNumberPrefix
                     updatedConfig.ticketNumberStart = state.ticketNumberStart
                     updatedConfig.isUseTicketNumber = state.isUseTicketNumber
+                    updatedConfig.isUseCustomerDisplay = state.isUseCustomerDisplay
                     
                     // Only save if any value has changed
                     if updatedConfig != state.config {
@@ -135,6 +140,7 @@ public struct SettingsFeature {
                 state.ticketNumberPrefix = config.ticketNumberPrefix
                 state.ticketNumberStart = config.ticketNumberStart
                 state.isUseTicketNumber = config.isUseTicketNumber
+                state.isUseCustomerDisplay = config.isUseCustomerDisplay
                 return .none
             }
         }
