@@ -139,7 +139,7 @@ extension DependencyValues {
         get { self[CashierAdapterKey.self] }
         set { self[CashierAdapterKey.self] = newValue }
     }
-    var customerDisplay: any CustomerDisplayService {
+    public var customerDisplay: any CustomerDisplayService {
         get {self[CustomerDisplayServiceKey.self] }
         set {self[CustomerDisplayServiceKey.self] = newValue }
     }
