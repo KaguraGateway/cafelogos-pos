@@ -5,7 +5,7 @@ import LogoREGICore
 @Reducer
 public struct OrderEntryFeature {
     @ObservableState
-    public struct State: Equatable {
+    public struct State {
         var discounts: [Discount]
         var order: Order
         
