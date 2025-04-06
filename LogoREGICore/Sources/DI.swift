@@ -10,6 +10,7 @@ import Dependencies
 import Connect
 import cafelogos_grpc
 import SwiftData
+import Swifter
 
 private enum DenominationRepositoryKey: DependencyKey {
     @MainActor

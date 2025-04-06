@@ -19,8 +19,13 @@ public struct HTTPServerCustomerDisplayService: CustomerDisplayService {
         }
         
         httpServer["/api/data"] = { request in
-            let data = try JSONEncoder().encode(self.apiDataStore.currentData)
-            return .ok(.data(data, contentType: "application/json"))
+            do {
+                let data = try JSONEncoder().encode(self.apiDataStore.currentData)
+                return .ok(.data(data, contentType: "application/json"))
+            } catch {
+                print("APIデータエンコードエラー: \(error)")
+                return .internalServerError
+            }
         }
         
         do {
