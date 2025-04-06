@@ -20,6 +20,7 @@
         }
         .logo {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -28,6 +29,11 @@
         .logo h1 {
             font-size: 3rem;
             color: #333;
+        }
+        .logo p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 1rem;
         }
         .items-container {
             flex: 1;
@@ -98,7 +104,75 @@
             ads2: 6
         };
 
-        // APIからデータを取得する関数
+        const defaultData = {
+            state: 0, // logo
+            items: [],
+            totalAmount: 0,
+            totalQuantity: 0,
+            receiveAmount: 0,
+            changeAmount: 0
+        };
+
+        let socket;
+        let isConnected = false;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 5;
+        const reconnectDelay = 3000; // 3秒
+
+        // WebSocket接続を確立する関数
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws`;
+            
+            console.log(`WebSocketに接続します: ${wsUrl}`);
+            socket = new WebSocket(wsUrl);
+            
+            socket.onopen = function() {
+                console.log('WebSocket接続が確立されました');
+                isConnected = true;
+                reconnectAttempts = 0;
+                
+                const appElement = document.getElementById('app');
+                if (appElement.innerHTML.includes('接続中')) {
+                    updateDisplay(defaultData);
+                }
+            };
+            
+            socket.onmessage = function(event) {
+                console.log('WebSocketメッセージを受信しました');
+                try {
+                    const data = JSON.parse(event.data);
+                    updateDisplay(data);
+                } catch (error) {
+                    console.error('WebSocketメッセージの解析エラー:', error);
+                }
+            };
+            
+            socket.onclose = function() {
+                console.log('WebSocket接続が閉じられました');
+                isConnected = false;
+                
+                if (reconnectAttempts < maxReconnectAttempts) {
+                    reconnectAttempts++;
+                    console.log(`WebSocketに再接続を試みます (${reconnectAttempts}/${maxReconnectAttempts})...`);
+                    setTimeout(connectWebSocket, reconnectDelay);
+                    
+                    const appElement = document.getElementById('app');
+                    appElement.innerHTML = `
+                        <div class="logo">
+                            <h1>Cafe Logos</h1>
+                            <p>接続中...(${reconnectAttempts}/${maxReconnectAttempts})</p>
+                        </div>
+                    `;
+                }
+            };
+            
+            socket.onerror = function(error) {
+                console.error('WebSocketエラー:', error);
+            };
+        }
+
+        // APIからデータを取得する関数（WebSocketが使えない場合のフォールバック）
         async function fetchDisplayData() {
             try {
                 const response = await fetch('/api/data');
@@ -108,15 +182,7 @@
                 return await response.json();
             } catch (error) {
                 console.error('Error fetching display data:', error);
-                // デフォルトデータを返す
-                return {
-                    state: 0, // logo
-                    items: [],
-                    totalAmount: 0,
-                    totalQuantity: 0,
-                    receiveAmount: 0,
-                    changeAmount: 0
-                };
+                return defaultData;
             }
         }
 
@@ -212,10 +278,9 @@
             `;
         }
 
-        // メイン処理
-        async function updateDisplay() {
+        // 表示を更新する関数
+        function updateDisplay(data) {
             const appElement = document.getElementById('app');
-            const data = await fetchDisplayData();
             
             let content = '';
             
@@ -247,10 +312,19 @@
         }
 
         // 初期表示
-        updateDisplay();
+        updateDisplay(defaultData);
         
-        // 1秒ごとに更新
-        setInterval(updateDisplay, 1000);
+        // WebSocket接続を開始
+        connectWebSocket();
+        
+        // WebSocketがサポートされていない場合はポーリングにフォールバック
+        if (!window.WebSocket) {
+            console.log('WebSocketがサポートされていません。ポーリングにフォールバックします。');
+            setInterval(async () => {
+                const data = await fetchDisplayData();
+                updateDisplay(data);
+            }, 1000);
+        }
     </script>
 </body>
 </html>
