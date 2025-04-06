@@ -20,7 +20,7 @@ public struct PaymentServiceServer: PaymentService {
     }
     
     // FIXME: ここの引数イケてなさすぎる
-    func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> PostPaymentResponse {
+    func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?, ticketNumber: String?) async -> PostPaymentResponse {
         let request = Cafelogos_Pos_PostPaymentRequest.with {
             $0.payment = Cafelogos_Pos_PaymentParam.with {
                 $0.id = payment.id
@@ -58,6 +58,13 @@ public struct PaymentServiceServer: PaymentService {
                 ]
             }
             $0.orderIds = payment.orderIds
+            
+            if let ticketNumber = ticketNumber {
+                $0.option = Cafelogos_Pos_PostPaymentRequestOption.with {
+                    $0.isPostOrderlink = false
+                }
+                // $0.ticketNumber = ticketNumber
+            }
         }
         let response = await posClient.postPayment(request: request, headers: [:])
         print(response)

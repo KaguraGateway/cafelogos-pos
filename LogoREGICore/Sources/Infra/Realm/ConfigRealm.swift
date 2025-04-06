@@ -26,7 +26,10 @@ public struct ConfigRealm: ConfigRepository {
                     hostUrl: dao.hostUrl,
                     adminUrl: dao.adminUrl,
                     isUseProductMock: dao.isUseProductMock,
-                    isUseIndividualBilling: dao.isUseIndividualBilling
+                    isUseIndividualBilling: dao.isUseIndividualBilling,
+                    ticketNumberPrefix: dao.ticketNumberPrefix,
+                    ticketNumberStart: dao.ticketNumberStart,
+                    isUseTicketNumber: dao.isUseTicketNumber
                 )
             }
             
@@ -95,6 +98,18 @@ public struct ConfigRealm: ConfigRepository {
                         existingDao.isUseIndividualBilling = config.isUseIndividualBilling
                         needsUpdate = true
                     }
+                    if existingDao.ticketNumberPrefix != config.ticketNumberPrefix {
+                        existingDao.ticketNumberPrefix = config.ticketNumberPrefix
+                        needsUpdate = true
+                    }
+                    if existingDao.ticketNumberStart != config.ticketNumberStart {
+                        existingDao.ticketNumberStart = config.ticketNumberStart
+                        needsUpdate = true
+                    }
+                    if existingDao.isUseTicketNumber != config.isUseTicketNumber {
+                        existingDao.isUseTicketNumber = config.isUseTicketNumber
+                        needsUpdate = true
+                    }
                     
                     if !needsUpdate {
                         // No changes, cancel the transaction
@@ -116,6 +131,9 @@ public struct ConfigRealm: ConfigRepository {
                 dao.squareTerminalDeviceId = config.squareTerminalDeviceId
                 dao.isUseProductMock = config.isUseProductMock
                 dao.isUseIndividualBilling = config.isUseIndividualBilling
+                dao.ticketNumberPrefix = config.ticketNumberPrefix
+                dao.ticketNumberStart = config.ticketNumberStart
+                dao.isUseTicketNumber = config.isUseTicketNumber
                 
                 try realm.write {
                     realm.add(dao)

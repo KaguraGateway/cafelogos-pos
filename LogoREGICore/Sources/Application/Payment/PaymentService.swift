@@ -13,7 +13,7 @@ public struct PostPaymentResponse {
 }
 
 protocol PaymentService {
-    func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?) async -> PostPaymentResponse
+    func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?, ticketNumber: String?) async -> PostPaymentResponse
     func updatePayment(payment: Payment) async -> Void
     func getPaymentExternal(paymentId: String) async -> PaymentExternal?
 }
