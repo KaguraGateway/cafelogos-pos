@@ -51,7 +51,10 @@ public struct AppFeature {
                 switch action {
                 case let .element(id: _, action: .orderEntry(.navigatePaymentWithOrders(orders))):
                     state.path.append(.payment(PaymentFeature.State(orders: orders)))
-                    return .none
+                    return .run { _ in
+                        @Dependency(\.customerDisplay) var customerDisplay
+                        customerDisplay.transitionPayment()
+                    }
                 case let .element(id: _, action: .payment(.navigateToSuccess(payment, orders, callNumber, totalQuantity, totalAmout))):
                     state.path.append(.paymentSuccess(PaymentSuccessFeature.State(payment: payment, orders: orders, callNumber: callNumber, totalQuantity: totalQuantity, totalAmount: totalAmout)))
                     return .none
