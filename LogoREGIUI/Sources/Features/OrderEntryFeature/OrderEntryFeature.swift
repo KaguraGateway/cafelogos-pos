@@ -161,6 +161,12 @@ public struct OrderEntryFeature {
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 return .none
                 
+            case .orderBottomBarAction(.delegate(.transitionPayment)):
+                return .run { _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.transitionPayment()
+                }
+                
             case .productStackAction(.delegate(.onConnectionError(_))):
                 // サーバー接続エラーの処理
                 state.isLoading = false
@@ -279,7 +285,10 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
-                return .none
+                return .run { [order = state.order] _ in
+                    @Dependency(\.customerDisplay) var customerDisplay
+                    customerDisplay.updateOrder(orders: [order])
+                }
             case let .orderBottomBarAction(.destination(.presented(.chooseOrderSheet(.delegate(.getUnpaidOrdersById(seatId)))))):
                 return .run { send in
                     await send(
