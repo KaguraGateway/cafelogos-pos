@@ -8,3 +8,8 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 #include "Signing.xcconfig"
+
+// API設定
+API_PROTOCOL = http
+API_HOST = localhost:8080
+API_ADMIN_HOST = localhost:3000

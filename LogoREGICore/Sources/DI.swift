@@ -28,9 +28,22 @@ private enum ConfigRepositoryKey: DependencyKey {
     static let liveValue: any ConfigRepository = ConfigRealm()
 }
 
+private func getXconfigValue(for key: String, defaultValue: String) -> String {
+    guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
+        return defaultValue
+    }
+    if value.isEmpty || value.contains("$(") {
+        return defaultValue
+    }
+    return value
+}
+
 private enum GrpcClientKey: DependencyKey {
-    // 静的なデフォルト値を提供
-    static let liveValue: ProtocolClient = createClient(hostUrl: "http://localhost:8080")
+    static let liveValue: ProtocolClient = {
+        let apiProtocol = getXconfigValue(for: "API_PROTOCOL", defaultValue: "http")
+        let host = getXconfigValue(for: "API_HOST", defaultValue: "localhost:8080")
+        return createClient(hostUrl: "\(apiProtocol)://\(host)")
+    }()
     
     // クライアント作成用のヘルパーメソッド
     static func createClient(hostUrl: String) -> ProtocolClient {

@@ -19,5 +19,11 @@
 	<array>
 		<string>jp.star-m.starpro</string>
 	</array>
+	<key>API_PROTOCOL</key>
+	<string>$(API_PROTOCOL)</string>
+	<key>API_HOST</key>
+	<string>$(API_HOST)</string>
+	<key>API_ADMIN_HOST</key>
+	<string>$(API_ADMIN_HOST)</string>
 </dict>
 </plist>
