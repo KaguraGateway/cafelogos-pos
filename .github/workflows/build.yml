@@ -31,7 +31,6 @@ jobs:
           xcodebuild build \
             -workspace cafelogos-pos.xcworkspace \
             -scheme cafelogos-pos \
-            -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPad Pro 11-inch (M4)' \
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_PREVIEWS=NO \
