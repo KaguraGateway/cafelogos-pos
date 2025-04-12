@@ -17,17 +17,17 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_16.3.app
 
       - name: Resolve Swift packages
-        run: xcodebuild -resolvePackageDependencies \
-          -workspace cafelogos-pos.xcworkspace \
+        run: xcodebuild -resolvePackageDependencies
+          -workspace cafelogos-pos.xcworkspace 
           -scheme "[Debug] cafelogos-pos"
 
       - name: Build (Debug for simulator)
         run: |
-          xcodebuild \
-            -workspace cafelogos-pos.xcworkspace \
-            -scheme "[Debug] cafelogos-pos" \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' \
-            -configuration Debug \
-            build \
+          xcodebuild 
+            -workspace cafelogos-pos.xcworkspace 
+            -scheme "[Debug] cafelogos-pos" 
+            -sdk iphonesimulator 
+            -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' 
+            -configuration Debug 
+            build 
             | xcpretty
