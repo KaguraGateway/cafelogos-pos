@@ -32,5 +32,7 @@ jobs:
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPad Pro 11-inch (M4)' \
             CODE_SIGNING_ALLOWED=NO \
+            ENABLE_PREVIEWS=NO \
+            ENABLE_SWIFT_MACROS=YES \
             build
 
