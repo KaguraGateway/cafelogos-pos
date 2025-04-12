@@ -1,51 +1,33 @@
-name: Build
+name: iOS Build CI
 
 on:
   push:
+    branches: [main]
+  pull_request:
 
 jobs:
   build:
-    name: Build
-    runs-on: macos-15
+    runs-on: macos-14
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Select Xcode 16.2
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16.2'
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_16.3app
 
-      - name: Disable Macro Fingerprint Validation
-        run: defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+      - name: Resolve Swift packages
+        run: xcodebuild -resolvePackageDependencies \
+          -workspace cafelogos-pos.xcworkspace \
+          -scheme "[Debug] cafelogos-pos"
 
-      - name: Copy Signing Config
-        run: cp Signing.xcconfig.example Signing.xcconfig
-
-      - name: Clean Build
-        run: |
-          xcodebuild clean \
-            -workspace cafelogos-pos.xcworkspace \
-            -scheme cafelogos-pos \
-            -configuration debug \
-            OTHER_SWIFT_FLAGS="-enable-experimental-feature Macros"
-
-      - name: Resolve Swift Package Dependencies
-        run: |
-          xcodebuild -resolvePackageDependencies \
-            -workspace cafelogos-pos.xcworkspace \
-            -scheme cafelogos-pos \
-            -configuration debug
-
-      - name: Archive Project
+      - name: Build (Debug for simulator)
         run: |
           xcodebuild \
             -workspace cafelogos-pos.xcworkspace \
-            -scheme cafelogos-pos \
-            -sdk iphoneos \
-            -configuration debug \
-            -derivedDataPath build \
-            -archivePath build/archive.xcarchive \
-            CODE_SIGNING_ALLOWED=NO \
-            OTHER_SWIFT_FLAGS="-enable-experimental-feature Macros"
+            -scheme "[Debug] cafelogos-pos" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' \
+            -configuration Debug \
+            build \
+            | xcpretty
