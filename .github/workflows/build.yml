@@ -26,14 +26,14 @@ jobs:
 
       - name: Build without Code Signing
         run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+
           xcodebuild build \
             -workspace cafelogos-pos.xcworkspace \
             -scheme cafelogos-pos \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPad Pro 11-inch (M4)' \
-            -skipMacroValidation \
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_PREVIEWS=NO \
             ENABLE_SWIFT_MACROS=YES | \
             xcbeautify && exit ${PIPESTATUS[0]}
-
