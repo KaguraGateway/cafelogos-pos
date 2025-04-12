@@ -108,6 +108,17 @@ struct HomeView: View {
                             state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
                         )
                         HomeNavigationButton(
+                            title: "UIKitテスト",
+                            subTitle: "",
+                            description: "CIの問題切り分けのためのUIKit統合テスト",
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
+                            width: geometry.size.width * (1/3),
+                            height: geometry.size.height * (1/4),
+                            icon: "iphone",
+                            state: AppFeature.Path.State.uikitTest(UIKitTestFeature.State())
+                        )
+                        HomeNavigationButton(
                             title: "設定",
                             subTitle: "",
                             description: "レジ・プリンターの動作や表示をカスタマイズ",

@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 @Reducer
 public struct AppFeature {
-   @Reducer(state: .equatable)
+    @Reducer(state: .equatable)
     public enum Path {
         case printerTest(PrinterTestFeature)
         case settings(SettingsFeature)
@@ -24,6 +24,7 @@ public struct AppFeature {
         case ordersList(OrdersListFeature)
         case cashDrawerHistory(CashDrawerHistoryFeature)
         case paymentList(PaymentListFeature)
+        case uikitTest(UIKitTestFeature)
     }
     
     @ObservableState

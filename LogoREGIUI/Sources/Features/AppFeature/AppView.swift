@@ -36,6 +36,8 @@ public struct AppView: View {
                 CashDrawerHistoryView(store: store)
             case let .paymentList(store):
                 PaymentListView(store: store)
+            case let .uikitTest(store):
+                UIKitTestView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)
