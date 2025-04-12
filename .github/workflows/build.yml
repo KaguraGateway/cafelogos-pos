@@ -31,6 +31,7 @@ jobs:
             -scheme cafelogos-pos \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPad Pro 11-inch (M4)' \
+            -skipMacroValidation \
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_PREVIEWS=NO \
             ENABLE_SWIFT_MACROS=YES \
