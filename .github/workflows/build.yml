@@ -28,7 +28,7 @@ jobs:
         run: |
           xcodebuild 
             -workspace cafelogos-pos.xcworkspace 
-            -scheme "[Debug] cafelogos-pos" 
+            -scheme "cafelogos-pos" 
             -sdk iphonesimulator 
             -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' 
             -configuration Debug 
