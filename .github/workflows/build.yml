@@ -24,13 +24,13 @@ jobs:
           -workspace cafelogos-pos.xcworkspace 
           -scheme "cafelogos-pos"
 
-      - name: Build (Debug for simulator)
+      - name: Build without Code Signing
         run: |
-          xcodebuild 
-            -workspace cafelogos-pos.xcworkspace 
-            -scheme "cafelogos-pos" 
-            -sdk iphonesimulator 
-            -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' 
-            -configuration Debug 
-            build 
-            | xcpretty
+          xcodebuild \
+            -workspace cafelogos-pos.xcworkspace \
+            -scheme cafelogos-pos \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (4th generation)' \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
