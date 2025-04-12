@@ -19,7 +19,7 @@ jobs:
       - name: Resolve Swift packages
         run: xcodebuild -resolvePackageDependencies
           -workspace cafelogos-pos.xcworkspace 
-          -scheme "[Debug] cafelogos-pos"
+          -scheme "cafelogos-pos"
 
       - name: Build (Debug for simulator)
         run: |
