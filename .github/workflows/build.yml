@@ -26,7 +26,7 @@ jobs:
 
       - name: Build without Code Signing
         run: |
-          xcodebuild \
+          xcodebuild build \
             -workspace cafelogos-pos.xcworkspace \
             -scheme cafelogos-pos \
             -sdk iphonesimulator \
@@ -34,6 +34,6 @@ jobs:
             -skipMacroValidation \
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_PREVIEWS=NO \
-            ENABLE_SWIFT_MACROS=YES \
-            build
+            ENABLE_SWIFT_MACROS=YES | \
+            xcbeautify
 
