@@ -19,6 +19,7 @@ public struct PaymentFeature {
         
         var isPayButtonEnabled: Bool = true
         var isServerLoading: Bool = false
+        var config: Config
         
         /**
          * 新しい注文がある場合
@@ -26,6 +27,7 @@ public struct PaymentFeature {
         public init(newOrder: Order) {
             self.init(orders: [newOrder])
             self.newOrder = newOrder
+            self.config = GetConfig().Execute()
         }
         
         /**
@@ -38,6 +40,8 @@ public struct PaymentFeature {
                 p + order.cart.totalQuantity
             })
             self.totalAmount = PaymentDomainService().getTotalAmount(orders: orders)
+            self.numericKeyboardState = NumericKeyboardFeature.State(totalAmount: self.totalAmount)
+            self.config = GetConfig().Execute()
         }
     }
     
@@ -61,6 +65,8 @@ public struct PaymentFeature {
         }
     }
     
+    @Dependency(\.customerDisplay) var customerDisplay
+    
     public var body: some Reducer<State, Action> {
         Scope(state: \.numericKeyboardState, action: \.numericKeyboardAction) {
             NumericKeyboardFeature()
@@ -69,12 +75,16 @@ public struct PaymentFeature {
             switch action {
             case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
                 state.payment.receiveAmount = state.numericKeyboardState.inputNumeric
+                customerDisplay.updateReceiveAmount(amount: state.numericKeyboardState.inputNumeric)
                 return .none
             case .numericKeyboardAction:
                 return .none
             case .onTapPay:
                 state.isPayButtonEnabled = false
                 state.isServerLoading = true
+                customerDisplay.updateOrder(orders: state.orders)
+                customerDisplay.transitionPayment()
+                
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
                         await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: nil)
@@ -155,6 +165,7 @@ public struct PaymentFeature {
                     }
                 } else {
                     print("success")
+                    customerDisplay.transitionPaymentSuccess(payment: state.payment)
                     return .send(.navigateToSuccess(state.payment, state.orders, result.callNumber, state.totalQuantity, state.totalAmount))
                 }
                 return .none

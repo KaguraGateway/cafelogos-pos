@@ -4,13 +4,15 @@ import ComposableArchitecture
 struct NumericKeyboardView: View {
     let store: StoreOf<NumericKeyboardFeature>
     
-    let rows: [[String]] = [
-        ["¥1,000", "¥500", "⌫"],
-        ["7", "8", "9"],
-        ["4", "5", "6"],
-        ["1", "2", "3"],
-        ["0", "00", "000"]
-    ]
+    var rows: [[String]] {
+        [
+            ["¥\(store.leftFixedKeyAmount)", "¥\(store.rightFixedKeyAmount)", "⌫"],
+            ["7", "8", "9"],
+            ["4", "5", "6"],
+            ["1", "2", "3"],
+            ["0", "00", "000"]
+        ]
+    }
     
     var body: some View {
         VStack(spacing: 12) {

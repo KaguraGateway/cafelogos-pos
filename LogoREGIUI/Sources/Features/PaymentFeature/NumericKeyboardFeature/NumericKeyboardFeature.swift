@@ -10,6 +10,27 @@ public struct NumericKeyboardFeature {
         var inputNumeric: UInt64 {     // 合計金額
             baseNumeric + (UInt64(suffixNumeric) ?? 0)
         }
+        var totalAmount: UInt64 = 0    // 注文の合計金額
+        
+        public init(totalAmount: UInt64 = 0) {
+            self.totalAmount = totalAmount
+        }
+        
+        // 合計金額に基づいて右側の固定キーの値を計算
+        var rightFixedKeyAmount: UInt64 {
+            return totalAmount
+        }
+        
+        // 合計金額に基づいて左側の固定キーの値を計算（次の500n円）
+        var leftFixedKeyAmount: UInt64 {
+            // 合計金額を500で割った余りを計算
+            let remainder = totalAmount % 500
+            // 余りがある場合は、次の500n円を計算
+            if remainder == 0 {
+                return totalAmount + 500
+            }
+            return totalAmount + (500 - remainder)
+        }
     }
 
     public enum Action {
@@ -26,11 +47,11 @@ public struct NumericKeyboardFeature {
             switch action {
             case let .onTapNumericButton(inputStr):
                 switch inputStr {
-                case "¥1,000":
-                    state.baseNumeric = 1000
+                case "¥\(state.leftFixedKeyAmount)":
+                    state.baseNumeric = state.leftFixedKeyAmount
                     state.suffixNumeric = ""
-                case "¥500":
-                    state.baseNumeric = 500
+                case "¥\(state.rightFixedKeyAmount)":
+                    state.baseNumeric = state.rightFixedKeyAmount
                     state.suffixNumeric = ""
                 case "⌫":
                     state.baseNumeric = 0

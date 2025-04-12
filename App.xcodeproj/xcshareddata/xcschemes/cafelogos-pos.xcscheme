@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3557C7232A826A1300C72F17"
+               BlueprintIdentifier = "357B7CF52D8418BD00BDA702"
                BuildableName = "cafelogos-posTests.xctest"
                BlueprintName = "cafelogos-posTests"
                ReferencedContainer = "container:App.xcodeproj">

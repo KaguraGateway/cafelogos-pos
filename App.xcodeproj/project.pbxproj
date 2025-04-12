@@ -18,17 +18,36 @@
 		35E810AA2C31AC0600E56F2D /* LogoREGIUI in Frameworks */ = {isa = PBXBuildFile; productRef = 35E810A92C31AC0600E56F2D /* LogoREGIUI */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		357B7CFA2D8418BD00BDA702 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3557C70C2A826A1200C72F17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3557C7132A826A1200C72F17;
+			remoteInfo = "cafelogos-pos";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3557C7142A826A1200C72F17 /* cafelogos-pos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cafelogos-pos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3557C7172A826A1200C72F17 /* cafelogos_posApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cafelogos_posApp.swift; sourceTree = "<group>"; };
 		3557C71B2A826A1300C72F17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3557C71E2A826A1300C72F17 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		357B7CF62D8418BD00BDA702 /* cafelogos-posTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cafelogos-posTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3586BDF62A8FC479009E346E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		35B289922C31BD120014AD63 /* Signing.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		35B289932C31BD120014AD63 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		35B289942C31BD120014AD63 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		EBE8FF9B2AD1BCCC002011B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		357B7CF72D8418BD00BDA702 /* cafelogos-posTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "cafelogos-posTests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3557C7112A826A1200C72F17 /* Frameworks */ = {
@@ -37,6 +56,13 @@
 			files = (
 				35E810AA2C31AC0600E56F2D /* LogoREGIUI in Frameworks */,
 				35E810A82C31AC0300E56F2D /* LogoREGICore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357B7CF32D8418BD00BDA702 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +77,7 @@
 				35B289922C31BD120014AD63 /* Signing.xcconfig */,
 				3586BDF62A8FC479009E346E /* .gitignore */,
 				3557C7162A826A1200C72F17 /* App */,
+				357B7CF72D8418BD00BDA702 /* cafelogos-posTests */,
 				3557C7152A826A1200C72F17 /* Products */,
 				3564D86D2C319740000D8936 /* Frameworks */,
 			);
@@ -60,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				3557C7142A826A1200C72F17 /* cafelogos-pos.app */,
+				357B7CF62D8418BD00BDA702 /* cafelogos-posTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +142,29 @@
 			productReference = 3557C7142A826A1200C72F17 /* cafelogos-pos.app */;
 			productType = "com.apple.product-type.application";
 		};
+		357B7CF52D8418BD00BDA702 /* cafelogos-posTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 357B7CFE2D8418BD00BDA702 /* Build configuration list for PBXNativeTarget "cafelogos-posTests" */;
+			buildPhases = (
+				357B7CF22D8418BD00BDA702 /* Sources */,
+				357B7CF32D8418BD00BDA702 /* Frameworks */,
+				357B7CF42D8418BD00BDA702 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				357B7CFB2D8418BD00BDA702 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				357B7CF72D8418BD00BDA702 /* cafelogos-posTests */,
+			);
+			name = "cafelogos-posTests";
+			packageProductDependencies = (
+			);
+			productName = "cafelogos-posTests";
+			productReference = 357B7CF62D8418BD00BDA702 /* cafelogos-posTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -121,11 +172,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					3557C7132A826A1200C72F17 = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					357B7CF52D8418BD00BDA702 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 3557C7132A826A1200C72F17;
 					};
 				};
 			};
@@ -146,6 +201,7 @@
 			projectRoot = "";
 			targets = (
 				3557C7132A826A1200C72F17 /* cafelogos-pos */,
+				357B7CF52D8418BD00BDA702 /* cafelogos-posTests */,
 			);
 		};
 /* End PBXProject section */
@@ -164,6 +220,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		357B7CF42D8418BD00BDA702 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -175,7 +238,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		357B7CF22D8418BD00BDA702 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		357B7CFB2D8418BD00BDA702 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3557C7132A826A1200C72F17 /* cafelogos-pos */;
+			targetProxy = 357B7CFA2D8418BD00BDA702 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3557C7362A826A1300C72F17 /* Debug */ = {
@@ -306,10 +384,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9P7M734N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -323,7 +403,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos-1006";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.cirkit.logos-systems.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -342,10 +422,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9P7M734N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LogoREGI;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Use Bluetooth for communication with the printer.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Use Local Network for communication with the printer or discovery the printers.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use screenshot for casher closing";
@@ -359,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-pos-1006";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.cirkit.logos-systems.cafelogos-pos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -367,6 +449,49 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		357B7CFC2D8418BD00BDA702 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9P7M734N35;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cafelogos-pos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cafelogos-pos";
+			};
+			name = Debug;
+		};
+		357B7CFD2D8418BD00BDA702 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9P7M734N35;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cloud.kagura.cafelogos-posTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cafelogos-pos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/cafelogos-pos";
 			};
 			name = Release;
 		};
@@ -387,6 +512,15 @@
 			buildConfigurations = (
 				3557C7392A826A1300C72F17 /* Debug */,
 				3557C73A2A826A1300C72F17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		357B7CFE2D8418BD00BDA702 /* Build configuration list for PBXNativeTarget "cafelogos-posTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				357B7CFC2D8418BD00BDA702 /* Debug */,
+				357B7CFD2D8418BD00BDA702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -13,6 +13,8 @@ public struct OrderEntryFeature {
         var orderBottomBarState: OrderBottomBarFeature.State
         @Presents var alert: AlertState<Action.Alert>?
         
+        var isLoading: Bool = false
+        
         public init() {
             let order = Order()
             self.order = order
@@ -42,6 +44,14 @@ public struct OrderEntryFeature {
         
         case fetchedUnPaidOrders(Result<[Order], Error>)
         
+        case productConnectionError(Int)
+        
+        // サーバー接続状態
+        case setIsServerConnected(Bool)
+        
+        // Navigation
+        case popToRoot
+        
         // Alert
         case alert(PresentationAction<Action.Alert>)
         
@@ -54,6 +64,8 @@ public struct OrderEntryFeature {
     //    ToDo: エラーハンドリングをちゃんと実装する
     //    頑張りましたが、コンパイラがやる気を無くしたので見送り
     //    https://github.com/KaguraGateway/cafelogos-pos/pull/43#issuecomment-2204918216
+    
+    @Dependency(\.customerDisplay) var customerDisplay
     
     public var body: some Reducer<State, Action> {
         Scope(state: \.productStackState, action: \.productStackAction) {
@@ -70,6 +82,14 @@ public struct OrderEntryFeature {
                 if state.order.cart.items.isEmpty {
                     state.order = Order()
                 }
+                return .none
+                
+            case .productStackAction(.fetch):
+                state.isLoading = true
+                return .none
+                
+            case .productStackAction(.fetched(.success(_))):
+                state.isLoading = false
                 return .none
                 
             case .fetchAllData:
@@ -114,6 +134,7 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
                 
             case let .onTapIncrease(index):
@@ -123,25 +144,51 @@ public struct OrderEntryFeature {
                     // TODO: 設計ミスったからゴリ押した、直す
                     state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 }
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
                 
             case let .onRemoveItem(cartItem):
                 state.order.cart.removeItem(removeItem: cartItem)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
                 
             case let .onTapDiscount(discount):
                 state.order.discounts.append(discount)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
                 
             case .orderBottomBarAction(.delegate(.removeAllItem)):
                 state.order.cart.removeAllItem()
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
+                
+            case .orderBottomBarAction(.delegate(.transitionPayment)):
+                customerDisplay.transitionPayment()
+                return .none
+                
+            case .productStackAction(.delegate(.onConnectionError(_))):
+                // サーバー接続エラーの処理
+                state.isLoading = false
+                state.alert = AlertState {
+                    TextState("接続エラー")
+                } actions: {
+                    ButtonState(action: .okTapped) {
+                        TextState("OK")
+                    }
+                } message: {
+                    TextState("サーバーに接続できませんでした。インターネットに接続されていますか？もしくは、設定 ＞ ホストURLが正しいか確認してください。")
+                }
+                return .send(.productConnectionError(-1))
+                
+            case let .productStackAction(.delegate(.onServerConnectionChanged(isConnected))):
+                // サーバー接続状態を更新
+                return .send(.setIsServerConnected(isConnected))
                 
             case let .productStackAction(.delegate(.onAddItem(productDto, brew))):
                 // 商品カテゴリの生成
@@ -243,6 +290,7 @@ public struct OrderEntryFeature {
                 }
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
                 return .none
             case let .orderBottomBarAction(.destination(.presented(.chooseOrderSheet(.delegate(.getUnpaidOrdersById(seatId)))))):
                 return .run { send in
@@ -271,12 +319,17 @@ public struct OrderEntryFeature {
                 switch alertAction {
                 case .okTapped:
                     state.alert = nil
+                    // 前のページに戻る
+                    return .send(.popToRoot)
                 }
-                return .none
 
             // アラートの処理を追加する場合はこれより上に書く
             case .alert:
                 return .none
+                
+            case .productConnectionError(_):
+                // サーバー接続エラーを親コンポーネントに通知
+                return .send(.setIsServerConnected(false))
 
             default:
                 return .none
