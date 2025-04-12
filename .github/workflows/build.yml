@@ -35,5 +35,5 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             ENABLE_PREVIEWS=NO \
             ENABLE_SWIFT_MACROS=YES | \
-            xcbeautify
+            xcbeautify && exit ${PIPESTATUS[0]}
 
