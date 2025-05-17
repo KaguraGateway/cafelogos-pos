@@ -43,7 +43,7 @@ struct BottomBarView: View {
                 onTapPayBySquare()
             }){
                 Text("Square決済")
-                    .frame(width: 400)
+                    .frame(width: 200)
                     .clipped()
                     .padding(.vertical)
                     .font(.system(.title2, weight: .bold))
@@ -61,7 +61,7 @@ struct BottomBarView: View {
                 onTapPay()
             }){
                 Text("¥\(payment.receiveAmount)で会計する")
-                    .frame(width: 400)
+                    .frame(width: 600)
                     .clipped()
                     .padding(.vertical)
                     .font(.system(.title2, weight: .bold))
