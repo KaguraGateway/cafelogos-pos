@@ -65,7 +65,8 @@ struct PaymentView: View {
                         },
                         onTapPayBySquare: {
                             store.send(.onTapPayBySquare)
-                        }
+                        },
+                        showSquarePaymentButton: store.config.isUseSquareTerminal
                     )
                     .confirmationDialog($store.scope(state: \.squarePaymentTypeSelector, action: \.squarePaymentTypeSelector))
                 }
@@ -85,5 +86,9 @@ struct PaymentView: View {
             })
         }
         .navigationTitle("支払い")
+        .onAppear {
+            @Dependency(\.customerDisplay) var customerDisplay
+            customerDisplay.transitionPayment()
+        }
     }
 }

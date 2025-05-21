@@ -36,6 +36,7 @@ public struct OrderBottomBarFeature {
         public enum Delegate {
             case removeAllItem
             case removeOrders
+            case transitionPayment
         }
     }
     

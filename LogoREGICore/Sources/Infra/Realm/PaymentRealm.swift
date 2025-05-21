@@ -24,7 +24,8 @@ public struct PaymentRealm: PaymentRepository {
             
             return specificPayments.map({ toPayment(dao: $0) })
         } catch let err {
-            fatalError("Can't Payment findAllByUnSettled: \(err.localizedDescription)")
+            print("Error in Payment findAllByUnSettled: \(err.localizedDescription)")
+            return []
         }
     }
     
@@ -37,7 +38,7 @@ public struct PaymentRealm: PaymentRepository {
                 realm.delete(payments)
             }
         } catch let err {
-                fatalError("Can't Payment delete: \(err.localizedDescription)")
+                print("Error in Payment delete: \(err.localizedDescription)")
         }
     }
     
@@ -51,6 +52,18 @@ public struct PaymentRealm: PaymentRepository {
             }
         } catch let err {
             print("Can't Payment save: \(err.localizedDescription)")
+        }
+    }
+    
+    func findAll() -> [Payment] {
+        do {
+            let realm = try Realm()
+            let daoPayments = realm.objects(PaymentDao.self)
+            
+            return daoPayments.map({ toPayment(dao: $0) })
+        } catch let err {
+            print("Error in Payment findAll: \(err.localizedDescription)")
+            return []
         }
     }
 }

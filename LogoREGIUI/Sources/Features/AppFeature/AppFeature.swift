@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 @Reducer
 public struct AppFeature {
-    @Reducer(state: .equatable)
+   @Reducer(state: .equatable)
     public enum Path {
         case printerTest(PrinterTestFeature)
         case settings(SettingsFeature)
@@ -21,6 +21,9 @@ public struct AppFeature {
         case cashDrawerClosing(CashDrawerOperationsFeature)
         case cashDrawerSetup(CashDrawerOperationsFeature)
         case cashDrawerInspection(CashDrawerOperationsFeature)
+        case ordersList(OrdersListFeature)
+        case cashDrawerHistory(CashDrawerHistoryFeature)
+        case paymentList(PaymentListFeature)
     }
     
     @ObservableState
@@ -41,6 +44,8 @@ public struct AppFeature {
     
     public init() {}
     
+    @Dependency(\.customerDisplay) var customerDisplay
+    
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
@@ -48,6 +53,7 @@ public struct AppFeature {
                 switch action {
                 case let .element(id: _, action: .orderEntry(.navigatePaymentWithOrders(orders))):
                     state.path.append(.payment(PaymentFeature.State(orders: orders)))
+                    customerDisplay.transitionPayment()
                     return .none
                 case let .element(id: _, action: .payment(.navigateToSuccess(payment, orders, callNumber, totalQuantity, totalAmout))):
                     state.path.append(.paymentSuccess(PaymentSuccessFeature.State(payment: payment, orders: orders, callNumber: callNumber, totalQuantity: totalQuantity, totalAmount: totalAmout)))
@@ -68,11 +74,20 @@ public struct AppFeature {
                     return .send(.popToHome)
                 case .element(id: _, action: .cashDrawerSetup(.alert(.presented(.okTapped)))):
                     return .send(.popToHome)
+                case .element(id: _, action: .orderEntry(.popToRoot)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .ordersList(.popToRoot)):
+                    return .send(.popToHome)
+                case .element(id: _, action: .cashDrawerHistory(.popToRoot)):
+                    return .send(.popToHome)
+                case let .element(id: _, action: .orderEntry(.setIsServerConnected(isConnected))):
+                    return .send(.setIsServerConnected(isConnected))
                 default:
                     return .none
                 }
             case .popToHome:
                 state.path.removeAll()
+                customerDisplay.updateOrder(orders: [])
                 return .none
             case let .setIsServerConnected(isConnected):
                 state.isServerConnected = isConnected;

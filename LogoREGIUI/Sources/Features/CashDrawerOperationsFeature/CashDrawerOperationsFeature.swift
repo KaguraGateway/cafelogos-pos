@@ -14,25 +14,35 @@ public struct CashDrawerOperationsFeature {
         var cashDiscrepancy: Int = 0
         
         var denominationFormListFeatureState = DenominationFormListFeature.State(denominations: Denominations())
+        var numericKeyboardState = CashDrawerNumericKeyboardFeature.State()
+        var isTextFieldFocused: Bool = false
+        var focusedDenominationIndex: Int? = nil
+        var activeTextFields: [Int: UITextField] = [:] // 追加: TextFieldの参照を保持
+        
         @Presents var alert: AlertState<Action.Alert>?
     }
-    
     
     public enum Action {
         case updateCashDrawerDenominations(Denominations)
         // 計算
         case calculateCashDrawerTotal
         case calculateExpectedCashAmount
+        case updateExpectedCashAmount(Int)
         case calculateCashDiscrepancy
         // 精算
         case completeSettlement
+        case startSettlement(Denominations)
         // レジ開け
         case startCashierTransaction
+        case startCashierProcess(Denominations)
         case skipStartingCahierTransaction
         // 点検
         case completeInspection
         
         case denominationFormListFeatureAction(DenominationFormListFeature.Action)
+        case numericKeyboardAction(CashDrawerNumericKeyboardFeature.Action)
+        case updateTextFieldFocus(Bool, Int?)
+        case registerTextField(UITextField, Int)
         case takeScreenshot(UIView)
 
         // Alert
@@ -46,9 +56,16 @@ public struct CashDrawerOperationsFeature {
         }
     }
     
+    public init() {
+        // 空のinitメソッド - TCAパターンに従う
+    }
+    
     public var body: some Reducer<State, Action> {
         Scope(state: \.denominationFormListFeatureState, action: \.denominationFormListFeatureAction) {
             DenominationFormListFeature()
+        }
+        Scope(state: \.numericKeyboardState, action: \.numericKeyboardAction) {
+            CashDrawerNumericKeyboardFeature()
         }
         Reduce { state, action in
             switch action {
@@ -61,7 +78,13 @@ public struct CashDrawerOperationsFeature {
                 return .send(.calculateCashDiscrepancy)
                 
             case .calculateExpectedCashAmount:
-                state.expectedCashAmount = Int(GetShouldHaveCash().Execute())
+                return .run { send in
+                    let amount = Int(await GetShouldHaveCash().Execute())
+                    await send(.updateExpectedCashAmount(amount))
+                }
+                
+            case let .updateExpectedCashAmount(amount):
+                state.expectedCashAmount = amount
                 return .send(.calculateCashDiscrepancy)
                 
             case .calculateCashDiscrepancy:
@@ -84,19 +107,31 @@ public struct CashDrawerOperationsFeature {
                 }
                 return .none
                 
+            case let .startSettlement(denominations):
+                return .run { _ in
+                    await Settle().Execute(denominations: denominations)
+                }
+                
+            case let .startCashierProcess(denominations):
+                return .run { _ in
+                    await StartCacher().Execute(denominations: denominations)
+                }
+                
             case .alert(.presented(let alertAction)):
+                state.alert = nil
                 switch alertAction {
                 case .okTapped:
-                    // 画面遷移する
-                    StartCacher().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                    return .run { [denominations = state.denominationFormListFeatureState.denominations] _ in
+                        await StartCacher().Execute(denominations: denominations)
+                    }
                 case .settlementOkTapped:
-                    Settle().Execute(denominations: state.denominationFormListFeatureState.denominations)
+                    return .run { [denominations = state.denominationFormListFeatureState.denominations] _ in
+                        await Settle().Execute(denominations: denominations)
+                    }
                 case .cancel:
                     print("Tapped Cancel")
+                    return .none
                 }
-                // アラートを閉じる
-                state.alert = nil
-                return .none
                 
             case .alert:
                 return .none
@@ -123,17 +158,65 @@ public struct CashDrawerOperationsFeature {
             case .completeInspection:
                 return .none
                 
+            case .denominationFormListFeatureAction(.delegate(.registerTextField(let textField, let index))):
+                return .send(.registerTextField(textField, index))
                 
             case .denominationFormListFeatureAction:
                 return .send(.calculateCashDrawerTotal)
+                
+            case .numericKeyboardAction(.delegate(.onChangeInputNumeric)):
+                // 入力された数値を処理する
+                if let focusedIndex = state.focusedDenominationIndex {
+                    let inputValue = UInt64(state.numericKeyboardState.inputNumeric)
+                    var updatedDenomination = state.denominationFormListFeatureState.denominations.denominations[focusedIndex]
+                    updatedDenomination.setQuantity(newValue: inputValue)
+                    
+                    // 直接TextFieldの値を更新
+                    if let textField = state.activeTextFields[focusedIndex] {
+                        textField.text = "\(inputValue)"
+                    }
+                    
+                    return .send(.denominationFormListFeatureAction(.updateDenomination(index: focusedIndex, newValue: updatedDenomination)))
+                }
+                return .none
+            case .numericKeyboardAction:
+                return .none
+            case let .updateTextFieldFocus(isFocused, index):
+                state.isTextFieldFocused = isFocused
+                state.focusedDenominationIndex = index
+
+                if isFocused && index != nil {
+                    // Reset numeric keyboard when focusing on a new field
+                    state.numericKeyboardState.baseNumeric = 0
+                    state.numericKeyboardState.suffixNumeric = ""
+                    // Set initial value from the focused denomination
+                    let denomination = state.denominationFormListFeatureState.denominations.denominations[index!]
+                    let quantity = denomination.quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
+                return .none
+                
+            case let .registerTextField(textField, index):
+                state.activeTextFields[index] = textField
+                // TextFieldが登録されたら、現在の値を設定
+                if let focusedIndex = state.focusedDenominationIndex, focusedIndex == index {
+                    let quantity = state.denominationFormListFeatureState.denominations.denominations[index].quantity
+                    if quantity > 0 {
+                        state.numericKeyboardState.suffixNumeric = "\(quantity)"
+                    }
+                }
+                return .none
+                
             case let .takeScreenshot(view):
                 takeScreenshot(from: view)
                 return .none
             }
-            
         }
         .ifLet(\.$alert, action: \.alert)
     }
+    
     // スクリーンショットを撮る
     private func takeScreenshot(from view: UIView) {
         let renderer = UIGraphicsImageRenderer(size: view.bounds.size)

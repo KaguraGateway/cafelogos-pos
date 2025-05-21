@@ -15,14 +15,21 @@ public struct SettingsFeature {
         var clientId: String = ""
         var clientName: String = ""
         var hostUrl: String = ""
+        var adminUrl: String = ""
         
         var isUseSquareTerminal: Bool = false
         var squareAccessToken: String = ""
         var squareTerminalDeviceId: String = ""
         
         var isUseProductMock: Bool = false
+        var isUseIndividualBilling: Bool = false
+        
+        var ticketNumberPrefix: String = "L"
+        var ticketNumberStart: Int = 1
+        var isUseTicketNumber: Bool = false
         
         var config: Config
+
         
         init() {
             self.config = GetConfig().Execute()
@@ -31,10 +38,15 @@ public struct SettingsFeature {
             self.usePrinter = config.isUsePrinter
             self.printKitchenReceipt = config.isPrintKitchenReceipt
             self.hostUrl = config.hostUrl
+            self.adminUrl = config.adminUrl
             self.isUseSquareTerminal = config.isUseSquareTerminal
             self.squareAccessToken = config.squareAccessToken
             self.squareTerminalDeviceId = config.squareTerminalDeviceId
             self.isUseProductMock = config.isUseProductMock
+            self.isUseIndividualBilling = config.isUseIndividualBilling
+            self.ticketNumberPrefix = config.ticketNumberPrefix
+            self.ticketNumberStart = config.ticketNumberStart
+            self.isUseTicketNumber = config.isUseTicketNumber
         }
     }
     
@@ -64,7 +76,12 @@ public struct SettingsFeature {
                     state.squareAccessToken != state.config.squareAccessToken ||
                     state.squareTerminalDeviceId != state.config.squareTerminalDeviceId ||
                     state.hostUrl != state.config.hostUrl ||
-                    state.isUseProductMock != state.config.isUseProductMock
+                    state.adminUrl != state.config.adminUrl ||
+                    state.isUseProductMock != state.config.isUseProductMock ||
+                    state.isUseIndividualBilling != state.config.isUseIndividualBilling ||
+                    state.ticketNumberPrefix != state.config.ticketNumberPrefix ||
+                    state.ticketNumberStart != state.config.ticketNumberStart ||
+                    state.isUseTicketNumber != state.config.isUseTicketNumber
                 {
                     return .run { send in
                         await send(.saveConfig)
@@ -89,8 +106,17 @@ public struct SettingsFeature {
                     updatedConfig.squareAccessToken = state.squareAccessToken
                     updatedConfig.squareTerminalDeviceId = state.squareTerminalDeviceId
                     updatedConfig.hostUrl = state.hostUrl
+                    updatedConfig.adminUrl = state.adminUrl
                     updatedConfig.isUseProductMock = state.isUseProductMock
-                    SaveConfig().Execute(config: updatedConfig)
+                    updatedConfig.isUseIndividualBilling = state.isUseIndividualBilling
+                    updatedConfig.ticketNumberPrefix = state.ticketNumberPrefix
+                    updatedConfig.ticketNumberStart = state.ticketNumberStart
+                    updatedConfig.isUseTicketNumber = state.isUseTicketNumber
+                    
+                    // Only save if any value has changed
+                    if updatedConfig != state.config {
+                        SaveConfig().Execute(config: updatedConfig)
+                    }
                 }
             case .loadConfig:
                 let config = GetConfig().Execute()
@@ -103,7 +129,12 @@ public struct SettingsFeature {
                 state.squareAccessToken = config.squareAccessToken
                 state.squareTerminalDeviceId = config.squareTerminalDeviceId
                 state.hostUrl = config.hostUrl
+                state.adminUrl = config.adminUrl
                 state.isUseProductMock = config.isUseProductMock
+                state.isUseIndividualBilling = config.isUseIndividualBilling
+                state.ticketNumberPrefix = config.ticketNumberPrefix
+                state.ticketNumberStart = config.ticketNumberStart
+                state.isUseTicketNumber = config.isUseTicketNumber
                 return .none
             }
         }

@@ -30,6 +30,12 @@ public struct AppView: View {
                 CashDrawerSetupView(store: store)
             case let.cashDrawerInspection(store):
                 InspectionView(store: store)
+            case let .ordersList(store):
+                OrdersListView(store: store)
+            case let .cashDrawerHistory(store):
+                CashDrawerHistoryView(store: store)
+            case let .paymentList(store):
+                PaymentListView(store: store)
             }
         }
         .environment(\.isServerConnected, store.isServerConnected)

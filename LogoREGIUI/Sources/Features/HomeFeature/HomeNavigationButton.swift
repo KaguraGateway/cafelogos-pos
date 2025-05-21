@@ -10,31 +10,44 @@ struct HomeNavigationButton<P>: View {
     
     let width: Double
     let height: Double
+    
+    let icon: String?
 
     let state: P?
     
     var body: some View {
         NavigationLink(state: state) {
             VStack(spacing: 0) {
-                Text(title)
-                    .font(.system(.largeTitle, weight: .semibold))
-                    .lineLimit(0)
-                Text(subTitle)
-                    .font(.title3)
-                    .lineLimit(2)
+                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                    if let iconName = icon {
+                        Image(systemName: iconName)
+                            .font(.system(size: 32, weight: .light))
+                            .foregroundStyle(fgColor)
+                    }
+                    VStack(alignment: .leading) {
+                        Text(title)
+                            .font(.system(.largeTitle, weight: .semibold))
+                            .foregroundStyle(fgColor)
+                            .lineLimit(0)
+                        Text(subTitle)
+                            .font(.title3)
+                            .foregroundStyle(fgColor)
+                            .lineLimit(2)
+                    }
+                }
                 Text(description)
                     .font(.body)
+                    .foregroundStyle(Color(.darkGray))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
-                    .padding(.top, 10)
+                    .padding(.top, 2)
             }
-            .foregroundStyle(fgColor)
             .frame(maxWidth: width, maxHeight: height)
             .clipped()
             .padding(.horizontal, 0)
             .padding(.vertical, 0)
             .background {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(bgColor)
             }
         }
@@ -48,8 +61,9 @@ struct HomeNavigationButton<P>: View {
         description: "POSレジ・ハンディ端末から注文を管理",
         fgColor: Color.primary,
         bgColor: Color(.secondarySystemFill),
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 150,
+        icon: "house.fill",
         state: {}
     )
 }

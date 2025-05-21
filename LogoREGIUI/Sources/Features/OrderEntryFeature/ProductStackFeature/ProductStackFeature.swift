@@ -29,6 +29,8 @@ public struct ProductStackFeature {
         
         public enum Delegate {
             case onAddItem(ProductDto, CoffeeHowToBrewDto?)
+            case onConnectionError(Int)
+            case onServerConnectionChanged(Bool)
         }
     }
     
@@ -56,8 +58,14 @@ public struct ProductStackFeature {
                     }
                 }
             case let .fetched(.success(productCatalog)):
+                if productCatalog.isEmpty {
+                    // FIXME: GetCategoriesWithProduct().Execute() がResult型を返さず、全てSuccessを返すためSuccessの中でハンドリング
+                    // 正常にfetchできない場合は空配列が返ってくるためisEmptyで判断
+                    return .send(.delegate(.onConnectionError(-1)))
+                }
+                // サーバー接続状態を更新
                 state.productCatalog = productCatalog
-                return .none
+                return .send(.delegate(.onServerConnectionChanged(true)))
             case let .onTapProduct(product):
                 if(product.productType == ProductType.coffee) {
                     if(product.coffeeHowToBrews?.count == 1) {

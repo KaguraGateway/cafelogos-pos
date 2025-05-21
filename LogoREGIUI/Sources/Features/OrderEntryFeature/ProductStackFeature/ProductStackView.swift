@@ -39,20 +39,22 @@ public struct ProductStackView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(store.productCatalog, id: \.id) { category in
                         
-                        // CategoryName
-                        Text(category.name)
-                            .font(.system(.title, weight: .semibold))
-                            .foregroundStyle(.primary)
-                            .padding(.top)
-                        
-                        
-                        // ProductsGrid
-                        LazyVGrid(columns:
-                                    [GridItem(.flexible(), alignment: .top),
-                                     GridItem(.flexible(), alignment: .top),
-                                     GridItem(.flexible(), alignment: .top),
-                                     GridItem(.flexible(), alignment: .top)], spacing: 10
-                        ) {
+                        // カテゴリ内に少なくとも1つのisNowSalesがtrueの商品がある場合のみ表示
+                        if category.products.contains(where: { $0.isNowSales }) {
+                            // CategoryName
+                            Text(category.name)
+                                .font(.system(.title, weight: .semibold))
+                                .foregroundStyle(.primary)
+                                .padding(.top)
+                            
+                            
+                            // ProductsGrid
+                            LazyVGrid(columns:
+                                        [GridItem(.flexible(), alignment: .top),
+                                         GridItem(.flexible(), alignment: .top),
+                                         GridItem(.flexible(), alignment: .top),
+                                         GridItem(.flexible(), alignment: .top)], spacing: 10
+                            ) {
                             ForEach(category.products, id: \.productId) { product in
                                 // ProductCell
                                 if product.isNowSales {
@@ -92,6 +94,7 @@ public struct ProductStackView: View {
                                     })
                                 }
                             }
+                        }
                         }
                     }
                 }
