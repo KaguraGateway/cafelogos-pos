@@ -6,10 +6,10 @@ struct BottomBarView: View {
     let payment: Payment
     let isPayButtonEnabled: Bool
     let showSquarePaymentButton: Bool
-    
+
     let onTapPay: () -> Void
     let onTapPayBySquare: () -> Void
-    
+
     public init(totalQuantity: UInt32, payment: Payment, isPayButtonEnabled: Bool, onTapPay: @escaping () -> Void, onTapPayBySquare: @escaping () -> Void, showSquarePaymentButton: Bool) {
         self.totalQuantity = totalQuantity
         self.payment = payment
@@ -18,7 +18,7 @@ struct BottomBarView: View {
         self.onTapPayBySquare = onTapPayBySquare
         self.showSquarePaymentButton = showSquarePaymentButton
     }
-    
+
     var body: some View {
         HStack(spacing: 0) {
             Text("\(totalQuantity)点")
@@ -46,7 +46,7 @@ struct BottomBarView: View {
                     onTapPayBySquare()
                 }){
                     Text("Square決済")
-                        .frame(width: 400)
+                        .frame(width: 200)
                         .clipped()
                         .padding(.vertical)
                         .font(.system(.title2, weight: .bold))
@@ -65,7 +65,7 @@ struct BottomBarView: View {
                 onTapPay()
             }){
                 Text("¥\(payment.receiveAmount)で会計する")
-                    .frame(width: 400)
+                    .frame(width: 600)
                     .clipped()
                     .padding(.vertical)
                     .font(.system(.title2, weight: .bold))
