@@ -15,10 +15,6 @@ struct PaymentView: View {
                 Divider()
                 HStack(spacing: 0) {
                     OrderListView(orders: store.orders)
-                    ScrollView {
-                        // TODO: 割引リスト
-                    }
-                    .frame(width: 120)
                     VStack(spacing:0){
                         Text("合計金額")
                             .padding(.top, 15)

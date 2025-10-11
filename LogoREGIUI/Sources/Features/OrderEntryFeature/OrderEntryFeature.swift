@@ -6,11 +6,11 @@ import LogoREGICore
 public struct OrderEntryFeature {
     @ObservableState
     public struct State: Equatable {
-        var discounts: [Discount]
         var order: Order
         
         var productStackState: ProductStackFeature.State
         var orderBottomBarState: OrderBottomBarFeature.State
+        var discountStackState: DiscountStackFeature.State
         @Presents var alert: AlertState<Action.Alert>?
         
         var isLoading: Bool = false
@@ -18,9 +18,9 @@ public struct OrderEntryFeature {
         public init() {
             let order = Order()
             self.order = order
-            self.discounts = []
             self.productStackState = ProductStackFeature.State()
             orderBottomBarState = OrderBottomBarFeature.State(orders: [])
+            self.discountStackState = DiscountStackFeature.State()
             self.alert = nil
         }
     }
@@ -35,9 +35,12 @@ public struct OrderEntryFeature {
         case onTapDecrease(Int)
         case onTapIncrease(Int)
         case onRemoveItem(CartItem)
-        case onTapDiscount(Discount)
+        case onTapDiscountDecrease(Discount)
+        case onTapDiscountIncrease(Discount)
+        case onRemoveDiscount(Discount)
         
         case productStackAction(ProductStackFeature.Action)
+        case discountStackAction(DiscountStackFeature.Action)
         case orderBottomBarAction(OrderBottomBarFeature.Action)
         
         case navigatePaymentWithOrders([Order])
@@ -70,6 +73,9 @@ public struct OrderEntryFeature {
     public var body: some Reducer<State, Action> {
         Scope(state: \.productStackState, action: \.productStackAction) {
             ProductStackFeature()
+        }
+        Scope(state: \.discountStackState, action: \.discountStackAction) {
+            DiscountStackFeature()
         }
         Scope(state: \.orderBottomBarState, action: \.orderBottomBarAction) {
             OrderBottomBarFeature()
@@ -110,17 +116,6 @@ public struct OrderEntryFeature {
 //                }
                 return .none
                 
-            case .fetchDiscounts:
-                return .run { send in
-                    await send(.fetchDiscountsResponse(
-                        TaskResult { await GetDiscounts().Execute() }
-                    ))
-                }
-                
-            case let .fetchDiscountsResponse(.success(discounts)):
-                state.discounts = discounts
-                return .none
-                
             case let .onTapDecrease(index):
                 if index < state.order.cart.items.count {
                     let currentQuantity = state.order.cart.items[index].getQuantity()
@@ -154,8 +149,22 @@ public struct OrderEntryFeature {
                 customerDisplay.updateOrder(orders: [state.order])
                 return .none
                 
-            case let .onTapDiscount(discount):
+            case let .onTapDiscountDecrease(discount):
+                state.order.discounts.remove(at: state.order.discounts.firstIndex(where: { $0.id == discount.id })!)
+                // TODO: 設計ミスったからゴリ押した、直す
+                state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
+                
+            case let .onTapDiscountIncrease(discount):
                 state.order.discounts.append(discount)
+                // TODO: 設計ミスったからゴリ押した、直す
+                state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
+                
+            case let .onRemoveDiscount(discount):
+                state.order.discounts.removeAll(where: { $0.id == discount.id })
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 customerDisplay.updateOrder(orders: [state.order])
@@ -163,6 +172,7 @@ public struct OrderEntryFeature {
                 
             case .orderBottomBarAction(.delegate(.removeAllItem)):
                 state.order.cart.removeAllItem()
+                state.order.discounts.removeAll()
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 customerDisplay.updateOrder(orders: [state.order])
@@ -288,6 +298,12 @@ public struct OrderEntryFeature {
                     let newItem = CartItem(product: otherProduct, quantity: 1)
                     state.order.cart.addItem(newItem: newItem)
                 }
+                // TODO: 設計ミスったからゴリ押した、直す
+                state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
+                customerDisplay.updateOrder(orders: [state.order])
+                return .none
+            case let .discountStackAction(.delegate(.onSelectDiscount(discount))):
+                state.order.discounts.append(discount)
                 // TODO: 設計ミスったからゴリ押した、直す
                 state.orderBottomBarState = OrderBottomBarFeature.State(newOrder: state.order)
                 customerDisplay.updateOrder(orders: [state.order])

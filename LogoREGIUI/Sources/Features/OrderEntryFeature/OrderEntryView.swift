@@ -22,13 +22,12 @@ struct OrderEntryView: View {
                         .padding(.leading, 10)
                         .frame(width: geometry.size.width * 0.6)
                         Divider()
-                        DiscountStack(
-                            discounts: store.discounts,
-                            onTapDiscount: {discount in
-                                store.send(.onTapDiscount(discount))
-                            }
+                        DiscountStackView(store: store.scope(
+                            state: \.discountStackState,
+                            action: \.discountStackAction
                             )
-                            .frame(width: geometry.size.width * 0.1)
+                        )
+                        .frame(width: geometry.size.width * 0.1)
                         Divider()
                         OrderEntryStack(
                             cartItems: store.order.cart.items,
@@ -41,6 +40,15 @@ struct OrderEntryView: View {
                             },
                             onRemoveItem: { item in
                                 store.send(.onRemoveItem(item))
+                            },
+                            onTapDiscountDecreaseBtn: { discount in
+                                store.send(.onTapDiscountDecrease(discount))
+                            },
+                            onTapDiscountIncreaseBtn: { discount in
+                                store.send(.onTapDiscountIncrease(discount))
+                            },
+                            onRemoveDiscount: { discount in
+                                store.send(.onRemoveDiscount(discount))
                             }
                         )
                         .frame(width: geometry.size.width * 0.3)

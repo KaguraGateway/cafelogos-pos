@@ -40,6 +40,35 @@ struct OrderListView: View {
             .scrollContentBackground(.hidden)
             .background(Color.clear)
             .listStyle(PlainListStyle())
+            VStack(spacing: 0) {
+                Text("割引リスト")
+                    .font(.system(.title, weight: .semibold))
+                    .padding(.vertical, 10)
+                Divider()
+                List {
+                    ForEach(orders.indexed(), id: \.index) { (_, order) in
+                        ForEach(order.discounts.indexed(), id: \.index) { (index, item) in
+                            HStack{
+                                VStack(alignment: .leading, spacing:0){
+                                    Text(item.name)
+                                        .font(.system(.title2 , weight: .semibold))
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.5)
+                                }
+                                Spacer()
+                                Text("¥-\(item.discountPrice)")
+                                    .lineLimit(0)
+                                    .font(.system(.title2 , weight: .semibold))
+                            }
+                            .padding(.vertical, 10)
+                            
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+                .listStyle(PlainListStyle())
+            }
         }
     }
 }

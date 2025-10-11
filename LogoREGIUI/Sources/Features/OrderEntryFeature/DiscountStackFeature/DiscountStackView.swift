@@ -7,20 +7,20 @@
 
 import SwiftUI
 import LogoREGICore
+import ComposableArchitecture
 
 // 割引を表示するView
-struct DiscountStack: View {
-    let discounts: [Discount]
-    let onTapDiscount: (Discount) -> Void
+struct DiscountStackView: View {
+    @Bindable var store: StoreOf<DiscountStackFeature>
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 // DiscountCell
                 LazyVGrid(columns: [GridItem(.flexible())]) {
-                    ForEach(discounts, id: \.id) { discount in
+                    ForEach(store.discounts, id: \.id) { discount in
                         Button(action: {
-                            onTapDiscount(discount)
+                            store.send(.onTapDiscount(discount))
                         }, label: {
                         VStack(spacing: 0) {
                             // DiscountName
@@ -53,6 +53,9 @@ struct DiscountStack: View {
                 }
             }
             .padding(.top, 20)
+        }
+        .onAppear{
+            store.send(.onAppear)
         }
     }
 }
