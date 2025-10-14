@@ -10,7 +10,7 @@ import SwiftUI
 struct OrderItemView: View {
     let name: String
     let quantity: UInt32
-    let totalPrice: UInt64
+    let totalPrice: Int64
     let onRemove: () -> Void
     let onDecrese: () -> Void
     let onIncrease: () -> Void
