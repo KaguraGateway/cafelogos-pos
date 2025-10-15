@@ -8,6 +8,7 @@
 import Foundation
 import cafelogos_grpc
 import Dependencies
+import ULID
 
 public struct PaymentServiceServer: PaymentService {
     @Dependency(\.configRepository) var configRepo
@@ -52,6 +53,14 @@ public struct PaymentServiceServer: PaymentService {
                                 $0.amount = item.productAmount
                                 $0.quantity = item.getQuantity()
                                 $0.coffeeBrewID = item.coffeeHowToBrew?.id ?? ""
+                            }
+                        }
+                        $0.discounts = postOrder!.discounts.map { discount in
+                            Cafelogos_Pos_OrderDiscount.with{
+                                $0.discountID = discount.id
+                                $0.discountPrice = UInt64(discount.discountPrice)
+                                $0.type = Cafelogos_Pos_DiscountType.price
+                                $0.id = ULID().ulidString
                             }
                         }
                     }

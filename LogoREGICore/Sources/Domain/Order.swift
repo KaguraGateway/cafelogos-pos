@@ -15,6 +15,15 @@ public struct Order: Equatable {
     public private(set) var orderAt: Date
     public var syncAt: Date?
     
+    public func getTotalDiscountPrice() -> UInt64 {
+        discounts.reduce(0) { partialResult, discount in
+            if (discount.discountType == DiscountType.price) {
+                return partialResult + UInt64(discount.discountPrice)
+            }
+            return partialResult
+        }
+    }
+    
     public var totalAmount: UInt64 {
         get {
             discounts.reduce(cart.getTotalPrice()) { partialResult, discount in

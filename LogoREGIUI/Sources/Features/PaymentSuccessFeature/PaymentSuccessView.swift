@@ -73,7 +73,7 @@ struct PaymentSuccessView: View {
                                     .font(.title)
                                     .fontWeight(.medium)
                                 Spacer()
-                                Text("-¥\((store.payment.paymentAmount) - (store.orders.first?.cart.getTotalPrice() ?? 0))")
+                                Text("-¥\(store.orders.first?.getTotalDiscountPrice())")
                                     .font(.title)
                                     .fontWeight(.medium)
                             }
