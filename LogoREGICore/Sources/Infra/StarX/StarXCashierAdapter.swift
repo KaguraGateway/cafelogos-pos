@@ -14,7 +14,7 @@ public struct StarXCashierAdapter: CashierAdapter {
             StarXpandCommand.DocumentBuilder()
                 .addPrinter(
                     StarXpandCommand.PrinterBuilder()
-                        .actionPrintImage(StarXpandCommand.Printer.ImageParameter(image: logo, width: 400))
+                        .actionPrintImage(StarXpandCommand.Printer.ImageParameter(image: logo, width: 375))
                         .actionFeedLine(1)
                         .styleSecondPriorityCharacterEncoding(.japanese)
                         .styleBold(true)
