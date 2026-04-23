@@ -40,7 +40,9 @@ public struct NewPayment {
         
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType, ticketNumber: ticketNumber)
         if res.error == nil {
-            paymentRepo.save(payment: payment)
+            var savedPayment = payment
+            savedPayment.callNumber = res.callNumber
+            paymentRepo.save(payment: savedPayment)
             
             if(config.isUsePrinter) {
                 await cashierAdapter.printReceipt(receipt: OrderReceipt(callNumber: res.callNumber ?? ""))

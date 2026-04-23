@@ -22,7 +22,8 @@ public struct Payment: Equatable {
     public let paymentAt: Date
     public let updatedAt: Date
     public let syncAt: Date?
-    
+    public var callNumber: String?
+
     private var diffAmount: Int {
         get {
             Int(receiveAmount) - Int(paymentAmount)
@@ -47,11 +48,11 @@ public struct Payment: Equatable {
         }
     }
     
-    public init(type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64) {
-        self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
+    public init(type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, callNumber: String? = nil) {
+        self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil, callNumber: callNumber)
     }
     
-    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
+    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?, callNumber: String?) {
         self.id = id
         self.type = type
         self.orderIds = orderIds
@@ -60,6 +61,7 @@ public struct Payment: Equatable {
         self.paymentAt = paymentAt
         self.updatedAt = updatedAt
         self.syncAt = syncAt
+        self.callNumber = callNumber
     }
     
     public func isEnoughAmount() -> Bool {

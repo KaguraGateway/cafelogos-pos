@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 func toPayment(dao: PaymentDao) -> Payment {
-    return Payment(id: dao.id, type: PaymentType.cash, orderIds: [], paymentAmount: UInt64(dao.paymentAmount.doubleValue), receiveAmount: UInt64(dao.receiveAmount.doubleValue), paymentAt: dao.paymentAt, updatedAt: dao.updatedAt, syncAt: dao.syncAt)
+    return Payment(id: dao.id, type: PaymentType.cash, orderIds: [], paymentAmount: UInt64(dao.paymentAmount.doubleValue), receiveAmount: UInt64(dao.receiveAmount.doubleValue), paymentAt: dao.paymentAt, updatedAt: dao.updatedAt, syncAt: dao.syncAt, callNumber: dao.callNumber)
 }
 
 public struct PaymentRealm: PaymentRepository {
@@ -43,7 +43,7 @@ public struct PaymentRealm: PaymentRepository {
     }
     
     func save(payment: Payment) {
-        let dao = PaymentDao(value: ["id": payment.id, "paymentType": PaymentTypeEnumDao.CASH, "receiveAmount": payment.receiveAmount, "paymentAmount": payment.paymentAmount, "changeAmount": payment.changeAmount, "paymentAt": payment.paymentAt, "updatedAt": Date(), "syncAt": payment.syncAt as Any])
+        let dao = PaymentDao(value: ["id": payment.id, "paymentType": PaymentTypeEnumDao.CASH, "receiveAmount": payment.receiveAmount, "paymentAmount": payment.paymentAmount, "changeAmount": payment.changeAmount, "paymentAt": payment.paymentAt, "updatedAt": Date(), "syncAt": payment.syncAt as Any, "callNumber": payment.callNumber as Any])
         
         do {
             let realm = try Realm()

@@ -55,6 +55,10 @@ public struct CashDrawerOperationsFeature {
             case cancel
         }
     }
+
+    private enum CancelID {
+        case calculateExpectedCashAmount
+    }
     
     public init() {
         // 空のinitメソッド - TCAパターンに従う
@@ -82,7 +86,8 @@ public struct CashDrawerOperationsFeature {
                     let amount = Int(await GetShouldHaveCash().Execute())
                     await send(.updateExpectedCashAmount(amount))
                 }
-                
+                .cancellable(id: CancelID.calculateExpectedCashAmount)
+
             case let .updateExpectedCashAmount(amount):
                 state.expectedCashAmount = amount
                 return .send(.calculateCashDiscrepancy)
