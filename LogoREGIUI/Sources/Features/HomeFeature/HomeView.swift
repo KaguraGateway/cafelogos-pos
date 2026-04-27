@@ -103,7 +103,7 @@ struct HomeView: View {
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
                             bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/4),
+                            height: geometry.size.height * (1/2),
                             icon: "chart.bar",
                             state: AppFeature.Path.State.ordersList(OrdersListFeature.State())
                         )
@@ -114,7 +114,7 @@ struct HomeView: View {
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
                             bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/4),
+                            height: geometry.size.height * (1/2),
                             icon: "gearshape",
                             state: AppFeature.Path.State.settings(SettingsFeature.State())
                         )
