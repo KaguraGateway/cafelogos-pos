@@ -35,7 +35,7 @@ public struct PaymentFeature {
          */
         public init(orders: [Order]) {
             self.orders = orders
-            self.payment = Payment(type: PaymentType.cash, orderIds: orders.map { $0.id }, paymentAmount: PaymentDomainService().getTotalAmount(orders: orders), receiveAmount: 0)
+            self.payment = Payment(type: PaymentType.cash, orderIds: orders.map { $0.id }, paymentAmount: PaymentDomainService().getTotalAmount(orders: orders), receiveAmount: 0, callNumber: nil)
             self.totalQuantity = orders.reduce(0, { p, order in
                 p + order.cart.totalQuantity
             })
@@ -114,7 +114,7 @@ public struct PaymentFeature {
                 state.squarePaymentTypeSelector = nil
                 state.isPayButtonEnabled = false
                 state.isServerLoading = true
-                state.payment = .init(type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount)
+                state.payment = .init(id: state.payment.id, type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount, paymentAt: state.payment.paymentAt, updatedAt: state.payment.updatedAt, syncAt: state.payment.syncAt, callNumber: state.payment.callNumber)
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
                         let result = await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: "CARD_PRESENT")
@@ -134,7 +134,7 @@ public struct PaymentFeature {
                 state.squarePaymentTypeSelector = nil
                 state.isPayButtonEnabled = false
                 state.isServerLoading = true
-                state.payment = .init(type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount)
+                state.payment = .init(id: state.payment.id, type: .external, orderIds: state.payment.orderIds, paymentAmount: state.payment.paymentAmount, receiveAmount: state.payment.receiveAmount, paymentAt: state.payment.paymentAt, updatedAt: state.payment.updatedAt, syncAt: state.payment.syncAt, callNumber: state.payment.callNumber)
                 return .run { [newOrder = state.newOrder, payment = state.payment] send in
                     await send(.onDidPayment(Result {
                         let result = await NewPayment().Execute(payment: payment, postOrder: newOrder, externalPaymentType: "FELICA_ALL")

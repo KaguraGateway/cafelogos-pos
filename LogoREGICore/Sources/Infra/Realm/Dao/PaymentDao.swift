@@ -22,4 +22,5 @@ class PaymentDao: Object {
     @Persisted var updatedAt: Date
     @Persisted var syncAt: Date?
     @Persisted var settleAt: Date?
+    @Persisted var callNumber: String?
 }

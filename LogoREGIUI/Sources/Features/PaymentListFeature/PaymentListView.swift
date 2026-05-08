@@ -35,6 +35,12 @@ struct PaymentListView: View {
                                         .font(.system(.body, weight: .medium))
                                     Spacer()
                                 }
+
+                                HStack {
+                                    Text("チケット番号: \(payment.callNumber ?? "なし")")
+                                        .font(.system(.body, weight: .medium))
+                                    Spacer()
+                                }
                                 
                                 HStack {
                                     Text("支払額: ¥\(payment.paymentAmount)")

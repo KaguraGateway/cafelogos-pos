@@ -19,7 +19,7 @@ public struct Launch {
     public func Execute() {
         // Realm Migrate
         let realmConfig = Realm.Configuration(
-            schemaVersion: 3,
+            schemaVersion: 4,
             migrationBlock: { migration, oldSchemaVer in
                 if oldSchemaVer < 1 {
                     migration.create(PaymentDao.className(), value: ["settleAt": nil])
@@ -27,6 +27,11 @@ public struct Launch {
                 if oldSchemaVer < 3 {
                     // ConfigDaoを作成
                     migration.create(ConfigDao.className())
+                }
+                if oldSchemaVer < 4 {
+                    migration.enumerateObjects(ofType: PaymentDao.className()) { oldObject, newObject in
+                        newObject!["callNumber"] = nil
+                    }
                 }
             }
         )
