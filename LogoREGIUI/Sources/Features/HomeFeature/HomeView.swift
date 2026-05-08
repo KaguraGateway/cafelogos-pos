@@ -31,26 +31,15 @@ struct HomeView: View {
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
                             bgColor: Color(.white),
                             width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/2),
+                            height: geometry.size.height,
                             icon: "cart",
                             state: AppFeature.Path.State.orderEntry(OrderEntryFeature.State())
-                        )
-                        HomeNavigationButton(
-                            title: "決済履歴",
-                            subTitle: "",
-                            description: "レジ内の決済履歴を確認",
-                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
-                            bgColor: Color(.white),
-                            width: geometry.size.width * (1/3),
-                            height: geometry.size.height * (1/2),
-                            icon: "list.bullet.clipboard",
-                            state: AppFeature.Path.State.paymentList(PaymentListFeature.State())
                         )
                     }
                     // 中央列
                     VStack(alignment: .leading, spacing: 15) {
                         HomeNavigationButton(
-                            title: "入金",
+                            title: "レジ入金",
                             subTitle: "",
                             description: "レジ内の釣り銭を設定",
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
@@ -61,7 +50,7 @@ struct HomeView: View {
                             state: AppFeature.Path.State.cashDrawerSetup(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
-                            title: "点検",
+                            title: "レジ点検",
                             subTitle: "",
                             description: "レジ内の釣り銭を差分を確認",
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
@@ -72,7 +61,7 @@ struct HomeView: View {
                             state: AppFeature.Path.State.cashDrawerInspection(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
-                            title: "精算",
+                            title: "レジ精算",
                             subTitle: "",
                             description: "レジ内の釣り銭を差分を確認・保存",
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
@@ -83,7 +72,7 @@ struct HomeView: View {
                             state: AppFeature.Path.State.cashDrawerClosing(CashDrawerOperationsFeature.State())
                         )
                         HomeNavigationButton(
-                            title: "操作履歴",
+                            title: "レジ操作履歴",
                             subTitle: "",
                             description: "レジ開け・精算の記録一覧を表示",
                             fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
@@ -92,6 +81,17 @@ struct HomeView: View {
                             height: geometry.size.height * (1/4),
                             icon: "clock.arrow.circlepath",
                             state: AppFeature.Path.State.cashDrawerHistory(CashDrawerHistoryFeature.State())
+                        )
+                        HomeNavigationButton(
+                            title: "レジ決済履歴",
+                            subTitle: "",
+                            description: "レジ内の決済履歴を確認",
+                            fgColor: Color(Color(red: 0.176, green: 0.216, blue: 0.282)),
+                            bgColor: Color(.white),
+                            width: geometry.size.width * (1/3),
+                            height: geometry.size.height * (1/2),
+                            icon: "list.bullet.clipboard",
+                            state: AppFeature.Path.State.paymentList(PaymentListFeature.State())
                         )
                     }
                     // 右列
