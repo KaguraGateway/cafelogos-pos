@@ -22,6 +22,7 @@ public struct Payment: Equatable {
     public let paymentAt: Date
     public let updatedAt: Date
     public let syncAt: Date?
+    public var callNumbers: [String]
     
     private var diffAmount: Int {
         get {
@@ -48,10 +49,10 @@ public struct Payment: Equatable {
     }
     
     public init(type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64) {
-        self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil)
+        self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil, callNumbers: [])
     }
     
-    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?) {
+    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?, callNumbers: [String] = []) {
         self.id = id
         self.type = type
         self.orderIds = orderIds
@@ -60,6 +61,7 @@ public struct Payment: Equatable {
         self.paymentAt = paymentAt
         self.updatedAt = updatedAt
         self.syncAt = syncAt
+        self.callNumbers = callNumbers
     }
     
     public func isEnoughAmount() -> Bool {

@@ -77,7 +77,8 @@ public struct PaymentServiceServer: PaymentService {
         }
         let response = await posClient.postPayment(request: request, headers: [:])
         print(response)
-        return PostPaymentResponse(callNumber: response.message?.orderResponses.count != 0 ? response.message?.orderResponses[0].callNumber : "", error: response.error)
+        let callNumbers = response.message?.orderResponses.map { $0.callNumber }.filter { !$0.isEmpty } ?? []
+        return PostPaymentResponse(callNumber: response.message?.orderResponses.count != 0 ? response.message?.orderResponses[0].callNumber : "", callNumbers: callNumbers, error: response.error)
     }
     
     // これ使ってる？

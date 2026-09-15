@@ -19,7 +19,7 @@ public struct Launch {
     public func Execute() {
         // Realm Migrate
         let realmConfig = Realm.Configuration(
-            schemaVersion: 3,
+            schemaVersion: 4,
             migrationBlock: { migration, oldSchemaVer in
                 if oldSchemaVer < 1 {
                     migration.create(PaymentDao.className(), value: ["settleAt": nil])
@@ -28,6 +28,7 @@ public struct Launch {
                     // ConfigDaoを作成
                     migration.create(ConfigDao.className())
                 }
+                // schemaVersion 4: PaymentDaoにcallNumbersを追加（既存データは空Listで自動補完）
             }
         )
         Realm.Configuration.defaultConfiguration = realmConfig
