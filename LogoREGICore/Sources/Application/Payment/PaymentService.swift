@@ -9,6 +9,7 @@ import Foundation
 
 public struct PostPaymentResponse {
     public let callNumber: String?
+    public let callNumbers: [String]
     public let error: Error?
 }
 
