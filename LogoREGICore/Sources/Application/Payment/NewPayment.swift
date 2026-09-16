@@ -40,7 +40,7 @@ public struct NewPayment {
         
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType, ticketNumber: ticketNumber)
         if res.error == nil {
-            var savedPayment = payment
+            var savedPayment = payment  //ローカルDBに保存 TODO: リモートDBに保存先を変更する
             savedPayment.callNumbers = res.callNumbers
             paymentRepo.save(payment: savedPayment)
             
