@@ -23,6 +23,12 @@ public struct Payment: Equatable {
     public let updatedAt: Date
     public let syncAt: Date?
     public var callNumbers: [String]
+    public var canceledAt: Date?
+
+    /// 取消済みかどうか
+    public var isCanceled: Bool {
+        canceledAt != nil
+    }
     
     private var diffAmount: Int {
         get {
@@ -52,7 +58,7 @@ public struct Payment: Equatable {
         self.init(id: ULID().ulidString, type: type, orderIds: orderIds, paymentAmount: paymentAmount, receiveAmount: receiveAmount, paymentAt: Date(), updatedAt: Date(), syncAt: nil, callNumbers: [])
     }
     
-    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?, callNumbers: [String] = []) {
+    public init(id: String, type: PaymentType, orderIds: [String], paymentAmount: UInt64, receiveAmount: UInt64, paymentAt: Date, updatedAt: Date, syncAt: Date?, callNumbers: [String] = [], canceledAt: Date? = nil) {
         self.id = id
         self.type = type
         self.orderIds = orderIds
@@ -62,6 +68,7 @@ public struct Payment: Equatable {
         self.updatedAt = updatedAt
         self.syncAt = syncAt
         self.callNumbers = callNumbers
+        self.canceledAt = canceledAt
     }
     
     public func isEnoughAmount() -> Bool {
@@ -92,5 +99,7 @@ protocol PaymentRepository {
     func removeAll() -> Void
     func save(payment: Payment) -> Void
     func findAll() -> [Payment]
+    func findById(paymentId: String) -> Payment?
+    func cancel(paymentId: String, canceledAt: Date) -> Void
 }
 

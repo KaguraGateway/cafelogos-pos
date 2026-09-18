@@ -98,6 +98,15 @@ public struct PaymentServiceServer: PaymentService {
         print(response)
     }
     
+    /// 決済を取消す。サーバー側では取消済みとして記録され、売上集計から除外される
+    func cancelPayment(paymentId: String) async -> Error? {
+        let request = Cafelogos_Pos_CancelPaymentRequest.with {
+            $0.paymentID = paymentId
+        }
+        let response = await posClient.cancelPayment(request: request, headers: [:])
+        return response.error
+    }
+    
     func getPaymentExternal(paymentId: String) async -> PaymentExternal? {
         let request = Cafelogos_Pos_GetExternalPaymentRequest.with {
             $0.paymentID = paymentId

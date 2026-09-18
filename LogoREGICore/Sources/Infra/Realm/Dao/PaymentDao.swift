@@ -10,6 +10,7 @@ import RealmSwift
 
 public enum PaymentTypeEnumDao: Int, PersistableEnum, CaseIterable {
     case CASH = 0
+    case EXTERNAL = 1
 }
 
 class PaymentDao: Object {
@@ -23,4 +24,5 @@ class PaymentDao: Object {
     @Persisted var syncAt: Date?
     @Persisted var settleAt: Date?
     @Persisted var callNumbers: List<String>
+    @Persisted var canceledAt: Date?
 }
