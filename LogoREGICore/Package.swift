@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.0.0"),
         .package(url: "https://github.com/yaslab/ULID.swift.git", from: "1.3.0"),
         .package(url: "https://github.com/realm/realm-swift.git", from: "10.52.0"),
-        .package(url: "https://github.com/KaguraGateway/logosone.git", branch: "main"),
+        .package(url: "https://github.com/KaguraGateway/logosone.git", branch: "massu/feature/cancel-order"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.29.0"),
         .package(url: "https://github.com/connectrpc/connect-swift.git", from: "1.0.2"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.8.0"),
