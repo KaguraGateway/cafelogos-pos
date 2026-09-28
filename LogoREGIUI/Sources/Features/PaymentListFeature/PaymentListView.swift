@@ -24,8 +24,16 @@ struct PaymentListView: View {
                     List {
                         ForEach(store.payments, id: \.id) { payment in
                             VStack(alignment: .leading, spacing: 8) {
+                                HStack(alignment: .firstTextBaseline, spacing: 12) {
+                                    Text("オーダー番号")
+                                        .font(.system(.body, weight: .medium))
+                                    Text(formatCallNumbers(payment.callNumbers))
+                                        .font(.system(.title, weight: .bold))
+                                    Spacer()
+                                }
+
                                 HStack {
-                                    Text("日時: \(formatDate(payment.paymentAt))")
+                                    Text("日時:\(formatDate(payment.paymentAt))")
                                         .font(.system(.body, weight: .medium))
                                     Spacer()
                                 }
@@ -77,6 +85,10 @@ struct PaymentListView: View {
         return formatter.string(from: date)
     }
     
+    private func formatCallNumbers(_ callNumbers: [String]) -> String {
+        return callNumbers.isEmpty ? "-" : callNumbers.joined(separator: ", ")
+    }
+
     private func getPaymentTypeText(_ type: PaymentType) -> String {
         switch type {
         case .cash:

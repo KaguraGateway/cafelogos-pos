@@ -40,7 +40,9 @@ public struct NewPayment {
         
         let res = await paymentService.postPayment(payment: payment, postOrder: postOrder, externalPaymentType: externalPaymentType, ticketNumber: ticketNumber)
         if res.error == nil {
-            paymentRepo.save(payment: payment)
+            var savedPayment = payment  //ローカルDBに保存 TODO: リモートDBに保存先を変更する
+            savedPayment.callNumbers = res.callNumbers
+            paymentRepo.save(payment: savedPayment)
             
             if(config.isUsePrinter) {
                 await cashierAdapter.printReceipt(receipt: OrderReceipt(callNumber: res.callNumber ?? ""))
