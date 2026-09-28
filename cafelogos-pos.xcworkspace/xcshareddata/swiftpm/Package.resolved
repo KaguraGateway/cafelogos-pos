@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KaguraGateway/logosone.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "c56ce1db15e4511d73c41bd39dfb52e4a0ab5ff0"
+        "branch" : "massu/feature/cancel-order",
+        "revision" : "da702e2e9948ffe2e8b459e62e4907c6941cacd4"
       }
     },
     {
@@ -232,6 +232,15 @@
       "state" : {
         "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
         "version" : "1.4.2"
+      }
+    },
+    {
+      "identity" : "swifter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/httpswift/swifter.git",
+      "state" : {
+        "revision" : "9483a5d459b45c3ffd059f7b55f9638e268632fd",
+        "version" : "1.5.0"
       }
     },
     {

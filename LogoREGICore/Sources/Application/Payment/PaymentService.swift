@@ -16,5 +16,6 @@ public struct PostPaymentResponse {
 protocol PaymentService {
     func postPayment(payment: Payment, postOrder: Order?, externalPaymentType: String?, ticketNumber: String?) async -> PostPaymentResponse
     func updatePayment(payment: Payment) async -> Void
+    func cancelPayment(paymentId: String) async -> Error?
     func getPaymentExternal(paymentId: String) async -> PaymentExternal?
 }
