@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KaguraGateway/logosone.git",
       "state" : {
-        "branch" : "massu/feature/cancel-order",
-        "revision" : "da702e2e9948ffe2e8b459e62e4907c6941cacd4"
+        "branch" : "main",
+        "revision" : "a73c4248918754ff2ba24f17d4fc163aa6a370e1"
       }
     },
     {
